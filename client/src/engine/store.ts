@@ -21,11 +21,15 @@ interface SenetStore extends GameState {
     passTurn: () => void;
     // UI helpers
     legalMoves: { pieceId: string; targetSquare: number }[];
+    hoveredPieceId: string | null;
+    setHoveredPieceId: (pieceId: string | null) => void;
 }
 
 export const useSenetStore = create<SenetStore>((set, get) => ({
     ...createInitialState(),
     legalMoves: [],
+    hoveredPieceId: null,
+    setHoveredPieceId: (id) => set({ hoveredPieceId: id }),
 
     // Online states
     isOnline: false,

@@ -12,6 +12,8 @@
 - Enhanced Interaction:
   - Added a soft pulse animation, elevation, and a distinct gold rim highlight to movable game pieces.
   - Improved throw instructions contrast and visibility with an attention-grabbing pulse.
+  - **Dynamic Highlighting**: Implemented color-matched highlights for available moves (Gold for Light, Ivory for Dark).
+  - **Source/Target Association**: Added interactive highlighting that links movable pieces to their target squares on hover, making the board state immediately clear.
 - Localized Arabic copy: Fixed formal terms (إعادة اللعبة, الدور الحالي, السجل, انقر على العصا للرمي) to conversational Egyptian dialect matches for better immersion.
 - Repeated icons for the last three houses on the board (House 28: three times, House 29: two times, House 30: one time) for historical accuracy.
 - Enhanced special squares pop-up tooltips to include historical "Lore/Afterlife Context" showing the mythological meaning behind each of the final five houses.

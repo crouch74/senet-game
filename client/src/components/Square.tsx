@@ -7,11 +7,12 @@ interface SquareProps {
 }
 
 export function Square({ number }: SquareProps) {
-    const { ruleset, legalMoves } = useSenetStore();
+    const { ruleset, legalMoves, currentPlayer, hoveredPieceId, setHoveredPieceId, movePiece } = useSenetStore();
     const { t, i18n } = useTranslation();
     const specialInfo = ruleset.specialSquares[number];
 
     const isLegalMove = legalMoves.some(m => m.targetSquare === number);
+    const isHoveredTarget = hoveredPieceId && legalMoves.some(m => m.pieceId === hoveredPieceId && m.targetSquare === number);
     const isSpecial = number >= 26 && number <= 30;
 
     const getHouseIcon = () => {
@@ -35,8 +36,37 @@ export function Square({ number }: SquareProps) {
                 "bg-[#221714] transition-all duration-500", // Ebony base
                 // Thin dark border to separate squares, but Board has ivory background so we just need slight shading
                 "border-[0.5px] border-black/80 shadow-[inset_0_0_10px_rgba(0,0,0,0.7)]",
-                isLegalMove && "ring-1 ring-gold-base/60 shadow-[inset_0_0_20px_rgba(212,175,55,0.2)] cursor-pointer"
+                isLegalMove && cn(
+                    "cursor-pointer",
+                    currentPlayer === 'light'
+                        ? "ring-1 ring-royal-gold/40 shadow-[inset_0_0_20px_rgba(212,175,55,0.15)]"
+                        : "ring-1 ring-royal-ivory/40 shadow-[inset_0_0_20px_rgba(255,255,240,0.15)]"
+                ),
+                isHoveredTarget && cn(
+                    "z-20 scale-[1.02] bg-[#2a1d1a]",
+                    currentPlayer === 'light'
+                        ? "ring-2 ring-royal-gold shadow-[0_0_30px_rgba(212,175,55,0.4)]"
+                        : "ring-2 ring-royal-ivory shadow-[0_0_30px_rgba(255,255,240,0.4)]"
+                )
             )}
+            onMouseEnter={() => {
+                if (isLegalMove) {
+                    const move = legalMoves.find(m => m.targetSquare === number);
+                    if (move) setHoveredPieceId(move.pieceId);
+                }
+            }}
+            onMouseLeave={() => {
+                if (isLegalMove) setHoveredPieceId(null);
+            }}
+            onClick={() => {
+                if (isLegalMove) {
+                    const move = legalMoves.find(m => m.targetSquare === number);
+                    if (move) {
+                        setHoveredPieceId(null);
+                        movePiece(move.pieceId);
+                    }
+                }
+            }}
         >
             {/* Embedded Special Square Inlay Border */}
             {isSpecial && (
@@ -108,7 +138,13 @@ export function Square({ number }: SquareProps) {
 
             {/* Legal Move Glow Line path overlay */}
             {isLegalMove && (
-                <div className="absolute inset-x-0 bottom-1 h-[2px] bg-gradient-to-r from-transparent via-royal-ivory/70 to-transparent shadow-[0_0_8px_rgba(255,255,240,0.8)] animate-pulse" />
+                <div className={cn(
+                    "absolute inset-x-0 bottom-1 h-[2px] animate-pulse transition-all duration-300",
+                    currentPlayer === 'light'
+                        ? "bg-gradient-to-r from-transparent via-royal-gold to-transparent shadow-[0_0_12px_rgba(212,175,55,0.8)]"
+                        : "bg-gradient-to-r from-transparent via-royal-ivory to-transparent shadow-[0_0_12px_rgba(255,255,240,0.8)]",
+                    isHoveredTarget && "h-[4px] bottom-0 opacity-100 via-white shadow-[0_0_20px_rgba(255,255,255,0.6)]"
+                )} />
             )}
 
             {/* Luxury Tooltip */}
