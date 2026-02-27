@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronUp, Scroll, BookOpen, Crown } from 'lucide-react';
+import { ChevronDown, ChevronUp, Scroll, Crown } from 'lucide-react';
 import { cn } from '../utils/cn';
 
 /**
@@ -117,7 +117,7 @@ export function LegendContent() {
 
             <div className="w-full flex items-center justify-center my-12 opacity-30">
                 <div className="flex-1 h-px bg-royal-gold" />
-                <BookOpen className="mx-6 w-6 h-6 text-royal-gold" />
+                <Scroll className="mx-6 w-6 h-6 text-royal-gold" />
                 <div className="flex-1 h-px bg-royal-gold" />
             </div>
 

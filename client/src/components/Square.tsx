@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
+import { formatNumber } from '../utils/format';
 
 interface SquareProps {
     number: number;
@@ -79,7 +80,7 @@ export function Square({ number }: SquareProps) {
 
             {/* Number - Brightened by 10% (from 30 to 40) */}
             <div className="absolute top-1 left-[6px] text-[10px] text-royal-ivory/40 font-mono z-10 pointer-events-none">
-                {number}
+                {formatNumber(number)}
             </div>
 
             {/* Icon Inlay */}

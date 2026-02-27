@@ -9,6 +9,7 @@ import { GameOver } from './components/GameOver';
 import { GuideModal } from './components/GuideModal';
 import { useSenetStore } from './engine/store';
 import { cn } from './utils/cn';
+import { formatNumber } from './utils/format';
 
 function App() {
   const { historyLog, ruleset, isOnline, roomId, localPlayer, leaveRoom, winner, showGuide, setShowGuide } = useSenetStore();
@@ -52,7 +53,7 @@ function App() {
       </svg>
 
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 flex flex-col relative z-10 min-h-0">
-        <HUD />
+        <HUD isLobby={showLobby} />
 
         <div className="flex-1 flex flex-col xl:flex-row gap-8 items-stretch justify-center min-h-0">
           {(!showLobby || isOnline) ? (
@@ -103,7 +104,7 @@ function App() {
                         : log.params;
                       return (
                         <div key={i} className="text-sand/80 font-mono flex gap-2 border-b border-sand/5 pb-1 items-start">
-                          <span className="opacity-70 text-xs mt-0.5 shrink-0" dir="ltr">{(historyLog.length - i).toString().padStart(3, '0')}</span>
+                          <span className="opacity-70 text-xs mt-0.5 shrink-0" dir="ltr">{formatNumber((historyLog.length - i).toString().padStart(3, '0'))}</span>
                           {log.player && (
                             <span
                               className={cn(
@@ -129,8 +130,8 @@ function App() {
                   </p>
                   <ul className="text-sand/80 text-xs flex flex-col gap-1.5 list-none m-0 p-0">
                     <li><strong className="text-sand">{t('app.capture_mode')}</strong> {ruleset.captureMode === 'swap' ? t('app.swap_positions') : t('app.forward_only')}</li>
-                    <li><strong className="text-sand">{t('app.protected_adjacency')}</strong> {ruleset.protectedAdjacency ? t('app.yes_pieces', { count: ruleset.protectedAdjacencyCount }) : t('app.no')}</li>
-                    <li><strong className="text-sand">{t('app.blockades')}</strong> {ruleset.blockadeLength > 0 ? t('app.yes_pieces', { count: ruleset.blockadeLength }) : t('app.no')}</li>
+                    <li><strong className="text-sand">{t('app.protected_adjacency')}</strong> {ruleset.protectedAdjacency ? t('app.yes_pieces', { num: formatNumber(ruleset.protectedAdjacencyCount) }) : t('app.no')}</li>
+                    <li><strong className="text-sand">{t('app.blockades')}</strong> {ruleset.blockadeLength > 0 ? t('app.yes_pieces', { num: formatNumber(ruleset.blockadeLength) }) : t('app.no')}</li>
                     <li><strong className="text-sand">{t('app.bearing_off')}</strong> {ruleset.bearingOffRequirements === 'exact' ? t('app.requires_exact_throw') : t('app.any_sufficient_throw')}</li>
                   </ul>
                 </div>

@@ -1,6 +1,13 @@
 # Changelog
 
 ## Unreleased
+- **Game Logic & Rules Update**:
+  - Implemented the "House of Water" (Square 27) penalty: landing in water sends the piece back to the "House of Rebirth" (Square 15).
+  - Ensured pieces cannot move past the board without an exact throw.
+- **UI & Localization Refinements**:
+  - Added dynamic number localization, converting numbers to Indic digits when the Arabic locale is selected.
+  - Refined the "Game Guide" and "Legend" narrative text in all languages (English, French, Arabic) for better thematic immersion.
+  - Equalized the heights of the "ThrowSticks" and "Afterlife" components for a balanced layout.
 - **Refined Quick Guide & Rule System**:
   - Integrated a persistent "GUIDE" button in the header bar with a text label for instant access to game rules.
   - Implemented the `GuideModal` using React Portals and global state to ensure perfect centering and top-level stacking.

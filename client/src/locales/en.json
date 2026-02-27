@@ -9,7 +9,7 @@
         "swap_positions": "Swap positions",
         "forward_only": "Forward only",
         "protected_adjacency": "Protected Adjacency:",
-        "yes_pieces": "Yes, {{count}} pieces",
+        "yes_pieces": "Yes, {{num}} pieces",
         "no": "No",
         "blockades": "Blockades:",
         "bearing_off": "Bearing Off:",
@@ -103,56 +103,56 @@
         "play_offline": "Play Offline"
     },
     "legend": {
-        "registry_title": "Legend & Instructions",
-        "registry_subtitle": "TOME OF KNOWLEDGE",
-        "title": "THE LEGEND OF SENET",
-        "p1": "Before the first stone was carved, Senet was played. It is not a mere pastime for the living, but a map of the soul's passage through the Duat. Each move is a footstep through the twilight, where the shadows of the past weigh against the light of the future.",
-        "p2": "Five pieces represent the fragments of a spirit, striving to reach the horizon beyond the trial. The board is the path of the sun's nocturnal voyage, a sacred geometry where fate is cast upon the sticks and destiny is woven by the hands of the gods.",
-        "p3": "To win is to transcend the cycle of rebirth and join the eternal stars. To lose is to remain in the shifting sands, waiting for another dawn to attempt the journey once more."
+        "registry_title": "Tome of Resurrection",
+        "registry_subtitle": "WISDOM OF THE SCRIBE",
+        "title": "THE LEGEND OF THE TWILIGHT VOYAGE",
+        "p1": "Before the Great Pyramids touched the sky, the Scribes of Thoth recorded the first game of Senet. It is more than a diversion; it is a ritualistic map of the soul's perilous crossing through the Duat—the Egyptian underworld. Each board is a shadow of the cosmic order, where the journey from life to eternity is decided not just by skill, but by the favor of the gods.",
+        "p2": "Five 'Ba-souls' represent the fragments of your spirit, struggling to navigate the S-shaped path of existence. The sticks you cast are the breath of life; a 'perfect throw' signals the path is clear, while a 'miscast' leaves you vulnerable to the encroaching darkness. To move with a brother is to be shielded by Ma'at; to move alone is to invite the chaos of the void.",
+        "p3": "To win is to navigate the treacherous 'House of Water' and face the 'Three Truths' before finally ascending through the 'Gate of Horus' into the Field of Reeds. There, you shall join the Imperishable Stars and find eternal rest. To lose is to remain a wandering shadow, destined to repeat the cycle until your heart is light as a feather."
     },
     "sacred_houses": {
-        "title": "SACRED HOUSES",
+        "title": "THE FIVE GATES",
         "h26": {
-            "title": "House of Happiness",
-            "desc": "The House of Rejuvenation. A sanctuary where the soul is refreshed before the final ascent."
+            "title": "House of Beauty",
+            "desc": "The sanctuary of ritual anointing. Here, the soul gathers its strength for the final trials of the afterlife."
         },
         "h27": {
             "title": "House of Water",
-            "desc": "The Abyssal Void. A perilous trap where the unwary are swept back into the cycle of rebirth."
+            "desc": "The Abyssal Abode. A perilous void; failing to cross will wash your spirit back to the House of Rebirth (15)."
         },
         "h28": {
-            "title": "House of Truth",
-            "desc": "The Hall of Ma'at. Here the spirit must stand firm, for only those of pure heart may move forward."
+            "title": "Hall of Three Truths",
+            "desc": "The first trial of the scales. Only a precise command of THREE will allow you to hold your ground."
         },
         "h29": {
-            "title": "House of Re-Atum",
-            "desc": "The Solar Bark. Joining the sun god Re-Atum on his eternal solar bark journey."
+            "title": "The Solar Bark",
+            "desc": "Joining the Sun God Re on his nocturnal voyage. A precise throw of TWO moves you toward the dawn."
         },
         "h30": {
-            "title": "House of Horus",
-            "desc": "The Final Threshold. Escaping with the blessing of Horus into the eternal afterlife."
+            "title": "The Gate of Horus",
+            "desc": "The final threshold. A single precise step of ONE grants your spirit ascension into the eternal stars."
         }
     },
     "guide": {
-        "title": "HOW TO PLAY",
-        "button_label": "Guide",
+        "title": "SCROLL OF GUIDANCE",
+        "button_label": "The Rules Papyrus",
         "labels": {
-            "objective": "Objective",
-            "movement": "Movement",
-            "throwing": "The Throw",
-            "capturing": "Capturing",
-            "protection": "Protection",
-            "blockades": "Blockades",
-            "special": "Sacred Houses",
-            "bearing_off": "Ascension"
+            "objective": "The Divine Mandate",
+            "movement": "The Spiral of Fate",
+            "throwing": "Casting the Bones",
+            "capturing": "The Shadow's Exchange",
+            "protection": "The Sacred Pair",
+            "blockades": "The Celestial Wall",
+            "special": "The Gates of Duat",
+            "bearing_off": "Spirit Ascension"
         },
-        "objective": "Navigate all five of your pieces off the board to secure your place in the afterlife.",
-        "movement": "Pieces follow a S-shaped path across three rows of ten squares.",
-        "throwing": "The throw of four sticks determines your movement (1, 2, 3, 4, or 5 squares). Throws of 1, 4, or 5 grant an extra turn.",
-        "capturing": "Land on an opponent’s isolated piece to swap positions with them.",
-        "protection": "Two adjacent pieces of the same color are protected and cannot be captured.",
-        "blockades": "Three or more adjacent pieces of the same color form an impassable barrier for the opponent.",
-        "special": "The final five houses hold sacred meanings and unique trials for every traveler.",
-        "bearing_off": "Pieces must land exactly beyond the final square with an exact throw to pass into eternity."
+        "objective": "Guide all five of your spirit pieces off the board's edge to secure your place among the stars.",
+        "movement": "Travel the S-shaped path across thirty squares. The journey begins on the first row and ends at the threshold of eternity.",
+        "throwing": "Cast the four sticks to determine your fate (1–5 steps). Throws of 1, 4, or 5 are blessed by the gods, granting an extra turn.",
+        "capturing": "An isolated enemy is vulnerable. Land upon them to banish their soul back to your previous position.",
+        "protection": "A pair of brothers standing together is sanctified by Ma'at. They cannot be captured or displaced.",
+        "blockades": "Three or more pieces in a row form an impassable barrier, for no soul may leap over such a concentration of spirit.",
+        "special": "Squares 26 to 30 are the final gates. Beware Square 27 (Water), for falling there washes you back to the House of Rebirth (15).",
+        "bearing_off": "To pass the final threshold, you must roll the exact count needed to step beyond the final square."
     }
 }

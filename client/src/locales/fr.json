@@ -9,7 +9,7 @@
         "swap_positions": "Échanger les positions",
         "forward_only": "Vers l'avant uniquement",
         "protected_adjacency": "Contiguïté Protégée :",
-        "yes_pieces": "Oui, {{count}} pièces",
+        "yes_pieces": "Oui, {{num}} pièces",
         "no": "Non",
         "blockades": "Blocages :",
         "bearing_off": "Sortie des Pièces :",
@@ -103,56 +103,56 @@
         "play_offline": "Jouer hors ligne"
     },
     "legend": {
-        "registry_title": "Légende & Instructions",
-        "registry_subtitle": "TOME DU SAVOIR",
-        "title": "LA LÉGENDE DU SENET",
-        "p1": "Avant que la première pierre ne soit sculptée, le Senet se jouait déjà. Ce n'est pas un simple divertissement pour les vivants, mais une carte du passage de l'âme à travers la Douat. Chaque mouvement est un pas dans le crépuscule, là où les ombres du passé se mesurent à la lumière du futur.",
-        "p2": "Cinq pièces représentent les fragments d'un esprit, s'efforçant d'atteindre l'horizon au-delà de l'épreuve. Le plateau est le chemin du voyage nocturne du soleil, une géométrie sacrée où le sort est jeté par les bâtonnets et le destin tissé par les mains des dieux.",
-        "p3": "Gagner, c'est transcender le cycle des renaissances et rejoindre les étoiles éternelles. Perdre, c'est rester dans les sables mouvants, en attendant une nouvelle aube pour tenter à nouveau le voyage."
+        "registry_title": "Tome de la Résurrection",
+        "registry_subtitle": "SAGESSE DU SCRIBE",
+        "title": "LA LÉGENDE DU VOYAGE CRÉPUSCULAIRE",
+        "p1": "Avant que les Grandes Pyramides ne touchent le ciel, les scribes de Thoth consignèrent la première partie de Senet. C'est bien plus qu'une simple distraction ; c'est une carte rituelle de la traversée périlleuse de l'âme à travers la Douat — l'inframonde égyptien. Chaque plateau est un reflet de l'ordre cosmique, où le passage de la vie à l'éternité n'est pas seulement une question de talent, mais aussi de faveur divine.",
+        "p2": "Cinq 'âmes-Bâ' représentent les fragments de votre esprit, luttant pour naviguer sur le chemin sinueux de l'existence. Les bâtonnets que vous jetez sont le souffle de vie ; un 'jet parfait' signale que la voie est libre, tandis qu'une erreur vous laisse vulnérable aux ténèbres envahissantes. Se déplacer avec un frère, c'est être protégé par Maât ; se déplacer seul, c'est inviter le chaos du néant.",
+        "p3": "Gagner, c'est franchir la traîtresse 'Maison de l'Eau' et affronter les 'Trois Vérités' avant de s'élever par la 'Porte d'Horus' vers les champs d'Ialou. Là, vous rejoindrez les Étoiles Impérissables et trouverez le repos éternel. Perdre, c'est rester une ombre errante, condamnée à répéter le cycle jusqu'à ce que votre cœur soit aussi léger qu'une plume."
     },
     "sacred_houses": {
-        "title": "MAISONS SACRÉES",
+        "title": "LES CINQ PORTES",
         "h26": {
-            "title": "Maison du Bonheur",
-            "desc": "La Maison de la Régénération. Un sanctuaire où l'âme se ressource avant l'ascension finale."
+            "title": "Maison de la Beauté",
+            "desc": "Le sanctuaire de l'onction rituelle. Ici, l'âme rassemble ses forces pour les épreuves finales de l'au-delà."
         },
         "h27": {
             "title": "Maison de l'Eau",
-            "desc": "L'Abîme Chaotique. Un piège périlleux où les imprudents sont ramenés au début du cycle de renaissance."
+            "desc": "L'Abîme du Néant. Un vide périlleux ; échouer à le traverser rejettera votre esprit à la Maison de la Renaissance (15)."
         },
         "h28": {
-            "title": "Maison de la Vérité",
-            "desc": "La Salle de Maât. Ici, l'esprit doit rester ferme, car seuls les cœurs purs peuvent avancer."
+            "title": "Salle des Trois Vérités",
+            "desc": "La première épreuve des balances. Seul un commandement précis de TROIS vous permettra de tenir bon."
         },
         "h29": {
-            "title": "Maison de Rê-Atoum",
-            "desc": "La Barque Solaire. Rejoindre le dieu soleil Rê-Atoum dans son voyage éternel."
+            "title": "La Barque Solaire",
+            "desc": "Rejoindre le Dieu Soleil Rê dans son voyage nocturne. Un jet précis de DEUX vous rapproche de l'aube."
         },
         "h30": {
-            "title": "Maison d'Horus",
-            "desc": "Le Seuil Final. Franchir la porte avec la bénédiction d'Horus vers l'éternité."
+            "title": "La Porte d'Horus",
+            "desc": "Le seuil final. Un seul pas précis de UN accorde à votre esprit l'ascension vers les étoiles éternelles."
         }
     },
     "guide": {
-        "title": "COMMENT JOUER",
-        "button_label": "Guide",
+        "title": "PARCHEMIN DE GUIDANCE",
+        "button_label": "Le Papyrus des Règles",
         "labels": {
-            "objective": "Objectif",
-            "movement": "Mouvement",
-            "throwing": "Le Lancer",
-            "capturing": "Capture",
-            "protection": "Protection",
-            "blockades": "Blocages",
-            "special": "Maisons Sacrées",
-            "bearing_off": "Ascension"
+            "objective": "Le Mandat Divin",
+            "movement": "La Spirale du Destin",
+            "throwing": "Le Jet du Sort",
+            "capturing": "L'Échange des Ombres",
+            "protection": "La Paire Sacrée",
+            "blockades": "Le Mur Céleste",
+            "special": "Les Portes de la Douat",
+            "bearing_off": "Ascension de l'Esprit"
         },
-        "objective": "Sortez vos cinq pièces du plateau pour assurer votre place dans l'au-delà.",
-        "movement": "Les pièces suivent un chemin en S à travers trois rangées de dix cases.",
-        "throwing": "Le jet de quatre bâtonnets détermine votre mouvement (1, 2, 3, 4 ou 5 cases). Les jets de 1, 4 ou 5 accordent un tour supplémentaire.",
-        "capturing": "Atterrissez sur une pièce adverse isolée pour échanger vos positions avec elle.",
-        "protection": "Deux pièces adjacentes de la même couleur sont protégées et ne peuvent pas être capturées.",
-        "blockades": "Trois pièces adjacentes ou plus forment une barrière infranchissable pour l'adversaire.",
-        "special": "Les cinq dernières maisons ont des significations sacrées et des épreuves uniques.",
-        "bearing_off": "Les pièces doivent sortir du plateau exactement au-delà de la dernière case avec un jet précis."
+        "objective": "Guidez vos cinq pièces-esprits hors du plateau pour assurer votre place parmi les étoiles.",
+        "movement": "Parcourez le chemin en S à travers trente cases. Le voyage commence sur la première rangée et s'achève au seuil de l'éternité.",
+        "throwing": "Jetez les quatre bâtonnets pour donner vie à votre sort (1 à 5 cases). Les jets de 1, 4 ou 5 sont bénis des dieux et accordent un tour supplémentaire.",
+        "capturing": "Un ennemi isolé est vulnérable. Atterrissez sur lui pour bannir son âme vers votre position précédente.",
+        "protection": "Deux frères se tenant ensemble sont sanctifiés par Maât. Ils ne peuvent être capturés ni déplacés.",
+        "blockades": "Trois pièces ou plus à la suite forment une barrière infranchissable ; aucune âme ne peut sauter une telle concentration d'esprits.",
+        "special": "Les cases 26 à 30 sont les portes finales. Prenez garde à la case 27 (Eau), car y tomber vous rejette à la Maison de la Renaissance (15).",
+        "bearing_off": "Pour franchir le seuil final, vous devez obtenir le jet exact nécessaire pour sortir du plateau."
     }
 }

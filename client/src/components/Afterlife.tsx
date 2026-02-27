@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
 import { motion, AnimatePresence } from 'framer-motion';
+import { formatNumber } from '../utils/format';
 
 export function Afterlife() {
     const { board } = useSenetStore();
@@ -13,11 +14,6 @@ export function Afterlife() {
 
     return (
         <div className="flex flex-col items-center p-4 bg-[#1A1110]/60 backdrop-blur-md rounded-sm border-[2px] border-royal-gold/40 shadow-[0_15px_35px_rgba(0,0,0,0.7),inset_0_0_20px_rgba(0,0,0,0.5)] relative overflow-hidden w-64 h-full group transition-all duration-500 hover:border-royal-gold/60">
-            {/* Thematic Background Decorative Glyph */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none">
-                <span className="text-[120px] font-serif text-royal-gold">𓂋</span>
-            </div>
-
             {/* Title */}
             <h3 className="text-royal-gold font-serif text-sm font-bold tracking-[0.3em] uppercase mb-4 border-b border-royal-gold/20 pb-2 w-full text-center">
                 {t('afterlife.title', { defaultValue: 'Afterlife' })}
@@ -83,14 +79,14 @@ export function Afterlife() {
                 <div className="flex flex-col items-center">
                     <span className="text-[10px] text-royal-gold uppercase tracking-widest font-bold mb-1 opacity-70">{t('hud.players.light')}</span>
                     <div className="text-xl font-serif text-royal-gold font-bold">
-                        {lightPieces.length}
+                        {formatNumber(lightPieces.length)}
                     </div>
                 </div>
                 <div className="h-8 w-[1px] bg-royal-gold/20 self-center" />
                 <div className="flex flex-col items-center">
                     <span className="text-[10px] text-royal-ivory uppercase tracking-widest font-bold mb-1 opacity-70">{t('hud.players.dark')}</span>
                     <div className="text-xl font-serif text-royal-ivory font-bold">
-                        {darkPieces.length}
+                        {formatNumber(darkPieces.length)}
                     </div>
                 </div>
             </div>

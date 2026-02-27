@@ -183,9 +183,21 @@ export function applyMove(gameState: GameState, pieceId: string): GameState {
         if (special) {
             if (special.effect === 'water') {
                 // Move to rebirth immediately
-                piece.position = 15;
-                // If 15 is occupied, what happens? Usually they have to go back further or they just go to 15. We assume 15 is available or swaps.
-                // Let's just move to 15 for now.
+                let targetPos = 15;
+
+                // If 15 is occupied, go backwards to find the first empty square
+                if (newState.board.some(p => p.position === 15 && p.id !== piece.id)) {
+                    targetPos = 1; // Fallback to 1
+                    for (let sq = 14; sq >= 1; sq--) {
+                        if (!newState.board.some(p => p.position === sq)) {
+                            targetPos = sq;
+                            break;
+                        }
+                    }
+                }
+
+                piece.position = targetPos;
+
                 newState.historyLog.push({
                     key: 'history.washed_back',
                     player: newState.currentPlayer

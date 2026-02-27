@@ -25,7 +25,13 @@ i18n
         lng: savedLng || "en",
         fallbackLng: "en",
         interpolation: {
-            escapeValue: false
+            escapeValue: false,
+            format: (value, _format, lng) => {
+                if (typeof value === 'number' && lng === 'ar-EG') {
+                    return new Intl.NumberFormat('ar-EG-u-nu-arab').format(value);
+                }
+                return value;
+            }
         }
     });
 
