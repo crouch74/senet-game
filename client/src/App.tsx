@@ -28,10 +28,10 @@ function App() {
       {/* Background thematic elements */}
       <div className="fixed inset-0 pointer-events-none opacity-5 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-sand via-ebony to-ebony" />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 flex flex-col relative z-10 min-h-0 overflow-hidden">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 flex flex-col relative z-10 min-h-0">
         <HUD />
 
-        <div className="flex-1 flex flex-col xl:flex-row gap-8 items-stretch justify-center min-h-0 overflow-hidden">
+        <div className="flex-1 flex flex-col xl:flex-row gap-8 items-stretch justify-center min-h-0">
           {(!showLobby || isOnline) ? (
             <>
               {/* Main Game Area */}
