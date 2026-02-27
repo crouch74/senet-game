@@ -31,7 +31,8 @@
         "language": "اللغة",
         "players": {
             "anubis": "أنوبيس",
-            "sphinx": "أبو الهول"
+            "sphinx": "أبو الهول",
+            "spectator": "مشاهد"
         }
     },
     "throw": {

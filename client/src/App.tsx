@@ -226,7 +226,11 @@ function App() {
                             <span className="text-sand/50 text-xs uppercase tracking-widest">{t('lobby.waiting_you_are')}</span>
                             <div className={cn(
                               "mt-1 text-lg font-bold uppercase tracking-widest font-serif",
-                              localPlayer === 'anubis' ? 'text-royal-gold' : 'text-royal-ivory'
+                              localPlayer === 'anubis'
+                                ? 'text-royal-gold'
+                                : localPlayer === 'sphinx'
+                                  ? 'text-royal-ivory'
+                                  : 'text-sand'
                             )}>
                               {localPlayer ? t(`hud.players.${localPlayer}`) : ''}
                             </div>

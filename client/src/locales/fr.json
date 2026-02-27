@@ -31,7 +31,8 @@
         "language": "Langue",
         "players": {
             "anubis": "ANUBIS",
-            "sphinx": "SPHINX"
+            "sphinx": "SPHINX",
+            "spectator": "SPECTATEUR"
         }
     },
     "throw": {

@@ -4,8 +4,18 @@ import { createInitialState, getThrowResult, getLegalMoves, applyMove, autoPassI
 
 let socket: WebSocket | null = null;
 let connectionAttempt = 0;
+let autoplayRunId = 0;
+
+type AutoPlaySpeed = 'human' | 'quick' | 'fast' | 'immediate';
+const AUTO_PLAY_DELAYS_MS: Record<AutoPlaySpeed, number> = {
+    human: 1200,
+    quick: 700,
+    fast: 300,
+    immediate: 0
+};
 
 type RoomJoinError = 'not_found' | 'full' | 'unavailable';
+type LocalRole = PlayerID | 'spectator';
 
 const normalizeRoomId = (roomId: string) => roomId.trim().toLowerCase();
 
@@ -23,7 +33,7 @@ interface SenetStore extends GameState {
     isConnectingToRoom: boolean;
     isWaitingForOpponent: boolean;
     roomId: string | null;
-    localPlayer: PlayerID | null;
+    localPlayer: LocalRole | null;
     roomJoinError: RoomJoinError | null;
     joinRoom: (roomId: string) => void;
     leaveRoom: () => void;
@@ -36,7 +46,8 @@ interface SenetStore extends GameState {
 
     resetGame: () => void;
     passTurn: () => void;
-    playRandomTurns: (turnsCount: number) => void;
+    playRandomTurns: (turnsCount: number, speed?: AutoPlaySpeed) => void;
+    isAutoPlaying: boolean;
     // UI helpers
     legalMoves: { pieceId: string; targetSquare: number }[];
     hoveredPieceId: string | null;
@@ -99,15 +110,21 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
             if (currentAttempt !== connectionAttempt) return;
             const data = JSON.parse(event.data);
             if (data.type === 'init') {
+                const role = (data.player ?? data.role) as LocalRole;
+                const isSpectator = role === 'spectator';
                 set({
                     isOnline: true,
                     isConnectingToRoom: false,
-                    isWaitingForOpponent: true,
+                    isWaitingForOpponent: !isSpectator,
                     roomId: normalizedRoomId,
-                    localPlayer: data.player,
+                    localPlayer: role,
                     roomJoinError: null
                 });
-                console.log(`🎮 Playing as ${data.player} — waiting for opponent`);
+                if (isSpectator) {
+                    console.log('👁️ Joined as spectator');
+                } else {
+                    console.log(`🎮 Playing as ${role} — waiting for opponent`);
+                }
             } else if (data.type === 'game_start') {
                 const openingPlayer = data.opening_player as PlayerID | undefined;
                 const openingRolls = data.opening_rolls as { anubis: number; sphinx: number } | undefined;
@@ -181,7 +198,7 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
 
     throwSticks: () => {
         const state = get();
-        if (state.winner || state.currentThrow) return;
+        if (state.winner || state.currentThrow || state.isAutoPlaying) return;
         if (state.isOnline && (state.isWaitingForOpponent || state.currentPlayer !== state.localPlayer)) return;
 
         const throwRes = getThrowResult();
@@ -202,7 +219,7 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
 
     movePiece: (pieceId: string) => {
         const state = get();
-        if (!state.currentThrow) return;
+        if (!state.currentThrow || state.isAutoPlaying) return;
         if (state.isOnline && (state.isWaitingForOpponent || state.currentPlayer !== state.localPlayer)) return;
 
         const newState = applyMove(state, pieceId);
@@ -243,6 +260,7 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
 
     passTurn: () => {
         const state = get();
+        if (state.isAutoPlaying) return;
         const newState = autoPassIfNoMoves(state);
 
         const partialState: Partial<GameState> = {
@@ -257,17 +275,22 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
 
     resetGame: () => {
         const state = get();
-        if (state.isOnline) return; // Disallow resetting online games for now
+        if (state.isOnline || state.isAutoPlaying) return; // Disallow resetting online games while autoplay is running
         set({ ...createInitialState(state.ruleset), legalMoves: [] });
     },
 
-    playRandomTurns: (turnsCount: number) => {
+    isAutoPlaying: false,
+
+    playRandomTurns: (turnsCount: number, speed: AutoPlaySpeed = 'immediate') => {
         const storeState = get();
-        if (storeState.isOnline || storeState.winner) return;
+        if (storeState.isOnline || storeState.winner || storeState.isAutoPlaying) return;
 
-        console.log(`🤖 Playing ${turnsCount} random turns...`);
+        const delay = AUTO_PLAY_DELAYS_MS[speed];
+        const runId = ++autoplayRunId;
+        set({ isAutoPlaying: true });
+        console.log(`🤖 Playing ${turnsCount} random turns at "${speed}" speed...`);
 
-        let state: GameState = {
+        const currentState: GameState = {
             board: storeState.board,
             currentPlayer: storeState.currentPlayer,
             currentThrow: storeState.currentThrow,
@@ -276,8 +299,8 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
             historyLog: storeState.historyLog
         };
 
-        for (let i = 0; i < turnsCount; i++) {
-            if (state.winner) break;
+        const executeTurn = (state: GameState): GameState => {
+            if (state.winner) return state;
 
             if (!state.currentThrow) {
                 const throwRes = getThrowResult();
@@ -292,21 +315,54 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
                 const randomMove = legalMoves[Math.floor(Math.random() * legalMoves.length)];
                 state = applyMove(state, randomMove.pieceId);
             }
+            return state;
+        };
+
+        const commitState = (state: GameState) => {
+            const partialState: Partial<GameState> = {
+                board: state.board,
+                currentPlayer: state.currentPlayer,
+                currentThrow: state.currentThrow,
+                winner: state.winner,
+                historyLog: state.historyLog
+            };
+            set({
+                ...partialState,
+                legalMoves: state.currentThrow ? getLegalMoves(state) : [],
+                lastMove: null
+            });
+            get().syncState(partialState);
+        };
+
+        if (delay === 0) {
+            let state = currentState;
+            for (let i = 0; i < turnsCount; i++) {
+                if (state.winner) break;
+                state = executeTurn(state);
+            }
+
+            if (runId !== autoplayRunId) return;
+            commitState(state);
+            set({ isAutoPlaying: false });
+            console.log(`✅ Finished playing random turns. Winner: ${state.winner || 'None'}`);
+            return;
         }
 
-        const partialState: Partial<GameState> = {
-            board: state.board,
-            currentPlayer: state.currentPlayer,
-            currentThrow: state.currentThrow,
-            winner: state.winner,
-            historyLog: state.historyLog
+        const playStep = (remainingTurns: number, state: GameState) => {
+            if (runId !== autoplayRunId) return;
+
+            if (remainingTurns <= 0 || state.winner) {
+                commitState(state);
+                set({ isAutoPlaying: false });
+                console.log(`✅ Finished playing random turns. Winner: ${state.winner || 'None'}`);
+                return;
+            }
+
+            const nextState = executeTurn(state);
+            commitState(nextState);
+            setTimeout(() => playStep(remainingTurns - 1, nextState), delay);
         };
-        set({
-            ...partialState,
-            legalMoves: state.currentThrow ? getLegalMoves(state) : [],
-            lastMove: null
-        });
-        get().syncState(partialState);
-        console.log(`✅ Finished playing random turns. Winner: ${state.winner || 'None'}`);
+
+        playStep(turnsCount, currentState);
     }
 }));

@@ -6,7 +6,7 @@ import os
 import json
 import random
 import string
-from typing import Dict, Optional, TypedDict
+from typing import Any, Dict, Optional, Set, TypedDict
 
 # Configure logging according to user rules
 logging.basicConfig(level=logging.INFO, format="%(message)s")
@@ -23,9 +23,11 @@ class RoomState(TypedDict):
     anubis: Optional[WebSocket]
     sphinx: Optional[WebSocket]
     opening_player: Optional[str]
+    spectators: Set[WebSocket]
+    latest_state: Optional[Dict[str, Any]]
 
 # Store active websocket connections and room metadata.
-# roomId -> {"anubis": None | WebSocket, "sphinx": None | WebSocket, "opening_player": None | "anubis" | "sphinx"}
+# roomId -> {"anubis": None | WebSocket, "sphinx": None | WebSocket, "opening_player": None | "anubis" | "sphinx", "spectators": set(), "latest_state": dict | None}
 active_rooms: Dict[str, RoomState] = {}
 
 @app.post("/api/match/create")
@@ -34,7 +36,13 @@ def create_room():
         letters = ''.join(random.choices(string.ascii_lowercase, k=9))
         room_id = f"{letters[:3]}-{letters[3:6]}-{letters[6:]}"
         if room_id not in active_rooms:
-            active_rooms[room_id] = {"anubis": None, "sphinx": None, "opening_player": None}
+            active_rooms[room_id] = {
+                "anubis": None,
+                "sphinx": None,
+                "opening_player": None,
+                "spectators": set(),
+                "latest_state": None
+            }
             logger.info(f"🏠 [REST] Created new room {room_id}")
             return {"room_id": room_id}
 
@@ -50,23 +58,32 @@ async def websocket_endpoint(websocket: WebSocket, room_id: str):
         return
     room = active_rooms[room_id]
     
-    # Assign player color based on availability
-    assigned_color = None
-    if room["anubis"] is None:
-        assigned_color = "anubis"
+    # Assign role. Once a game has started and both seats are occupied, late joiners are spectators.
+    assigned_role: Optional[str] = None
+    if room["opening_player"] is not None and room["anubis"] is not None and room["sphinx"] is not None:
+        assigned_role = "spectator"
+        room["spectators"].add(websocket)
+        logger.info(f"👁️ [WS] Spectator joined room {room_id}")
+        await websocket.send_json({"type": "init", "role": assigned_role})
+        await websocket.send_json({"type": "game_start"})
+        if room["latest_state"] is not None:
+            await websocket.send_json({"type": "sync", "state": room["latest_state"]})
+    elif room["anubis"] is None:
+        assigned_role = "anubis"
         room["anubis"] = websocket
     elif room["sphinx"] is None:
-        assigned_color = "sphinx"
+        assigned_role = "sphinx"
         room["sphinx"] = websocket
     else:
-        # Room is full
+        # Room is full but the game has not started yet.
         logger.warning(f"🚫 [WS] Connection to room {room_id} rejected. Room full.")
         await websocket.send_json({"type": "error", "message": "Room is full"})
         await websocket.close()
         return
 
-    logger.info(f"🎭 [WS] Player joined room {room_id} as {assigned_color}")
-    await websocket.send_json({"type": "init", "player": assigned_color})
+    if assigned_role in ("anubis", "sphinx"):
+        logger.info(f"🎭 [WS] Player joined room {room_id} as {assigned_role}")
+        await websocket.send_json({"type": "init", "player": assigned_role})
 
     # If both seats are now filled, notify both players the game can start.
     if room["anubis"] is not None and room["sphinx"] is not None:
@@ -89,7 +106,8 @@ async def websocket_endpoint(websocket: WebSocket, room_id: str):
             sphinx_roll = None
             logger.info(f"⚔️ [WS] Room {room_id} resumed — broadcasting game_start")
 
-        for ws in [room["anubis"], room["sphinx"]]:
+        recipients = [room["anubis"], room["sphinx"], *room["spectators"]]
+        for ws in recipients:
             try:
                 payload = {"type": "game_start"}
                 # Include starter only once so reconnects do not force-reset turns in active games.
@@ -106,25 +124,61 @@ async def websocket_endpoint(websocket: WebSocket, room_id: str):
     try:
         while True:
             data = await websocket.receive_text()
-            
-            # Forward the message to the other player in the room
-            other_color = "sphinx" if assigned_color == "anubis" else "anubis"
+            if assigned_role == "spectator":
+                # Spectators are read-only.
+                continue
+
+            parsed = None
+            try:
+                parsed = json.loads(data)
+            except json.JSONDecodeError:
+                parsed = None
+
+            if isinstance(parsed, dict) and parsed.get("type") == "sync":
+                state = parsed.get("state")
+                if isinstance(state, dict):
+                    room["latest_state"] = state
+
+                # Broadcast sync updates to opponent + all spectators.
+                recipients: list[WebSocket] = []
+                other_color = "sphinx" if assigned_role == "anubis" else "anubis"
+                other_ws = room[other_color]
+                if other_ws:
+                    recipients.append(other_ws)
+                recipients.extend(room["spectators"])
+
+                stale_spectators: list[WebSocket] = []
+                for ws in recipients:
+                    try:
+                        await ws.send_text(data)
+                    except Exception:
+                        if ws in room["spectators"]:
+                            stale_spectators.append(ws)
+                for stale_ws in stale_spectators:
+                    room["spectators"].discard(stale_ws)
+                continue
+
+            # Forward non-sync messages only to the opponent.
+            other_color = "sphinx" if assigned_role == "anubis" else "anubis"
             other_ws = room[other_color]
-            
             if other_ws:
                 await other_ws.send_text(data)
 
     except WebSocketDisconnect:
-        logger.info(f"💔 [WS] Player {assigned_color} disconnected from room {room_id}")
-        room[assigned_color] = None
+        if assigned_role == "spectator":
+            room["spectators"].discard(websocket)
+            logger.info(f"💔 [WS] Spectator disconnected from room {room_id}")
+        else:
+            logger.info(f"💔 [WS] Player {assigned_role} disconnected from room {room_id}")
+            room[assigned_role] = None
         
         # Cleanup room if empty
-        if room["anubis"] is None and room["sphinx"] is None:
+        if room["anubis"] is None and room["sphinx"] is None and len(room["spectators"]) == 0:
             del active_rooms[room_id]
             logger.info(f"🧹 [WS] Room {room_id} closed")
-        else:
+        elif assigned_role in ("anubis", "sphinx"):
             # Notify the other player that their opponent disconnected
-            other_color = "sphinx" if assigned_color == "anubis" else "anubis"
+            other_color = "sphinx" if assigned_role == "anubis" else "anubis"
             other_ws = room[other_color]
             if other_ws:
                 try:
