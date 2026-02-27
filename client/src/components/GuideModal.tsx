@@ -53,7 +53,7 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
                         </div>
 
                         {/* Scrollable Content */}
-                        <div className="flex-1 overflow-y-auto custom-scrollbar bg-[var(--ui-modal-paper)]">
+                        <div className="senet-manuscript flex-1 overflow-y-auto custom-scrollbar">
                             <LegendContent />
                         </div>
 

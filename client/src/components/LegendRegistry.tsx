@@ -31,12 +31,7 @@ export function LegendContent() {
     ];
 
     return (
-        <div className="bg-[var(--ui-legend-paper)] p-8 md:p-14 text-[var(--ui-paper-text)] relative overflow-hidden">
-            {/* Texture overlay for ivory feel */}
-            <div
-                className="absolute inset-0 opacity-[0.05] pointer-events-none"
-                style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/paper-fibers.png')" }}
-            />
+        <div className="legend-content-surface bg-[var(--ui-legend-paper)] p-8 md:p-14 text-[var(--ui-paper-text)] relative overflow-hidden">
 
             {/* Decorative Inlay Border */}
             <div className="absolute inset-4 border border-royal-gold/10 pointer-events-none" />
