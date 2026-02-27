@@ -35,12 +35,17 @@ function App() {
                 {t('app.chronicle')}
               </h2>
               <div className="overflow-y-auto flex-1 flex flex-col gap-2 text-sm pr-2 custom-scrollbar">
-                {historyLog.slice().reverse().map((log, i) => (
-                  <div key={i} className="text-sand/80 font-mono flex gap-2 border-b border-sand/5 pb-1">
-                    <span className="opacity-50 text-xs mt-0.5" dir="ltr">{(historyLog.length - i).toString().padStart(3, '0')}</span>
-                    <span>{log}</span>
-                  </div>
-                ))}
+                {historyLog.slice().reverse().map((log, i) => {
+                  const translatedParams = log.params?.player
+                    ? { ...log.params, player: t(`hud.players.${log.params.player}`) }
+                    : log.params;
+                  return (
+                    <div key={i} className="text-sand/80 font-mono flex gap-2 border-b border-sand/5 pb-1">
+                      <span className="opacity-50 text-xs mt-0.5" dir="ltr">{(historyLog.length - i).toString().padStart(3, '0')}</span>
+                      <span>{t(log.key, translatedParams)}</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 

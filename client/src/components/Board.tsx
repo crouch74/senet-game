@@ -38,6 +38,7 @@ export function Board() {
 
             <div
                 ref={containerRef}
+                dir="ltr"
                 className="w-full relative grid grid-cols-10 grid-rows-3 gap-[1px]"
             >
                 {squares.map((num) => (

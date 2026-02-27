@@ -33,11 +33,16 @@ export interface ThrowResult {
     value: number; // 1 to 5 (or sometimes 0 light sides = 5 points)
 }
 
+export interface HistoryEvent {
+    key: string;
+    params?: Record<string, any>;
+}
+
 export interface GameState {
     board: Piece[];
     currentPlayer: PlayerID;
     currentThrow: ThrowResult | null;
     ruleset: Ruleset;
     winner: PlayerID | null;
-    historyLog: string[];
+    historyLog: HistoryEvent[];
 }

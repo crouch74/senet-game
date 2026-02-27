@@ -67,6 +67,16 @@ const resources = {
                     "common": "A richer ruleset with protected pairs, blockades, and swap-capture logic matching widely-circulated rules.",
                     "custom": "Rules editor UI allowing the user to toggle game mechanics."
                 }
+            },
+            "history": {
+                "game_started": "🎲 [GAME] Game started.",
+                "captured_swapped": "⚔️ Captured piece swapped to {{pos}}",
+                "moved_to": "🏃 Moved piece to {{pos}}",
+                "moved_to_afterlife": "🏃 Moved piece to afterlife",
+                "washed_back": "🌊 Washed back to House of Rebirth (15)",
+                "wins": "🏆 {{player}} WINS!",
+                "extra_throw": "🎲 Extra throw granted!",
+                "no_moves": "🚫 No legal moves for {{player}}. Turn passes."
             }
         }
     },
@@ -135,6 +145,16 @@ const resources = {
                     "common": "قواعد أغنى مع أزواج محمية، وحواجز، ومنطق أسر بالتبديل يطابق القواعد المتداولة على نطاق واسع.",
                     "custom": "واجهة محرر القواعد تسمح للمستخدم بتبديل آليات اللعبة."
                 }
+            },
+            "history": {
+                "game_started": "🎲 [اللعبة] بدأت اللعبة.",
+                "captured_swapped": "⚔️ تم أسر القطعة واستبدالها إلى {{pos}}",
+                "moved_to": "🏃 تحركت القطعة إلى {{pos}}",
+                "moved_to_afterlife": "🏃 تحركت القطعة إلى الحياة الآخرة",
+                "washed_back": "🌊 جرفت المياه القطعة عودة إلى بيت النهضة (15)",
+                "wins": "🏆 {{player}} فاز!",
+                "extra_throw": "🎲 تم منح رمية إضافية!",
+                "no_moves": "🚫 لا توجد حركات قانونية لـ {{player}}. الدور ينتقل."
             }
         }
     },
@@ -203,6 +223,16 @@ const resources = {
                     "common": "Des règles plus riches avec des paires protégées, des blocages et une logique de capture par échange, correspondant aux règles largement diffusées.",
                     "custom": "Interface de l'éditeur de règles permettant à l'utilisateur d'activer ou de désactiver les mécanismes de jeu."
                 }
+            },
+            "history": {
+                "game_started": "🎲 [JEU] La partie a commencé.",
+                "captured_swapped": "⚔️ Pièce capturée échangée à la position {{pos}}",
+                "moved_to": "🏃 Pièce déplacée à {{pos}}",
+                "moved_to_afterlife": "🏃 Pièce déplacée vers l'au-delà",
+                "washed_back": "🌊 Ramené à la Maison de la Renaissance (15)",
+                "wins": "🏆 {{player}} GAGNE !",
+                "extra_throw": "🎲 Lancer supplémentaire accordé !",
+                "no_moves": "🚫 Aucun mouvement légal pour {{player}}. Fin du tour."
             }
         }
     }
