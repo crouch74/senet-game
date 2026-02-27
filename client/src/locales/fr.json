@@ -101,7 +101,12 @@
         "join": "Rejoindre",
         "join_create": "Rejoindre / Créer",
         "or": "ou",
-        "play_offline": "Jouer hors ligne"
+        "play_offline": "Jouer hors ligne",
+        "you_are": "Vous êtes",
+        "leave_room": "Quitter la salle",
+        "copy": "Copier",
+        "copied": "Copié !",
+        "copy_room": "Copier le code de la salle"
     },
     "legend": {
         "registry_title": "Tome de la Résurrection",

@@ -10,11 +10,13 @@ import { GuideModal } from './components/GuideModal';
 import { useSenetStore } from './engine/store';
 import { cn } from './utils/cn';
 import { formatNumber } from './utils/format';
+import { Copy, Check } from 'lucide-react';
 
 function App() {
   const { historyLog, ruleset, isOnline, roomId, localPlayer, leaveRoom, winner, showGuide, setShowGuide, resetGame } = useSenetStore();
   const { t, i18n } = useTranslation();
   const [showLobby, setShowLobby] = useState(true);
+  const [copiedRoom, setCopiedRoom] = useState(false);
 
   const handleReturnToLobby = () => {
     if (isOnline) {
@@ -22,6 +24,14 @@ function App() {
     }
     resetGame();
     setShowLobby(true);
+  };
+
+  const handleCopyRoomId = () => {
+    if (!roomId) return;
+    navigator.clipboard.writeText(roomId).then(() => {
+      setCopiedRoom(true);
+      setTimeout(() => setCopiedRoom(false), 2000);
+    });
   };
 
   // Auto-hide lobby when playing online
@@ -64,18 +74,36 @@ function App() {
                 {isOnline && roomId && (
                   <div className="mb-4 flex items-center justify-between w-full max-w-5xl bg-black/40 border border-sand/20 rounded-lg p-3 px-6 shadow-md backdrop-blur-sm shrink-0">
                     <div className="flex flex-col">
-                      <span className="text-sand/60 text-xs uppercase tracking-wider font-bold mb-1">Room</span>
-                      <span className="text-gold font-mono text-xl">{roomId}</span>
+                      <span className="text-sand/60 text-xs uppercase tracking-wider font-bold mb-1">{t('lobby.room_number')}</span>
+                      <div className="flex items-center gap-3">
+                        <span className="text-gold font-mono text-xl tracking-widest">{roomId}</span>
+                        <button
+                          id="copy-room-id"
+                          onClick={handleCopyRoomId}
+                          title={t('lobby.copy_room')}
+                          className={cn(
+                            "flex items-center gap-1.5 px-3 py-1 rounded text-xs font-bold uppercase tracking-wider border transition-all duration-300 cursor-pointer",
+                            copiedRoom
+                              ? "bg-green-900/40 border-green-500/50 text-green-400"
+                              : "bg-sand/10 border-sand/20 text-sand/70 hover:bg-sand/20 hover:text-sand"
+                          )}
+                        >
+                          {copiedRoom
+                            ? <><Check className="w-3.5 h-3.5" />{t('lobby.copied')}</>
+                            : <><Copy className="w-3.5 h-3.5" />{t('lobby.copy')}</>
+                          }
+                        </button>
+                      </div>
                     </div>
                     <div className="flex flex-col text-right">
-                      <span className="text-sand/60 text-xs uppercase tracking-wider font-bold mb-1">You Are</span>
-                      <span className="text-sand font-bold text-lg capitalize">{localPlayer ? t(`app.players.${localPlayer}`, { defaultValue: localPlayer }) : ''}</span>
+                      <span className="text-sand/60 text-xs uppercase tracking-wider font-bold mb-1">{t('lobby.you_are')}</span>
+                      <span className="text-sand font-bold text-lg capitalize">{localPlayer ? t(`hud.players.${localPlayer}`) : ''}</span>
                     </div>
                     <button
                       onClick={() => { leaveRoom(); setShowLobby(true); }}
-                      className="bg-red-900/40 hover:bg-red-900/80 text-sand px-4 py-2 rounded-md text-sm border border-red-500/30 transition-colors shadow-sm ml-4 cursor-pointer"
+                      className="bg-red-900/40 hover:bg-red-900/80 text-sand px-4 py-2 rounded-md text-sm border border-red-500/30 transition-colors shadow-sm ms-4 cursor-pointer"
                     >
-                      Leave Room
+                      {t('lobby.leave_room')}
                     </button>
                   </div>
                 )}

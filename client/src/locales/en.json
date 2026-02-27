@@ -101,7 +101,12 @@
         "join": "Join",
         "join_create": "Join / Create Room",
         "or": "or",
-        "play_offline": "Play Offline"
+        "play_offline": "Play Offline",
+        "you_are": "You Are",
+        "leave_room": "Leave Room",
+        "copy": "Copy",
+        "copied": "Copied!",
+        "copy_room": "Copy room code"
     },
     "legend": {
         "registry_title": "Tome of Resurrection",

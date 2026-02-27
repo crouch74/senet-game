@@ -101,7 +101,12 @@
         "join": "ادخل",
         "join_create": "ادخل / افتح أوضة",
         "or": "أو",
-        "play_offline": "العب أوفلاين"
+        "play_offline": "العب أوفلاين",
+        "you_are": "أنت",
+        "leave_room": "اخرج من الأوضة",
+        "copy": "انسخ",
+        "copied": "اتنسخ!",
+        "copy_room": "انسخ كود الأوضة"
     },
     "legend": {
         "registry_title": "بردية البعث",
