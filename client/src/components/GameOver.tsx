@@ -9,6 +9,12 @@ interface GameOverProps {
     onReturnToLobby: () => void;
 }
 
+const PARTICLES = Array.from({ length: 20 }, (_, i) => ({
+    leftPct: (i * 37) % 100,
+    duration: 5 + (i % 5),
+    delay: (i % 7) * 0.55
+}));
+
 export function GameOver({ onReturnToLobby }: GameOverProps) {
     const { winner, localPlayer, isOnline, resetGame } = useSenetStore();
     const { t } = useTranslation();
@@ -33,22 +39,20 @@ export function GameOver({ onReturnToLobby }: GameOverProps) {
             >
                 {/* Decorative background particles (faked with CSS) */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {[...Array(20)].map((_, i) => (
+                    {PARTICLES.map((particle, i) => (
                         <motion.div
                             key={i}
                             className="absolute w-2 h-2 bg-gold/20 rounded-full"
-                            initial={{
-                                x: Math.random() * window.innerWidth,
-                                y: window.innerHeight + 10
-                            }}
+                            style={{ left: `${particle.leftPct}%` }}
+                            initial={{ y: '110vh' }}
                             animate={{
-                                y: -10,
+                                y: '-10vh',
                                 opacity: [0, 0.5, 0]
                             }}
                             transition={{
-                                duration: 5 + Math.random() * 5,
+                                duration: particle.duration,
                                 repeat: Infinity,
-                                delay: Math.random() * 5
+                                delay: particle.delay
                             }}
                         />
                     ))}
@@ -58,17 +62,17 @@ export function GameOver({ onReturnToLobby }: GameOverProps) {
                     initial={{ scale: 0.9, y: 20, opacity: 0 }}
                     animate={{ scale: 1, y: 0, opacity: 1 }}
                     transition={{ type: "spring", damping: 25, stiffness: 300, delay: 0.2 }}
-                    className="relative max-w-lg w-full bg-stone-900 border-2 border-royal-gold/50 rounded-xl p-8 shadow-[0_0_50px_rgba(0,0,0,0.8),0_0_20px_rgba(218,165,32,0.2)] text-center overflow-hidden"
+                    className="relative max-w-lg w-full bg-[var(--ui-gameover-surface)] border-2 border-royal-gold/50 rounded-xl p-8 shadow-[0_0_50px_rgba(0,0,0,0.8),0_0_20px_var(--ui-piece-glow-anubis)] text-center overflow-hidden"
                 >
                     {/* Royal pattern background */}
                     <div className="absolute inset-0 opacity-5 pointer-events-none"
-                        style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #DAA520 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+                        style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, var(--ui-gameover-pattern-dot) 1px, transparent 0)', backgroundSize: '24px 24px' }} />
 
                     <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ type: "spring", delay: 0.5 }}
-                        className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-royal-gold/10 border-2 border-royal-gold mb-6 shadow-[0_0_20px_rgba(218,165,32,0.3)]"
+                        className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-royal-gold/10 border-2 border-royal-gold mb-6 shadow-[0_0_20px_var(--ui-piece-glow-anubis)]"
                     >
                         <Trophy className="w-10 h-10 text-royal-gold" />
                     </motion.div>
@@ -103,7 +107,7 @@ export function GameOver({ onReturnToLobby }: GameOverProps) {
                             onClick={() => {
                                 resetGame();
                             }}
-                            className="flex items-center justify-center gap-2 bg-royal-gold hover:bg-gold text-ebony font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 active:scale-95 shadow-lg cursor-pointer"
+                            className="flex items-center justify-center gap-2 bg-royal-gold hover:bg-gold text-[var(--ui-turn-pill-foreground)] font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 active:scale-95 shadow-lg cursor-pointer"
                         >
                             <RotateCcw className="w-5 h-5" />
                             {t('throw.play_again')}
@@ -111,7 +115,7 @@ export function GameOver({ onReturnToLobby }: GameOverProps) {
 
                         <button
                             onClick={onReturnToLobby}
-                            className="flex items-center justify-center gap-2 bg-stone-800 hover:bg-stone-700 text-sand border border-sand/20 font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 active:scale-95 shadow-md cursor-pointer"
+                            className="flex items-center justify-center gap-2 bg-[var(--ui-gameover-secondary-bg)] hover:bg-[var(--ui-gameover-secondary-bg-hover)] text-sand border border-sand/20 font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 active:scale-95 shadow-md cursor-pointer"
                         >
                             <Home className="w-5 h-5" />
                             {t('throw.return_to_lobby')}

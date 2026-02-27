@@ -29,6 +29,23 @@
         "wins": "{{player}} GAGNE !",
         "restart_game": "Recommencer la partie",
         "language": "Langue",
+        "theme": "Thème",
+        "theme_options": {
+            "royal": "Incrustation Royale",
+            "moonlit_necropolis": "Nécropole Lunaire",
+            "nile_papyrus": "Papyrus du Nil",
+            "temple_fresco": "Fresque du Temple",
+            "solar_court": "Cour Solaire",
+            "afterlife_ember": "Braise de l'Au-delà"
+        },
+        "theme_descriptions": {
+            "royal": "Palette classique faïence et or.",
+            "moonlit_necropolis": "Pierre nocturne et tons lapis.",
+            "nile_papyrus": "Verts du Nil et teintes papyrus.",
+            "temple_fresco": "Pigments minéraux et calcaire peint.",
+            "solar_court": "Pierre lumineuse et ambre cérémoniel.",
+            "afterlife_ember": "Lueurs de braise du monde souterrain."
+        },
         "players": {
             "anubis": "ANUBIS",
             "sphinx": "SPHINX",

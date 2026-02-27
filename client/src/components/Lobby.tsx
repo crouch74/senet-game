@@ -37,7 +37,7 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
 
     return (
         <div className="flex-1 w-full flex flex-col items-center justify-center p-4 py-20 overflow-y-auto custom-scrollbar">
-            <div className="bg-black/40 border border-royal-gold/20 rounded-lg p-8 max-w-sm w-full backdrop-blur-sm shadow-2xl shrink-0">
+            <div className="bg-[var(--ui-panel-strong-bg)] border border-royal-gold/20 rounded-lg p-8 max-w-sm w-full backdrop-blur-sm shadow-2xl shrink-0">
                 <h1 className="text-4xl text-royal-gold font-serif mb-8 text-center tracking-[0.4em] drop-shadow-md">SENET</h1>
 
                 <div className="flex flex-col gap-5">
@@ -50,7 +50,7 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
                     <button
                         type="button"
                         onClick={handleCreate}
-                        className="bg-royal-gold hover:bg-royal-gold/90 text-royal-ebony font-bold py-3 rounded-md transition-all shadow-lg hover:shadow-royal-gold/20 cursor-pointer"
+                        className="bg-royal-gold hover:bg-royal-gold/90 text-[var(--ui-turn-pill-foreground)] font-bold py-3 rounded-md transition-all shadow-lg hover:shadow-royal-gold/20 cursor-pointer"
                     >
                         {t('lobby.create_room', 'Create New Room')}
                     </button>
@@ -70,15 +70,15 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
                                 id="room"
                                 type="text"
                                 value={roomInput}
-                                onChange={(e) => {
-                                    if (roomJoinError) {
-                                        clearRoomJoinError();
-                                    }
-                                    setRoomInput(e.target.value);
-                                }}
-                                placeholder={t('lobby.room_placeholder', 'e.g. abc-def-ghi')}
-                                className="flex-1 bg-royal-ebony/60 border border-sand/30 rounded-md p-3 text-sand placeholder:text-sand/30 focus:outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold transition-all"
-                            />
+                            onChange={(e) => {
+                                if (roomJoinError) {
+                                    clearRoomJoinError();
+                                }
+                                setRoomInput(e.target.value);
+                            }}
+                            placeholder={t('lobby.room_placeholder', 'e.g. abc-def-ghi')}
+                            className="flex-1 bg-[var(--ui-input-bg)] border border-sand/30 rounded-md p-3 text-sand placeholder:text-sand/30 focus:outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold transition-all"
+                        />
                             <button
                                 type="submit"
                                 disabled={!roomInput.trim()}
@@ -101,7 +101,7 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
                             clearRoomJoinError();
                             onPlayOffline();
                         }}
-                        className="bg-royal-ebony border border-sand/30 hover:bg-royal-gold/10 text-sand font-bold py-3 rounded-md transition-all shadow-md cursor-pointer"
+                        className="bg-[var(--ui-secondary-button-bg)] border border-sand/30 hover:bg-[var(--ui-secondary-button-bg-hover)] text-sand font-bold py-3 rounded-md transition-all shadow-md cursor-pointer"
                     >
                         {t('lobby.play_offline', 'Play Offline')}
                     </button>
@@ -110,4 +110,3 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
         </div>
     );
 }
-

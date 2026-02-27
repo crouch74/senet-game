@@ -151,7 +151,7 @@ export function applyMove(gameState: GameState, pieceId: string): GameState {
     const newState = JSON.parse(JSON.stringify(gameState)) as GameState;
     const piece = newState.board.find(p => p.id === pieceId)!;
 
-    let endSquare = targetSquare > 30 ? 31 : targetSquare; // 31 is borne off
+    const endSquare = targetSquare > 30 ? 31 : targetSquare; // 31 is borne off
 
     // Check for capture
     if (endSquare <= 30) {

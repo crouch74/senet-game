@@ -19,9 +19,9 @@ export function Square({ number }: SquareProps) {
 
     const getHouseIcon = () => {
         switch (number) {
-            case 15: return { type: 'svg', val: '/assets/royal/house_26_ankh.svg', color: 'bg-[#1034A6]', repeat: 1 }; // Blue Ankh
+            case 15: return { type: 'svg', val: '/assets/royal/house_26_ankh.svg', color: 'bg-royal-blue', repeat: 1 };
             case 26: return { type: 'text', val: '𓄤 𓄤 𓄤', color: 'text-royal-green drop-shadow-[0_0_8px_rgba(55,139,110,0.6)]' };
-            case 27: return { type: 'svg', val: '/assets/royal/house_27_water_n35.svg', color: 'bg-[#1034A6]', repeat: 3, stack: true };
+            case 27: return { type: 'svg', val: '/assets/royal/house_27_water_n35.svg', color: 'bg-royal-blue', repeat: 3, stack: true };
             case 28: return { type: 'svg', val: '/assets/royal/house_28_maat_feather.svg', color: 'bg-royal-ivory', repeat: 3 };
             case 29: return { type: 'svg', val: '/assets/royal/house_29_sun_disk.svg', color: 'bg-royal-gold', repeat: 2, stack: true };
             case 30: return { type: 'svg', val: '/assets/royal/house_30_horus_falcon.svg', color: 'bg-royal-gold', repeat: 1 };
@@ -35,8 +35,8 @@ export function Square({ number }: SquareProps) {
         <div
             className={cn(
                 "relative flex flex-col items-center justify-center aspect-square group box-border",
-                "bg-[#221714] transition-all duration-500", // Ebony base
-                isRecentlyActivated && "z-30 bg-[#3a2f2a] scale-[1.05] ring-2 ring-white/50 shadow-[0_0_40px_rgba(255,255,255,0.4)] animate-pulse",
+                "bg-[var(--ui-square-base)] transition-all duration-500",
+                isRecentlyActivated && "z-30 bg-[var(--ui-square-active)] scale-[1.05] ring-2 ring-white/50 shadow-[0_0_40px_rgba(255,255,255,0.4)] animate-pulse",
                 // Depth: inner shadow + bevel look
                 "border-[0.5px] border-black/80",
                 "shadow-[inset_0_2px_4px_rgba(255,255,255,0.05),inset_0_-2px_4px_rgba(0,0,0,0.4),inset_0_0_10px_rgba(0,0,0,0.7)]",
@@ -48,7 +48,7 @@ export function Square({ number }: SquareProps) {
                         : "ring-1 ring-royal-ivory/40 shadow-[inset_0_0_30px_rgba(255,255,240,0.2)]"
                 ),
                 isHoveredTarget && cn(
-                    "z-20 scale-[1.02] bg-[#2a1d1a]",
+                    "z-20 scale-[1.02] bg-[var(--ui-square-hover)]",
                     currentPlayer === 'anubis'
                         ? "ring-2 ring-royal-gold shadow-[0_10px_30px_rgba(212,175,55,0.4),inset_0_0_40px_rgba(212,175,55,0.2)]"
                         : "ring-2 ring-royal-ivory shadow-[0_10px_30px_rgba(255,255,240,0.4),inset_0_0_40px_rgba(255,255,240,0.2)]"
@@ -75,7 +75,7 @@ export function Square({ number }: SquareProps) {
         >
             {/* Embedded Special Square Inlay Border */}
             {isSpecial && (
-                <div className="absolute inset-[3px] border-[0.5px] border-[#d3ccb8]/10 pointer-events-none mix-blend-overlay" />
+                <div className="absolute inset-[3px] border-[0.5px] border-[var(--ui-square-special-border)] pointer-events-none mix-blend-overlay" />
             )}
 
             {/* Number - Brightened by 10% (from 30 to 40) */}
@@ -167,7 +167,7 @@ export function Square({ number }: SquareProps) {
             {specialInfo && (
                 <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 flex justify-center z-50 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
                     <div
-                        className="w-[240px] shrink-0 p-3 bg-[#fcf8ed] border-[2px] border-royal-gold shadow-[0_10px_25px_rgba(0,0,0,0.5)] text-[#1a1110] text-xs rounded-sm text-start"
+                        className="w-[240px] shrink-0 p-3 bg-[var(--ui-tooltip-bg)] border-[2px] border-royal-gold shadow-[0_10px_25px_rgba(0,0,0,0.5)] text-[var(--ui-tooltip-text)] text-xs rounded-sm text-start"
                         dir={i18n.language === 'ar-EG' ? 'rtl' : 'ltr'}
                     >
                         <div className="flex items-center gap-2 border-b border-royal-gold/20 pb-2 mb-2">
@@ -179,15 +179,15 @@ export function Square({ number }: SquareProps) {
 
                         {/* Game Effect */}
                         <div className="mb-2">
-                            <div className="font-serif font-bold text-[#b86125] mb-0.5">{t('square.effect', { effect: t(`square.effects.${specialInfo.effect}`) })}</div>
-                            {specialInfo.requiredThrow && <div className="font-serif text-black/80">{t('square.requires_throw', { num: specialInfo.requiredThrow })}</div>}
+                            <div className="font-serif font-bold text-[var(--ui-tooltip-accent)] mb-0.5">{t('square.effect', { effect: t(`square.effects.${specialInfo.effect}`) })}</div>
+                            {specialInfo.requiredThrow && <div className="font-serif text-[var(--ui-tooltip-text)] opacity-80">{t('square.requires_throw', { num: specialInfo.requiredThrow })}</div>}
                             {!specialInfo.canBypass && <div className="text-royal-blue font-bold text-[10px] uppercase mt-0.5 opacity-90">{t('square.cannot_bypass')}</div>}
                         </div>
 
                         {/* Afterlife Context */}
                         <div className="border-t border-royal-gold/20 pt-2 mt-2">
                             <div className="text-[10px] text-royal-gold font-bold uppercase tracking-widest mb-1 opacity-80">{t('square.lore')}</div>
-                            <div className="font-serif text-black/70 italic leading-relaxed">{t(`square.contexts.${number}`)}</div>
+                            <div className="font-serif text-[var(--ui-tooltip-text)] opacity-70 italic leading-relaxed">{t(`square.contexts.${number}`)}</div>
                         </div>
                     </div>
                 </div>

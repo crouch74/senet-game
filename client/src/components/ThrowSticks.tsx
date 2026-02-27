@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useSenetStore } from '../engine/store';
@@ -12,40 +12,40 @@ interface StickLayout {
     isLight: boolean;
 }
 
+const createStickLayouts = (value: number, lightSidesUp: number, seedOffset: number): StickLayout[] => {
+    let seed = ((value + 1) * 2654435761 + (lightSidesUp + 1) * 1013904223 + seedOffset) >>> 0;
+    const next = () => {
+        seed = (seed * 1664525 + 1013904223) >>> 0;
+        return seed / 4294967296;
+    };
+
+    const shuffled = [0, 1, 2, 3];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(next() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    const lightIndices = new Set<number>(shuffled.slice(0, lightSidesUp));
+
+    return Array.from({ length: 4 }, (_, i) => ({
+        x: (next() - 0.5) * 140,
+        y: (next() - 0.5) * 40,
+        rotate: (next() - 0.5) * 90,
+        zIndex: Math.floor(next() * 10),
+        isLight: lightIndices.has(i)
+    }));
+};
+
 export function ThrowSticks() {
     const [isManualThrowing, setIsManualThrowing] = useState(false);
     const { t } = useTranslation();
     const { currentThrow, throwSticks, currentPlayer, winner, isOnline, localPlayer, isAutoRolling } = useSenetStore();
     const isMyTurn = !isOnline || currentPlayer === localPlayer;
     const isThrowing = isManualThrowing || isAutoRolling;
-    const [stickLayouts, setStickLayouts] = useState<StickLayout[]>([]);
-
-    // Generate random layouts when a throw happens
-    useEffect(() => {
-        if (currentThrow) {
-            const layouts: StickLayout[] = [];
-            const lightIndices = new Set<number>();
-
-            // Randomly decide which sticks are light
-            while (lightIndices.size < currentThrow.lightSidesUp) {
-                lightIndices.add(Math.floor(Math.random() * 4));
-            }
-
-            for (let i = 0; i < 4; i++) {
-                layouts.push({
-                    // Spread them around the center
-                    x: (Math.random() - 0.5) * 140, // +/- 70px
-                    y: (Math.random() - 0.5) * 40,  // +/- 20px
-                    rotate: (Math.random() - 0.5) * 90, // +/- 45 degrees
-                    zIndex: Math.floor(Math.random() * 10),
-                    isLight: lightIndices.has(i)
-                });
-            }
-            setStickLayouts(layouts);
-        } else {
-            setStickLayouts([]);
-        }
-    }, [currentThrow]);
+    const stickLayouts = useMemo(() => {
+        if (!currentThrow) return [];
+        const playerSeed = currentPlayer === 'anubis' ? 17 : 31;
+        return createStickLayouts(currentThrow.value, currentThrow.lightSidesUp, playerSeed);
+    }, [currentThrow, currentPlayer]);
 
     const handleThrow = () => {
         if (!currentThrow && !winner && !isThrowing && isMyTurn) {
@@ -59,7 +59,7 @@ export function ThrowSticks() {
     };
 
     return (
-        <div className="flex flex-col items-center p-4 bg-[#2a1b18]/40 backdrop-blur-sm rounded-sm border-[1px] border-royal-gold/30 shadow-[0_10px_20px_rgba(0,0,0,0.6),inset_0_0_10px_rgba(212,175,55,0.05)] relative overflow-hidden h-full w-full group">
+        <div className="flex flex-col items-center p-4 bg-[var(--ui-panel-bg)] backdrop-blur-sm rounded-sm border-[1px] border-royal-gold/30 shadow-[0_10px_20px_rgba(0,0,0,0.6),inset_0_0_10px_var(--ui-header-shadow-inset)] relative overflow-hidden h-full w-full group">
             {/* Lotus/Gold decorative borders */}
             <div className="absolute top-2 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-60" />
             <div className="absolute bottom-2 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-60" />
@@ -92,7 +92,7 @@ export function ThrowSticks() {
                                         y: { duration: 0.3, repeat: Infinity },
                                         rotate: { duration: 0.5, repeat: Infinity, ease: "linear" }
                                     }}
-                                    className="w-4 h-20 rounded-full bg-[#d3ccb8] border-2 border-royal-gold/40 shadow-xl"
+                                    className="w-4 h-20 rounded-full bg-[var(--ui-stick-light)] border-2 border-[var(--ui-stick-light-border)] shadow-xl"
                                 />
                             ))}
                         </motion.div>
@@ -125,8 +125,8 @@ export function ThrowSticks() {
                                     className={cn(
                                         "absolute w-6 h-28 rounded-full shadow-2xl border-2 overflow-hidden",
                                         layout.isLight
-                                            ? "bg-[#e8e2d2] border-royal-gold/40 shadow-[inset_0_0_15px_rgba(255,255,255,0.8),0_10px_20px_rgba(0,0,0,0.4)]"
-                                            : "bg-[#1a1110] border-black shadow-[inset_0_0_15px_rgba(0,0,0,0.8),0_10px_20px_rgba(0,0,0,0.4)]"
+                                            ? "bg-[var(--ui-stick-light)] border-[var(--ui-stick-light-border)] shadow-[inset_0_0_15px_rgba(255,255,255,0.8),0_10px_20px_rgba(0,0,0,0.4)]"
+                                            : "bg-[var(--ui-stick-dark)] border-black shadow-[inset_0_0_15px_rgba(0,0,0,0.8),0_10px_20px_rgba(0,0,0,0.4)]"
                                     )}
                                 >
                                     {/* Material texture/shimmer */}
@@ -158,7 +158,7 @@ export function ThrowSticks() {
                             {Array.from({ length: 4 }).map((_, i) => (
                                 <div
                                     key={`idle-stick-${i}`}
-                                    className="w-6 h-24 rounded-full bg-[#d3ccb8] border-2 border-royal-gold/60 shadow-[0_5px_15px_rgba(0,0,0,0.2),inset_0_2px_5px_rgba(255,255,255,0.5)] group-hover:bg-[#fcf8ed] group-hover:border-royal-gold transition-all duration-300 relative overflow-hidden"
+                                    className="w-6 h-24 rounded-full bg-[var(--ui-stick-light)] border-2 border-royal-gold/60 shadow-[0_5px_15px_rgba(0,0,0,0.2),inset_0_2px_5px_rgba(255,255,255,0.5)] group-hover:bg-[var(--ui-stick-light-hover)] group-hover:border-royal-gold transition-all duration-300 relative overflow-hidden"
                                 >
                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
                                 </div>
@@ -176,7 +176,7 @@ export function ThrowSticks() {
                                     key={`waiting-stick-${i}`}
                                     animate={{ opacity: [0.2, 0.5, 0.2] }}
                                     transition={{ duration: 2, repeat: Infinity, delay: i * 0.3, ease: "easeInOut" }}
-                                    className="w-6 h-24 rounded-full bg-[#4a3f3a] border-2 border-sand/10 shadow-[0_5px_10px_rgba(0,0,0,0.3)]"
+                                    className="w-6 h-24 rounded-full bg-[var(--ui-stick-waiting)] border-2 border-sand/10 shadow-[0_5px_10px_rgba(0,0,0,0.3)]"
                                 />
                             ))}
                         </motion.div>

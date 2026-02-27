@@ -2,8 +2,16 @@ import { useTranslation } from 'react-i18next';
 import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
 import { Scroll, Home } from 'lucide-react';
+import { THEMES, type ThemeId } from '../theme';
 
-export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; onReturnToLobby?: () => void }) {
+interface HUDProps {
+    isLobby?: boolean;
+    onReturnToLobby?: () => void;
+    theme: ThemeId;
+    setTheme: (theme: ThemeId) => void;
+}
+
+export function HUD({ isLobby = false, onReturnToLobby, theme, setTheme }: HUDProps) {
     const { currentPlayer, ruleset, winner, resetGame, isOnline, setShowGuide, isAutoPlaying } = useSenetStore();
     const { t, i18n } = useTranslation();
 
@@ -12,7 +20,7 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
     };
 
     return (
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 md:gap-5 w-full p-4 sm:p-5 md:p-6 bg-[#2a1b18]/60 backdrop-blur-md rounded-md border-b-2 border-royal-gold/40 shadow-[0_20px_30px_rgba(0,0,0,0.8),inset_0_2px_10px_rgba(212,175,55,0.1)] mb-5 md:mb-8 relative">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 md:gap-5 w-full p-4 sm:p-5 md:p-6 bg-[var(--ui-header-bg)] backdrop-blur-md rounded-md border-b-2 border-[var(--ui-header-border)] shadow-[0_20px_30px_rgba(0,0,0,0.8),inset_0_2px_10px_var(--ui-header-shadow-inset)] mb-5 md:mb-8 relative">
             {/* Top decorative trim */}
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-80" />
 
@@ -28,13 +36,13 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
                             {t('hud.wins', { player: t(`hud.players.${winner}`) })}
                         </div>
                     ) : (
-                        <div className="flex items-center justify-center w-full sm:w-auto gap-3 sm:gap-6 p-2.5 sm:p-3 bg-[#1a1110]/50 rounded border border-royal-gold/20 shadow-inner">
+                        <div className="flex items-center justify-center w-full sm:w-auto gap-3 sm:gap-6 p-2.5 sm:p-3 bg-[var(--ui-header-inner-bg)] rounded border border-royal-gold/20 shadow-inner">
                             <div className="text-xs sm:text-sm text-royal-ivory/80 font-mono tracking-[0.2em] sm:tracking-widest uppercase whitespace-nowrap">{t('hud.current_turn')}</div>
                             <div className={cn(
                                 "px-4 sm:px-6 py-1.5 rounded-sm font-bold uppercase tracking-[0.12em] sm:tracking-widest text-xs sm:text-sm shadow-[0_2px_5px_rgba(0,0,0,0.5)] transition-all duration-300 border whitespace-nowrap",
                                 currentPlayer === 'anubis'
-                                    ? 'bg-royal-gold text-[#1a1110] border-yellow-300/50'
-                                    : 'bg-[#1a1110] text-royal-gold border-royal-gold/80',
+                                    ? 'bg-royal-gold text-[var(--ui-turn-pill-foreground)] border-yellow-300/50'
+                                    : 'bg-[var(--ui-turn-pill-bg)] text-royal-gold border-royal-gold/80',
                             )}>
                                 {t(`hud.players.${currentPlayer}`)}
                             </div>
@@ -56,13 +64,28 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
                 </button>
 
                 <select
-                    className="bg-[#1a1110] text-royal-ivory border-[1.5px] border-royal-gold/60 rounded-sm px-3 py-1 text-sm outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold/50 h-10 font-serif tracking-wider shadow-inner hover:bg-[#2a1b18] transition-colors min-w-[7.5rem] grow sm:grow-0"
+                    className="bg-[var(--ui-input-bg)] text-royal-ivory border-[1.5px] border-royal-gold/60 rounded-sm px-3 py-1 text-sm outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold/50 h-10 font-serif tracking-wider shadow-inner hover:bg-[var(--ui-input-bg-hover)] transition-colors min-w-[7.5rem] grow sm:grow-0"
                     value={i18n.language}
                     onChange={(e) => changeLanguage(e.target.value)}
+                    aria-label={t('hud.language')}
                 >
                     <option value="en">English</option>
                     <option value="ar-EG">العربية</option>
                     <option value="fr">Français</option>
+                </select>
+
+                <select
+                    className="bg-[var(--ui-input-bg)] text-royal-ivory border-[1.5px] border-royal-gold/60 rounded-sm px-3 py-1 text-sm outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold/50 h-10 font-serif tracking-wider shadow-inner hover:bg-[var(--ui-input-bg-hover)] transition-colors min-w-[10.5rem] grow sm:grow-0"
+                    value={theme}
+                    onChange={(e) => setTheme(e.target.value as ThemeId)}
+                    aria-label={t('hud.theme')}
+                    title={t('hud.theme')}
+                >
+                    {THEMES.map((themeOption) => (
+                        <option key={themeOption.id} value={themeOption.id}>
+                            {t(themeOption.labelKey)}
+                        </option>
+                    ))}
                 </select>
 
                 {!isOnline && !isLobby && (
@@ -95,14 +118,14 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
                                     useSenetStore.getState().playRandomTurns(parsed, speed);
                                 }}
                                 disabled={isAutoPlaying}
-                                className="px-3 sm:px-4 py-2 h-10 bg-purple-900/50 hover:bg-purple-800 text-royal-ivory border-[2px] border-purple-500/60 rounded-sm transition-all font-serif shadow-sm text-[11px] uppercase tracking-[0.15em] sm:tracking-widest font-bold whitespace-nowrap grow sm:grow-0"
+                                className="px-3 sm:px-4 py-2 h-10 bg-royal-blue/40 hover:bg-royal-blue/60 text-royal-ivory border-[2px] border-royal-blue/70 rounded-sm transition-all font-serif shadow-sm text-[11px] uppercase tracking-[0.15em] sm:tracking-widest font-bold whitespace-nowrap grow sm:grow-0"
                             >
                                 {isAutoPlaying ? 'Dev: Auto Playing...' : 'Dev: Auto Play'}
                             </button>
                         )}
                         <button
                             onClick={resetGame}
-                            className="px-3 sm:px-4 py-2 h-10 bg-[#fcf8ed] hover:bg-white text-[#1a1110] border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-widest font-bold hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:scale-105 whitespace-nowrap cursor-pointer grow sm:grow-0"
+                            className="px-3 sm:px-4 py-2 h-10 bg-[var(--ui-paper-surface)] hover:bg-[var(--ui-paper-surface-hover)] text-[var(--ui-paper-text)] border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-widest font-bold hover:shadow-[0_0_15px_var(--ui-piece-glow-anubis)] hover:scale-105 whitespace-nowrap cursor-pointer grow sm:grow-0"
                         >
                             {t('hud.restart_game')}
                         </button>
@@ -111,7 +134,7 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
                 {onReturnToLobby && (
                     <button
                         onClick={onReturnToLobby}
-                        className="flex items-center gap-2 px-3 sm:px-4 py-2 h-10 bg-stone-800 hover:bg-stone-700 text-sand border-[2px] border-sand/20 rounded-sm transition-all font-serif shadow-sm text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-widest font-bold whitespace-nowrap cursor-pointer grow sm:grow-0"
+                        className="flex items-center gap-2 px-3 sm:px-4 py-2 h-10 bg-[var(--ui-secondary-button-bg)] hover:bg-[var(--ui-secondary-button-bg-hover)] text-sand border-[2px] border-sand/20 rounded-sm transition-all font-serif shadow-sm text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-widest font-bold whitespace-nowrap cursor-pointer grow sm:grow-0"
                     >
                         <Home className="w-4 h-4" />
                         {t('throw.return_to_lobby')}

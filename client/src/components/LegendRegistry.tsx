@@ -31,7 +31,7 @@ export function LegendContent() {
     ];
 
     return (
-        <div className="bg-[#FFFFF0] p-8 md:p-14 text-[#1A1110] relative overflow-hidden">
+        <div className="bg-[var(--ui-legend-paper)] p-8 md:p-14 text-[var(--ui-paper-text)] relative overflow-hidden">
             {/* Texture overlay for ivory feel */}
             <div
                 className="absolute inset-0 opacity-[0.05] pointer-events-none"
@@ -51,7 +51,7 @@ export function LegendContent() {
                     <div className="w-24 h-[2px] bg-royal-gold/20 mt-4" />
                 </div>
 
-                <div className="space-y-6 font-serif text-base md:text-lg leading-relaxed italic text-[#1A1110]/80 max-w-xl mx-auto text-center rtl:text-right ltr:text-left">
+                <div className="space-y-6 font-serif text-base md:text-lg leading-relaxed italic text-[var(--ui-paper-text)] opacity-80 max-w-xl mx-auto text-center rtl:text-right ltr:text-left">
                     <p className="first-letter:text-4xl first-letter:font-bold first-letter:text-royal-gold first-letter:me-2 first-letter:float-left rtl:first-letter:float-right">
                         {t('legend.p1')}
                     </p>
@@ -106,7 +106,7 @@ export function LegendContent() {
                                 <h4 className="font-bold text-royal-gold uppercase tracking-widest text-sm">
                                     {t(`sacred_houses.h${house.num}.title`)}
                                 </h4>
-                                <p className="font-serif text-[#1A1110]/70 text-sm leading-snug">
+                                <p className="font-serif text-[var(--ui-paper-text)] opacity-70 text-sm leading-snug">
                                     {t(`sacred_houses.h${house.num}.desc`)}
                                 </p>
                             </div>
@@ -135,7 +135,7 @@ export function LegendContent() {
                                 <span className="font-bold text-royal-gold uppercase text-[10px] tracking-widest mb-1 opacity-90">
                                     {t(`guide.labels.${key}`)}
                                 </span>
-                                <span className="font-serif text-[#1A1110]/80 text-sm md:text-base leading-relaxed">
+                                <span className="font-serif text-[var(--ui-paper-text)] opacity-80 text-sm md:text-base leading-relaxed">
                                     {t(`guide.${key}`)}
                                 </span>
                             </div>
@@ -163,8 +163,8 @@ export function LegendRegistry() {
                 onClick={() => setIsOpen(!isOpen)}
                 className={cn(
                     "w-full flex items-center justify-between p-5 rounded-t-lg transition-all duration-700",
-                    "bg-[#1A1110]/80 backdrop-blur-xl border border-royal-gold/40 shadow-2xl",
-                    "hover:bg-[#262423] group cursor-pointer",
+                    "bg-[var(--ui-legend-surface)] backdrop-blur-xl border border-royal-gold/40 shadow-2xl",
+                    "hover:bg-[var(--ui-legend-surface-hover)] group cursor-pointer",
                     !isOpen && "rounded-lg"
                 )}
             >

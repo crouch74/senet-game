@@ -29,6 +29,23 @@
         "wins": "{{player}} كسب!",
         "restart_game": "العب تاني",
         "language": "اللغة",
+        "theme": "الثيم",
+        "theme_options": {
+            "royal": "الزخرفة الملكية",
+            "moonlit_necropolis": "مقابر بضوء القمر",
+            "nile_papyrus": "بردي النيل",
+            "temple_fresco": "جداريات المعبد",
+            "solar_court": "البلاط الشمسي",
+            "afterlife_ember": "جمرة الآخرة"
+        },
+        "theme_descriptions": {
+            "royal": "الستايل الملكي الكلاسيكي بالذهب.",
+            "moonlit_necropolis": "ألوان ليلية باردة وحجر لازوردي.",
+            "nile_papyrus": "ألوان النيل والبَرْدي والتراب.",
+            "temple_fresco": "ألوان معدنية وجداريات حجرية.",
+            "solar_court": "إضاءة نهارية وذهب كهرماني.",
+            "afterlife_ember": "توهج جمري بطابع العالم السفلي."
+        },
         "players": {
             "anubis": "أنوبيس",
             "sphinx": "أبو الهول",

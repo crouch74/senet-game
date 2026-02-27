@@ -83,19 +83,21 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
                     // Complex shadow for physical presence: drop shadow + rim highlight + vertical offset
                     "shadow-[0_12px_24px_-8px_rgba(0,0,0,0.9),0_1px_2px_rgba(255,255,255,0.2),inset_0_-6px_10px_rgba(0,0,0,0.7),inset_0_2px_5px_rgba(255,255,255,0.1)]",
                     // Polished dark stone/ebony body for both players
-                    "bg-gradient-to-b from-[#3a2f2a] to-[#120c0a]",
-                    canMove && 'ring-2 ring-[#f3e5ab] shadow-[0_0_25px_rgba(243,229,171,0.7),inset_0_2px_4px_rgba(255,255,240,0.3)] z-10 -translate-y-2 animate-[pulse_2.5s_ease-in-out_infinite] drop-shadow-[0_8px_12px_rgba(0,0,0,0.6)]',
+                    "bg-gradient-to-b from-[var(--ui-piece-shell-from)] to-[var(--ui-piece-shell-to)]",
+                    canMove && 'ring-2 ring-[var(--ui-piece-legal-ring)] shadow-[0_0_25px_var(--ui-piece-glow-anubis),inset_0_2px_4px_var(--ui-piece-legal-inner)] z-10 -translate-y-2 animate-[pulse_2.5s_ease-in-out_infinite] drop-shadow-[0_8px_12px_rgba(0,0,0,0.6)]',
                     isCurrentPlayer && !canMove && 'ring-[1px] ring-royal-gold/30 shadow-[0_2px_8px_rgba(0,0,0,0.5)]',
                     hoveredPieceId === piece.id && '-translate-y-3 brightness-125 z-40 ring-4 ring-white shadow-[0_15px_40px_rgba(255,255,255,0.6),0_20px_20px_-10px_rgba(0,0,0,0.8)]'
                 )}
             >
                 {/* Engraved inlay section */}
-                <div className="absolute inset-[3px] rounded-full bg-gradient-to-br from-[#1a1110] to-[#0a0705] shadow-[inset_0_2px_4px_rgba(0,0,0,0.9)] flex items-center justify-center">
+                <div className="absolute inset-[3px] rounded-full bg-gradient-to-br from-[var(--ui-piece-core-from)] to-[var(--ui-piece-core-to)] shadow-[inset_0_2px_4px_rgba(0,0,0,0.9)] flex items-center justify-center">
                     {/* SVG Emblem */}
                     <div
                         className={cn(
                             "w-[65%] h-[65%] mask-image-center transition-all duration-300 jitter-stroke",
-                            piece.player === 'anubis' ? "bg-gradient-to-br from-[#f3e5ab] via-[#d4af37] to-[#996515]" : "bg-gradient-to-br from-[#EAE0C8] via-[#FFFFF0] to-[#C9BFA1]"
+                            piece.player === 'anubis'
+                                ? "bg-gradient-to-br from-[var(--ui-piece-emblem-anubis-from)] via-[var(--ui-piece-emblem-anubis-via)] to-[var(--ui-piece-emblem-anubis-to)]"
+                                : "bg-gradient-to-br from-[var(--ui-piece-emblem-sphinx-from)] via-[var(--ui-piece-emblem-sphinx-via)] to-[var(--ui-piece-emblem-sphinx-to)]"
                         )}
                         style={{
                             WebkitMaskImage: `url(/assets/royal/${piece.player === 'anubis' ? 'player_anubis.svg' : 'Sphinx.svg'})`,

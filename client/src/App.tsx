@@ -11,6 +11,7 @@ import { useSenetStore } from './engine/store';
 import { cn } from './utils/cn';
 import { formatNumber } from './utils/format';
 import { Copy, Check } from 'lucide-react';
+import { DEFAULT_THEME, isThemeId, THEME_STORAGE_KEY, type ThemeId } from './theme';
 
 const ROOM_PATH_REGEX = /^\/room\/([a-z]{3}-[a-z]{3}-[a-z]{3})\/?$/i;
 
@@ -24,6 +25,16 @@ const getRoomPermalinkPath = (roomCode: string) => `/room/${roomCode.toLowerCase
 const setLobbyPath = () => {
   if (window.location.pathname !== '/') {
     window.history.replaceState({}, '', '/');
+  }
+};
+
+const getInitialTheme = (): ThemeId => {
+  if (typeof window === 'undefined') return DEFAULT_THEME;
+  try {
+    const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+    return isThemeId(savedTheme) ? savedTheme : DEFAULT_THEME;
+  } catch {
+    return DEFAULT_THEME;
   }
 };
 
@@ -48,7 +59,9 @@ function App() {
   const { t, i18n } = useTranslation();
   const [showLobby, setShowLobby] = useState(true);
   const [copiedRoom, setCopiedRoom] = useState(false);
+  const [theme, setTheme] = useState<ThemeId>(getInitialTheme);
   const hasHandledPermalink = useRef(false);
+  const showLobbyScreen = showLobby && !isOnline && !isConnectingToRoom;
 
   const handleReturnToLobby = () => {
     if (isOnline || isConnectingToRoom) {
@@ -67,13 +80,6 @@ function App() {
     });
   };
 
-  // Auto-hide lobby when joining/playing online.
-  useEffect(() => {
-    if (isOnline || isConnectingToRoom) {
-      setShowLobby(false);
-    }
-  }, [isOnline, isConnectingToRoom]);
-
   useEffect(() => {
     if (hasHandledPermalink.current) return;
     hasHandledPermalink.current = true;
@@ -82,7 +88,6 @@ function App() {
     if (!roomCodeFromUrl) return;
 
     clearRoomJoinError();
-    setShowLobby(false);
     joinRoom(roomCodeFromUrl);
   }, [clearRoomJoinError, joinRoom]);
 
@@ -97,14 +102,23 @@ function App() {
 
   useEffect(() => {
     if (!roomJoinError) return;
-
-    setShowLobby(true);
     setLobbyPath();
   }, [roomJoinError]);
 
   useEffect(() => {
     document.documentElement.dir = i18n.language === 'ar-EG' ? 'rtl' : 'ltr';
   }, [i18n.language]);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    if (typeof window !== 'undefined') {
+      try {
+        window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+      } catch {
+        // Ignore storage failures (private mode / restricted storage).
+      }
+    }
+  }, [theme]);
 
   return (
     <div className={`min-h-screen bg-ebony text-sand flex flex-col font-sans selection:bg-gold/30 overflow-x-hidden ${i18n.language === 'ar-EG' ? 'font-arabic' : ''}`}>
@@ -126,17 +140,19 @@ function App() {
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-3 py-4 sm:px-4 sm:py-5 md:p-8 flex flex-col relative z-10 min-h-0">
         <HUD
-          isLobby={showLobby || isConnectingToRoom}
-          onReturnToLobby={!showLobby && !isConnectingToRoom ? handleReturnToLobby : undefined}
+          isLobby={showLobbyScreen || isConnectingToRoom}
+          onReturnToLobby={!showLobbyScreen && !isConnectingToRoom ? handleReturnToLobby : undefined}
+          theme={theme}
+          setTheme={setTheme}
         />
 
         <div className="flex-1 flex flex-col xl:flex-row gap-4 md:gap-6 xl:gap-8 items-stretch justify-center min-h-0">
-          {(!showLobby || isOnline || isConnectingToRoom) ? (
+          {!showLobbyScreen ? (
             <>
               {/* Main Game Area */}
               <div className="flex-1 min-w-0 w-full flex flex-col items-center justify-center order-2 xl:order-1 min-h-0">
                 {isOnline && roomId && !isWaitingForOpponent && (
-                  <div className="mb-4 flex w-full max-w-5xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between bg-black/40 border border-sand/20 rounded-lg p-3 sm:px-4 md:px-6 shadow-md backdrop-blur-sm shrink-0">
+                  <div className="mb-4 flex w-full max-w-5xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between bg-[var(--ui-panel-strong-bg)] border border-sand/20 rounded-lg p-3 sm:px-4 md:px-6 shadow-md backdrop-blur-sm shrink-0">
                     <div className="flex flex-col">
                       <span className="text-sand/60 text-xs uppercase tracking-wider font-bold mb-1">{t('lobby.room_number')}</span>
                       <div className="flex items-center gap-3">
@@ -201,7 +217,7 @@ function App() {
 
                       {/* Room code card */}
                       {roomId && (
-                        <div className="w-full bg-black/40 border border-royal-gold/30 rounded-lg p-5 backdrop-blur-sm shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+                        <div className="w-full bg-[var(--ui-panel-strong-bg)] border border-royal-gold/30 rounded-lg p-5 backdrop-blur-sm shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
                           <div className="text-sand/50 text-xs uppercase tracking-widest mb-2">{t('lobby.room_number')}</div>
                           <div className="flex items-center justify-center gap-4 mb-4">
                             <span className="text-gold font-mono text-2xl tracking-widest">{roomId}</span>
@@ -250,7 +266,7 @@ function App() {
                 ) : (
                   <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0">
                     <Board />
-                    <div className="w-full max-w-5xl mt-8 md:mt-12 mb-6 md:mb-8 bg-black/30 border border-royal-gold/20 rounded-lg p-4 sm:p-5 md:p-6 shadow-[inset_0_2px_15px_rgba(0,0,0,0.5)] flex flex-col lg:flex-row items-stretch gap-4 md:gap-6 lg:gap-8 backdrop-blur-sm">
+                    <div className="w-full max-w-5xl mt-8 md:mt-12 mb-6 md:mb-8 bg-[var(--ui-panel-bg)] border border-royal-gold/20 rounded-lg p-4 sm:p-5 md:p-6 shadow-[inset_0_2px_15px_rgba(0,0,0,0.5)] flex flex-col lg:flex-row items-stretch gap-4 md:gap-6 lg:gap-8 backdrop-blur-sm">
                       <div className="flex-1 w-full flex flex-col min-w-0 lg:border-e lg:border-royal-gold/10 lg:pe-8">
                         <ThrowSticks />
                       </div>
@@ -264,7 +280,7 @@ function App() {
 
               {/* Side Panel: History & Rules Info */}
               <div className="w-full max-w-full xl:w-96 xl:min-w-[20rem] xl:max-w-[24rem] flex flex-col xl:h-full min-h-0 gap-4 md:gap-6 xl:gap-8 order-1 xl:order-2 shrink-0">
-                <div className="bg-black/20 border-s-[2px] border-royal-gold/30 rounded-e-lg p-5 flex-1 flex flex-col min-h-0 shadow-inner overflow-hidden">
+                <div className="bg-[var(--ui-panel-bg)] border-s-[2px] border-royal-gold/30 rounded-e-lg p-5 flex-1 flex flex-col min-h-0 shadow-inner overflow-hidden">
                   <h2 className="text-gold font-serif text-lg border-b border-sand/20 pb-2 mb-2 uppercase tracking-wide shrink-0">
                     {t('app.chronicle')}
                   </h2>
@@ -292,7 +308,7 @@ function App() {
                   </div>
                 </div>
 
-                <div className="bg-ochre/5 border-s-[2px] border-ochre/40 rounded-e-lg p-5 text-sm shadow-inner shrink-0">
+                <div className="bg-[var(--ui-rule-bg)] border-s-[2px] border-[var(--ui-rule-border)] rounded-e-lg p-5 text-sm shadow-inner shrink-0">
                   <h3 className="text-ochre font-bold mb-2 flex items-center gap-2">
                     <span>📜</span> {t('app.rules_title', { name: t(`ruleset.names.${ruleset.id}`) })}
                   </h3>

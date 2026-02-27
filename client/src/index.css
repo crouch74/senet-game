@@ -6,17 +6,556 @@
   --color-ebony: #262423;
   --color-gold: #d4af37;
 
-  /* Royal Style Palette */
-  --color-royal-blue: #1034A6;
-  --color-royal-green: #378B6E;
-  /* Muted Malachite Green */
-  --color-royal-ivory: #FFFFF0;
-  --color-royal-gold: #D4AF37;
-  --color-royal-ebony: #1A1110;
+  --color-royal-blue: #1034a6;
+  --color-royal-green: #378b6e;
+  --color-royal-ivory: #fffff0;
+  --color-royal-gold: #d4af37;
+  --color-royal-ebony: #1a1110;
 
   --color-gold-base: #d4af37;
   --color-gold-highlight: #f3e5ab;
   --color-gold-shadow: #996515;
+}
+
+:root,
+html[data-theme="royal"] {
+  --color-sand: #dcb87d;
+  --color-ochre: #b86125;
+  --color-ebony: #262423;
+  --color-gold: #d4af37;
+  --color-royal-blue: #1034a6;
+  --color-royal-green: #378b6e;
+  --color-royal-ivory: #fffff0;
+  --color-royal-gold: #d4af37;
+  --color-royal-ebony: #1a1110;
+  --color-gold-base: #d4af37;
+  --color-gold-highlight: #f3e5ab;
+  --color-gold-shadow: #996515;
+
+  --ui-header-bg: rgba(42, 27, 24, 0.6);
+  --ui-header-border: rgba(212, 175, 55, 0.4);
+  --ui-header-shadow-inset: rgba(212, 175, 55, 0.1);
+  --ui-header-inner-bg: rgba(26, 17, 16, 0.5);
+  --ui-turn-pill-bg: #1a1110;
+  --ui-turn-pill-foreground: #1a1110;
+  --ui-input-bg: #1a1110;
+  --ui-input-bg-hover: #2a1b18;
+  --ui-paper-surface: #fcf8ed;
+  --ui-paper-surface-hover: #ffffff;
+  --ui-paper-text: #1a1110;
+  --ui-secondary-button-bg: #2f2b29;
+  --ui-secondary-button-bg-hover: #3a3634;
+
+  --ui-panel-bg: rgba(0, 0, 0, 0.3);
+  --ui-panel-strong-bg: rgba(0, 0, 0, 0.4);
+  --ui-panel-border: rgba(212, 175, 55, 0.2);
+  --ui-panel-border-strong: rgba(212, 175, 55, 0.3);
+  --ui-panel-divider: rgba(220, 184, 125, 0.2);
+
+  --ui-rule-bg: rgba(184, 97, 37, 0.08);
+  --ui-rule-border: rgba(184, 97, 37, 0.4);
+
+  --ui-board-frame: #1a1110;
+  --ui-board-overlay: rgba(42, 27, 24, 0.4);
+  --ui-board-overlay-edge: rgba(0, 0, 0, 0.8);
+  --ui-board-ivory: #e8e2d2;
+  --ui-board-grid: #d3ccb8;
+
+  --ui-square-base: #221714;
+  --ui-square-active: #3a2f2a;
+  --ui-square-hover: #2a1d1a;
+  --ui-square-special-border: rgba(211, 204, 184, 0.12);
+
+  --ui-piece-shell-from: #3a2f2a;
+  --ui-piece-shell-to: #120c0a;
+  --ui-piece-core-from: #1a1110;
+  --ui-piece-core-to: #0a0705;
+  --ui-piece-emblem-anubis-from: #f3e5ab;
+  --ui-piece-emblem-anubis-via: #d4af37;
+  --ui-piece-emblem-anubis-to: #996515;
+  --ui-piece-emblem-sphinx-from: #eae0c8;
+  --ui-piece-emblem-sphinx-via: #fffff0;
+  --ui-piece-emblem-sphinx-to: #c9bfa1;
+  --ui-piece-glow-anubis: rgba(212, 175, 55, 0.45);
+  --ui-piece-glow-sphinx: rgba(255, 255, 240, 0.4);
+  --ui-piece-legal-ring: #f3e5ab;
+  --ui-piece-legal-inner: rgba(255, 255, 240, 0.3);
+
+  --ui-stick-light: #d3ccb8;
+  --ui-stick-light-hover: #fcf8ed;
+  --ui-stick-dark: #1a1110;
+  --ui-stick-waiting: #4a3f3a;
+  --ui-stick-light-border: rgba(212, 175, 55, 0.4);
+
+  --ui-tooltip-bg: #fcf8ed;
+  --ui-tooltip-text: #1a1110;
+  --ui-tooltip-accent: #b86125;
+
+  --ui-modal-paper: #fffff0;
+  --ui-modal-shadow: rgba(0, 0, 0, 0.8);
+
+  --ui-legend-surface: rgba(26, 17, 16, 0.8);
+  --ui-legend-surface-hover: #262423;
+  --ui-legend-paper: #fffff0;
+
+  --ui-gameover-surface: #1c1715;
+  --ui-gameover-pattern-dot: #daa520;
+  --ui-gameover-secondary-bg: #2f2b29;
+  --ui-gameover-secondary-bg-hover: #3a3634;
+
+  --ui-scroll-track: rgba(0, 0, 0, 0.2);
+  --ui-scroll-thumb: rgba(212, 175, 55, 0.3);
+  --ui-scroll-thumb-hover: rgba(212, 175, 55, 0.5);
+}
+
+html[data-theme="moonlit-necropolis"] {
+  --color-sand: #c8d1de;
+  --color-ochre: #8a6b47;
+  --color-ebony: #0e1117;
+  --color-gold: #c9a227;
+  --color-royal-blue: #2b3a67;
+  --color-royal-green: #4f6d7a;
+  --color-royal-ivory: #e8edf5;
+  --color-royal-gold: #c9a227;
+  --color-royal-ebony: #0a0d12;
+  --color-gold-base: #c9a227;
+  --color-gold-highlight: #f0dfad;
+  --color-gold-shadow: #7f6520;
+
+  --ui-header-bg: rgba(18, 24, 36, 0.72);
+  --ui-header-border: rgba(201, 162, 39, 0.45);
+  --ui-header-shadow-inset: rgba(201, 162, 39, 0.12);
+  --ui-header-inner-bg: rgba(9, 13, 20, 0.62);
+  --ui-turn-pill-bg: #0d121b;
+  --ui-turn-pill-foreground: #101723;
+  --ui-input-bg: #0d121b;
+  --ui-input-bg-hover: #171f2d;
+  --ui-paper-surface: #e7edf6;
+  --ui-paper-surface-hover: #f2f6fc;
+  --ui-paper-text: #111827;
+  --ui-secondary-button-bg: #1b2435;
+  --ui-secondary-button-bg-hover: #243048;
+
+  --ui-panel-bg: rgba(6, 10, 16, 0.45);
+  --ui-panel-strong-bg: rgba(6, 10, 16, 0.62);
+  --ui-panel-border: rgba(201, 162, 39, 0.25);
+  --ui-panel-border-strong: rgba(201, 162, 39, 0.35);
+  --ui-panel-divider: rgba(200, 209, 222, 0.25);
+
+  --ui-rule-bg: rgba(79, 109, 122, 0.14);
+  --ui-rule-border: rgba(79, 109, 122, 0.42);
+
+  --ui-board-frame: #0a0d12;
+  --ui-board-overlay: rgba(43, 58, 103, 0.32);
+  --ui-board-overlay-edge: rgba(4, 7, 11, 0.85);
+  --ui-board-ivory: #dbe2ef;
+  --ui-board-grid: #bcc8dd;
+
+  --ui-square-base: #161d2a;
+  --ui-square-active: #243148;
+  --ui-square-hover: #1d283b;
+  --ui-square-special-border: rgba(188, 200, 221, 0.2);
+
+  --ui-piece-shell-from: #2a3750;
+  --ui-piece-shell-to: #101723;
+  --ui-piece-core-from: #121928;
+  --ui-piece-core-to: #080c14;
+  --ui-piece-emblem-anubis-from: #f0dfad;
+  --ui-piece-emblem-anubis-via: #c9a227;
+  --ui-piece-emblem-anubis-to: #7f6520;
+  --ui-piece-emblem-sphinx-from: #d6deea;
+  --ui-piece-emblem-sphinx-via: #f2f6fc;
+  --ui-piece-emblem-sphinx-to: #aeb9cd;
+  --ui-piece-glow-anubis: rgba(201, 162, 39, 0.45);
+  --ui-piece-glow-sphinx: rgba(232, 237, 245, 0.4);
+  --ui-piece-legal-ring: #f0dfad;
+  --ui-piece-legal-inner: rgba(232, 237, 245, 0.32);
+
+  --ui-stick-light: #c5d0e3;
+  --ui-stick-light-hover: #e8edf5;
+  --ui-stick-dark: #111827;
+  --ui-stick-waiting: #2a3548;
+  --ui-stick-light-border: rgba(201, 162, 39, 0.45);
+
+  --ui-tooltip-bg: #e8edf5;
+  --ui-tooltip-text: #111827;
+  --ui-tooltip-accent: #486183;
+
+  --ui-modal-paper: #e8edf5;
+  --ui-modal-shadow: rgba(2, 4, 7, 0.88);
+
+  --ui-legend-surface: rgba(10, 13, 18, 0.82);
+  --ui-legend-surface-hover: #161d2a;
+  --ui-legend-paper: #e8edf5;
+
+  --ui-gameover-surface: #131a28;
+  --ui-gameover-pattern-dot: #c9a227;
+  --ui-gameover-secondary-bg: #1b2435;
+  --ui-gameover-secondary-bg-hover: #243048;
+
+  --ui-scroll-track: rgba(10, 13, 18, 0.4);
+  --ui-scroll-thumb: rgba(201, 162, 39, 0.35);
+  --ui-scroll-thumb-hover: rgba(201, 162, 39, 0.55);
+}
+
+html[data-theme="nile-papyrus"] {
+  --color-sand: #cbb98a;
+  --color-ochre: #8a5c2f;
+  --color-ebony: #1f2a1f;
+  --color-gold: #b8863b;
+  --color-royal-blue: #2f4f5f;
+  --color-royal-green: #3e5e4c;
+  --color-royal-ivory: #efe8d0;
+  --color-royal-gold: #b8863b;
+  --color-royal-ebony: #172018;
+  --color-gold-base: #b8863b;
+  --color-gold-highlight: #e8d3a3;
+  --color-gold-shadow: #6e4f1f;
+
+  --ui-header-bg: rgba(28, 40, 30, 0.7);
+  --ui-header-border: rgba(184, 134, 59, 0.42);
+  --ui-header-shadow-inset: rgba(184, 134, 59, 0.1);
+  --ui-header-inner-bg: rgba(23, 32, 24, 0.6);
+  --ui-turn-pill-bg: #172018;
+  --ui-turn-pill-foreground: #172018;
+  --ui-input-bg: #172018;
+  --ui-input-bg-hover: #233226;
+  --ui-paper-surface: #f1ead5;
+  --ui-paper-surface-hover: #fcf5e3;
+  --ui-paper-text: #1c251c;
+  --ui-secondary-button-bg: #2b3a2d;
+  --ui-secondary-button-bg-hover: #344738;
+
+  --ui-panel-bg: rgba(15, 24, 16, 0.4);
+  --ui-panel-strong-bg: rgba(15, 24, 16, 0.56);
+  --ui-panel-border: rgba(184, 134, 59, 0.22);
+  --ui-panel-border-strong: rgba(184, 134, 59, 0.34);
+  --ui-panel-divider: rgba(203, 185, 138, 0.24);
+
+  --ui-rule-bg: rgba(62, 94, 76, 0.16);
+  --ui-rule-border: rgba(62, 94, 76, 0.42);
+
+  --ui-board-frame: #172018;
+  --ui-board-overlay: rgba(62, 94, 76, 0.3);
+  --ui-board-overlay-edge: rgba(7, 12, 8, 0.86);
+  --ui-board-ivory: #e4ddc5;
+  --ui-board-grid: #c6bfa6;
+
+  --ui-square-base: #1f2d24;
+  --ui-square-active: #314336;
+  --ui-square-hover: #293a2f;
+  --ui-square-special-border: rgba(198, 191, 166, 0.2);
+
+  --ui-piece-shell-from: #334538;
+  --ui-piece-shell-to: #131c15;
+  --ui-piece-core-from: #1d2a1f;
+  --ui-piece-core-to: #0f160f;
+  --ui-piece-emblem-anubis-from: #e8d3a3;
+  --ui-piece-emblem-anubis-via: #b8863b;
+  --ui-piece-emblem-anubis-to: #6e4f1f;
+  --ui-piece-emblem-sphinx-from: #ddd5ba;
+  --ui-piece-emblem-sphinx-via: #f1ead5;
+  --ui-piece-emblem-sphinx-to: #b6ac90;
+  --ui-piece-glow-anubis: rgba(184, 134, 59, 0.42);
+  --ui-piece-glow-sphinx: rgba(241, 234, 213, 0.37);
+  --ui-piece-legal-ring: #e8d3a3;
+  --ui-piece-legal-inner: rgba(241, 234, 213, 0.3);
+
+  --ui-stick-light: #d9cfb0;
+  --ui-stick-light-hover: #f1ead5;
+  --ui-stick-dark: #172018;
+  --ui-stick-waiting: #49584a;
+  --ui-stick-light-border: rgba(184, 134, 59, 0.45);
+
+  --ui-tooltip-bg: #f1ead5;
+  --ui-tooltip-text: #1c251c;
+  --ui-tooltip-accent: #8a5c2f;
+
+  --ui-modal-paper: #efe8d0;
+  --ui-modal-shadow: rgba(7, 12, 8, 0.85);
+
+  --ui-legend-surface: rgba(23, 32, 24, 0.84);
+  --ui-legend-surface-hover: #1f2d24;
+  --ui-legend-paper: #efe8d0;
+
+  --ui-gameover-surface: #1f2d24;
+  --ui-gameover-pattern-dot: #b8863b;
+  --ui-gameover-secondary-bg: #2b3a2d;
+  --ui-gameover-secondary-bg-hover: #344738;
+
+  --ui-scroll-track: rgba(15, 24, 16, 0.38);
+  --ui-scroll-thumb: rgba(184, 134, 59, 0.34);
+  --ui-scroll-thumb-hover: rgba(184, 134, 59, 0.52);
+}
+
+html[data-theme="temple-fresco"] {
+  --color-sand: #d7c39a;
+  --color-ochre: #8c3b2a;
+  --color-ebony: #2a1e1a;
+  --color-gold: #d1a24e;
+  --color-royal-blue: #2e5b8a;
+  --color-royal-green: #6b7f5a;
+  --color-royal-ivory: #f0e2c8;
+  --color-royal-gold: #d1a24e;
+  --color-royal-ebony: #221712;
+  --color-gold-base: #d1a24e;
+  --color-gold-highlight: #f0d7a5;
+  --color-gold-shadow: #7c5321;
+
+  --ui-header-bg: rgba(47, 31, 25, 0.68);
+  --ui-header-border: rgba(209, 162, 78, 0.42);
+  --ui-header-shadow-inset: rgba(209, 162, 78, 0.11);
+  --ui-header-inner-bg: rgba(34, 23, 18, 0.6);
+  --ui-turn-pill-bg: #221712;
+  --ui-turn-pill-foreground: #221712;
+  --ui-input-bg: #221712;
+  --ui-input-bg-hover: #34221b;
+  --ui-paper-surface: #f4e9d3;
+  --ui-paper-surface-hover: #fff4de;
+  --ui-paper-text: #221712;
+  --ui-secondary-button-bg: #3a2a22;
+  --ui-secondary-button-bg-hover: #4a352a;
+
+  --ui-panel-bg: rgba(20, 13, 11, 0.36);
+  --ui-panel-strong-bg: rgba(20, 13, 11, 0.52);
+  --ui-panel-border: rgba(209, 162, 78, 0.22);
+  --ui-panel-border-strong: rgba(209, 162, 78, 0.34);
+  --ui-panel-divider: rgba(215, 195, 154, 0.25);
+
+  --ui-rule-bg: rgba(140, 59, 42, 0.14);
+  --ui-rule-border: rgba(140, 59, 42, 0.45);
+
+  --ui-board-frame: #221712;
+  --ui-board-overlay: rgba(140, 59, 42, 0.28);
+  --ui-board-overlay-edge: rgba(7, 4, 3, 0.86);
+  --ui-board-ivory: #e8d8bc;
+  --ui-board-grid: #cdb998;
+
+  --ui-square-base: #2a1e1a;
+  --ui-square-active: #433127;
+  --ui-square-hover: #35261f;
+  --ui-square-special-border: rgba(205, 185, 152, 0.2);
+
+  --ui-piece-shell-from: #4b362a;
+  --ui-piece-shell-to: #1c130f;
+  --ui-piece-core-from: #2c1f18;
+  --ui-piece-core-to: #120b08;
+  --ui-piece-emblem-anubis-from: #f0d7a5;
+  --ui-piece-emblem-anubis-via: #d1a24e;
+  --ui-piece-emblem-anubis-to: #7c5321;
+  --ui-piece-emblem-sphinx-from: #e8d9bc;
+  --ui-piece-emblem-sphinx-via: #f7ecd7;
+  --ui-piece-emblem-sphinx-to: #bda98a;
+  --ui-piece-glow-anubis: rgba(209, 162, 78, 0.45);
+  --ui-piece-glow-sphinx: rgba(240, 226, 200, 0.36);
+  --ui-piece-legal-ring: #f0d7a5;
+  --ui-piece-legal-inner: rgba(240, 226, 200, 0.28);
+
+  --ui-stick-light: #dfcfaf;
+  --ui-stick-light-hover: #f4e9d3;
+  --ui-stick-dark: #221712;
+  --ui-stick-waiting: #5d4a3f;
+  --ui-stick-light-border: rgba(209, 162, 78, 0.46);
+
+  --ui-tooltip-bg: #f4e9d3;
+  --ui-tooltip-text: #221712;
+  --ui-tooltip-accent: #8c3b2a;
+
+  --ui-modal-paper: #f0e2c8;
+  --ui-modal-shadow: rgba(7, 4, 3, 0.86);
+
+  --ui-legend-surface: rgba(34, 23, 18, 0.84);
+  --ui-legend-surface-hover: #2a1e1a;
+  --ui-legend-paper: #f0e2c8;
+
+  --ui-gameover-surface: #2e211a;
+  --ui-gameover-pattern-dot: #d1a24e;
+  --ui-gameover-secondary-bg: #3a2a22;
+  --ui-gameover-secondary-bg-hover: #4a352a;
+
+  --ui-scroll-track: rgba(20, 13, 11, 0.35);
+  --ui-scroll-thumb: rgba(209, 162, 78, 0.35);
+  --ui-scroll-thumb-hover: rgba(209, 162, 78, 0.55);
+}
+
+html[data-theme="solar-court"] {
+  --color-sand: #f4e7c5;
+  --color-ochre: #b7742c;
+  --color-ebony: #5a3a21;
+  --color-gold: #d9b35d;
+  --color-royal-blue: #2f4f73;
+  --color-royal-green: #7e8f58;
+  --color-royal-ivory: #fff7df;
+  --color-royal-gold: #d9b35d;
+  --color-royal-ebony: #4b2f1a;
+  --color-gold-base: #d9b35d;
+  --color-gold-highlight: #f8e4b4;
+  --color-gold-shadow: #8d5f24;
+
+  --ui-header-bg: rgba(96, 62, 33, 0.66);
+  --ui-header-border: rgba(217, 179, 93, 0.5);
+  --ui-header-shadow-inset: rgba(248, 228, 180, 0.15);
+  --ui-header-inner-bg: rgba(75, 47, 26, 0.58);
+  --ui-turn-pill-bg: #4b2f1a;
+  --ui-turn-pill-foreground: #4b2f1a;
+  --ui-input-bg: #4b2f1a;
+  --ui-input-bg-hover: #6a4322;
+  --ui-paper-surface: #fff6de;
+  --ui-paper-surface-hover: #fffaf0;
+  --ui-paper-text: #4b2f1a;
+  --ui-secondary-button-bg: #6a4322;
+  --ui-secondary-button-bg-hover: #7a502b;
+
+  --ui-panel-bg: rgba(60, 35, 16, 0.3);
+  --ui-panel-strong-bg: rgba(60, 35, 16, 0.46);
+  --ui-panel-border: rgba(217, 179, 93, 0.3);
+  --ui-panel-border-strong: rgba(217, 179, 93, 0.42);
+  --ui-panel-divider: rgba(244, 231, 197, 0.3);
+
+  --ui-rule-bg: rgba(183, 116, 44, 0.2);
+  --ui-rule-border: rgba(183, 116, 44, 0.48);
+
+  --ui-board-frame: #4b2f1a;
+  --ui-board-overlay: rgba(183, 116, 44, 0.22);
+  --ui-board-overlay-edge: rgba(49, 29, 15, 0.66);
+  --ui-board-ivory: #f5e9cb;
+  --ui-board-grid: #e3cf9f;
+
+  --ui-square-base: #5c3b23;
+  --ui-square-active: #7c5230;
+  --ui-square-hover: #6d4829;
+  --ui-square-special-border: rgba(227, 207, 159, 0.25);
+
+  --ui-piece-shell-from: #80522f;
+  --ui-piece-shell-to: #3d2616;
+  --ui-piece-core-from: #5a3820;
+  --ui-piece-core-to: #2f1d11;
+  --ui-piece-emblem-anubis-from: #f8e4b4;
+  --ui-piece-emblem-anubis-via: #d9b35d;
+  --ui-piece-emblem-anubis-to: #8d5f24;
+  --ui-piece-emblem-sphinx-from: #f4e9cb;
+  --ui-piece-emblem-sphinx-via: #fff8e6;
+  --ui-piece-emblem-sphinx-to: #d4c09a;
+  --ui-piece-glow-anubis: rgba(217, 179, 93, 0.5);
+  --ui-piece-glow-sphinx: rgba(255, 247, 223, 0.45);
+  --ui-piece-legal-ring: #f8e4b4;
+  --ui-piece-legal-inner: rgba(255, 247, 223, 0.35);
+
+  --ui-stick-light: #ecddb8;
+  --ui-stick-light-hover: #fff6de;
+  --ui-stick-dark: #4b2f1a;
+  --ui-stick-waiting: #876547;
+  --ui-stick-light-border: rgba(217, 179, 93, 0.55);
+
+  --ui-tooltip-bg: #fff6de;
+  --ui-tooltip-text: #4b2f1a;
+  --ui-tooltip-accent: #b7742c;
+
+  --ui-modal-paper: #fff7df;
+  --ui-modal-shadow: rgba(30, 18, 10, 0.8);
+
+  --ui-legend-surface: rgba(75, 47, 26, 0.82);
+  --ui-legend-surface-hover: #5c3b23;
+  --ui-legend-paper: #fff7df;
+
+  --ui-gameover-surface: #5a3a21;
+  --ui-gameover-pattern-dot: #d9b35d;
+  --ui-gameover-secondary-bg: #6a4322;
+  --ui-gameover-secondary-bg-hover: #7a502b;
+
+  --ui-scroll-track: rgba(70, 43, 20, 0.32);
+  --ui-scroll-thumb: rgba(217, 179, 93, 0.4);
+  --ui-scroll-thumb-hover: rgba(217, 179, 93, 0.62);
+}
+
+html[data-theme="afterlife-ember"] {
+  --color-sand: #e7d8b5;
+  --color-ochre: #7a2e1c;
+  --color-ebony: #120f14;
+  --color-gold: #c97a2b;
+  --color-royal-blue: #4b3a61;
+  --color-royal-green: #6a6b4d;
+  --color-royal-ivory: #f2e6cc;
+  --color-royal-gold: #c97a2b;
+  --color-royal-ebony: #0d0a10;
+  --color-gold-base: #c97a2b;
+  --color-gold-highlight: #efc88a;
+  --color-gold-shadow: #6e3f17;
+
+  --ui-header-bg: rgba(31, 17, 22, 0.74);
+  --ui-header-border: rgba(201, 122, 43, 0.42);
+  --ui-header-shadow-inset: rgba(201, 122, 43, 0.12);
+  --ui-header-inner-bg: rgba(13, 10, 16, 0.64);
+  --ui-turn-pill-bg: #0d0a10;
+  --ui-turn-pill-foreground: #0d0a10;
+  --ui-input-bg: #0d0a10;
+  --ui-input-bg-hover: #221621;
+  --ui-paper-surface: #f8ecd7;
+  --ui-paper-surface-hover: #fff3e2;
+  --ui-paper-text: #1c1417;
+  --ui-secondary-button-bg: #2a1f2a;
+  --ui-secondary-button-bg-hover: #382a3a;
+
+  --ui-panel-bg: rgba(8, 6, 10, 0.42);
+  --ui-panel-strong-bg: rgba(8, 6, 10, 0.58);
+  --ui-panel-border: rgba(201, 122, 43, 0.22);
+  --ui-panel-border-strong: rgba(201, 122, 43, 0.34);
+  --ui-panel-divider: rgba(231, 216, 181, 0.24);
+
+  --ui-rule-bg: rgba(122, 46, 28, 0.2);
+  --ui-rule-border: rgba(122, 46, 28, 0.5);
+
+  --ui-board-frame: #0d0a10;
+  --ui-board-overlay: rgba(122, 46, 28, 0.24);
+  --ui-board-overlay-edge: rgba(0, 0, 0, 0.88);
+  --ui-board-ivory: #d8ccb0;
+  --ui-board-grid: #b8a98c;
+
+  --ui-square-base: #1b1319;
+  --ui-square-active: #33202a;
+  --ui-square-hover: #261821;
+  --ui-square-special-border: rgba(184, 169, 140, 0.2);
+
+  --ui-piece-shell-from: #462831;
+  --ui-piece-shell-to: #180f14;
+  --ui-piece-core-from: #26161d;
+  --ui-piece-core-to: #0e080c;
+  --ui-piece-emblem-anubis-from: #efc88a;
+  --ui-piece-emblem-anubis-via: #c97a2b;
+  --ui-piece-emblem-anubis-to: #6e3f17;
+  --ui-piece-emblem-sphinx-from: #e4d4b4;
+  --ui-piece-emblem-sphinx-via: #f8ecd7;
+  --ui-piece-emblem-sphinx-to: #b59f82;
+  --ui-piece-glow-anubis: rgba(201, 122, 43, 0.45);
+  --ui-piece-glow-sphinx: rgba(242, 230, 204, 0.4);
+  --ui-piece-legal-ring: #efc88a;
+  --ui-piece-legal-inner: rgba(242, 230, 204, 0.3);
+
+  --ui-stick-light: #d8c8a9;
+  --ui-stick-light-hover: #f8ecd7;
+  --ui-stick-dark: #0d0a10;
+  --ui-stick-waiting: #4d3a49;
+  --ui-stick-light-border: rgba(201, 122, 43, 0.48);
+
+  --ui-tooltip-bg: #f8ecd7;
+  --ui-tooltip-text: #1c1417;
+  --ui-tooltip-accent: #7a2e1c;
+
+  --ui-modal-paper: #f2e6cc;
+  --ui-modal-shadow: rgba(0, 0, 0, 0.88);
+
+  --ui-legend-surface: rgba(13, 10, 16, 0.84);
+  --ui-legend-surface-hover: #1b1319;
+  --ui-legend-paper: #f2e6cc;
+
+  --ui-gameover-surface: #1b1319;
+  --ui-gameover-pattern-dot: #c97a2b;
+  --ui-gameover-secondary-bg: #2a1f2a;
+  --ui-gameover-secondary-bg-hover: #382a3a;
+
+  --ui-scroll-track: rgba(8, 6, 10, 0.42);
+  --ui-scroll-thumb: rgba(201, 122, 43, 0.34);
+  --ui-scroll-thumb-hover: rgba(201, 122, 43, 0.52);
 }
 
 @layer base {
@@ -38,17 +577,17 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--ui-scroll-track);
   border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 55, 0.3);
+  background: var(--ui-scroll-thumb);
   border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(212, 175, 55, 0.5);
+  background: var(--ui-scroll-thumb-hover);
 }
 
 @keyframes shimmer {

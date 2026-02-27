@@ -29,6 +29,23 @@
         "wins": "{{player}} WINS!",
         "restart_game": "Restart Game",
         "language": "Language",
+        "theme": "Theme",
+        "theme_options": {
+            "royal": "Royal Inlay",
+            "moonlit_necropolis": "Moonlit Necropolis",
+            "nile_papyrus": "Nile Papyrus",
+            "temple_fresco": "Temple Fresco",
+            "solar_court": "Solar Court",
+            "afterlife_ember": "Afterlife Ember"
+        },
+        "theme_descriptions": {
+            "royal": "Classic inlaid faience and gold.",
+            "moonlit_necropolis": "Cool moonlit stone and lapis tones.",
+            "nile_papyrus": "Reed green, silt, and papyrus earth.",
+            "temple_fresco": "Mineral pigments and painted limestone.",
+            "solar_court": "Ceremonial daylight stone and amber.",
+            "afterlife_ember": "Underworld ember glow and shadow."
+        },
         "players": {
             "anubis": "ANUBIS",
             "sphinx": "SPHINX",
