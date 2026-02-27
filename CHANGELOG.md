@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Initial project setup with React Vite frontend, FastAPI backend, and Docker configuration.
 - Localized the application with i18n support for English (en), Egyptian Arabic (ar-EG), and French (fr).
+- Setup two separated Docker development services enabling Vite Hot-Reload (HMR) for the frontend on port 5173, and Uvicorn Hot-Reload for the backend on port 8000.
 
 ### Fixed
 - Fixed board orientation and rendering in Right-to-Left (RTL) languages by explicitly forcing LTR physical grid progression.
