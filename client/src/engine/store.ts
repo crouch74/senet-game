@@ -56,6 +56,8 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
         else if (rulesetId === 'common') newRuleset = CommonRuleset;
         else newRuleset = DefaultCustomRuleset;
 
+        console.log(`📜 Changed active ruleset to: ${newRuleset.name}`);
+
         set({ ...createInitialState(newRuleset), ruleset: newRuleset, legalMoves: [] });
     },
 

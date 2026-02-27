@@ -4,7 +4,7 @@ import { ThrowSticks } from './components/ThrowSticks';
 import { useSenetStore } from './engine/store';
 
 function App() {
-  const { historyLog } = useSenetStore();
+  const { historyLog, ruleset } = useSenetStore();
 
   return (
     <div className="min-h-screen bg-ebony text-sand flex flex-col font-sans selection:bg-gold/30">
@@ -39,15 +39,17 @@ function App() {
 
             <div className="bg-ochre/10 border border-ochre/30 rounded-lg p-4 text-sm">
               <h3 className="text-ochre font-bold mb-2 flex items-center gap-2">
-                <span>📜</span> Historical Note
+                <span>📜</span> {ruleset.name} Rules
               </h3>
-              <p className="text-sand/80 mb-2 text-xs leading-relaxed">
-                Senet is one of the oldest known board games, dating back to c. 3100 BC.
-                The exact rules are lost to time, but have been reconstructed by historians like Timothy Kendall and Edgar Pusch.
+              <p className="text-sand/80 mb-3 text-xs leading-relaxed italic border-b border-sand/20 pb-2">
+                {ruleset.description}
               </p>
-              <p className="text-sand/80 text-xs leading-relaxed">
-                The board represents the journey to the afterlife, with squares 26-30 depicting the judgment of the soul by the gods.
-              </p>
+              <ul className="text-sand/80 text-xs flex flex-col gap-1.5 list-none m-0 p-0">
+                <li><strong className="text-sand">Capture Mode:</strong> {ruleset.captureMode === 'swap' ? 'Swap positions' : 'Forward only'}</li>
+                <li><strong className="text-sand">Protected Adjacency:</strong> {ruleset.protectedAdjacency ? `Yes, ${ruleset.protectedAdjacencyCount} pieces` : 'No'}</li>
+                <li><strong className="text-sand">Blockades:</strong> {ruleset.blockadeLength > 0 ? `Yes, ${ruleset.blockadeLength} pieces` : 'No'}</li>
+                <li><strong className="text-sand">Bearing Off:</strong> {ruleset.bearingOffRequirements === 'exact' ? 'Requires exact throw' : 'Any sufficient throw'}</li>
+              </ul>
             </div>
           </div>
         </div>
