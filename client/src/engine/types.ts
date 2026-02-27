@@ -1,4 +1,4 @@
-export type PlayerID = 'light' | 'dark';
+export type PlayerID = 'anubis' | 'sphinx';
 
 export interface Piece {
     id: string;

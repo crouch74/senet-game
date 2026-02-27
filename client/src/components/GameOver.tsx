@@ -85,7 +85,7 @@ export function GameOver({ onReturnToLobby }: GameOverProps) {
                         <div className="flex flex-col items-center gap-2">
                             <div className={cn(
                                 "text-3xl font-bold px-6 py-2 rounded-lg border",
-                                winner === 'light'
+                                winner === 'anubis'
                                     ? "bg-royal-gold/20 border-royal-gold text-royal-gold"
                                     : "bg-royal-ebony/40 border-royal-gold/30 text-sand"
                             )}>

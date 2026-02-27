@@ -32,7 +32,7 @@ export function HUD({ isLobby = false }: { isLobby?: boolean }) {
                             <div className="text-sm text-royal-ivory/80 font-mono tracking-widest uppercase">{t('hud.current_turn')}</div>
                             <div className={cn(
                                 "px-6 py-1.5 rounded-sm font-bold uppercase tracking-widest text-sm shadow-[0_2px_5px_rgba(0,0,0,0.5)] transition-all duration-300 border",
-                                currentPlayer === 'light'
+                                currentPlayer === 'anubis'
                                     ? 'bg-royal-gold text-[#1a1110] border-yellow-300/50'
                                     : 'bg-[#1a1110] text-royal-gold border-royal-gold/80',
                             )}>

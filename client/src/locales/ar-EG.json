@@ -8,7 +8,7 @@
         "capture_mode": "طريقة الأكل:",
         "swap_positions": "تبديل الأماكن",
         "forward_only": "لقدام بس",
-        "protected_adjacency": "الجنبية المحمية:",
+        "protected_adjacency": "الزوج المقدس:",
         "yes_pieces": "أيوه، {{num}} قطع",
         "no": "لأ",
         "blockades": "الحواجز:",
@@ -25,13 +25,13 @@
     "hud": {
         "senet": "سينيت",
         "rules": "{{name}}",
-        "current_turn": "دورك",
+        "current_turn": "دور",
         "wins": "{{player}} كسب!",
         "restart_game": "العب تاني",
         "language": "اللغة",
         "players": {
-            "light": "النور",
-            "dark": "الضلمة"
+            "anubis": "أنوبيس",
+            "sphinx": "أبو الهول"
         }
     },
     "throw": {

@@ -4,23 +4,23 @@ import type { Ruleset } from './types';
 
 export const INITIAL_BOARD: Piece[] = [
     // Senet usually starts with pieces alternating on the first 10 squares
-    // e.g., Light, Dark, Light, Dark...
-    { id: 'L1', player: 'light', position: 1 },
-    { id: 'D1', player: 'dark', position: 2 },
-    { id: 'L2', player: 'light', position: 3 },
-    { id: 'D2', player: 'dark', position: 4 },
-    { id: 'L3', player: 'light', position: 5 },
-    { id: 'D3', player: 'dark', position: 6 },
-    { id: 'L4', player: 'light', position: 7 },
-    { id: 'D4', player: 'dark', position: 8 },
-    { id: 'L5', player: 'light', position: 9 },
-    { id: 'D5', player: 'dark', position: 10 },
+    // e.g., Anubis, Sphinx, Anubis, Sphinx...
+    { id: 'L1', player: 'anubis', position: 1 },
+    { id: 'D1', player: 'sphinx', position: 2 },
+    { id: 'L2', player: 'anubis', position: 3 },
+    { id: 'D2', player: 'sphinx', position: 4 },
+    { id: 'L3', player: 'anubis', position: 5 },
+    { id: 'D3', player: 'sphinx', position: 6 },
+    { id: 'L4', player: 'anubis', position: 7 },
+    { id: 'D4', player: 'sphinx', position: 8 },
+    { id: 'L5', player: 'anubis', position: 9 },
+    { id: 'D5', player: 'sphinx', position: 10 },
 ];
 
 export function createInitialState(ruleset: Ruleset = CommonRuleset): GameState {
     return {
         board: JSON.parse(JSON.stringify(INITIAL_BOARD)),
-        currentPlayer: 'light',
+        currentPlayer: 'anubis',
         currentThrow: null,
         ruleset,
         winner: null,
@@ -222,7 +222,7 @@ export function applyMove(gameState: GameState, pieceId: string): GameState {
     const earnsExtraThrow = newState.ruleset.extraThrowConditions.includes(throwValue);
 
     if (!earnsExtraThrow) {
-        newState.currentPlayer = newState.currentPlayer === 'light' ? 'dark' : 'light';
+        newState.currentPlayer = newState.currentPlayer === 'anubis' ? 'sphinx' : 'anubis';
     } else {
         newState.historyLog.push({
             key: 'history.extra_throw',
@@ -245,7 +245,7 @@ export function autoPassIfNoMoves(gameState: GameState): GameState {
             params: { player: newState.currentPlayer },
             player: newState.currentPlayer
         });
-        newState.currentPlayer = newState.currentPlayer === 'light' ? 'dark' : 'light';
+        newState.currentPlayer = newState.currentPlayer === 'anubis' ? 'sphinx' : 'anubis';
         newState.currentThrow = null;
         return newState;
     }

@@ -110,7 +110,7 @@ function App() {
                             <span
                               className={cn(
                                 "w-2 h-2 rounded-full mt-1.5 shrink-0 shadow-[0_0_5px_rgba(0,0,0,0.5)]",
-                                log.player === 'light' ? "bg-royal-gold" : "bg-royal-ebony border border-royal-gold/30"
+                                log.player === 'anubis' ? "bg-royal-gold" : "bg-royal-ebony border border-royal-gold/30"
                               )}
                               title={t(`hud.players.${log.player}`)}
                             />

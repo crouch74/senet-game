@@ -95,14 +95,14 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
                     <div
                         className={cn(
                             "w-[65%] h-[65%] mask-image-center transition-all duration-300 jitter-stroke",
-                            piece.player === 'light' ? "bg-gradient-to-br from-[#f3e5ab] via-[#d4af37] to-[#996515]" : "bg-gradient-to-br from-[#EAE0C8] via-[#FFFFF0] to-[#C9BFA1]"
+                            piece.player === 'anubis' ? "bg-gradient-to-br from-[#f3e5ab] via-[#d4af37] to-[#996515]" : "bg-gradient-to-br from-[#EAE0C8] via-[#FFFFF0] to-[#C9BFA1]"
                         )}
                         style={{
-                            WebkitMaskImage: `url(/assets/royal/${piece.player === 'light' ? 'player_anubis.svg' : 'Sphinx.svg'})`,
+                            WebkitMaskImage: `url(/assets/royal/${piece.player === 'anubis' ? 'player_anubis.svg' : 'Sphinx.svg'})`,
                             WebkitMaskRepeat: 'no-repeat',
                             WebkitMaskPosition: 'center',
                             WebkitMaskSize: 'contain',
-                            maskImage: `url(/assets/royal/${piece.player === 'light' ? 'player_anubis.svg' : 'Sphinx.svg'})`,
+                            maskImage: `url(/assets/royal/${piece.player === 'anubis' ? 'player_anubis.svg' : 'Sphinx.svg'})`,
                             maskRepeat: 'no-repeat',
                             maskPosition: 'center',
                             maskSize: 'contain',

@@ -9,8 +9,8 @@ export function Afterlife() {
     const { t } = useTranslation();
 
     const borneOffPieces = board.filter(p => p.position === 31);
-    const lightPieces = borneOffPieces.filter(p => p.player === 'light');
-    const darkPieces = borneOffPieces.filter(p => p.player === 'dark');
+    const lightPieces = borneOffPieces.filter(p => p.player === 'anubis');
+    const darkPieces = borneOffPieces.filter(p => p.player === 'sphinx');
 
     return (
         <div className="flex flex-col items-center p-4 bg-[#1A1110]/60 backdrop-blur-md rounded-sm border-[2px] border-royal-gold/40 shadow-[0_15px_35px_rgba(0,0,0,0.7),inset_0_0_20px_rgba(0,0,0,0.5)] relative overflow-hidden w-64 h-full group transition-all duration-500 hover:border-royal-gold/60">
@@ -46,7 +46,7 @@ export function Afterlife() {
                                 "relative w-10 h-10 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(255,255,255,0.1)] flex items-center justify-center transition-all duration-300",
                                 // Dark stone/ebony body
                                 "bg-gradient-to-b from-[#3a2f2a] to-[#120c0a] border border-royal-gold/20",
-                                piece.player === 'light' ? "shadow-[0_0_10px_rgba(212,175,55,0.3)]" : "shadow-[0_0_10px_rgba(255,255,240,0.3)]"
+                                piece.player === 'anubis' ? "shadow-[0_0_10px_rgba(212,175,55,0.3)]" : "shadow-[0_0_10px_rgba(255,255,240,0.3)]"
                             )}
                         >
                             <div className="absolute inset-[2px] rounded-full bg-gradient-to-br from-[#1a1110] to-[#0a0705] shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)] flex items-center justify-center overflow-hidden">
@@ -55,14 +55,14 @@ export function Afterlife() {
                                 <div
                                     className={cn(
                                         "w-[60%] h-[60%] mask-image-center",
-                                        piece.player === 'light' ? "bg-gradient-to-br from-[#f3e5ab] via-[#d4af37] to-[#996515]" : "bg-gradient-to-br from-[#EAE0C8] via-[#FFFFF0] to-[#C9BFA1]"
+                                        piece.player === 'anubis' ? "bg-gradient-to-br from-[#f3e5ab] via-[#d4af37] to-[#996515]" : "bg-gradient-to-br from-[#EAE0C8] via-[#FFFFF0] to-[#C9BFA1]"
                                     )}
                                     style={{
-                                        WebkitMaskImage: `url(/assets/royal/${piece.player === 'light' ? 'player_anubis.svg' : 'Sphinx.svg'})`,
+                                        WebkitMaskImage: `url(/assets/royal/${piece.player === 'anubis' ? 'player_anubis.svg' : 'Sphinx.svg'})`,
                                         WebkitMaskRepeat: 'no-repeat',
                                         WebkitMaskPosition: 'center',
                                         WebkitMaskSize: 'contain',
-                                        maskImage: `url(/assets/royal/${piece.player === 'light' ? 'player_anubis.svg' : 'Sphinx.svg'})`,
+                                        maskImage: `url(/assets/royal/${piece.player === 'anubis' ? 'player_anubis.svg' : 'Sphinx.svg'})`,
                                         maskRepeat: 'no-repeat',
                                         maskPosition: 'center',
                                         maskSize: 'contain',
@@ -77,14 +77,14 @@ export function Afterlife() {
             {/* Counters */}
             <div className="mt-4 flex justify-between w-full px-1">
                 <div className="flex flex-col items-center">
-                    <span className="text-[10px] text-royal-gold uppercase tracking-widest font-bold mb-1 opacity-70">{t('hud.players.light')}</span>
+                    <span className="text-[10px] text-royal-gold uppercase tracking-widest font-bold mb-1 opacity-70">{t('hud.players.anubis')}</span>
                     <div className="text-xl font-serif text-royal-gold font-bold">
                         {formatNumber(lightPieces.length)}
                     </div>
                 </div>
                 <div className="h-8 w-[1px] bg-royal-gold/20 self-center" />
                 <div className="flex flex-col items-center">
-                    <span className="text-[10px] text-royal-ivory uppercase tracking-widest font-bold mb-1 opacity-70">{t('hud.players.dark')}</span>
+                    <span className="text-[10px] text-royal-ivory uppercase tracking-widest font-bold mb-1 opacity-70">{t('hud.players.sphinx')}</span>
                     <div className="text-xl font-serif text-royal-ivory font-bold">
                         {formatNumber(darkPieces.length)}
                     </div>

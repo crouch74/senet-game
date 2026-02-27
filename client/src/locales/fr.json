@@ -30,8 +30,8 @@
         "restart_game": "Recommencer la partie",
         "language": "Langue",
         "players": {
-            "light": "LUMIÈRE",
-            "dark": "TÉNÈBRES"
+            "anubis": "ANUBIS",
+            "sphinx": "SPHINX"
         }
     },
     "throw": {

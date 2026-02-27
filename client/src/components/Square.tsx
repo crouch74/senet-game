@@ -43,13 +43,13 @@ export function Square({ number }: SquareProps) {
                 "after:absolute after:inset-0 after:bg-gradient-to-tr after:from-black/20 after:to-white/5 after:pointer-events-none",
                 isLegalMove && cn(
                     "cursor-pointer",
-                    currentPlayer === 'light'
+                    currentPlayer === 'anubis'
                         ? "ring-1 ring-royal-gold/40 shadow-[inset_0_0_30px_rgba(212,175,55,0.2)]"
                         : "ring-1 ring-royal-ivory/40 shadow-[inset_0_0_30px_rgba(255,255,240,0.2)]"
                 ),
                 isHoveredTarget && cn(
                     "z-20 scale-[1.02] bg-[#2a1d1a]",
-                    currentPlayer === 'light'
+                    currentPlayer === 'anubis'
                         ? "ring-2 ring-royal-gold shadow-[0_10px_30px_rgba(212,175,55,0.4),inset_0_0_40px_rgba(212,175,55,0.2)]"
                         : "ring-2 ring-royal-ivory shadow-[0_10px_30px_rgba(255,255,240,0.4),inset_0_0_40px_rgba(255,255,240,0.2)]"
                 )
@@ -156,7 +156,7 @@ export function Square({ number }: SquareProps) {
             {isLegalMove && (
                 <div className={cn(
                     "absolute inset-x-0 bottom-1 h-[2px] animate-pulse transition-all duration-300",
-                    currentPlayer === 'light'
+                    currentPlayer === 'anubis'
                         ? "bg-gradient-to-r from-transparent via-royal-gold to-transparent shadow-[0_0_12px_rgba(212,175,55,0.8)]"
                         : "bg-gradient-to-r from-transparent via-royal-ivory to-transparent shadow-[0_0_12px_rgba(255,255,240,0.8)]",
                     isHoveredTarget && "h-[4px] bottom-0 opacity-100 via-white shadow-[0_0_20px_rgba(255,255,255,0.6)]"

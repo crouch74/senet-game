@@ -28,7 +28,7 @@ def create_room():
         letters = ''.join(random.choices(string.ascii_lowercase, k=9))
         room_id = f"{letters[:3]}-{letters[3:6]}-{letters[6:]}"
         if room_id not in active_rooms:
-            active_rooms[room_id] = {"light": None, "dark": None}
+            active_rooms[room_id] = {"anubis": None, "sphinx": None}
             logger.info(f"🏠 [REST] Created new room {room_id}")
             return {"room_id": room_id}
 
@@ -46,12 +46,12 @@ async def websocket_endpoint(websocket: WebSocket, room_id: str):
     
     # Assign player color based on availability
     assigned_color = None
-    if room["light"] is None:
-        assigned_color = "light"
-        room["light"] = websocket
-    elif room["dark"] is None:
-        assigned_color = "dark"
-        room["dark"] = websocket
+    if room["anubis"] is None:
+        assigned_color = "anubis"
+        room["anubis"] = websocket
+    elif room["sphinx"] is None:
+        assigned_color = "sphinx"
+        room["sphinx"] = websocket
     else:
         # Room is full
         logger.warning(f"🚫 [WS] Connection to room {room_id} rejected. Room full.")
@@ -67,7 +67,7 @@ async def websocket_endpoint(websocket: WebSocket, room_id: str):
             data = await websocket.receive_text()
             
             # Forward the message to the other player in the room
-            other_color = "dark" if assigned_color == "light" else "light"
+            other_color = "sphinx" if assigned_color == "anubis" else "anubis"
             other_ws = room[other_color]
             
             if other_ws:
@@ -78,12 +78,12 @@ async def websocket_endpoint(websocket: WebSocket, room_id: str):
         room[assigned_color] = None
         
         # Cleanup room if empty
-        if room["light"] is None and room["dark"] is None:
+        if room["anubis"] is None and room["sphinx"] is None:
             del active_rooms[room_id]
             logger.info(f"🧹 [WS] Room {room_id} closed")
         else:
             # Notify the other player that their opponent disconnected
-            other_color = "dark" if assigned_color == "light" else "light"
+            other_color = "sphinx" if assigned_color == "anubis" else "anubis"
             other_ws = room[other_color]
             if other_ws:
                 try:

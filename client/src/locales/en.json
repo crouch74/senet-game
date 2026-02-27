@@ -30,8 +30,8 @@
         "restart_game": "Restart Game",
         "language": "Language",
         "players": {
-            "light": "LIGHT",
-            "dark": "DARK"
+            "anubis": "ANUBIS",
+            "sphinx": "SPHINX"
         }
     },
     "throw": {
