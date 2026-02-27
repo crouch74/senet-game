@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sand: #dcb87d;
+  --color-ochre: #b86125;
+  --color-ebony: #262423;
+  --color-gold: #d4af37;
+}
+
+@layer base {
+  body {
+    @apply bg-ebony text-sand;
+    margin: 0;
+    min-height: 100vh;
+  }
+}
