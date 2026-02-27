@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:pages": "echo \"🚀 Building static site for GitHub Pages...\" && npm run build && node scripts/prepare-pages.mjs && echo \"✅ GitHub Pages static output ready in dist/\"",
     "lint": "eslint .",
     "preview": "vite preview"
   },

@@ -14,3 +14,19 @@ A modern digital version of the ancient Egyptian board game Senet.
 1. Run `docker compose up --build`
 2. Open `http://localhost:5173` for the frontend (with hot reload enabled)
 3. The backend API is available via `http://localhost:8000/api`
+
+## GitHub Pages (Offline/Static Build)
+
+1. In GitHub, open your repository settings:
+   - `Settings` -> `Pages`
+   - Under `Build and deployment`, set `Source` to `GitHub Actions`
+2. Push to `main` (or run the `Deploy GitHub Pages` workflow manually).
+3. Final URL pattern:
+   - `https://<USER>.github.io/<REPO>/`
+   - For this repo: `https://<USER>.github.io/senet-game/`
+4. Base path configuration:
+   - Production base path is derived from the repository name in CI.
+   - Optional override: set `VITE_BASE_PATH` (example: `/senet-game/`).
+5. Local static-output test:
+   - Build Pages output: `cd client && npm run build:pages`
+   - Serve built files as static output: `npx serve dist -s -l 4173`
