@@ -36,6 +36,7 @@
         "effect": "Effet : {{effect}}",
         "requires_throw": "Requis : Jet de {{num}}",
         "cannot_bypass": "Ne peut pas être contourné",
+        "lore": "Légende",
         "effects": {
             "none": "Aucun",
             "lock": "Verrouiller",
@@ -49,6 +50,14 @@
             "28": "Maison des Trois Vérités",
             "29": "Maison de Re-Atoum",
             "30": "Maison d'Horus"
+        },
+        "contexts": {
+            "15": "Le point de départ de la résurrection, où les âmes déchues renaissent pour continuer leur voyage.",
+            "26": "Un arrêt obligatoire pour la préparation et l'embaumement avant d'affronter les périls du monde souterrain.",
+            "27": "L'abîme chaotique. Les âmes non préparées peuvent s'y noyer et être ramenées à la Maison de la Renaissance.",
+            "28": "La salle du jugement, où le cœur est pesé contre la plume de Maât.",
+            "29": "Rejoindre le dieu soleil Rê-Atoum dans son voyage éternel sur la barque solaire.",
+            "30": "Le seuil final. S'échapper avec la bénédiction d'Horus vers l'au-delà éternel."
         }
     },
     "ruleset": {

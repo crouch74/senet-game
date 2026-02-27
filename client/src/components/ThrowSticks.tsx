@@ -14,12 +14,12 @@ export function ThrowSticks() {
     };
 
     return (
-        <div className="flex flex-col items-center mt-8 p-6 bg-[#fcf8ed] rounded-sm border-[2px] border-royal-gold/80 shadow-[0_15px_30px_rgba(0,0,0,0.8),inset_0_0_20px_rgba(212,175,55,0.05)] relative overflow-hidden max-w-lg mx-auto w-full">
+        <div className="flex flex-col items-center mt-6 p-4 bg-[#2a1b18]/40 backdrop-blur-sm rounded-sm border-[1px] border-royal-gold/30 shadow-[0_10px_20px_rgba(0,0,0,0.6),inset_0_0_10px_rgba(212,175,55,0.05)] relative overflow-hidden max-w-md mx-auto w-full group">
             {/* Lotus/Gold decorative borders */}
             <div className="absolute top-2 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-60" />
             <div className="absolute bottom-2 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-60" />
 
-            <div className="text-xl font-serif text-[#1a1110] font-bold tracking-widest uppercase mb-6 drop-shadow-sm">
+            <div className="text-xl font-serif text-royal-ivory font-bold tracking-widest uppercase mb-4 drop-shadow-sm opacity-90">
                 {t('throw.turn', { player: t(`hud.players.${currentPlayer}`) })}
             </div>
 
@@ -96,7 +96,7 @@ export function ThrowSticks() {
                         )}
                     </motion.div>
                 ) : (
-                    <div className="text-[#1a1110]/50 font-bold uppercase tracking-[0.2em] animate-pulse">
+                    <div className="text-royal-gold font-bold uppercase tracking-[0.2em] animate-pulse drop-shadow-md text-lg -mt-2 group-hover:scale-105 transition-transform duration-300">
                         {winner ? t('throw.game_over') : t('throw.click_to_throw')}
                     </div>
                 )}

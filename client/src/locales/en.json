@@ -36,6 +36,7 @@
         "effect": "Effect: {{effect}}",
         "requires_throw": "Requires: Throw of {{num}}",
         "cannot_bypass": "Cannot bypass",
+        "lore": "Lore",
         "effects": {
             "none": "None",
             "lock": "Lock",
@@ -49,6 +50,14 @@
             "28": "House of Three Truths",
             "29": "House of Re-Atoum",
             "30": "House of Horus"
+        },
+        "contexts": {
+            "15": "The starting point of resurrection, where fallen souls are reborn to continue their journey.",
+            "26": "A mandatory stop for preparation and embalming before facing the perils of the netherworld.",
+            "27": "The chaotic abyss. Souls unprepared may drown and be swept back to the House of Rebirth.",
+            "28": "The hall of judgment, where the heart is weighed against the feather of Ma'at.",
+            "29": "Joining the sun god Re-Atum on his eternal solar bark journey.",
+            "30": "The final threshold. Escaping with the blessing of Horus into the eternal afterlife."
         }
     },
     "ruleset": {

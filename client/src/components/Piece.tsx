@@ -72,7 +72,7 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
                     "relative w-[70%] h-[70%] rounded-full shadow-[0_8px_15px_rgba(0,0,0,0.8),inset_0_2px_4px_rgba(255,255,255,0.1),inset_0_-4px_8px_rgba(0,0,0,0.6)] flex items-center justify-center transition-all duration-300",
                     // Polished dark stone/ebony body for both players
                     "bg-gradient-to-b from-[#3a2f2a] to-[#120c0a]",
-                    canMove && 'ring-[1px] ring-royal-gold shadow-[0_0_15px_rgba(212,175,55,0.4),inset_0_2px_4px_rgba(255,255,255,0.1)] z-10 scale-110 drop-shadow-[0_4px_4px_rgba(212,175,55,0.3)]',
+                    canMove && 'ring-2 ring-[#f3e5ab] shadow-[0_0_20px_rgba(243,229,171,0.6),inset_0_2px_4px_rgba(255,255,255,0.2)] z-10 scale-[1.15] -translate-y-1 animate-[pulse_2s_ease-in-out_infinite] drop-shadow-[0_4px_6px_rgba(212,175,55,0.4)]',
                     isCurrentPlayer && !canMove && 'ring-[0.5px] ring-royal-gold/50 shadow-[0_0_8px_rgba(212,175,55,0.2)]'
                 )}
             >
@@ -82,7 +82,7 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
                     <div
                         className={cn(
                             "w-[65%] h-[65%] mask-image-center transition-all duration-300",
-                            piece.player === 'light' ? "bg-royal-gold" : "bg-royal-ivory"
+                            piece.player === 'light' ? "bg-gradient-to-br from-[#f3e5ab] via-[#d4af37] to-[#996515]" : "bg-gradient-to-br from-[#EAE0C8] via-[#FFFFF0] to-[#C9BFA1]"
                         )}
                         style={{
                             WebkitMaskImage: `url(/assets/royal/${piece.player === 'light' ? 'player_anubis.svg' : 'Sphinx.svg'})`,

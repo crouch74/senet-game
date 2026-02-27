@@ -13,6 +13,10 @@
   --color-royal-ivory: #FFFFF0;
   --color-royal-gold: #D4AF37;
   --color-royal-ebony: #1A1110;
+
+  --color-gold-base: #d4af37;
+  --color-gold-highlight: #f3e5ab;
+  --color-gold-shadow: #996515;
 }
 
 @layer base {

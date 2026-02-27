@@ -58,8 +58,8 @@ function App() {
               </div>
 
               {/* Side Panel: History & Rules Info */}
-              <div className="w-full xl:w-96 flex flex-col h-full gap-4 order-1 xl:order-2 shrink-0">
-                <div className="bg-black/40 border border-sand/20 rounded-lg p-4 flex-1 overflow-hidden flex flex-col h-64 xl:h-auto">
+              <div className="w-full xl:w-96 flex flex-col h-full gap-8 order-1 xl:order-2 shrink-0">
+                <div className="bg-black/20 border-l-[2px] border-royal-gold/30 rounded-r-lg p-5 flex-1 overflow-hidden flex flex-col h-64 xl:h-auto shadow-inner">
                   <h2 className="text-gold font-serif text-lg border-b border-sand/20 pb-2 mb-2 uppercase tracking-wide">
                     {t('app.chronicle')}
                   </h2>
@@ -78,7 +78,7 @@ function App() {
                   </div>
                 </div>
 
-                <div className="bg-ochre/10 border border-ochre/30 rounded-lg p-4 text-sm">
+                <div className="bg-ochre/5 border-l-[2px] border-ochre/40 rounded-r-lg p-5 text-sm shadow-inner">
                   <h3 className="text-ochre font-bold mb-2 flex items-center gap-2">
                     <span>📜</span> {t('app.rules_title', { name: t(`ruleset.names.${ruleset.id}`) })}
                   </h3>

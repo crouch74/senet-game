@@ -1,20 +1,18 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-
-## [Unreleased]
-### Added
-- Implemented real-time online multiplayer over WebSockets utilizing FastAPI endpoints and React Lobby UI.
-- Initial project setup with React Vite frontend, FastAPI backend, and Docker configuration.
-- Localized the application with i18n support for English (en), Egyptian Arabic (ar-EG), and French (fr).
-- Setup two separated Docker development services enabling Vite Hot-Reload (HMR) for the frontend on port 5173, and Uvicorn Hot-Reload for the backend on port 8000.
-
-### Fixed
-- Fixed board orientation and rendering in Right-to-Left (RTL) languages by explicitly forcing LTR physical grid progression.
-- Handled mixed-directionality formatting in the history log by transitioning to an `i18n` structured parsing flow instead of static string formatting.
-
-### Changed
-- Refactored `App.tsx` side panel to display dynamic rules based on the currently selected game mode, replacing the generic historical note.
-
-### Removed
-- Removed the 'Museum Classroom' and 'Custom (Toggleable)' gamemodes/rulesets from the engine to focus strictly on the historically detailed 'Common Reconstruction' option.
+## Unreleased
+- Refined Visual & Material System:
+  - Unified material language for a carved luxury artifact feel.
+  - Replaced flat white piece silhouettes with gradient textured gold and ivory tokens.
+  - Standardized the gold color system with base, highlight, and shadow variants.
+  - Embedded special squares (26-30) glyphs directly as inlaid materials inside the squares instead of overlay cartouches.
+- Improved Layout & Hierarchy:
+  - Reduced dice container brightness and shrunk its visual footprint slightly.
+  - Expanded vertical spacing in the left sidebar and reduced heavy borders replacing them with slim left borders.
+- Enhanced Interaction:
+  - Added a soft pulse animation, elevation, and a distinct gold rim highlight to movable game pieces.
+  - Improved throw instructions contrast and visibility with an attention-grabbing pulse.
+- Localized Arabic copy: Fixed formal terms (إعادة اللعبة, الدور الحالي, السجل, انقر على العصا للرمي) to conversational Egyptian dialect matches for better immersion.
+- Repeated icons for the last three houses on the board (House 28: three times, House 29: two times, House 30: one time) for historical accuracy.
+- Enhanced special squares pop-up tooltips to include historical "Lore/Afterlife Context" showing the mythological meaning behind each of the final five houses.
+- Localized the Lore text in English, Egyptian Arabic, and French.

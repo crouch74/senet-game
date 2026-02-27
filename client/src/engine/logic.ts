@@ -58,18 +58,18 @@ export function isValidMove(gameState: GameState, pieceId: string, steps: number
 
     const targetSquare = piece.position + steps;
 
-    // Check backward moves (requires some rulesets, but keeping it simple for now: only forward, unless blocked? Usually Senet allows some backward if no forward.)
-    // We'll enforce strictly forward unless 27 (Water) happens.
+    // Special constraint for the last 3 squares (Houses 28, 29, 30)
+    const currentSquareDetails = gameState.ruleset.specialSquares[piece.position];
+    if (currentSquareDetails?.effect === 'require_throw') {
+        if (steps !== currentSquareDetails.requiredThrow) {
+            return { valid: false, reason: `Requires exactly a throw of ${currentSquareDetails.requiredThrow} to bear off. Cannot move between the last 3 houses.` };
+        }
+    }
 
     if (targetSquare > 30) {
         // Bearing off logic
         if (gameState.ruleset.bearingOffRequirements === 'exact' && targetSquare !== 31) {
             return { valid: false, reason: "Requires exact throw to bear off" };
-        }
-        // Check if House 30 requires a specific throw
-        const currentSquareDetails = gameState.ruleset.specialSquares[piece.position];
-        if (currentSquareDetails?.effect === 'require_throw' && steps !== currentSquareDetails.requiredThrow) {
-            return { valid: false, reason: `Requires a throw of ${currentSquareDetails.requiredThrow} to move` };
         }
     }
 
