@@ -89,10 +89,10 @@ export function isValidMove(gameState: GameState, pieceId: string, steps: number
         }
     }
 
-    // Check House of Happiness (26) rules
+    // Check House of Beauty (26) rules
     if (gameState.ruleset.specialSquares[26] && !gameState.ruleset.specialSquares[26].canBypass) {
         if (piece.position < 26 && targetSquare > 26) {
-            return { valid: false, reason: "Cannot bypass the House of Happiness (Square 26)" };
+            return { valid: false, reason: "Cannot bypass the House of Beauty (Square 26)" };
         }
     }
 
