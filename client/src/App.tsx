@@ -6,11 +6,12 @@ import { ThrowSticks } from './components/ThrowSticks';
 import { Afterlife } from './components/Afterlife';
 import { Lobby } from './components/Lobby';
 import { GameOver } from './components/GameOver';
+import { GuideModal } from './components/GuideModal';
 import { useSenetStore } from './engine/store';
 import { cn } from './utils/cn';
 
 function App() {
-  const { historyLog, ruleset, isOnline, roomId, localPlayer, leaveRoom, winner } = useSenetStore();
+  const { historyLog, ruleset, isOnline, roomId, localPlayer, leaveRoom, winner, showGuide, setShowGuide } = useSenetStore();
   const { t, i18n } = useTranslation();
   const [showLobby, setShowLobby] = useState(true);
 
@@ -38,6 +39,7 @@ function App() {
       <div className="fixed inset-0 pointer-events-none opacity-5 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-sand via-ebony to-ebony" />
       <div className="noise-overlay" />
 
+      <GuideModal isOpen={showGuide} onClose={() => setShowGuide(false)} />
       {winner && <GameOver onReturnToLobby={handleReturnToLobby} />}
 
       {/* SVG Filters for micro-imperfections */}

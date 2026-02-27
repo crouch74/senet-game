@@ -33,15 +33,15 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
     };
 
     return (
-        <div className="flex-1 w-full flex items-center justify-center p-4 min-h-[60vh]">
-            <div className="bg-black/40 border border-sand/20 rounded-lg p-8 max-w-sm w-full backdrop-blur-sm shadow-2xl">
-                <h1 className="text-4xl text-gold font-serif mb-8 text-center tracking-widest drop-shadow-md">SENET</h1>
+        <div className="flex-1 w-full flex flex-col items-center justify-center p-4 py-20 overflow-y-auto custom-scrollbar">
+            <div className="bg-black/40 border border-royal-gold/20 rounded-lg p-8 max-w-sm w-full backdrop-blur-sm shadow-2xl shrink-0">
+                <h1 className="text-4xl text-royal-gold font-serif mb-8 text-center tracking-[0.4em] drop-shadow-md">SENET</h1>
 
                 <div className="flex flex-col gap-5">
                     <button
                         type="button"
                         onClick={handleCreate}
-                        className="bg-gold hover:bg-gold/90 text-ebony font-bold py-3 rounded-md transition-all shadow-lg hover:shadow-gold/20 cursor-pointer"
+                        className="bg-royal-gold hover:bg-royal-gold/90 text-royal-ebony font-bold py-3 rounded-md transition-all shadow-lg hover:shadow-royal-gold/20 cursor-pointer"
                     >
                         {t('lobby.create_room', 'Create New Room')}
                     </button>
@@ -63,7 +63,7 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
                                 value={roomInput}
                                 onChange={(e) => setRoomInput(e.target.value)}
                                 placeholder={t('lobby.room_placeholder', 'e.g. abc-def-ghi')}
-                                className="flex-1 bg-ebony/60 border border-sand/30 rounded-md p-3 text-sand placeholder:text-sand/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all"
+                                className="flex-1 bg-royal-ebony/60 border border-sand/30 rounded-md p-3 text-sand placeholder:text-sand/30 focus:outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold transition-all"
                             />
                             <button
                                 type="submit"
@@ -84,7 +84,7 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
                     <button
                         type="button"
                         onClick={onPlayOffline}
-                        className="bg-ebony border border-sand/30 hover:bg-sand/10 text-sand font-bold py-3 rounded-md transition-all shadow-md cursor-pointer"
+                        className="bg-royal-ebony border border-sand/30 hover:bg-royal-gold/10 text-sand font-bold py-3 rounded-md transition-all shadow-md cursor-pointer"
                     >
                         {t('lobby.play_offline', 'Play Offline')}
                     </button>
@@ -93,3 +93,5 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
         </div>
     );
 }
+
+

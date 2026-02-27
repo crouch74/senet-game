@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
+import { BookOpen } from 'lucide-react';
 
 export function HUD() {
-    const { currentPlayer, ruleset, winner, resetGame } = useSenetStore();
+    const { currentPlayer, ruleset, winner, resetGame, isOnline, setShowGuide } = useSenetStore();
     const { t, i18n } = useTranslation();
 
     const changeLanguage = (lng: string) => {
@@ -41,6 +42,17 @@ export function HUD() {
             </div>
 
             <div className="flex flex-col md:flex-row items-center gap-4">
+                <button
+                    onClick={() => setShowGuide(true)}
+                    className="flex items-center gap-2 px-3 h-10 bg-royal-gold/10 hover:bg-royal-gold/20 text-royal-gold border border-royal-gold/30 rounded-sm transition-all cursor-pointer group whitespace-nowrap"
+                    title={t('legend.registry_title')}
+                >
+                    <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    <span className="font-serif text-xs uppercase tracking-widest font-bold hidden sm:block">
+                        {t('guide.button_label')}
+                    </span>
+                </button>
+
                 <select
                     className="bg-[#1a1110] text-royal-ivory border-[1.5px] border-royal-gold/60 rounded-sm px-3 py-1 text-sm outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold/50 h-10 font-serif tracking-wider shadow-inner hover:bg-[#2a1b18] transition-colors"
                     value={i18n.language}
@@ -52,12 +64,14 @@ export function HUD() {
                 </select>
 
                 <div className="flex flex-col items-center md:items-end w-full">
-                    <button
-                        onClick={resetGame}
-                        className="w-full md:w-auto px-6 py-2 bg-[#fcf8ed] hover:bg-white text-[#1a1110] border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-sm uppercase tracking-widest font-bold hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:scale-105"
-                    >
-                        {t('hud.restart_game')}
-                    </button>
+                    {!isOnline && (
+                        <button
+                            onClick={resetGame}
+                            className="w-full md:w-auto px-6 py-2 bg-[#fcf8ed] hover:bg-white text-[#1a1110] border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-sm uppercase tracking-widest font-bold hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:scale-105"
+                        >
+                            {t('hud.restart_game')}
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

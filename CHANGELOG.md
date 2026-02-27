@@ -1,6 +1,17 @@
 # Changelog
 
 ## Unreleased
+- **Refined Quick Guide & Rule System**:
+  - Integrated a persistent "GUIDE" button in the header bar with a text label for instant access to game rules.
+  - Implemented the `GuideModal` using React Portals and global state to ensure perfect centering and top-level stacking.
+  - **Core Rule Correction**: Reverted maximum throw to 5 (0 light sides = 5 moves) and adjusted extra turn logic to trigger on 1, 4, or 5.
+  - **Thematic Branding**: Removed technical rule names (e.g., "Common Rules") in favor of immersive branding ("Sacred Path").
+  - Fixed RTL alignment and drop-cap positioning for Arabic localization in the narrative section.
+  - Added missing localized section labels (Objective, Movement, etc.) and localized the guide category headers.
+- **HUD & Modal Refinement**:
+  - Refactored `LegendRegistry` into a shared content architecture used by both the lobby and the header modal.
+  - Constrained the "Restart Game" button visibility to offline sessions only.
+  - Improved modal backdrop with deep blur and spring animations for a premium feel.
 - Refined Visual & Material System:
   - Unified material language for a carved luxury artifact feel.
   - Replaced flat white piece silhouettes with gradient textured gold and ivory tokens.

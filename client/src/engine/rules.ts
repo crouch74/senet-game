@@ -2,7 +2,7 @@ import type { Ruleset } from './types';
 
 export const CommonRuleset: Ruleset = {
     id: 'common',
-    name: 'Common Reconstruction (Detailed)',
+    name: 'Sacred Path',
     description: 'A richer ruleset with protected pairs, blockades, and swap-capture logic matching widely-circulated rules.',
     captureMode: 'swap',
     protectedAdjacency: true,

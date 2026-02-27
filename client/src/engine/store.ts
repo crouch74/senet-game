@@ -24,6 +24,10 @@ interface SenetStore extends GameState {
     hoveredPieceId: string | null;
     setHoveredPieceId: (pieceId: string | null) => void;
     lastMove: { pieceId: string; from: number; to: number; isCapture?: boolean } | null;
+
+    // UI Modals
+    showGuide: boolean;
+    setShowGuide: (show: boolean) => void;
 }
 
 export const useSenetStore = create<SenetStore>((set, get) => ({
@@ -32,6 +36,9 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
     hoveredPieceId: null,
     setHoveredPieceId: (id) => set({ hoveredPieceId: id }),
     lastMove: null,
+
+    showGuide: false,
+    setShowGuide: (show) => set({ showGuide: show }),
 
     // Online states
     isOnline: false,

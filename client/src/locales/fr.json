@@ -1,4 +1,8 @@
 {
+    "common": {
+        "open": "Ouvrir",
+        "close": "Fermer"
+    },
     "app": {
         "chronicle": "Chronique",
         "capture_mode": "Mode de Capture :",
@@ -11,7 +15,7 @@
         "bearing_off": "Sortie des Pièces :",
         "requires_exact_throw": "Jet exact requis",
         "any_sufficient_throw": "Tout jet suffisant",
-        "rules_title": "Règles {{name}}"
+        "rules_title": "Tradition Ancestrale"
     },
     "afterlife": {
         "title": "Au-delà",
@@ -19,7 +23,7 @@
     },
     "hud": {
         "senet": "Senet",
-        "rules": "Règles : {{name}}",
+        "rules": "{{name}}",
         "current_turn": "Tour Actuel :",
         "wins": "{{player}} GAGNE !",
         "restart_game": "Recommencer la partie",
@@ -72,10 +76,10 @@
     },
     "ruleset": {
         "names": {
-            "common": "Reconstruction Commune"
+            "common": "Voie Sacrée"
         },
         "descriptions": {
-            "common": "Des règles plus riches avec des paires protégées, des blocages et une logique de capture par échange, correspondant aux règles largement diffusées."
+            "common": "Le chemin traditionnel de l'âme à travers la Douat, impliquant des paires protégées et des blocages stratégiques."
         }
     },
     "history": {
@@ -97,5 +101,58 @@
         "join_create": "Rejoindre / Créer",
         "or": "ou",
         "play_offline": "Jouer hors ligne"
+    },
+    "legend": {
+        "registry_title": "Légende & Instructions",
+        "registry_subtitle": "TOME DU SAVOIR",
+        "title": "LA LÉGENDE DU SENET",
+        "p1": "Avant que la première pierre ne soit sculptée, le Senet se jouait déjà. Ce n'est pas un simple divertissement pour les vivants, mais une carte du passage de l'âme à travers la Douat. Chaque mouvement est un pas dans le crépuscule, là où les ombres du passé se mesurent à la lumière du futur.",
+        "p2": "Cinq pièces représentent les fragments d'un esprit, s'efforçant d'atteindre l'horizon au-delà de l'épreuve. Le plateau est le chemin du voyage nocturne du soleil, une géométrie sacrée où le sort est jeté par les bâtonnets et le destin tissé par les mains des dieux.",
+        "p3": "Gagner, c'est transcender le cycle des renaissances et rejoindre les étoiles éternelles. Perdre, c'est rester dans les sables mouvants, en attendant une nouvelle aube pour tenter à nouveau le voyage."
+    },
+    "sacred_houses": {
+        "title": "MAISONS SACRÉES",
+        "h26": {
+            "title": "Maison du Bonheur",
+            "desc": "La Maison de la Régénération. Un sanctuaire où l'âme se ressource avant l'ascension finale."
+        },
+        "h27": {
+            "title": "Maison de l'Eau",
+            "desc": "L'Abîme Chaotique. Un piège périlleux où les imprudents sont ramenés au début du cycle de renaissance."
+        },
+        "h28": {
+            "title": "Maison de la Vérité",
+            "desc": "La Salle de Maât. Ici, l'esprit doit rester ferme, car seuls les cœurs purs peuvent avancer."
+        },
+        "h29": {
+            "title": "Maison de Rê-Atoum",
+            "desc": "La Barque Solaire. Rejoindre le dieu soleil Rê-Atoum dans son voyage éternel."
+        },
+        "h30": {
+            "title": "Maison d'Horus",
+            "desc": "Le Seuil Final. Franchir la porte avec la bénédiction d'Horus vers l'éternité."
+        }
+    },
+    "guide": {
+        "title": "COMMENT JOUER",
+        "button_label": "Guide",
+        "labels": {
+            "objective": "Objectif",
+            "movement": "Mouvement",
+            "throwing": "Le Lancer",
+            "capturing": "Capture",
+            "protection": "Protection",
+            "blockades": "Blocages",
+            "special": "Maisons Sacrées",
+            "bearing_off": "Ascension"
+        },
+        "objective": "Sortez vos cinq pièces du plateau pour assurer votre place dans l'au-delà.",
+        "movement": "Les pièces suivent un chemin en S à travers trois rangées de dix cases.",
+        "throwing": "Le jet de quatre bâtonnets détermine votre mouvement (1, 2, 3, 4 ou 5 cases). Les jets de 1, 4 ou 5 accordent un tour supplémentaire.",
+        "capturing": "Atterrissez sur une pièce adverse isolée pour échanger vos positions avec elle.",
+        "protection": "Deux pièces adjacentes de la même couleur sont protégées et ne peuvent pas être capturées.",
+        "blockades": "Trois pièces adjacentes ou plus forment une barrière infranchissable pour l'adversaire.",
+        "special": "Les cinq dernières maisons ont des significations sacrées et des épreuves uniques.",
+        "bearing_off": "Les pièces doivent sortir du plateau exactement au-delà de la dernière case avec un jet précis."
     }
 }
