@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Copy, Check } from 'lucide-react';
 import { Board } from './components/Board';
 import { HUD } from './components/HUD';
 import { ThrowSticks } from './components/ThrowSticks';
@@ -11,58 +12,15 @@ import { useSenetStore } from './engine/store';
 import type { OfflineMode } from './engine/types';
 import { cn } from './utils/cn';
 import { formatNumber } from './utils/format';
-import { stripBasePath, withBasePath } from './utils/urls';
-import { Copy, Check } from 'lucide-react';
-import { DEFAULT_THEME, isThemeId, THEME_STORAGE_KEY, type ThemeId } from './theme';
-
-const ROOM_PATH_REGEX = /^\/room\/([a-z]{3}-[a-z]{3}-[a-z]{3})\/?$/i;
-const OFFLINE_MODE_PATH_REGEX = /^\/mode\/(pass-and-play|vs-pc)\/?$/i;
-const OFFLINE_MODE_TO_SLUG: Record<OfflineMode, string> = {
-  play_and_pass: 'pass-and-play',
-  vs_pc: 'vs-pc'
-};
-const SLUG_TO_OFFLINE_MODE: Record<string, OfflineMode> = {
-  'pass-and-play': 'play_and_pass',
-  'vs-pc': 'vs_pc'
-};
-
-const getRoomCodeFromPath = (path: string) => {
-  const match = stripBasePath(path).match(ROOM_PATH_REGEX);
-  return match ? match[1].toLowerCase() : null;
-};
-
-const getRoomPermalinkPath = (roomCode: string) => withBasePath(`/room/${roomCode.toLowerCase()}`);
-const getOfflineModePermalinkPath = (mode: OfflineMode) => withBasePath(`/mode/${OFFLINE_MODE_TO_SLUG[mode]}`);
-
-const getOfflineModeFromPath = (path: string): OfflineMode | null => {
-  const match = stripBasePath(path).match(OFFLINE_MODE_PATH_REGEX);
-  if (!match) return null;
-  return SLUG_TO_OFFLINE_MODE[match[1].toLowerCase()] ?? null;
-};
-
-const setLobbyPath = () => {
-  const lobbyPath = withBasePath('/');
-  if (window.location.pathname !== lobbyPath) {
-    window.history.replaceState({}, '', lobbyPath);
-  }
-};
-
-const setOfflineModePath = (mode: OfflineMode) => {
-  const modePath = getOfflineModePermalinkPath(mode);
-  if (window.location.pathname !== modePath) {
-    window.history.replaceState({}, '', modePath);
-  }
-};
-
-const getInitialTheme = (): ThemeId => {
-  if (typeof window === 'undefined') return DEFAULT_THEME;
-  try {
-    const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
-    return isThemeId(savedTheme) ? savedTheme : DEFAULT_THEME;
-  } catch {
-    return DEFAULT_THEME;
-  }
-};
+import { type ThemeId } from './theme';
+import {
+  getInitialPermalinkState,
+  setLobbyPath,
+  setOfflineModePath,
+  setRoomPath
+} from './app/permalinks';
+import { applyTheme, getInitialTheme } from './app/themePersistence';
+import { useComputerTurn } from './app/useComputerTurn';
 
 function App() {
   const {
@@ -85,13 +43,18 @@ function App() {
     showGuide,
     setShowGuide,
     setOfflineMode,
-    resetGame
+    resetGame,
+    playRandomTurns
   } = useSenetStore();
   const { t, i18n } = useTranslation();
-  const [showLobby, setShowLobby] = useState(true);
+  const [initialPermalinkState] = useState(() =>
+    getInitialPermalinkState(
+      typeof window === 'undefined' ? '/' : window.location.pathname
+    )
+  );
+  const [showLobby, setShowLobby] = useState(initialPermalinkState.showLobby);
   const [copiedRoom, setCopiedRoom] = useState(false);
   const [theme, setTheme] = useState<ThemeId>(getInitialTheme);
-  const hasHandledPermalink = useRef(false);
   const showLobbyScreen = showLobby && !isOnline && !isConnectingToRoom;
 
   const handleReturnToLobby = () => {
@@ -99,6 +62,12 @@ function App() {
       leaveRoom();
     }
     resetGame();
+    setShowLobby(true);
+    setLobbyPath();
+  };
+
+  const handleLeaveRoom = () => {
+    leaveRoom();
     setShowLobby(true);
     setLobbyPath();
   };
@@ -119,32 +88,24 @@ function App() {
   };
 
   useEffect(() => {
-    if (hasHandledPermalink.current) return;
-    hasHandledPermalink.current = true;
+    const { roomCode, offlineMode: initialOfflineMode } = initialPermalinkState;
 
-    const roomCodeFromUrl = getRoomCodeFromPath(window.location.pathname);
-    if (roomCodeFromUrl) {
+    if (roomCode) {
       clearRoomJoinError();
-      joinRoom(roomCodeFromUrl);
+      joinRoom(roomCode);
       return;
     }
 
-    const offlineModeFromUrl = getOfflineModeFromPath(window.location.pathname);
-    if (!offlineModeFromUrl) return;
+    if (!initialOfflineMode) return;
 
     clearRoomJoinError();
-    setOfflineMode(offlineModeFromUrl);
+    setOfflineMode(initialOfflineMode);
     resetGame();
-    setShowLobby(false);
-  }, [clearRoomJoinError, joinRoom, resetGame, setOfflineMode]);
+  }, [clearRoomJoinError, initialPermalinkState, joinRoom, resetGame, setOfflineMode]);
 
   useEffect(() => {
     if (!isOnline || !roomId) return;
-
-    const permalinkPath = getRoomPermalinkPath(roomId);
-    if (window.location.pathname !== permalinkPath) {
-      window.history.replaceState({}, '', permalinkPath);
-    }
+    setRoomPath(roomId);
   }, [isOnline, roomId]);
 
   useEffect(() => {
@@ -163,35 +124,17 @@ function App() {
   }, [i18n.language]);
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    if (typeof window !== 'undefined') {
-      try {
-        window.localStorage.setItem(THEME_STORAGE_KEY, theme);
-      } catch {
-        // Ignore storage failures (private mode / restricted storage).
-      }
-    }
+    applyTheme(theme);
   }, [theme]);
 
-  useEffect(() => {
-    if (showLobbyScreen) return;
-    if (isOnline || isConnectingToRoom) return;
-    if (offlineMode !== 'vs_pc') return;
-    if (winner || isAutoPlaying || isAutoRolling) return;
-    if (currentPlayer !== 'sphinx') return;
-
-    const timer = window.setTimeout(() => {
-      const state = useSenetStore.getState();
-      if (state.isOnline || state.isConnectingToRoom) return;
-      if (state.offlineMode !== 'vs_pc') return;
-      if (state.winner || state.isAutoPlaying || state.isAutoRolling) return;
-      if (state.currentPlayer !== 'sphinx') return;
-
-      state.playRandomTurns(1, 'human');
-    }, 300);
-
-    return () => window.clearTimeout(timer);
-  }, [showLobbyScreen, isOnline, isConnectingToRoom, offlineMode, winner, isAutoPlaying, isAutoRolling, currentPlayer]);
+  useComputerTurn({
+    currentPlayer,
+    enabled: !showLobbyScreen && !isOnline && !isConnectingToRoom && offlineMode === 'vs_pc',
+    isAutoPlaying,
+    isAutoRolling,
+    playRandomTurns,
+    winner
+  });
 
   return (
     <div className={`min-h-screen bg-ebony text-sand flex flex-col font-sans selection:bg-gold/30 overflow-x-hidden ${i18n.language === 'ar-EG' ? 'font-arabic' : ''}`}>
@@ -253,7 +196,7 @@ function App() {
                       <span className="text-sand font-bold text-lg capitalize">{localPlayer ? t(`hud.players.${localPlayer}`) : ''}</span>
                     </div>
                     <button
-                      onClick={() => { leaveRoom(); setShowLobby(true); setLobbyPath(); }}
+                      onClick={handleLeaveRoom}
                       className="w-full sm:w-auto bg-red-900/40 hover:bg-red-900/80 text-sand px-4 py-2 rounded-md text-sm border border-red-500/30 transition-colors shadow-sm sm:ms-4 cursor-pointer"
                     >
                       {t('lobby.leave_room')}
@@ -329,7 +272,7 @@ function App() {
 
                       {/* Leave button */}
                       <button
-                        onClick={() => { leaveRoom(); setShowLobby(true); setLobbyPath(); }}
+                        onClick={handleLeaveRoom}
                         className="text-sand/40 hover:text-sand/70 text-xs uppercase tracking-widest underline underline-offset-4 transition-colors cursor-pointer"
                       >
                         {t('lobby.leave_room')}

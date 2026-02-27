@@ -1,23 +1,25 @@
-const normalizeBasePath = (baseUrl: string): string => {
+export const normalizeBasePath = (baseUrl: string): string => {
     if (!baseUrl) return '/';
     let normalized = baseUrl.startsWith('/') ? baseUrl : `/${baseUrl}`;
     if (!normalized.endsWith('/')) normalized = `${normalized}/`;
     return normalized;
 };
 
-const deriveGithubPagesBasePath = (pathname: string): string | null => {
+export const deriveGithubPagesBasePath = (pathname: string): string | null => {
     const parts = pathname.split('/').filter(Boolean);
     if (parts.length === 0) return null;
     return `/${parts[0]}/`;
 };
 
-const resolveBasePath = (): string => {
+export const resolveBasePath = (
+    currentWindow: Pick<Window, 'location'> | undefined = typeof window === 'undefined' ? undefined : window
+): string => {
     const envBase = normalizeBasePath(import.meta.env.BASE_URL ?? '/');
-    if (typeof window === 'undefined') return envBase;
+    if (!currentWindow) return envBase;
 
     // Extra safety for GitHub Pages if an old/cached build resolves BASE_URL incorrectly.
-    if (window.location.hostname.endsWith('github.io')) {
-        const ghBase = deriveGithubPagesBasePath(window.location.pathname);
+    if (currentWindow.location.hostname.endsWith('github.io')) {
+        const ghBase = deriveGithubPagesBasePath(currentWindow.location.pathname);
         if (ghBase) return ghBase;
     }
 
@@ -26,23 +28,27 @@ const resolveBasePath = (): string => {
 
 const BASE_PATH = resolveBasePath();
 
-export const withBasePath = (path: string): string => {
+export const withResolvedBasePath = (basePath: string, path: string): string => {
     if (path === '/' || path.length === 0) {
-        return BASE_PATH;
+        return basePath;
     }
     const relative = path.startsWith('/') ? path.slice(1) : path;
-    return `${BASE_PATH}${relative}`;
+    return `${basePath}${relative}`;
 };
 
-export const stripBasePath = (pathname: string): string => {
-    if (BASE_PATH === '/') return pathname;
+export const withBasePath = (path: string): string => withResolvedBasePath(BASE_PATH, path);
 
-    const baseNoTrailingSlash = BASE_PATH.slice(0, -1);
-    if (pathname === baseNoTrailingSlash || pathname === BASE_PATH) {
+export const stripResolvedBasePath = (basePath: string, pathname: string): string => {
+    if (basePath === '/') return pathname;
+
+    const baseNoTrailingSlash = basePath.slice(0, -1);
+    if (pathname === baseNoTrailingSlash || pathname === basePath) {
         return '/';
     }
-    if (pathname.startsWith(BASE_PATH)) {
-        return `/${pathname.slice(BASE_PATH.length)}`;
+    if (pathname.startsWith(basePath)) {
+        return `/${pathname.slice(basePath.length)}`;
     }
     return pathname;
 };
+
+export const stripBasePath = (pathname: string): string => stripResolvedBasePath(BASE_PATH, pathname);

@@ -2,6 +2,18 @@ import type { GameState, Piece, ThrowResult } from './types';
 import { CommonRuleset } from './rules';
 import type { Ruleset } from './types';
 
+const toGameStateSnapshot = (gameState: GameState): GameState => ({
+    board: gameState.board,
+    currentPlayer: gameState.currentPlayer,
+    currentThrow: gameState.currentThrow,
+    ruleset: gameState.ruleset,
+    winner: gameState.winner,
+    historyLog: gameState.historyLog,
+});
+
+const cloneGameState = (gameState: GameState): GameState => structuredClone(toGameStateSnapshot(gameState));
+const cloneBoard = (board: Piece[]): Piece[] => structuredClone(board);
+
 export const INITIAL_BOARD: Piece[] = [
     // Senet usually starts with pieces alternating on the first 10 squares
     // e.g., Anubis, Sphinx, Anubis, Sphinx...
@@ -19,7 +31,7 @@ export const INITIAL_BOARD: Piece[] = [
 
 export function createInitialState(ruleset: Ruleset = CommonRuleset): GameState {
     return {
-        board: JSON.parse(JSON.stringify(INITIAL_BOARD)),
+        board: cloneBoard(INITIAL_BOARD),
         currentPlayer: 'anubis',
         currentThrow: null,
         ruleset,
@@ -148,7 +160,7 @@ export function applyMove(gameState: GameState, pieceId: string): GameState {
     if (!validation.valid || validation.targetSquare === undefined) return gameState;
 
     const targetSquare = validation.targetSquare;
-    const newState = JSON.parse(JSON.stringify(gameState)) as GameState;
+    const newState = cloneGameState(gameState);
     const piece = newState.board.find(p => p.id === pieceId)!;
 
     const endSquare = targetSquare > 30 ? 31 : targetSquare; // 31 is borne off
@@ -239,7 +251,7 @@ export function autoPassIfNoMoves(gameState: GameState): GameState {
     if (!gameState.currentThrow) return gameState;
     const moves = getLegalMoves(gameState);
     if (moves.length === 0) {
-        const newState = JSON.parse(JSON.stringify(gameState)) as GameState;
+        const newState = cloneGameState(gameState);
         newState.historyLog.push({
             key: 'history.no_moves',
             params: { player: newState.currentPlayer },
