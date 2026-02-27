@@ -5,13 +5,21 @@ import { HUD } from './components/HUD';
 import { ThrowSticks } from './components/ThrowSticks';
 import { Afterlife } from './components/Afterlife';
 import { Lobby } from './components/Lobby';
+import { GameOver } from './components/GameOver';
 import { useSenetStore } from './engine/store';
 import { cn } from './utils/cn';
 
 function App() {
-  const { historyLog, ruleset, isOnline, roomId, localPlayer, leaveRoom } = useSenetStore();
+  const { historyLog, ruleset, isOnline, roomId, localPlayer, leaveRoom, winner } = useSenetStore();
   const { t, i18n } = useTranslation();
   const [showLobby, setShowLobby] = useState(true);
+
+  const handleReturnToLobby = () => {
+    if (isOnline) {
+      leaveRoom();
+    }
+    setShowLobby(true);
+  };
 
   // Auto-hide lobby when playing online
   useEffect(() => {
@@ -28,6 +36,18 @@ function App() {
     <div className={`h-screen bg-ebony text-sand flex flex-col font-sans selection:bg-gold/30 overflow-hidden ${i18n.language === 'ar-EG' ? 'font-arabic' : ''}`}>
       {/* Background thematic elements */}
       <div className="fixed inset-0 pointer-events-none opacity-5 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-sand via-ebony to-ebony" />
+      <div className="noise-overlay" />
+
+      {winner && <GameOver onReturnToLobby={handleReturnToLobby} />}
+
+      {/* SVG Filters for micro-imperfections */}
+      <svg aria-hidden="true" className="sr-only">
+        <filter id="jitter">
+          <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="1" result="noise" />
+          <feOffset dx="0.5" dy="0.5" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.8" />
+        </filter>
+      </svg>
 
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 flex flex-col relative z-10 min-h-0">
         <HUD />
@@ -57,11 +77,11 @@ function App() {
                 )}
                 <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0">
                   <Board />
-                  <div className="w-full max-w-5xl flex flex-col md:flex-row items-center md:items-stretch justify-center gap-6 mt-8">
-                    <div className="flex-1 w-full md:w-auto">
+                  <div className="w-full max-w-5xl mt-12 mb-8 bg-black/30 border border-royal-gold/20 rounded-lg p-6 shadow-[inset_0_2px_15px_rgba(0,0,0,0.5)] flex flex-col md:flex-row items-center md:items-stretch justify-center gap-8 backdrop-blur-sm">
+                    <div className="flex-1 w-full md:w-auto flex flex-col justify-center border-r md:border-r border-royal-gold/10 md:pr-8">
                       <ThrowSticks />
                     </div>
-                    <div className="shrink-0">
+                    <div className="shrink-0 md:pl-4 flex items-center">
                       <Afterlife />
                     </div>
                   </div>
@@ -81,7 +101,7 @@ function App() {
                         : log.params;
                       return (
                         <div key={i} className="text-sand/80 font-mono flex gap-2 border-b border-sand/5 pb-1 items-start">
-                          <span className="opacity-50 text-xs mt-0.5 shrink-0" dir="ltr">{(historyLog.length - i).toString().padStart(3, '0')}</span>
+                          <span className="opacity-70 text-xs mt-0.5 shrink-0" dir="ltr">{(historyLog.length - i).toString().padStart(3, '0')}</span>
                           {log.player && (
                             <span
                               className={cn(

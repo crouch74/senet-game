@@ -23,6 +23,7 @@ interface SenetStore extends GameState {
     legalMoves: { pieceId: string; targetSquare: number }[];
     hoveredPieceId: string | null;
     setHoveredPieceId: (pieceId: string | null) => void;
+    lastMove: { pieceId: string; from: number; to: number; isCapture?: boolean } | null;
 }
 
 export const useSenetStore = create<SenetStore>((set, get) => ({
@@ -30,6 +31,7 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
     legalMoves: [],
     hoveredPieceId: null,
     setHoveredPieceId: (id) => set({ hoveredPieceId: id }),
+    lastMove: null,
 
     // Online states
     isOnline: false,
@@ -114,6 +116,17 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
         if (state.isOnline && state.currentPlayer !== state.localPlayer) return;
 
         const newState = applyMove(state, pieceId);
+        const oldPiece = state.board.find(p => p.id === pieceId);
+        const newPiece = newState.board.find(p => p.id === pieceId);
+
+        // Detect capture (if another piece moved)
+        let capturedPieceId: string | null = null;
+        newState.board.forEach(p => {
+            const oldP = state.board.find(op => op.id === p.id);
+            if (oldP && oldP.position !== p.position && p.id !== pieceId) {
+                capturedPieceId = p.id;
+            }
+        });
 
         const partialState: Partial<GameState> = {
             board: newState.board,
@@ -122,8 +135,20 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
             winner: newState.winner,
             historyLog: newState.historyLog
         };
-        set({ ...partialState, legalMoves: [] });
+        set({
+            ...partialState,
+            legalMoves: [],
+            lastMove: oldPiece && newPiece ? {
+                pieceId,
+                from: oldPiece.position,
+                to: newPiece.position,
+                isCapture: !!capturedPieceId
+            } : null
+        });
         get().syncState(partialState);
+
+        // Clear lastMove after some time
+        setTimeout(() => set({ lastMove: null }), 2000);
     },
 
     passTurn: () => {

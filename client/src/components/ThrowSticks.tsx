@@ -1,15 +1,22 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
 
 export function ThrowSticks() {
-    const { currentThrow, throwSticks, currentPlayer, winner } = useSenetStore();
+    const [isThrowing, setIsThrowing] = useState(false);
     const { t } = useTranslation();
+    const { currentThrow, throwSticks, currentPlayer, winner } = useSenetStore();
 
     const handleThrow = () => {
-        if (!currentThrow && !winner) {
-            throwSticks();
+        if (!currentThrow && !winner && !isThrowing) {
+            setIsThrowing(true);
+            // Anticipation delay
+            setTimeout(() => {
+                throwSticks();
+                setIsThrowing(false);
+            }, 600);
         }
     };
 
@@ -59,18 +66,27 @@ export function ThrowSticks() {
                         </motion.div>
                     ))
                 ) : (
-                    // Idle state (waiting to throw)
+                    // Idle state (waiting to throw or currently tossing)
                     <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        animate={isThrowing ? {
+                            x: [0, -5, 5, -5, 5, 0],
+                            y: [0, -10, -5, -15, -5, 0],
+                            rotate: [0, -5, 5, -3, 3, 0]
+                        } : {}}
+                        transition={isThrowing ? { duration: 0.5, repeat: Infinity } : {}}
+                        whileHover={!isThrowing ? { scale: 1.05 } : {}}
+                        whileTap={!isThrowing ? { scale: 0.95 } : {}}
                         onClick={handleThrow}
-                        className="flex items-center gap-4 group cursor-pointer"
-                        disabled={!!winner}
+                        className={cn("flex items-center gap-4 group cursor-pointer", isThrowing && "pointer-events-none")}
+                        disabled={!!winner || isThrowing}
                     >
                         {Array.from({ length: 4 }).map((_, i) => (
                             <div
                                 key={`idle-stick-${i}`}
-                                className="w-6 h-24 rounded-full bg-[#d3ccb8] border-2 border-royal-gold/60 shadow-[0_5px_15px_rgba(0,0,0,0.2),inset_0_2px_5px_rgba(255,255,255,0.5)] group-hover:bg-[#fcf8ed] group-hover:border-royal-gold transition-all duration-300 relative overflow-hidden"
+                                className={cn(
+                                    "w-6 h-24 rounded-full bg-[#d3ccb8] border-2 border-royal-gold/60 shadow-[0_5px_15px_rgba(0,0,0,0.2),inset_0_2px_5px_rgba(255,255,255,0.5)] group-hover:bg-[#fcf8ed] group-hover:border-royal-gold transition-all duration-300 relative overflow-hidden",
+                                    isThrowing && "scale-110 brightness-110"
+                                )}
                             >
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
                             </div>

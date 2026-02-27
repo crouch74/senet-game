@@ -21,3 +21,20 @@
 - Localized the Lore text in English, Egyptian Arabic, and French.
 - Game Logging Enhancements:
   - Updated the Chronicle to show which player performed each action using color-coded indicators (Gold for Light, Ebony for Dark).
+- **Premium Game Over Experience**: 
+  - Implemented a full-screen "Spirit Ascension" overlay when a player wins.
+  - Added thematic animations including floating soul particles and spring-loaded transitions.
+  - Provided clear "Victory/Afterlife" contextual messages based on the outcome.
+  - Integrated "Play Again" and "Return to Lobby" actions for smooth game loops.
+  - Fully localized in English, Egyptian Arabic, and French.
+- **Executive Review Refinements (Iteration 3)**:
+  - **Unified Iconography**: Standardized special square icons (15, 26-30) as an integrated "Inlaid Fill" system using consistent SVG assets and blue faience/gold materials.
+  - **Atmospheric Authenticity**: Introduced a 1px irregular jitter SVG filter and a subtle texture noise overlay to break computer-perfect lines and simulate hand-carved artifacts.
+  - **Enhanced Depth & Materiality**: Added per-cell inner shadows, complex bevels, and corner gradients to the board squares and game pieces.
+  - **Physical Presence**: Tokens now feature micro drop shadows, rim highlights, and vertical offset shadows to feel physically placed on the board.
+  - **Interaction Clarity & Feedback**: 
+    - Added high-affordance visual cues for movable pieces (hover lift, glow pulse).
+    - Implemented specialized motion feedback for "throw anticipation" (tossing shake) and "piece landing" (impact pulse).
+    - Added "capture flash" and "special square activation" visual effects.
+  - **Layout Anchoring**: Geometrically connected the Afterlife panel to the control section with a shared frame and divider.
+  - **Typography Precision**: Brightened square numbers and chronicle timestamps for better readability without losing theme contrast.

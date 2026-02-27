@@ -32,7 +32,7 @@ export function Board() {
     }
 
     return (
-        <div className="relative w-full max-w-5xl mx-auto border-[16px] border-[#1A1110] rounded-md bg-[#1A1110] shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_0_15px_rgba(0,0,0,0.8)] p-[4px]">
+        <div className="relative w-full max-w-5xl mx-auto border-[16px] border-[#1A1110] rounded-md bg-[#1A1110] shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_0_15px_rgba(0,0,0,0.8)] p-[4px] jitter-stroke">
             {/* Wood texture/grain background overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[#2a1b18]/40 to-black/80 mix-blend-multiply pointer-events-none" />
 

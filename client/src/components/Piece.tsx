@@ -11,7 +11,7 @@ interface PieceProps {
 }
 
 export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
-    const { currentThrow, currentPlayer, movePiece, legalMoves, setHoveredPieceId, hoveredPieceId } = useSenetStore();
+    const { currentThrow, currentPlayer, movePiece, legalMoves, setHoveredPieceId, hoveredPieceId, lastMove } = useSenetStore();
 
     // Find cell width/height
     const cellW = containerWidth / 10;
@@ -67,20 +67,28 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
         >
             <motion.div
                 animate={{
-                    y: isCurrentPlayer && !canMove ? [0, -2, 0] : 0
+                    y: isCurrentPlayer && !canMove ? [0, -2, 0] : 0,
+                    scale: lastMove?.pieceId === piece.id ? [1, 1.3, 1] : 1,
+                    filter: lastMove?.pieceId === piece.id
+                        ? (lastMove.isCapture
+                            ? ["brightness(1) sepia(0) hue-rotate(0deg)", "brightness(2) sepia(1) hue-rotate(-50deg)", "brightness(1) sepia(0) hue-rotate(0deg)"]
+                            : ["brightness(1)", "brightness(2)", "brightness(1)"])
+                        : "brightness(1)"
                 }}
                 transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
+                    y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                    scale: { duration: 0.5, ease: "easeOut" },
+                    filter: { duration: 0.5, ease: "easeOut" }
                 }}
                 className={cn(
-                    "relative w-[70%] h-[70%] rounded-full shadow-[0_8px_15px_rgba(0,0,0,0.8),inset_0_2px_4px_rgba(255,255,255,0.1),inset_0_-4px_8px_rgba(0,0,0,0.6)] flex items-center justify-center transition-all duration-300",
+                    "relative w-[70%] h-[70%] rounded-full flex items-center justify-center transition-all duration-300",
+                    // Complex shadow for physical presence: drop shadow + rim highlight + vertical offset
+                    "shadow-[0_12px_24px_-8px_rgba(0,0,0,0.9),0_1px_2px_rgba(255,255,255,0.2),inset_0_-6px_10px_rgba(0,0,0,0.7),inset_0_2px_5px_rgba(255,255,255,0.1)]",
                     // Polished dark stone/ebony body for both players
                     "bg-gradient-to-b from-[#3a2f2a] to-[#120c0a]",
-                    canMove && 'ring-2 ring-[#f3e5ab] shadow-[0_0_20px_rgba(243,229,171,0.6),inset_0_2px_4px_rgba(255,255,240,0.2)] z-10 scale-[1.15] -translate-y-1 animate-[pulse_2s_ease-in-out_infinite] drop-shadow-[0_4px_6px_rgba(212,175,55,0.4)]',
-                    isCurrentPlayer && !canMove && 'ring-[0.5px] ring-royal-gold/50 shadow-[0_0_8px_rgba(212,175,55,0.2)]',
-                    hoveredPieceId === piece.id && 'scale-[1.25] brightness-125 z-40 ring-4 ring-white shadow-[0_0_30px_rgba(255,255,255,0.8)]'
+                    canMove && 'ring-2 ring-[#f3e5ab] shadow-[0_0_25px_rgba(243,229,171,0.7),inset_0_2px_4px_rgba(255,255,240,0.3)] z-10 scale-[1.18] -translate-y-2 animate-[pulse_2.5s_ease-in-out_infinite] drop-shadow-[0_8px_12px_rgba(0,0,0,0.6)]',
+                    isCurrentPlayer && !canMove && 'ring-[1px] ring-royal-gold/30 shadow-[0_2px_8px_rgba(0,0,0,0.5)]',
+                    hoveredPieceId === piece.id && 'scale-[1.3] -translate-y-3 brightness-125 z-40 ring-4 ring-white shadow-[0_15px_40px_rgba(255,255,255,0.6),0_20px_20px_-10px_rgba(0,0,0,0.8)]'
                 )}
             >
                 {/* Engraved inlay section */}
@@ -88,7 +96,7 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
                     {/* SVG Emblem */}
                     <div
                         className={cn(
-                            "w-[65%] h-[65%] mask-image-center transition-all duration-300",
+                            "w-[65%] h-[65%] mask-image-center transition-all duration-300 jitter-stroke",
                             piece.player === 'light' ? "bg-gradient-to-br from-[#f3e5ab] via-[#d4af37] to-[#996515]" : "bg-gradient-to-br from-[#EAE0C8] via-[#FFFFF0] to-[#C9BFA1]"
                         )}
                         style={{

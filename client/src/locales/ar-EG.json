@@ -29,8 +29,13 @@
         "turn": "دور {{player}}",
         "moves": "الخطوات: {{value}}",
         "perfect_throw": "رمية تحفة!",
-        "game_over": "اللعبة خلصت",
-        "click_to_throw": "اضغط عالعصاية عشان ترمي"
+        "game_over": "اكتملت الرحلة",
+        "click_to_throw": "اضغط عالعصاية عشان ترمي",
+        "ascension": "صعود الروح",
+        "victory_message": "اتحد الـ (با) والـ (كا) في حقول القصب (آرو).",
+        "defeat_message": "رحلة الـ (دوات) لم تكتمل بعد.",
+        "return_to_lobby": "العودة للقاعة",
+        "play_again": "إعادة الرحلة"
     },
     "square": {
         "effect": "التأثير: {{effect}}",

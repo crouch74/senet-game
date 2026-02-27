@@ -29,8 +29,13 @@
         "turn": "TOUR DE {{player}}",
         "moves": "DÉPLACEMENTS : {{value}}",
         "perfect_throw": "Jet Parfait",
-        "game_over": "Fin de la Partie",
-        "click_to_throw": "Cliquez sur les bâtons pour jeter"
+        "game_over": "Le voyage est terminé",
+        "click_to_throw": "Cliquez sur les bâtons pour jeter",
+        "ascension": "Ascension de l'Esprit",
+        "victory_message": "Le Bâ et le Kâ se sont unis dans les champs d'Ialou.",
+        "defeat_message": "Le voyage à travers la Douat reste inachevé.",
+        "return_to_lobby": "Retour au Salon",
+        "play_again": "Recommencer le voyage"
     },
     "square": {
         "effect": "Effet : {{effect}}",

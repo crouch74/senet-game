@@ -7,19 +7,20 @@ interface SquareProps {
 }
 
 export function Square({ number }: SquareProps) {
-    const { ruleset, legalMoves, currentPlayer, hoveredPieceId, setHoveredPieceId, movePiece } = useSenetStore();
+    const { ruleset, legalMoves, currentPlayer, hoveredPieceId, setHoveredPieceId, movePiece, lastMove } = useSenetStore();
     const { t, i18n } = useTranslation();
     const specialInfo = ruleset.specialSquares[number];
 
     const isLegalMove = legalMoves.some(m => m.targetSquare === number);
     const isHoveredTarget = hoveredPieceId && legalMoves.some(m => m.pieceId === hoveredPieceId && m.targetSquare === number);
     const isSpecial = number >= 26 && number <= 30;
+    const isRecentlyActivated = lastMove?.to === number && (isSpecial || number === 15);
 
     const getHouseIcon = () => {
         switch (number) {
-            case 15: return { type: 'text', val: '𓋹', color: 'text-royal-ivory/40' };
+            case 15: return { type: 'svg', val: '/assets/royal/house_26_ankh.svg', color: 'bg-[#1034A6]', repeat: 1 }; // Blue Ankh
             case 26: return { type: 'text', val: '𓄤 𓄤 𓄤', color: 'text-royal-green drop-shadow-[0_0_8px_rgba(55,139,110,0.6)]' };
-            case 27: return { type: 'svg', val: '/assets/royal/house_27_water_n35.svg', color: 'bg-teal-700', repeat: 3, stack: true };
+            case 27: return { type: 'svg', val: '/assets/royal/house_27_water_n35.svg', color: 'bg-[#1034A6]', repeat: 3, stack: true };
             case 28: return { type: 'svg', val: '/assets/royal/house_28_maat_feather.svg', color: 'bg-royal-ivory', repeat: 3 };
             case 29: return { type: 'svg', val: '/assets/royal/house_29_sun_disk.svg', color: 'bg-royal-gold', repeat: 2, stack: true };
             case 30: return { type: 'svg', val: '/assets/royal/house_30_horus_falcon.svg', color: 'bg-royal-gold', repeat: 1 };
@@ -34,19 +35,22 @@ export function Square({ number }: SquareProps) {
             className={cn(
                 "relative flex flex-col items-center justify-center aspect-square group box-border",
                 "bg-[#221714] transition-all duration-500", // Ebony base
-                // Thin dark border to separate squares, but Board has ivory background so we just need slight shading
-                "border-[0.5px] border-black/80 shadow-[inset_0_0_10px_rgba(0,0,0,0.7)]",
+                isRecentlyActivated && "z-30 bg-[#3a2f2a] scale-[1.05] ring-2 ring-white/50 shadow-[0_0_40px_rgba(255,255,255,0.4)] animate-pulse",
+                // Depth: inner shadow + bevel look
+                "border-[0.5px] border-black/80",
+                "shadow-[inset_0_2px_4px_rgba(255,255,255,0.05),inset_0_-2px_4px_rgba(0,0,0,0.4),inset_0_0_10px_rgba(0,0,0,0.7)]",
+                "after:absolute after:inset-0 after:bg-gradient-to-tr after:from-black/20 after:to-white/5 after:pointer-events-none",
                 isLegalMove && cn(
                     "cursor-pointer",
                     currentPlayer === 'light'
-                        ? "ring-1 ring-royal-gold/40 shadow-[inset_0_0_20px_rgba(212,175,55,0.15)]"
-                        : "ring-1 ring-royal-ivory/40 shadow-[inset_0_0_20px_rgba(255,255,240,0.15)]"
+                        ? "ring-1 ring-royal-gold/40 shadow-[inset_0_0_30px_rgba(212,175,55,0.2)]"
+                        : "ring-1 ring-royal-ivory/40 shadow-[inset_0_0_30px_rgba(255,255,240,0.2)]"
                 ),
                 isHoveredTarget && cn(
                     "z-20 scale-[1.02] bg-[#2a1d1a]",
                     currentPlayer === 'light'
-                        ? "ring-2 ring-royal-gold shadow-[0_0_30px_rgba(212,175,55,0.4)]"
-                        : "ring-2 ring-royal-ivory shadow-[0_0_30px_rgba(255,255,240,0.4)]"
+                        ? "ring-2 ring-royal-gold shadow-[0_10px_30px_rgba(212,175,55,0.4),inset_0_0_40px_rgba(212,175,55,0.2)]"
+                        : "ring-2 ring-royal-ivory shadow-[0_10px_30px_rgba(255,255,240,0.4),inset_0_0_40px_rgba(255,255,240,0.2)]"
                 )
             )}
             onMouseEnter={() => {
@@ -73,8 +77,8 @@ export function Square({ number }: SquareProps) {
                 <div className="absolute inset-[3px] border-[0.5px] border-[#d3ccb8]/10 pointer-events-none mix-blend-overlay" />
             )}
 
-            {/* Number */}
-            <div className="absolute top-1 left-[6px] text-[10px] text-royal-ivory/30 font-mono z-10 pointer-events-none">
+            {/* Number - Brightened by 10% (from 30 to 40) */}
+            <div className="absolute top-1 left-[6px] text-[10px] text-royal-ivory/40 font-mono z-10 pointer-events-none">
                 {number}
             </div>
 
@@ -120,15 +124,26 @@ export function Square({ number }: SquareProps) {
                                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/40 opacity-0 group-hover:opacity-100 mix-blend-overlay transition-opacity duration-300" />
                                 <div className="absolute -inset-full animate-[shimmer_3s_infinite_linear] bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 opacity-0 group-hover:opacity-100" />
                             </div>
-                            {/* Shadow/Bevel Rim underneath the inlay */}
+                            {/* Shadow/Bevel Rim underneath the inlay - deepened for "Inlaid Fill" effect */}
                             <div
-                                className="absolute inset-0 pointer-events-none opacity-40 mix-blend-multiply translate-y-[1px]"
+                                className="absolute inset-0 pointer-events-none opacity-60 mix-blend-multiply translate-y-[1.5px] blur-[0.5px]"
                                 style={{
                                     WebkitMaskImage: `url(${icon.val})`,
                                     WebkitMaskRepeat: 'no-repeat',
                                     WebkitMaskPosition: 'center',
                                     WebkitMaskSize: 'contain',
                                     backgroundColor: 'black'
+                                }}
+                            />
+                            {/* Inner Highlight for depth */}
+                            <div
+                                className="absolute inset-0 pointer-events-none opacity-30 mix-blend-overlay -translate-y-[0.5px]"
+                                style={{
+                                    WebkitMaskImage: `url(${icon.val})`,
+                                    WebkitMaskRepeat: 'no-repeat',
+                                    WebkitMaskPosition: 'center',
+                                    WebkitMaskSize: 'contain',
+                                    backgroundColor: 'white'
                                 }}
                             />
                         </div>
