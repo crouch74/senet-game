@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
-import { Scroll } from 'lucide-react';
+import { Scroll, Home } from 'lucide-react';
 
-export function HUD({ isLobby = false }: { isLobby?: boolean }) {
+export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; onReturnToLobby?: () => void }) {
     const { currentPlayer, ruleset, winner, resetGame, isOnline, setShowGuide } = useSenetStore();
     const { t, i18n } = useTranslation();
 
@@ -81,6 +81,15 @@ export function HUD({ isLobby = false }: { isLobby?: boolean }) {
                                     className="w-full md:w-auto px-6 py-2 bg-purple-900/50 hover:bg-purple-800 text-royal-ivory border-[2px] border-purple-500/60 rounded-sm transition-all font-serif shadow-sm text-xs uppercase tracking-widest font-bold"
                                 >
                                     Dev: Auto Play
+                                </button>
+                            )}
+                            {onReturnToLobby && (
+                                <button
+                                    onClick={onReturnToLobby}
+                                    className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-2 bg-stone-800 hover:bg-stone-700 text-sand border-[2px] border-sand/20 rounded-sm transition-all font-serif shadow-sm text-sm uppercase tracking-widest font-bold"
+                                >
+                                    <Home className="w-4 h-4" />
+                                    {t('throw.return_to_lobby')}
                                 </button>
                             )}
                             <button

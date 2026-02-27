@@ -64,7 +64,7 @@ function App() {
       </svg>
 
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 flex flex-col relative z-10 min-h-0">
-        <HUD isLobby={showLobby} />
+        <HUD isLobby={showLobby} onReturnToLobby={!isOnline && !showLobby ? handleReturnToLobby : undefined} />
 
         <div className="flex-1 flex flex-col xl:flex-row gap-8 items-stretch justify-center min-h-0">
           {(!showLobby || isOnline) ? (
