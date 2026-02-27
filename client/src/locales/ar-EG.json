@@ -13,6 +13,10 @@
         "any_sufficient_throw": "أي رمية تكفي",
         "rules_title": "قواعد {{name}}"
     },
+    "afterlife": {
+        "title": "الحياة الآخرة",
+        "empty": "مفيش أرواح وصلت لسه..."
+    },
     "hud": {
         "senet": "سينيت",
         "rules": "القواعد: {{name}}",

@@ -13,6 +13,10 @@
         "any_sufficient_throw": "Tout jet suffisant",
         "rules_title": "Règles {{name}}"
     },
+    "afterlife": {
+        "title": "Au-delà",
+        "empty": "Aucune âme n'est encore passée..."
+    },
     "hud": {
         "senet": "Senet",
         "rules": "Règles : {{name}}",

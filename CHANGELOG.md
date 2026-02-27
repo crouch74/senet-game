@@ -38,3 +38,6 @@
     - Added "capture flash" and "special square activation" visual effects.
   - **Layout Anchoring**: Geometrically connected the Afterlife panel to the control section with a shared frame and divider.
   - **Typography Precision**: Brightened square numbers and chronicle timestamps for better readability without losing theme contrast.
+- **Refinements & Bugfixes**:
+  - Added missing "Afterlife" and "Empty" translations to all locales.
+  - Implemented language persistence using browser `localStorage` to remember the player's choice across sessions.

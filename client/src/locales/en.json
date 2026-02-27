@@ -13,6 +13,10 @@
         "any_sufficient_throw": "Any sufficient throw",
         "rules_title": "{{name}} Rules"
     },
+    "afterlife": {
+        "title": "Afterlife",
+        "empty": "No souls have passed yet..."
+    },
     "hud": {
         "senet": "Senet",
         "rules": "Rules: {{name}}",
