@@ -16,6 +16,15 @@ import { Copy, Check } from 'lucide-react';
 import { DEFAULT_THEME, isThemeId, THEME_STORAGE_KEY, type ThemeId } from './theme';
 
 const ROOM_PATH_REGEX = /^\/room\/([a-z]{3}-[a-z]{3}-[a-z]{3})\/?$/i;
+const OFFLINE_MODE_PATH_REGEX = /^\/mode\/(pass-and-play|vs-pc)\/?$/i;
+const OFFLINE_MODE_TO_SLUG: Record<OfflineMode, string> = {
+  play_and_pass: 'pass-and-play',
+  vs_pc: 'vs-pc'
+};
+const SLUG_TO_OFFLINE_MODE: Record<string, OfflineMode> = {
+  'pass-and-play': 'play_and_pass',
+  'vs-pc': 'vs_pc'
+};
 
 const getRoomCodeFromPath = (path: string) => {
   const match = stripBasePath(path).match(ROOM_PATH_REGEX);
@@ -23,11 +32,25 @@ const getRoomCodeFromPath = (path: string) => {
 };
 
 const getRoomPermalinkPath = (roomCode: string) => withBasePath(`/room/${roomCode.toLowerCase()}`);
+const getOfflineModePermalinkPath = (mode: OfflineMode) => withBasePath(`/mode/${OFFLINE_MODE_TO_SLUG[mode]}`);
+
+const getOfflineModeFromPath = (path: string): OfflineMode | null => {
+  const match = stripBasePath(path).match(OFFLINE_MODE_PATH_REGEX);
+  if (!match) return null;
+  return SLUG_TO_OFFLINE_MODE[match[1].toLowerCase()] ?? null;
+};
 
 const setLobbyPath = () => {
   const lobbyPath = withBasePath('/');
   if (window.location.pathname !== lobbyPath) {
     window.history.replaceState({}, '', lobbyPath);
+  }
+};
+
+const setOfflineModePath = (mode: OfflineMode) => {
+  const modePath = getOfflineModePermalinkPath(mode);
+  if (window.location.pathname !== modePath) {
+    window.history.replaceState({}, '', modePath);
   }
 };
 
@@ -84,7 +107,7 @@ function App() {
     setOfflineMode(mode);
     resetGame();
     setShowLobby(false);
-    setLobbyPath();
+    setOfflineModePath(mode);
   };
 
   const handleCopyRoomId = () => {
@@ -100,11 +123,20 @@ function App() {
     hasHandledPermalink.current = true;
 
     const roomCodeFromUrl = getRoomCodeFromPath(window.location.pathname);
-    if (!roomCodeFromUrl) return;
+    if (roomCodeFromUrl) {
+      clearRoomJoinError();
+      joinRoom(roomCodeFromUrl);
+      return;
+    }
+
+    const offlineModeFromUrl = getOfflineModeFromPath(window.location.pathname);
+    if (!offlineModeFromUrl) return;
 
     clearRoomJoinError();
-    joinRoom(roomCodeFromUrl);
-  }, [clearRoomJoinError, joinRoom]);
+    setOfflineMode(offlineModeFromUrl);
+    resetGame();
+    setShowLobby(false);
+  }, [clearRoomJoinError, joinRoom, resetGame, setOfflineMode]);
 
   useEffect(() => {
     if (!isOnline || !roomId) return;
@@ -114,6 +146,12 @@ function App() {
       window.history.replaceState({}, '', permalinkPath);
     }
   }, [isOnline, roomId]);
+
+  useEffect(() => {
+    if (showLobbyScreen) return;
+    if (isOnline || isConnectingToRoom) return;
+    setOfflineModePath(offlineMode);
+  }, [showLobbyScreen, isOnline, isConnectingToRoom, offlineMode]);
 
   useEffect(() => {
     if (!roomJoinError) return;
