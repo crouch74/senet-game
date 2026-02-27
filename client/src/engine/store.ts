@@ -19,6 +19,7 @@ interface SenetStore extends GameState {
 
     resetGame: () => void;
     passTurn: () => void;
+    playRandomTurns: (turnsCount: number) => void;
     // UI helpers
     legalMoves: { pieceId: string; targetSquare: number }[];
     hoveredPieceId: string | null;
@@ -176,5 +177,54 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
         const state = get();
         if (state.isOnline) return; // Disallow resetting online games for now
         set({ ...createInitialState(state.ruleset), legalMoves: [] });
+    },
+
+    playRandomTurns: (turnsCount: number) => {
+        const storeState = get();
+        if (storeState.isOnline || storeState.winner) return;
+
+        console.log(`🤖 Playing ${turnsCount} random turns...`);
+
+        let state: GameState = {
+            board: storeState.board,
+            currentPlayer: storeState.currentPlayer,
+            currentThrow: storeState.currentThrow,
+            ruleset: storeState.ruleset,
+            winner: storeState.winner,
+            historyLog: storeState.historyLog
+        };
+
+        for (let i = 0; i < turnsCount; i++) {
+            if (state.winner) break;
+
+            if (!state.currentThrow) {
+                const throwRes = getThrowResult();
+                state = { ...state, currentThrow: throwRes };
+            }
+
+            const legalMoves = getLegalMoves(state);
+
+            if (legalMoves.length === 0) {
+                state = autoPassIfNoMoves(state);
+            } else {
+                const randomMove = legalMoves[Math.floor(Math.random() * legalMoves.length)];
+                state = applyMove(state, randomMove.pieceId);
+            }
+        }
+
+        const partialState: Partial<GameState> = {
+            board: state.board,
+            currentPlayer: state.currentPlayer,
+            currentThrow: state.currentThrow,
+            winner: state.winner,
+            historyLog: state.historyLog
+        };
+        set({
+            ...partialState,
+            legalMoves: state.currentThrow ? getLegalMoves(state) : [],
+            lastMove: null
+        });
+        get().syncState(partialState);
+        console.log(`✅ Finished playing random turns. Winner: ${state.winner || 'None'}`);
     }
 }));

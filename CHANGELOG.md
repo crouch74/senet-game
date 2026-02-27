@@ -2,6 +2,7 @@
 
 ## Unreleased
 - **Game Logic & Rules Update**:
+  - Implemented a dev-mode only "Auto Play" button in offline games to instantly play a specified number of random turns.
   - Implemented the "House of Water" (Square 27) penalty: landing in water sends the piece back to the "House of Rebirth" (Square 15).
   - Ensured pieces cannot move past the board without an exact throw.
 - **UI & Localization Refinements**:

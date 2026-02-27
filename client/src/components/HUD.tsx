@@ -65,14 +65,31 @@ export function HUD({ isLobby = false }: { isLobby?: boolean }) {
                     <option value="fr">Français</option>
                 </select>
 
-                <div className="flex flex-col items-center md:items-end w-full">
+                <div className="flex flex-col items-center md:items-end w-full gap-2">
                     {!isOnline && !isLobby && (
-                        <button
-                            onClick={resetGame}
-                            className="w-full md:w-auto px-6 py-2 bg-[#fcf8ed] hover:bg-white text-[#1a1110] border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-sm uppercase tracking-widest font-bold hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:scale-105"
-                        >
-                            {t('hud.restart_game')}
-                        </button>
+                        <>
+                            {import.meta.env.DEV && (
+                                <button
+                                    onClick={() => {
+                                        const count = prompt('How many turns to play?', '10');
+                                        if (count === null) return;
+                                        const parsed = parseInt(count, 10);
+                                        if (!isNaN(parsed) && parsed > 0) {
+                                            useSenetStore.getState().playRandomTurns(parsed);
+                                        }
+                                    }}
+                                    className="w-full md:w-auto px-6 py-2 bg-purple-900/50 hover:bg-purple-800 text-royal-ivory border-[2px] border-purple-500/60 rounded-sm transition-all font-serif shadow-sm text-xs uppercase tracking-widest font-bold"
+                                >
+                                    Dev: Auto Play
+                                </button>
+                            )}
+                            <button
+                                onClick={resetGame}
+                                className="w-full md:w-auto px-6 py-2 bg-[#fcf8ed] hover:bg-white text-[#1a1110] border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-sm uppercase tracking-widest font-bold hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:scale-105"
+                            >
+                                {t('hud.restart_game')}
+                            </button>
+                        </>
                     )}
                 </div>
             </div>

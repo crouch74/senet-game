@@ -15,7 +15,8 @@
         "bearing_off": "Bearing Off:",
         "requires_exact_throw": "Requires exact throw",
         "any_sufficient_throw": "Any sufficient throw",
-        "rules_title": "Ancient Tradition"
+        "rules_title": "Ancient Tradition",
+        "wins": "WINS"
     },
     "afterlife": {
         "title": "Afterlife",

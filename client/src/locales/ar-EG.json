@@ -15,7 +15,8 @@
         "bearing_off": "الخروج:",
         "requires_exact_throw": "لازم رمية بالظبط",
         "any_sufficient_throw": "أي رمية تكفي",
-        "rules_title": "التقاليد القديمة"
+        "rules_title": "التقاليد القديمة",
+        "wins": "كسب"
     },
     "afterlife": {
         "title": "الحياة الآخرة",

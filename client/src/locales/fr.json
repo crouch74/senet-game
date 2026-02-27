@@ -15,7 +15,8 @@
         "bearing_off": "Sortie des Pièces :",
         "requires_exact_throw": "Jet exact requis",
         "any_sufficient_throw": "Tout jet suffisant",
-        "rules_title": "Tradition Ancestrale"
+        "rules_title": "Tradition Ancestrale",
+        "wins": "GAGNE !"
     },
     "afterlife": {
         "title": "Au-delà",
