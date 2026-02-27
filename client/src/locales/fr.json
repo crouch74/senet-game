@@ -113,7 +113,12 @@
         "waiting_you_are": "Vous jouez en tant que",
         "waiting_opponent_joined": "Votre adversaire est de retour.",
         "opponent_disconnected": "Adversaire déconnecté",
-        "opponent_disconnected_subtitle": "Votre adversaire a quitté le plateau. La partie est en pause jusqu'à son retour."
+        "opponent_disconnected_subtitle": "Votre adversaire a quitté le plateau. La partie est en pause jusqu'à son retour.",
+        "join_errors": {
+            "not_found": "Salle introuvable. Retour au salon.",
+            "full": "La salle est pleine. Retour au salon.",
+            "unavailable": "La salle est indisponible. Retour au salon."
+        }
     },
     "legend": {
         "registry_title": "Tome de la Résurrection",

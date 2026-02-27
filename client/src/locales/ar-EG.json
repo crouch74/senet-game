@@ -113,7 +113,12 @@
         "waiting_you_are": "أنت بتلعب كـ",
         "waiting_opponent_joined": "خصمك رجع تاني.",
         "opponent_disconnected": "الخصم انقطع",
-        "opponent_disconnected_subtitle": "خصمك ساب اللوحة. اللعبة واقفة لحد ما يرجع."
+        "opponent_disconnected_subtitle": "خصمك ساب اللوحة. اللعبة واقفة لحد ما يرجع.",
+        "join_errors": {
+            "not_found": "الأوضة مش موجودة. رجعناك للقاعة.",
+            "full": "الأوضة مليانة. رجعناك للقاعة.",
+            "unavailable": "الأوضة غير متاحة دلوقتي. رجعناك للقاعة."
+        }
     },
     "legend": {
         "registry_title": "بردية البعث",

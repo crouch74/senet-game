@@ -8,17 +8,20 @@ interface LobbyProps {
 
 export function Lobby({ onPlayOffline }: LobbyProps) {
     const [roomInput, setRoomInput] = useState('');
-    const { joinRoom } = useSenetStore();
+    const { joinRoom, roomJoinError, clearRoomJoinError } = useSenetStore();
     const { t } = useTranslation();
 
     const handleJoin = (e: React.FormEvent) => {
         e.preventDefault();
-        if (roomInput.trim()) {
-            joinRoom(roomInput.trim());
+        const normalizedRoomId = roomInput.trim().toLowerCase();
+        if (normalizedRoomId) {
+            clearRoomJoinError();
+            joinRoom(normalizedRoomId);
         }
     };
 
     const handleCreate = async () => {
+        clearRoomJoinError();
         try {
             const res = await fetch('/api/match/create', { method: 'POST' });
             if (res.ok) {
@@ -38,6 +41,12 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
                 <h1 className="text-4xl text-royal-gold font-serif mb-8 text-center tracking-[0.4em] drop-shadow-md">SENET</h1>
 
                 <div className="flex flex-col gap-5">
+                    {roomJoinError && (
+                        <div className="rounded-md border border-red-500/40 bg-red-950/40 px-4 py-3 text-sm text-red-100">
+                            {t(`lobby.join_errors.${roomJoinError}`)}
+                        </div>
+                    )}
+
                     <button
                         type="button"
                         onClick={handleCreate}
@@ -61,7 +70,12 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
                                 id="room"
                                 type="text"
                                 value={roomInput}
-                                onChange={(e) => setRoomInput(e.target.value)}
+                                onChange={(e) => {
+                                    if (roomJoinError) {
+                                        clearRoomJoinError();
+                                    }
+                                    setRoomInput(e.target.value);
+                                }}
                                 placeholder={t('lobby.room_placeholder', 'e.g. abc-def-ghi')}
                                 className="flex-1 bg-royal-ebony/60 border border-sand/30 rounded-md p-3 text-sand placeholder:text-sand/30 focus:outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold transition-all"
                             />
@@ -83,7 +97,10 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
 
                     <button
                         type="button"
-                        onClick={onPlayOffline}
+                        onClick={() => {
+                            clearRoomJoinError();
+                            onPlayOffline();
+                        }}
                         className="bg-royal-ebony border border-sand/30 hover:bg-royal-gold/10 text-sand font-bold py-3 rounded-md transition-all shadow-md cursor-pointer"
                     >
                         {t('lobby.play_offline', 'Play Offline')}
@@ -93,5 +110,4 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
         </div>
     );
 }
-
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Board } from './components/Board';
 import { HUD } from './components/HUD';
@@ -12,18 +12,51 @@ import { cn } from './utils/cn';
 import { formatNumber } from './utils/format';
 import { Copy, Check } from 'lucide-react';
 
+const ROOM_PATH_REGEX = /^\/room\/([a-z]{3}-[a-z]{3}-[a-z]{3})\/?$/i;
+
+const getRoomCodeFromPath = (path: string) => {
+  const match = path.match(ROOM_PATH_REGEX);
+  return match ? match[1].toLowerCase() : null;
+};
+
+const getRoomPermalinkPath = (roomCode: string) => `/room/${roomCode.toLowerCase()}`;
+
+const setLobbyPath = () => {
+  if (window.location.pathname !== '/') {
+    window.history.replaceState({}, '', '/');
+  }
+};
+
 function App() {
-  const { historyLog, ruleset, isOnline, isWaitingForOpponent, roomId, localPlayer, leaveRoom, winner, showGuide, setShowGuide, resetGame } = useSenetStore();
+  const {
+    historyLog,
+    ruleset,
+    isOnline,
+    isConnectingToRoom,
+    isWaitingForOpponent,
+    roomId,
+    localPlayer,
+    roomJoinError,
+    joinRoom,
+    clearRoomJoinError,
+    leaveRoom,
+    winner,
+    showGuide,
+    setShowGuide,
+    resetGame
+  } = useSenetStore();
   const { t, i18n } = useTranslation();
   const [showLobby, setShowLobby] = useState(true);
   const [copiedRoom, setCopiedRoom] = useState(false);
+  const hasHandledPermalink = useRef(false);
 
   const handleReturnToLobby = () => {
-    if (isOnline) {
+    if (isOnline || isConnectingToRoom) {
       leaveRoom();
     }
     resetGame();
     setShowLobby(true);
+    setLobbyPath();
   };
 
   const handleCopyRoomId = () => {
@@ -34,12 +67,40 @@ function App() {
     });
   };
 
-  // Auto-hide lobby when playing online (joined room = hide lobby, show waiting or game)
+  // Auto-hide lobby when joining/playing online.
   useEffect(() => {
-    if (isOnline) {
+    if (isOnline || isConnectingToRoom) {
       setShowLobby(false);
     }
-  }, [isOnline]);
+  }, [isOnline, isConnectingToRoom]);
+
+  useEffect(() => {
+    if (hasHandledPermalink.current) return;
+    hasHandledPermalink.current = true;
+
+    const roomCodeFromUrl = getRoomCodeFromPath(window.location.pathname);
+    if (!roomCodeFromUrl) return;
+
+    clearRoomJoinError();
+    setShowLobby(false);
+    joinRoom(roomCodeFromUrl);
+  }, [clearRoomJoinError, joinRoom]);
+
+  useEffect(() => {
+    if (!isOnline || !roomId) return;
+
+    const permalinkPath = getRoomPermalinkPath(roomId);
+    if (window.location.pathname !== permalinkPath) {
+      window.history.replaceState({}, '', permalinkPath);
+    }
+  }, [isOnline, roomId]);
+
+  useEffect(() => {
+    if (!roomJoinError) return;
+
+    setShowLobby(true);
+    setLobbyPath();
+  }, [roomJoinError]);
 
   useEffect(() => {
     document.documentElement.dir = i18n.language === 'ar-EG' ? 'rtl' : 'ltr';
@@ -64,10 +125,13 @@ function App() {
       </svg>
 
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 flex flex-col relative z-10 min-h-0">
-        <HUD isLobby={showLobby} onReturnToLobby={!isOnline && !showLobby ? handleReturnToLobby : undefined} />
+        <HUD
+          isLobby={showLobby || isConnectingToRoom}
+          onReturnToLobby={!isOnline && !showLobby && !isConnectingToRoom ? handleReturnToLobby : undefined}
+        />
 
         <div className="flex-1 flex flex-col xl:flex-row gap-8 items-stretch justify-center min-h-0">
-          {(!showLobby || isOnline) ? (
+          {(!showLobby || isOnline || isConnectingToRoom) ? (
             <>
               {/* Main Game Area */}
               <div className="flex-1 w-full flex flex-col items-center justify-center order-2 xl:order-1 min-h-0">
@@ -100,7 +164,7 @@ function App() {
                       <span className="text-sand font-bold text-lg capitalize">{localPlayer ? t(`hud.players.${localPlayer}`) : ''}</span>
                     </div>
                     <button
-                      onClick={() => { leaveRoom(); setShowLobby(true); }}
+                      onClick={() => { leaveRoom(); setShowLobby(true); setLobbyPath(); }}
                       className="bg-red-900/40 hover:bg-red-900/80 text-sand px-4 py-2 rounded-md text-sm border border-red-500/30 transition-colors shadow-sm ms-4 cursor-pointer"
                     >
                       {t('lobby.leave_room')}
@@ -108,7 +172,7 @@ function App() {
                   </div>
                 )}
                 {/* Waiting for Opponent overlay — replaces the game area */}
-                {isOnline && isWaitingForOpponent ? (
+                {(isOnline || isConnectingToRoom) && isWaitingForOpponent ? (
                   <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0">
                     <div className="flex flex-col items-center gap-8 max-w-lg w-full text-center px-6">
                       {/* Animated hourglass / soul orbs */}
@@ -172,7 +236,7 @@ function App() {
 
                       {/* Leave button */}
                       <button
-                        onClick={() => { leaveRoom(); setShowLobby(true); }}
+                        onClick={() => { leaveRoom(); setShowLobby(true); setLobbyPath(); }}
                         className="text-sand/40 hover:text-sand/70 text-xs uppercase tracking-widest underline underline-offset-4 transition-colors cursor-pointer"
                       >
                         {t('lobby.leave_room')}

@@ -113,7 +113,12 @@
         "waiting_you_are": "You are playing as",
         "waiting_opponent_joined": "Your opponent has returned.",
         "opponent_disconnected": "Opponent disconnected",
-        "opponent_disconnected_subtitle": "Your opponent has left the board. The game is paused until they return."
+        "opponent_disconnected_subtitle": "Your opponent has left the board. The game is paused until they return.",
+        "join_errors": {
+            "not_found": "Room not found. Returning to the lobby.",
+            "full": "Room is full. Returning to the lobby.",
+            "unavailable": "Room is unavailable. Returning to the lobby."
+        }
     },
     "legend": {
         "registry_title": "Tome of Resurrection",

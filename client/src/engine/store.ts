@@ -3,15 +3,31 @@ import type { GameState, PlayerID } from './types';
 import { createInitialState, getThrowResult, getLegalMoves, applyMove, autoPassIfNoMoves } from './logic';
 
 let socket: WebSocket | null = null;
+let connectionAttempt = 0;
+
+type RoomJoinError = 'not_found' | 'full' | 'unavailable';
+
+const normalizeRoomId = (roomId: string) => roomId.trim().toLowerCase();
+
+const mapRoomJoinError = (message: unknown): RoomJoinError => {
+    const lowered = typeof message === 'string' ? message.toLowerCase() : '';
+
+    if (lowered.includes('does not exist')) return 'not_found';
+    if (lowered.includes('full')) return 'full';
+    return 'unavailable';
+};
 
 interface SenetStore extends GameState {
     // Online matches
     isOnline: boolean;
+    isConnectingToRoom: boolean;
     isWaitingForOpponent: boolean;
     roomId: string | null;
     localPlayer: PlayerID | null;
+    roomJoinError: RoomJoinError | null;
     joinRoom: (roomId: string) => void;
     leaveRoom: () => void;
+    clearRoomJoinError: () => void;
     syncState: (state: Partial<GameState>) => void;
 
     // Actions
@@ -44,32 +60,56 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
 
     // Online states
     isOnline: false,
+    isConnectingToRoom: false,
     isWaitingForOpponent: false,
     roomId: null,
     localPlayer: null,
+    roomJoinError: null,
 
     joinRoom: (roomId: string) => {
+        const normalizedRoomId = normalizeRoomId(roomId);
+        if (!normalizedRoomId) return;
+
+        const currentAttempt = ++connectionAttempt;
+
         if (socket) {
             socket.close();
         }
 
         // Determine websocket url
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-        const wsUrl = `${protocol}//${window.location.host}/api/match/${roomId}`;
+        const wsUrl = `${protocol}//${window.location.host}/api/match/${normalizedRoomId}`;
 
         socket = new WebSocket(wsUrl);
+        set({
+            isOnline: false,
+            isConnectingToRoom: true,
+            isWaitingForOpponent: true,
+            roomId: normalizedRoomId,
+            localPlayer: null,
+            roomJoinError: null
+        });
 
         socket.onopen = () => {
-            console.log(`🌐 Joined room ${roomId}`);
+            if (currentAttempt !== connectionAttempt) return;
+            console.log(`🌐 Joined room ${normalizedRoomId}`);
         };
 
         socket.onmessage = (event) => {
+            if (currentAttempt !== connectionAttempt) return;
             const data = JSON.parse(event.data);
             if (data.type === 'init') {
-                set({ isOnline: true, isWaitingForOpponent: true, roomId, localPlayer: data.player });
+                set({
+                    isOnline: true,
+                    isConnectingToRoom: false,
+                    isWaitingForOpponent: true,
+                    roomId: normalizedRoomId,
+                    localPlayer: data.player,
+                    roomJoinError: null
+                });
                 console.log(`🎮 Playing as ${data.player} — waiting for opponent`);
             } else if (data.type === 'game_start') {
-                set({ isWaitingForOpponent: false });
+                set({ isConnectingToRoom: false, isWaitingForOpponent: false });
                 console.log('⚔️ Both players connected — game started!');
             } else if (data.type === 'sync') {
                 set({ ...data.state, legalMoves: [] });
@@ -78,24 +118,46 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
                 console.log('⚠️ Opponent disconnected — gameplay paused');
             } else if (data.type === 'error') {
                 console.error('WebSocket Error:', data.message);
+                set({ roomJoinError: mapRoomJoinError(data.message), isConnectingToRoom: false });
                 socket?.close();
-                set({ isOnline: false, isWaitingForOpponent: false, roomId: null, localPlayer: null });
             }
         };
 
+        socket.onerror = () => {
+            if (currentAttempt !== connectionAttempt) return;
+            set({ roomJoinError: 'unavailable', isConnectingToRoom: false });
+        };
+
         socket.onclose = () => {
-            set({ isOnline: false, isWaitingForOpponent: false, roomId: null, localPlayer: null });
+            if (currentAttempt !== connectionAttempt) return;
+            set({
+                isOnline: false,
+                isConnectingToRoom: false,
+                isWaitingForOpponent: false,
+                roomId: null,
+                localPlayer: null
+            });
             socket = null;
         };
     },
 
     leaveRoom: () => {
+        connectionAttempt += 1;
         if (socket) {
             socket.close();
             socket = null;
         }
-        set({ isOnline: false, isWaitingForOpponent: false, roomId: null, localPlayer: null });
+        set({
+            isOnline: false,
+            isConnectingToRoom: false,
+            isWaitingForOpponent: false,
+            roomId: null,
+            localPlayer: null,
+            roomJoinError: null
+        });
     },
+
+    clearRoomJoinError: () => set({ roomJoinError: null }),
 
     syncState: (state: Partial<GameState>) => {
         if (get().isOnline && socket && socket.readyState === WebSocket.OPEN) {
