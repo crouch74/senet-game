@@ -85,11 +85,11 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
                             piece.player === 'light' ? "bg-royal-gold" : "bg-royal-ivory"
                         )}
                         style={{
-                            WebkitMaskImage: `url(/assets/royal/${piece.player === 'light' ? 'player_anubis.svg' : 'house_30_horus_falcon.svg'})`,
+                            WebkitMaskImage: `url(/assets/royal/${piece.player === 'light' ? 'player_anubis.svg' : 'Sphinx.svg'})`,
                             WebkitMaskRepeat: 'no-repeat',
                             WebkitMaskPosition: 'center',
                             WebkitMaskSize: 'contain',
-                            maskImage: `url(/assets/royal/${piece.player === 'light' ? 'player_anubis.svg' : 'house_30_horus_falcon.svg'})`,
+                            maskImage: `url(/assets/royal/${piece.player === 'light' ? 'player_anubis.svg' : 'Sphinx.svg'})`,
                             maskRepeat: 'no-repeat',
                             maskPosition: 'center',
                             maskSize: 'contain',

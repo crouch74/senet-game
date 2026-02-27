@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
-import { Attribution } from './Attribution';
 
 export function HUD() {
     const { currentPlayer, ruleset, winner, resetGame } = useSenetStore();
@@ -59,8 +58,6 @@ export function HUD() {
                     >
                         {t('hud.restart_game')}
                     </button>
-
-                    <Attribution />
                 </div>
             </div>
         </div>
