@@ -121,11 +121,11 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
                                 : "bg-gradient-to-br from-[var(--ui-piece-emblem-sphinx-from)] via-[var(--ui-piece-emblem-sphinx-via)] to-[var(--ui-piece-emblem-sphinx-to)]"
                         )}
                         style={{
-                            WebkitMaskImage: `url(${playerIconPath})`,
+                            WebkitMaskImage: `url("${playerIconPath}")`,
                             WebkitMaskRepeat: 'no-repeat',
                             WebkitMaskPosition: 'center',
                             WebkitMaskSize: 'contain',
-                            maskImage: `url(${playerIconPath})`,
+                            maskImage: `url("${playerIconPath}")`,
                             maskRepeat: 'no-repeat',
                             maskPosition: 'center',
                             maskSize: 'contain',

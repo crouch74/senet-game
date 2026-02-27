@@ -85,11 +85,11 @@ export function LegendContent() {
                                     <div
                                         className="w-10 h-10 bg-royal-gold opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
                                         style={{
-                                            maskImage: `url(${house.icon})`,
+                                            maskImage: `url("${house.icon}")`,
                                             maskRepeat: 'no-repeat',
                                             maskPosition: 'center',
                                             maskSize: 'contain',
-                                            WebkitMaskImage: `url(${house.icon})`,
+                                            WebkitMaskImage: `url("${house.icon}")`,
                                             WebkitMaskRepeat: 'no-repeat',
                                             WebkitMaskPosition: 'center',
                                             WebkitMaskSize: 'contain',

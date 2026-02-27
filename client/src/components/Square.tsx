@@ -130,11 +130,11 @@ export function Square({ number }: SquareProps) {
                                     isLegalMove && "bg-royal-ivory drop-shadow-[0_0_5px_rgba(255,255,240,0.8)]" // Glow bright if legal move
                                 )}
                                 style={{
-                                    WebkitMaskImage: `url(${icon.val})`,
+                                    WebkitMaskImage: `url("${icon.val}")`,
                                     WebkitMaskRepeat: 'no-repeat',
                                     WebkitMaskPosition: 'center',
                                     WebkitMaskSize: 'contain',
-                                    maskImage: `url(${icon.val})`,
+                                    maskImage: `url("${icon.val}")`,
                                     maskRepeat: 'no-repeat',
                                     maskPosition: 'center',
                                     maskSize: 'contain',
@@ -148,7 +148,7 @@ export function Square({ number }: SquareProps) {
                             <div
                                 className="absolute inset-0 pointer-events-none opacity-60 mix-blend-multiply translate-y-[1.5px] blur-[0.5px]"
                                 style={{
-                                    WebkitMaskImage: `url(${icon.val})`,
+                                    WebkitMaskImage: `url("${icon.val}")`,
                                     WebkitMaskRepeat: 'no-repeat',
                                     WebkitMaskPosition: 'center',
                                     WebkitMaskSize: 'contain',
@@ -159,7 +159,7 @@ export function Square({ number }: SquareProps) {
                             <div
                                 className="absolute inset-0 pointer-events-none opacity-30 mix-blend-overlay -translate-y-[0.5px]"
                                 style={{
-                                    WebkitMaskImage: `url(${icon.val})`,
+                                    WebkitMaskImage: `url("${icon.val}")`,
                                     WebkitMaskRepeat: 'no-repeat',
                                     WebkitMaskPosition: 'center',
                                     WebkitMaskSize: 'contain',

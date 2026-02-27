@@ -63,11 +63,11 @@ export function Afterlife() {
                                                 : "bg-gradient-to-br from-[var(--ui-piece-emblem-sphinx-from)] via-[var(--ui-piece-emblem-sphinx-via)] to-[var(--ui-piece-emblem-sphinx-to)]"
                                         )}
                                         style={{
-                                            WebkitMaskImage: `url(${pieceIconPath})`,
+                                            WebkitMaskImage: `url("${pieceIconPath}")`,
                                             WebkitMaskRepeat: 'no-repeat',
                                             WebkitMaskPosition: 'center',
                                             WebkitMaskSize: 'contain',
-                                            maskImage: `url(${pieceIconPath})`,
+                                            maskImage: `url("${pieceIconPath}")`,
                                             maskRepeat: 'no-repeat',
                                             maskPosition: 'center',
                                             maskSize: 'contain',

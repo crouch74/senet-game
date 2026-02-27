@@ -15,6 +15,10 @@ function resolvePagesBasePath() {
 export default defineConfig(({ mode }) => ({
   base: mode === 'production' ? resolvePagesBasePath() : '/',
   plugins: [react()],
+  build: {
+    // Keep SVGs as files (not data URIs) so CSS masks are stable on GitHub Pages.
+    assetsInlineLimit: 0
+  },
   server: {
     host: '0.0.0.0',
     port: 5173,
