@@ -44,7 +44,8 @@
         "victory_message": "اتحد الـ (با) والـ (كا) في حقول القصب (آرو).",
         "defeat_message": "رحلة الـ (دوات) لم تكتمل بعد.",
         "return_to_lobby": "العودة للقاعة",
-        "play_again": "إعادة الرحلة"
+        "play_again": "إعادة الرحلة",
+        "waiting_for_opponent": "في الانتظار... دور خصمك دلوقتي"
     },
     "square": {
         "effect": "التأثير: {{effect}}",
@@ -106,7 +107,13 @@
         "leave_room": "اخرج من الأوضة",
         "copy": "انسخ",
         "copied": "اتنسخ!",
-        "copy_room": "انسخ كود الأوضة"
+        "copy_room": "انسخ كود الأوضة",
+        "waiting_title": "في انتظار الروح الثانية",
+        "waiting_subtitle": "شارك كود الأوضة مع خصمك عشان تبدأ الرحلة.",
+        "waiting_you_are": "أنت بتلعب كـ",
+        "waiting_opponent_joined": "خصمك رجع تاني.",
+        "opponent_disconnected": "الخصم انقطع",
+        "opponent_disconnected_subtitle": "خصمك ساب اللوحة. اللعبة واقفة لحد ما يرجع."
     },
     "legend": {
         "registry_title": "بردية البعث",

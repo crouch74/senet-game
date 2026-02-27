@@ -44,7 +44,8 @@
         "victory_message": "Le Bâ et le Kâ se sont unis dans les champs d'Ialou.",
         "defeat_message": "Le voyage à travers la Douat reste inachevé.",
         "return_to_lobby": "Retour au Salon",
-        "play_again": "Recommencer le voyage"
+        "play_again": "Recommencer le voyage",
+        "waiting_for_opponent": "En attente de votre adversaire..."
     },
     "square": {
         "effect": "Effet : {{effect}}",
@@ -106,7 +107,13 @@
         "leave_room": "Quitter la salle",
         "copy": "Copier",
         "copied": "Copié !",
-        "copy_room": "Copier le code de la salle"
+        "copy_room": "Copier le code de la salle",
+        "waiting_title": "En attente de la Seconde Âme",
+        "waiting_subtitle": "Partagez le code de la salle avec votre adversaire pour commencer le voyage.",
+        "waiting_you_are": "Vous jouez en tant que",
+        "waiting_opponent_joined": "Votre adversaire est de retour.",
+        "opponent_disconnected": "Adversaire déconnecté",
+        "opponent_disconnected_subtitle": "Votre adversaire a quitté le plateau. La partie est en pause jusqu'à son retour."
     },
     "legend": {
         "registry_title": "Tome de la Résurrection",

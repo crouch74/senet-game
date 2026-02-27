@@ -13,7 +13,7 @@ import { formatNumber } from './utils/format';
 import { Copy, Check } from 'lucide-react';
 
 function App() {
-  const { historyLog, ruleset, isOnline, roomId, localPlayer, leaveRoom, winner, showGuide, setShowGuide, resetGame } = useSenetStore();
+  const { historyLog, ruleset, isOnline, isWaitingForOpponent, roomId, localPlayer, leaveRoom, winner, showGuide, setShowGuide, resetGame } = useSenetStore();
   const { t, i18n } = useTranslation();
   const [showLobby, setShowLobby] = useState(true);
   const [copiedRoom, setCopiedRoom] = useState(false);
@@ -34,7 +34,7 @@ function App() {
     });
   };
 
-  // Auto-hide lobby when playing online
+  // Auto-hide lobby when playing online (joined room = hide lobby, show waiting or game)
   useEffect(() => {
     if (isOnline) {
       setShowLobby(false);
@@ -71,7 +71,7 @@ function App() {
             <>
               {/* Main Game Area */}
               <div className="flex-1 w-full flex flex-col items-center justify-center order-2 xl:order-1 min-h-0">
-                {isOnline && roomId && (
+                {isOnline && roomId && !isWaitingForOpponent && (
                   <div className="mb-4 flex items-center justify-between w-full max-w-5xl bg-black/40 border border-sand/20 rounded-lg p-3 px-6 shadow-md backdrop-blur-sm shrink-0">
                     <div className="flex flex-col">
                       <span className="text-sand/60 text-xs uppercase tracking-wider font-bold mb-1">{t('lobby.room_number')}</span>
@@ -107,17 +107,91 @@ function App() {
                     </button>
                   </div>
                 )}
-                <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0">
-                  <Board />
-                  <div className="w-full max-w-5xl mt-12 mb-8 bg-black/30 border border-royal-gold/20 rounded-lg p-6 shadow-[inset_0_2px_15px_rgba(0,0,0,0.5)] flex flex-col md:flex-row items-stretch gap-8 backdrop-blur-sm">
-                    <div className="flex-1 w-full md:w-auto flex flex-col border-e border-royal-gold/10 md:pe-8">
-                      <ThrowSticks />
-                    </div>
-                    <div className="shrink-0 md:ps-4 flex flex-col h-full">
-                      <Afterlife />
+                {/* Waiting for Opponent overlay — replaces the game area */}
+                {isOnline && isWaitingForOpponent ? (
+                  <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0">
+                    <div className="flex flex-col items-center gap-8 max-w-lg w-full text-center px-6">
+                      {/* Animated hourglass / soul orbs */}
+                      <div className="flex gap-3 mb-2">
+                        {[0, 1, 2].map(i => (
+                          <div
+                            key={i}
+                            className="w-3 h-3 rounded-full bg-royal-gold"
+                            style={{
+                              animation: `pulse 1.5s ease-in-out ${i * 0.3}s infinite`,
+                              opacity: 0.4 + i * 0.2
+                            }}
+                          />
+                        ))}
+                      </div>
+
+                      {/* Title */}
+                      <div>
+                        <h2 className="text-3xl font-serif text-royal-gold tracking-wider uppercase drop-shadow-lg mb-2">
+                          {t('lobby.waiting_title')}
+                        </h2>
+                        <p className="text-sand/60 text-sm uppercase tracking-widest">
+                          {t('lobby.waiting_subtitle')}
+                        </p>
+                      </div>
+
+                      {/* Room code card */}
+                      {roomId && (
+                        <div className="w-full bg-black/40 border border-royal-gold/30 rounded-lg p-5 backdrop-blur-sm shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+                          <div className="text-sand/50 text-xs uppercase tracking-widest mb-2">{t('lobby.room_number')}</div>
+                          <div className="flex items-center justify-center gap-4 mb-4">
+                            <span className="text-gold font-mono text-2xl tracking-widest">{roomId}</span>
+                            <button
+                              id="copy-room-id-waiting"
+                              onClick={handleCopyRoomId}
+                              title={t('lobby.copy_room')}
+                              className={cn(
+                                "flex items-center gap-1.5 px-3 py-1 rounded text-xs font-bold uppercase tracking-wider border transition-all duration-300 cursor-pointer",
+                                copiedRoom
+                                  ? "bg-green-900/40 border-green-500/50 text-green-400"
+                                  : "bg-sand/10 border-sand/20 text-sand/70 hover:bg-sand/20 hover:text-sand"
+                              )}
+                            >
+                              {copiedRoom
+                                ? <><Check className="w-3.5 h-3.5" />{t('lobby.copied')}</>
+                                : <><Copy className="w-3.5 h-3.5" />{t('lobby.copy')}</>
+                              }
+                            </button>
+                          </div>
+                          <div className="border-t border-royal-gold/20 pt-4">
+                            <span className="text-sand/50 text-xs uppercase tracking-widest">{t('lobby.waiting_you_are')}</span>
+                            <div className={cn(
+                              "mt-1 text-lg font-bold uppercase tracking-widest font-serif",
+                              localPlayer === 'anubis' ? 'text-royal-gold' : 'text-royal-ivory'
+                            )}>
+                              {localPlayer ? t(`hud.players.${localPlayer}`) : ''}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Leave button */}
+                      <button
+                        onClick={() => { leaveRoom(); setShowLobby(true); }}
+                        className="text-sand/40 hover:text-sand/70 text-xs uppercase tracking-widest underline underline-offset-4 transition-colors cursor-pointer"
+                      >
+                        {t('lobby.leave_room')}
+                      </button>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0">
+                    <Board />
+                    <div className="w-full max-w-5xl mt-12 mb-8 bg-black/30 border border-royal-gold/20 rounded-lg p-6 shadow-[inset_0_2px_15px_rgba(0,0,0,0.5)] flex flex-col md:flex-row items-stretch gap-8 backdrop-blur-sm">
+                      <div className="flex-1 w-full md:w-auto flex flex-col border-e border-royal-gold/10 md:pe-8">
+                        <ThrowSticks />
+                      </div>
+                      <div className="shrink-0 md:ps-4 flex flex-col h-full">
+                        <Afterlife />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Side Panel: History & Rules Info */}

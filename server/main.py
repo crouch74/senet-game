@@ -62,6 +62,15 @@ async def websocket_endpoint(websocket: WebSocket, room_id: str):
     logger.info(f"🎭 [WS] Player joined room {room_id} as {assigned_color}")
     await websocket.send_json({"type": "init", "player": assigned_color})
 
+    # If both seats are now filled, notify both players the game can start
+    if room["anubis"] is not None and room["sphinx"] is not None:
+        logger.info(f"⚔️ [WS] Room {room_id} is full — broadcasting game_start")
+        for ws in [room["anubis"], room["sphinx"]]:
+            try:
+                await ws.send_json({"type": "game_start"})
+            except Exception:
+                pass
+
     try:
         while True:
             data = await websocket.receive_text()

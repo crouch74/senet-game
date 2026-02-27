@@ -1,6 +1,20 @@
 # Changelog
 
 ## Unreleased
+- **Online Game Start Gate**:
+  - The game board is now hidden until both players have joined the room — only then does the match begin.
+  - Server broadcasts a `game_start` event to both players once both seats (Anubis + Sphinx) are filled.
+  - Store introduces `isWaitingForOpponent` flag: set `true` on `init` (you joined), cleared on `game_start` (opponent joined), reset back to `true` on `opponent_disconnected` — pausing an in-progress game if the opponent drops.
+  - While waiting, a dedicated Waiting Room panel is displayed, showing the room code (copyable), the player's assigned deity, and a Leave Room link.
+  - The compact game-area room code banner is hidden during the waiting phase (the waiting panel replaces it).
+  - All gameplay actions (`throwSticks`, `movePiece`) also guard against `isWaitingForOpponent` in the store for belt-and-suspenders safety.
+  - New `lobby.waiting_*` and `lobby.opponent_disconnected*` translation keys added for EN, AR, FR.
+- **Online Turn Enforcement**:
+  - In online (multiplayer) mode, only the player whose turn it is can interact: throw the dice or move a piece.
+  - The `ThrowSticks` component now shows a distinct "Waiting for opponent" state — subdued, dimly pulsing sticks replace the interactive throw button when it is not the local player's turn.
+  - The status text updates accordingly: "Click sticks to throw" when it's your turn vs. a localized "Awaiting opponent" message when waiting.
+  - All three locales (English, Egyptian Arabic, French) updated with the new `throw.waiting_for_opponent` key.
+  - Silent enforcement in the store (`throwSticks` / `movePiece`) was already in place; this adds the matching visual layer on top.
 - **Game Logic & Rules Update**:
   - Replaced the generic "Light" and "Dark" player sides with the specific deity representations: "Anubis" and "Sphinx".
   - Implemented a dev-mode only "Auto Play" button in offline games to instantly play a specified number of random turns.

@@ -44,7 +44,8 @@
         "victory_message": "The Ba and Ka have united in the Field of Reeds.",
         "defeat_message": "The journey through the Duat remains unfinished.",
         "return_to_lobby": "Return to Lobby",
-        "play_again": "Replay the Journey"
+        "play_again": "Replay the Journey",
+        "waiting_for_opponent": "Awaiting your opponent's move..."
     },
     "square": {
         "effect": "Effect: {{effect}}",
@@ -106,7 +107,13 @@
         "leave_room": "Leave Room",
         "copy": "Copy",
         "copied": "Copied!",
-        "copy_room": "Copy room code"
+        "copy_room": "Copy room code",
+        "waiting_title": "Awaiting the Second Soul",
+        "waiting_subtitle": "Share the room code with your opponent to begin the journey.",
+        "waiting_you_are": "You are playing as",
+        "waiting_opponent_joined": "Your opponent has returned.",
+        "opponent_disconnected": "Opponent disconnected",
+        "opponent_disconnected_subtitle": "Your opponent has left the board. The game is paused until they return."
     },
     "legend": {
         "registry_title": "Tome of Resurrection",

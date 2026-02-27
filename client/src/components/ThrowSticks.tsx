@@ -15,7 +15,8 @@ interface StickLayout {
 export function ThrowSticks() {
     const [isThrowing, setIsThrowing] = useState(false);
     const { t } = useTranslation();
-    const { currentThrow, throwSticks, currentPlayer, winner } = useSenetStore();
+    const { currentThrow, throwSticks, currentPlayer, winner, isOnline, localPlayer } = useSenetStore();
+    const isMyTurn = !isOnline || currentPlayer === localPlayer;
     const [stickLayouts, setStickLayouts] = useState<StickLayout[]>([]);
 
     // Generate random layouts when a throw happens
@@ -46,7 +47,7 @@ export function ThrowSticks() {
     }, [currentThrow]);
 
     const handleThrow = () => {
-        if (!currentThrow && !winner && !isThrowing) {
+        if (!currentThrow && !winner && !isThrowing && isMyTurn) {
             setIsThrowing(true);
             // Anticipation delay
             setTimeout(() => {
@@ -142,8 +143,8 @@ export function ThrowSticks() {
                                 </motion.div>
                             ))}
                         </div>
-                    ) : (
-                        // Idle state
+                    ) : isMyTurn ? (
+                        // Idle state — it's your turn
                         <motion.button
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -162,6 +163,22 @@ export function ThrowSticks() {
                                 </div>
                             ))}
                         </motion.button>
+                    ) : (
+                        // Waiting state — opponent's turn
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="flex items-center gap-4 pointer-events-none"
+                        >
+                            {Array.from({ length: 4 }).map((_, i) => (
+                                <motion.div
+                                    key={`waiting-stick-${i}`}
+                                    animate={{ opacity: [0.2, 0.5, 0.2] }}
+                                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.3, ease: "easeInOut" }}
+                                    className="w-6 h-24 rounded-full bg-[#4a3f3a] border-2 border-sand/10 shadow-[0_5px_10px_rgba(0,0,0,0.3)]"
+                                />
+                            ))}
+                        </motion.div>
                     )}
                 </AnimatePresence>
             </div>
@@ -183,8 +200,18 @@ export function ThrowSticks() {
                         )}
                     </motion.div>
                 ) : (
-                    <div className="text-royal-gold font-bold uppercase tracking-[0.2em] animate-pulse drop-shadow-md text-lg -mt-2 group-hover:scale-105 transition-transform duration-300">
-                        {winner ? t('throw.game_over') : t('throw.click_to_throw')}
+                    <div className={cn(
+                        "font-bold uppercase tracking-[0.2em] drop-shadow-md text-lg -mt-2 transition-transform duration-300",
+                        isMyTurn
+                            ? "text-royal-gold animate-pulse group-hover:scale-105"
+                            : "text-sand/40 animate-pulse text-sm"
+                    )}>
+                        {winner
+                            ? t('throw.game_over')
+                            : isMyTurn
+                                ? t('throw.click_to_throw')
+                                : t('throw.waiting_for_opponent')
+                        }
                     </div>
                 )}
             </div>

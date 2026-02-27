@@ -7,6 +7,7 @@ let socket: WebSocket | null = null;
 interface SenetStore extends GameState {
     // Online matches
     isOnline: boolean;
+    isWaitingForOpponent: boolean;
     roomId: string | null;
     localPlayer: PlayerID | null;
     joinRoom: (roomId: string) => void;
@@ -43,6 +44,7 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
 
     // Online states
     isOnline: false,
+    isWaitingForOpponent: false,
     roomId: null,
     localPlayer: null,
 
@@ -64,21 +66,25 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
             if (data.type === 'init') {
-                set({ isOnline: true, roomId, localPlayer: data.player });
-                console.log(`🎮 Playing as ${data.player}`);
+                set({ isOnline: true, isWaitingForOpponent: true, roomId, localPlayer: data.player });
+                console.log(`🎮 Playing as ${data.player} — waiting for opponent`);
+            } else if (data.type === 'game_start') {
+                set({ isWaitingForOpponent: false });
+                console.log('⚔️ Both players connected — game started!');
             } else if (data.type === 'sync') {
                 set({ ...data.state, legalMoves: [] });
             } else if (data.type === 'opponent_disconnected') {
-                console.log('⚠️ Opponent disconnected');
+                set({ isWaitingForOpponent: true });
+                console.log('⚠️ Opponent disconnected — gameplay paused');
             } else if (data.type === 'error') {
                 console.error('WebSocket Error:', data.message);
                 socket?.close();
-                set({ isOnline: false, roomId: null, localPlayer: null });
+                set({ isOnline: false, isWaitingForOpponent: false, roomId: null, localPlayer: null });
             }
         };
 
         socket.onclose = () => {
-            set({ isOnline: false, roomId: null, localPlayer: null });
+            set({ isOnline: false, isWaitingForOpponent: false, roomId: null, localPlayer: null });
             socket = null;
         };
     },
@@ -88,7 +94,7 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
             socket.close();
             socket = null;
         }
-        set({ isOnline: false, roomId: null, localPlayer: null });
+        set({ isOnline: false, isWaitingForOpponent: false, roomId: null, localPlayer: null });
     },
 
     syncState: (state: Partial<GameState>) => {
@@ -100,7 +106,7 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
     throwSticks: () => {
         const state = get();
         if (state.winner || state.currentThrow) return;
-        if (state.isOnline && state.currentPlayer !== state.localPlayer) return;
+        if (state.isOnline && (state.isWaitingForOpponent || state.currentPlayer !== state.localPlayer)) return;
 
         const throwRes = getThrowResult();
         const partialState: Partial<GameState> = { currentThrow: throwRes };
@@ -121,7 +127,7 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
     movePiece: (pieceId: string) => {
         const state = get();
         if (!state.currentThrow) return;
-        if (state.isOnline && state.currentPlayer !== state.localPlayer) return;
+        if (state.isOnline && (state.isWaitingForOpponent || state.currentPlayer !== state.localPlayer)) return;
 
         const newState = applyMove(state, pieceId);
         const oldPiece = state.board.find(p => p.id === pieceId);
