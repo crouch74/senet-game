@@ -43,7 +43,7 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
                 )}
             </div>
 
-            <div className="flex flex-col md:flex-row items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3">
                 <button
                     onClick={() => setShowGuide(true)}
                     className="flex items-center gap-2 px-3 h-10 bg-royal-gold/10 hover:bg-royal-gold/20 text-royal-gold border border-royal-gold/30 rounded-sm transition-all cursor-pointer group whitespace-nowrap"
@@ -65,42 +65,40 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
                     <option value="fr">Français</option>
                 </select>
 
-                <div className="flex flex-col items-center md:items-end w-full gap-2">
-                    {!isOnline && !isLobby && (
-                        <>
-                            {import.meta.env.DEV && (
-                                <button
-                                    onClick={() => {
-                                        const count = prompt('How many turns to play?', '10');
-                                        if (count === null) return;
-                                        const parsed = parseInt(count, 10);
-                                        if (!isNaN(parsed) && parsed > 0) {
-                                            useSenetStore.getState().playRandomTurns(parsed);
-                                        }
-                                    }}
-                                    className="w-full md:w-auto px-6 py-2 bg-purple-900/50 hover:bg-purple-800 text-royal-ivory border-[2px] border-purple-500/60 rounded-sm transition-all font-serif shadow-sm text-xs uppercase tracking-widest font-bold"
-                                >
-                                    Dev: Auto Play
-                                </button>
-                            )}
-                            {onReturnToLobby && (
-                                <button
-                                    onClick={onReturnToLobby}
-                                    className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-2 bg-stone-800 hover:bg-stone-700 text-sand border-[2px] border-sand/20 rounded-sm transition-all font-serif shadow-sm text-sm uppercase tracking-widest font-bold"
-                                >
-                                    <Home className="w-4 h-4" />
-                                    {t('throw.return_to_lobby')}
-                                </button>
-                            )}
+                {!isOnline && !isLobby && (
+                    <>
+                        {import.meta.env.DEV && (
                             <button
-                                onClick={resetGame}
-                                className="w-full md:w-auto px-6 py-2 bg-[#fcf8ed] hover:bg-white text-[#1a1110] border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-sm uppercase tracking-widest font-bold hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:scale-105"
+                                onClick={() => {
+                                    const count = prompt('How many turns to play?', '10');
+                                    if (count === null) return;
+                                    const parsed = parseInt(count, 10);
+                                    if (!isNaN(parsed) && parsed > 0) {
+                                        useSenetStore.getState().playRandomTurns(parsed);
+                                    }
+                                }}
+                                className="px-4 py-2 h-10 bg-purple-900/50 hover:bg-purple-800 text-royal-ivory border-[2px] border-purple-500/60 rounded-sm transition-all font-serif shadow-sm text-xs uppercase tracking-widest font-bold whitespace-nowrap"
                             >
-                                {t('hud.restart_game')}
+                                Dev: Auto Play
                             </button>
-                        </>
-                    )}
-                </div>
+                        )}
+                        {onReturnToLobby && (
+                            <button
+                                onClick={onReturnToLobby}
+                                className="flex items-center gap-2 px-4 py-2 h-10 bg-stone-800 hover:bg-stone-700 text-sand border-[2px] border-sand/20 rounded-sm transition-all font-serif shadow-sm text-sm uppercase tracking-widest font-bold whitespace-nowrap cursor-pointer"
+                            >
+                                <Home className="w-4 h-4" />
+                                {t('throw.return_to_lobby')}
+                            </button>
+                        )}
+                        <button
+                            onClick={resetGame}
+                            className="px-4 py-2 h-10 bg-[#fcf8ed] hover:bg-white text-[#1a1110] border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-sm uppercase tracking-widest font-bold hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:scale-105 whitespace-nowrap cursor-pointer"
+                        >
+                            {t('hud.restart_game')}
+                        </button>
+                    </>
+                )}
             </div>
         </div>
     );
