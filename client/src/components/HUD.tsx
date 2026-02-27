@@ -16,7 +16,6 @@ export function HUD() {
                 >
                     <option value="museum">Museum Classroom</option>
                     <option value="common">Common Reconstruction</option>
-                    <option value="custom">Custom (Toggleable)</option>
                 </select>
             </div>
 
