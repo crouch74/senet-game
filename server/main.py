@@ -4,6 +4,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
 import json
+import random
+import string
 from typing import Dict
 
 # Configure logging according to user rules
@@ -20,14 +22,26 @@ async def startup_event():
 # Store active websocket connections: roomId -> {"light": None | WebSocket, "dark": None | WebSocket}
 active_rooms: Dict[str, Dict[str, WebSocket]] = {}
 
+@app.post("/api/match/create")
+def create_room():
+    while True:
+        letters = ''.join(random.choices(string.ascii_lowercase, k=9))
+        room_id = f"{letters[:3]}-{letters[3:6]}-{letters[6:]}"
+        if room_id not in active_rooms:
+            active_rooms[room_id] = {"light": None, "dark": None}
+            logger.info(f"🏠 [REST] Created new room {room_id}")
+            return {"room_id": room_id}
+
 @app.websocket("/api/match/{room_id}")
 async def websocket_endpoint(websocket: WebSocket, room_id: str):
     await websocket.accept()
     logger.info(f"🔌 [WS] New connection attempt for room {room_id}")
     
     if room_id not in active_rooms:
-        active_rooms[room_id] = {"light": None, "dark": None}
-        
+        logger.warning(f"🚫 [WS] Connection to room {room_id} rejected. Room does not exist.")
+        await websocket.send_json({"type": "error", "message": "Room does not exist"})
+        await websocket.close()
+        return
     room = active_rooms[room_id]
     
     # Assign player color based on availability
