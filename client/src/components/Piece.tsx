@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import type { Piece as PieceType } from '../engine/types';
 import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
+import { withBasePath } from '../utils/urls';
 
 interface PieceProps {
     piece: PieceType;
@@ -54,6 +55,7 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
     // Can this piece move?
     const myLegalMove = legalMoves.find(m => m.pieceId === piece.id);
     const canMove = isLocalTurn && !!myLegalMove && !!currentThrow;
+    const playerIconPath = withBasePath(`assets/royal/${piece.player === 'anubis' ? 'player_anubis.svg' : 'Sphinx.svg'}`);
 
     // Hide if in afterlife (Board will not render it, handled by Afterlife component)
     // but if it's position 0 (off-board start), keep it null for now
@@ -119,11 +121,11 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
                                 : "bg-gradient-to-br from-[var(--ui-piece-emblem-sphinx-from)] via-[var(--ui-piece-emblem-sphinx-via)] to-[var(--ui-piece-emblem-sphinx-to)]"
                         )}
                         style={{
-                            WebkitMaskImage: `url(/assets/royal/${piece.player === 'anubis' ? 'player_anubis.svg' : 'Sphinx.svg'})`,
+                            WebkitMaskImage: `url(${playerIconPath})`,
                             WebkitMaskRepeat: 'no-repeat',
                             WebkitMaskPosition: 'center',
                             WebkitMaskSize: 'contain',
-                            maskImage: `url(/assets/royal/${piece.player === 'anubis' ? 'player_anubis.svg' : 'Sphinx.svg'})`,
+                            maskImage: `url(${playerIconPath})`,
                             maskRepeat: 'no-repeat',
                             maskPosition: 'center',
                             maskSize: 'contain',

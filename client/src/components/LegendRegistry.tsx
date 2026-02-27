@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronUp, Scroll, Crown } from 'lucide-react';
 import { cn } from '../utils/cn';
+import { withBasePath } from '../utils/urls';
 
 /**
  * LegendRegistry Component
@@ -19,10 +20,10 @@ export function LegendContent() {
 
     const sacredHouses = [
         { num: 26, icon: '𓄤', type: 'text' },
-        { num: 27, icon: '/assets/royal/house_27_water_n35.svg', type: 'svg' },
-        { num: 28, icon: '/assets/royal/house_28_maat_feather.svg', type: 'svg' },
-        { num: 29, icon: '/assets/royal/house_29_sun_disk.svg', type: 'svg' },
-        { num: 30, icon: '/assets/royal/house_30_horus_falcon.svg', type: 'svg' }
+        { num: 27, icon: withBasePath('assets/royal/house_27_water_n35.svg'), type: 'svg' },
+        { num: 28, icon: withBasePath('assets/royal/house_28_maat_feather.svg'), type: 'svg' },
+        { num: 29, icon: withBasePath('assets/royal/house_29_sun_disk.svg'), type: 'svg' },
+        { num: 30, icon: withBasePath('assets/royal/house_30_horus_falcon.svg'), type: 'svg' }
     ];
 
     const guideItems = [

@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
 import { formatNumber } from '../utils/format';
+import { withBasePath } from '../utils/urls';
 
 interface SquareProps {
     number: number;
@@ -37,12 +38,12 @@ export function Square({ number }: SquareProps) {
 
     const getHouseIcon = () => {
         switch (number) {
-            case 15: return { type: 'svg', val: '/assets/royal/house_26_ankh.svg', color: 'bg-royal-blue', repeat: 1 };
+            case 15: return { type: 'svg', val: withBasePath('assets/royal/house_26_ankh.svg'), color: 'bg-royal-blue', repeat: 1 };
             case 26: return { type: 'text', val: '𓄤 𓄤 𓄤', color: 'text-royal-green drop-shadow-[0_0_8px_rgba(55,139,110,0.6)]' };
-            case 27: return { type: 'svg', val: '/assets/royal/house_27_water_n35.svg', color: 'bg-royal-blue', repeat: 3, stack: true };
-            case 28: return { type: 'svg', val: '/assets/royal/house_28_maat_feather.svg', color: 'bg-royal-ivory', repeat: 3 };
-            case 29: return { type: 'svg', val: '/assets/royal/house_29_sun_disk.svg', color: 'bg-royal-gold', repeat: 2, stack: true };
-            case 30: return { type: 'svg', val: '/assets/royal/house_30_horus_falcon.svg', color: 'bg-royal-gold', repeat: 1 };
+            case 27: return { type: 'svg', val: withBasePath('assets/royal/house_27_water_n35.svg'), color: 'bg-royal-blue', repeat: 3, stack: true };
+            case 28: return { type: 'svg', val: withBasePath('assets/royal/house_28_maat_feather.svg'), color: 'bg-royal-ivory', repeat: 3 };
+            case 29: return { type: 'svg', val: withBasePath('assets/royal/house_29_sun_disk.svg'), color: 'bg-royal-gold', repeat: 2, stack: true };
+            case 30: return { type: 'svg', val: withBasePath('assets/royal/house_30_horus_falcon.svg'), color: 'bg-royal-gold', repeat: 1 };
             default: return null;
         }
     };

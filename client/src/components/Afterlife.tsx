@@ -3,6 +3,7 @@ import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatNumber } from '../utils/format';
+import { withBasePath } from '../utils/urls';
 
 export function Afterlife() {
     const { board } = useSenetStore();
@@ -29,50 +30,53 @@ export function Afterlife() {
                 )}
 
                 <AnimatePresence>
-                    {borneOffPieces.map((piece, idx) => (
-                        <motion.div
-                            key={piece.id}
-                            layoutId={`piece-${piece.id}`}
-                            initial={{ scale: 0, opacity: 0, rotate: -45 }}
-                            animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                            exit={{ scale: 0, opacity: 0 }}
-                            transition={{
-                                type: "spring",
-                                stiffness: 260,
-                                damping: 20,
-                                delay: idx * 0.05
-                            }}
-                            className={cn(
-                                "relative w-10 h-10 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(255,255,255,0.1)] flex items-center justify-center transition-all duration-300",
-                                // Dark stone/ebony body
-                                "bg-gradient-to-b from-[var(--ui-piece-shell-from)] to-[var(--ui-piece-shell-to)] border border-royal-gold/20",
-                                piece.player === 'anubis' ? "shadow-[0_0_10px_var(--ui-piece-glow-anubis)]" : "shadow-[0_0_10px_var(--ui-piece-glow-sphinx)]"
-                            )}
-                        >
-                            <div className="absolute inset-[2px] rounded-full bg-gradient-to-br from-[var(--ui-piece-core-from)] to-[var(--ui-piece-core-to)] shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)] flex items-center justify-center overflow-hidden">
-                                {/* Soul shimmer */}
-                                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent animate-[shimmer_4s_infinite_linear]" />
-                                <div
-                                    className={cn(
-                                        "w-[60%] h-[60%] mask-image-center",
-                                        piece.player === 'anubis'
-                                            ? "bg-gradient-to-br from-[var(--ui-piece-emblem-anubis-from)] via-[var(--ui-piece-emblem-anubis-via)] to-[var(--ui-piece-emblem-anubis-to)]"
-                                            : "bg-gradient-to-br from-[var(--ui-piece-emblem-sphinx-from)] via-[var(--ui-piece-emblem-sphinx-via)] to-[var(--ui-piece-emblem-sphinx-to)]"
-                                    )}
-                                    style={{
-                                        WebkitMaskImage: `url(/assets/royal/${piece.player === 'anubis' ? 'player_anubis.svg' : 'Sphinx.svg'})`,
-                                        WebkitMaskRepeat: 'no-repeat',
-                                        WebkitMaskPosition: 'center',
-                                        WebkitMaskSize: 'contain',
-                                        maskImage: `url(/assets/royal/${piece.player === 'anubis' ? 'player_anubis.svg' : 'Sphinx.svg'})`,
-                                        maskRepeat: 'no-repeat',
-                                        maskPosition: 'center',
-                                        maskSize: 'contain',
-                                    }}
-                                />
-                            </div>
-                        </motion.div>
-                    ))}
+                    {borneOffPieces.map((piece, idx) => {
+                        const pieceIconPath = withBasePath(`assets/royal/${piece.player === 'anubis' ? 'player_anubis.svg' : 'Sphinx.svg'}`);
+                        return (
+                            <motion.div
+                                key={piece.id}
+                                layoutId={`piece-${piece.id}`}
+                                initial={{ scale: 0, opacity: 0, rotate: -45 }}
+                                animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                                exit={{ scale: 0, opacity: 0 }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 260,
+                                    damping: 20,
+                                    delay: idx * 0.05
+                                }}
+                                className={cn(
+                                    "relative w-10 h-10 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(255,255,255,0.1)] flex items-center justify-center transition-all duration-300",
+                                    // Dark stone/ebony body
+                                    "bg-gradient-to-b from-[var(--ui-piece-shell-from)] to-[var(--ui-piece-shell-to)] border border-royal-gold/20",
+                                    piece.player === 'anubis' ? "shadow-[0_0_10px_var(--ui-piece-glow-anubis)]" : "shadow-[0_0_10px_var(--ui-piece-glow-sphinx)]"
+                                )}
+                            >
+                                <div className="absolute inset-[2px] rounded-full bg-gradient-to-br from-[var(--ui-piece-core-from)] to-[var(--ui-piece-core-to)] shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)] flex items-center justify-center overflow-hidden">
+                                    {/* Soul shimmer */}
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent animate-[shimmer_4s_infinite_linear]" />
+                                    <div
+                                        className={cn(
+                                            "w-[60%] h-[60%] mask-image-center",
+                                            piece.player === 'anubis'
+                                                ? "bg-gradient-to-br from-[var(--ui-piece-emblem-anubis-from)] via-[var(--ui-piece-emblem-anubis-via)] to-[var(--ui-piece-emblem-anubis-to)]"
+                                                : "bg-gradient-to-br from-[var(--ui-piece-emblem-sphinx-from)] via-[var(--ui-piece-emblem-sphinx-via)] to-[var(--ui-piece-emblem-sphinx-to)]"
+                                        )}
+                                        style={{
+                                            WebkitMaskImage: `url(${pieceIconPath})`,
+                                            WebkitMaskRepeat: 'no-repeat',
+                                            WebkitMaskPosition: 'center',
+                                            WebkitMaskSize: 'contain',
+                                            maskImage: `url(${pieceIconPath})`,
+                                            maskRepeat: 'no-repeat',
+                                            maskPosition: 'center',
+                                            maskSize: 'contain',
+                                        }}
+                                    />
+                                </div>
+                            </motion.div>
+                        );
+                    })}
                 </AnimatePresence>
             </div>
 

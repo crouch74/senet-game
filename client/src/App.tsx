@@ -11,21 +11,23 @@ import { useSenetStore } from './engine/store';
 import type { OfflineMode } from './engine/types';
 import { cn } from './utils/cn';
 import { formatNumber } from './utils/format';
+import { stripBasePath, withBasePath } from './utils/urls';
 import { Copy, Check } from 'lucide-react';
 import { DEFAULT_THEME, isThemeId, THEME_STORAGE_KEY, type ThemeId } from './theme';
 
 const ROOM_PATH_REGEX = /^\/room\/([a-z]{3}-[a-z]{3}-[a-z]{3})\/?$/i;
 
 const getRoomCodeFromPath = (path: string) => {
-  const match = path.match(ROOM_PATH_REGEX);
+  const match = stripBasePath(path).match(ROOM_PATH_REGEX);
   return match ? match[1].toLowerCase() : null;
 };
 
-const getRoomPermalinkPath = (roomCode: string) => `/room/${roomCode.toLowerCase()}`;
+const getRoomPermalinkPath = (roomCode: string) => withBasePath(`/room/${roomCode.toLowerCase()}`);
 
 const setLobbyPath = () => {
-  if (window.location.pathname !== '/') {
-    window.history.replaceState({}, '', '/');
+  const lobbyPath = withBasePath('/');
+  if (window.location.pathname !== lobbyPath) {
+    window.history.replaceState({}, '', lobbyPath);
   }
 };
 
