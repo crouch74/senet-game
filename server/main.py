@@ -6,7 +6,7 @@ import os
 import json
 import random
 import string
-from typing import Dict
+from typing import Dict, Optional, TypedDict
 
 # Configure logging according to user rules
 logging.basicConfig(level=logging.INFO, format="%(message)s")
@@ -19,8 +19,14 @@ app = FastAPI(title="Senet Game Backend")
 async def startup_event():
     logger.info("⚙️ [SYSTEM] Senet Backend Booting up")
 
-# Store active websocket connections: roomId -> {"light": None | WebSocket, "dark": None | WebSocket}
-active_rooms: Dict[str, Dict[str, WebSocket]] = {}
+class RoomState(TypedDict):
+    anubis: Optional[WebSocket]
+    sphinx: Optional[WebSocket]
+    opening_player: Optional[str]
+
+# Store active websocket connections and room metadata.
+# roomId -> {"anubis": None | WebSocket, "sphinx": None | WebSocket, "opening_player": None | "anubis" | "sphinx"}
+active_rooms: Dict[str, RoomState] = {}
 
 @app.post("/api/match/create")
 def create_room():
@@ -28,7 +34,7 @@ def create_room():
         letters = ''.join(random.choices(string.ascii_lowercase, k=9))
         room_id = f"{letters[:3]}-{letters[3:6]}-{letters[6:]}"
         if room_id not in active_rooms:
-            active_rooms[room_id] = {"anubis": None, "sphinx": None}
+            active_rooms[room_id] = {"anubis": None, "sphinx": None, "opening_player": None}
             logger.info(f"🏠 [REST] Created new room {room_id}")
             return {"room_id": room_id}
 
@@ -62,12 +68,38 @@ async def websocket_endpoint(websocket: WebSocket, room_id: str):
     logger.info(f"🎭 [WS] Player joined room {room_id} as {assigned_color}")
     await websocket.send_json({"type": "init", "player": assigned_color})
 
-    # If both seats are now filled, notify both players the game can start
+    # If both seats are now filled, notify both players the game can start.
     if room["anubis"] is not None and room["sphinx"] is not None:
-        logger.info(f"⚔️ [WS] Room {room_id} is full — broadcasting game_start")
+        opening_player = room["opening_player"]
+        if opening_player is None:
+            # Opening player is decided by roll-off. Re-roll ties until resolved.
+            while True:
+                anubis_roll = random.randint(1, 6)
+                sphinx_roll = random.randint(1, 6)
+                if anubis_roll != sphinx_roll:
+                    break
+
+            opening_player = "anubis" if anubis_roll > sphinx_roll else "sphinx"
+            room["opening_player"] = opening_player
+            logger.info(
+                f"🎲 [WS] Opening roll-off for room {room_id}: anubis={anubis_roll}, sphinx={sphinx_roll}, starter={opening_player}"
+            )
+        else:
+            anubis_roll = None
+            sphinx_roll = None
+            logger.info(f"⚔️ [WS] Room {room_id} resumed — broadcasting game_start")
+
         for ws in [room["anubis"], room["sphinx"]]:
             try:
-                await ws.send_json({"type": "game_start"})
+                payload = {"type": "game_start"}
+                # Include starter only once so reconnects do not force-reset turns in active games.
+                if anubis_roll is not None and sphinx_roll is not None and opening_player is not None:
+                    payload = {
+                        "type": "game_start",
+                        "opening_player": opening_player,
+                        "opening_rolls": {"anubis": anubis_roll, "sphinx": sphinx_roll}
+                    }
+                await ws.send_json(payload)
             except Exception:
                 pass
 

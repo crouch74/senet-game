@@ -82,15 +82,6 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
                                 Dev: Auto Play
                             </button>
                         )}
-                        {onReturnToLobby && (
-                            <button
-                                onClick={onReturnToLobby}
-                                className="flex items-center gap-2 px-3 sm:px-4 py-2 h-10 bg-stone-800 hover:bg-stone-700 text-sand border-[2px] border-sand/20 rounded-sm transition-all font-serif shadow-sm text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-widest font-bold whitespace-nowrap cursor-pointer grow sm:grow-0"
-                            >
-                                <Home className="w-4 h-4" />
-                                {t('throw.return_to_lobby')}
-                            </button>
-                        )}
                         <button
                             onClick={resetGame}
                             className="px-3 sm:px-4 py-2 h-10 bg-[#fcf8ed] hover:bg-white text-[#1a1110] border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-widest font-bold hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:scale-105 whitespace-nowrap cursor-pointer grow sm:grow-0"
@@ -98,6 +89,15 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
                             {t('hud.restart_game')}
                         </button>
                     </>
+                )}
+                {onReturnToLobby && (
+                    <button
+                        onClick={onReturnToLobby}
+                        className="flex items-center gap-2 px-3 sm:px-4 py-2 h-10 bg-stone-800 hover:bg-stone-700 text-sand border-[2px] border-sand/20 rounded-sm transition-all font-serif shadow-sm text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-widest font-bold whitespace-nowrap cursor-pointer grow sm:grow-0"
+                    >
+                        <Home className="w-4 h-4" />
+                        {t('throw.return_to_lobby')}
+                    </button>
                 )}
             </div>
         </div>

@@ -109,8 +109,22 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
                 });
                 console.log(`🎮 Playing as ${data.player} — waiting for opponent`);
             } else if (data.type === 'game_start') {
-                set({ isConnectingToRoom: false, isWaitingForOpponent: false });
-                console.log('⚔️ Both players connected — game started!');
+                const openingPlayer = data.opening_player as PlayerID | undefined;
+                const openingRolls = data.opening_rolls as { anubis: number; sphinx: number } | undefined;
+
+                set((state) => ({
+                    isConnectingToRoom: false,
+                    isWaitingForOpponent: false,
+                    currentPlayer: openingPlayer ?? state.currentPlayer
+                }));
+
+                if (openingPlayer && openingRolls) {
+                    console.log(
+                        `⚔️ Both players connected — opening roll-off decided starter: anubis=${openingRolls.anubis}, sphinx=${openingRolls.sphinx}, starter=${openingPlayer}`
+                    );
+                } else {
+                    console.log('⚔️ Both players connected — game resumed!');
+                }
             } else if (data.type === 'sync') {
                 set({ ...data.state, legalMoves: [] });
             } else if (data.type === 'opponent_disconnected') {

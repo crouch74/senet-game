@@ -127,7 +127,7 @@ function App() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-3 py-4 sm:px-4 sm:py-5 md:p-8 flex flex-col relative z-10 min-h-0">
         <HUD
           isLobby={showLobby || isConnectingToRoom}
-          onReturnToLobby={!isOnline && !showLobby && !isConnectingToRoom ? handleReturnToLobby : undefined}
+          onReturnToLobby={!showLobby && !isConnectingToRoom ? handleReturnToLobby : undefined}
         />
 
         <div className="flex-1 flex flex-col xl:flex-row gap-4 md:gap-6 xl:gap-8 items-stretch justify-center min-h-0">
