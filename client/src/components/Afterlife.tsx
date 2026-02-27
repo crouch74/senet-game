@@ -3,7 +3,7 @@ import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatNumber } from '../utils/format';
-import { withBasePath } from '../utils/urls';
+import { playerAnubis, playerSphinx } from '../assets/royal';
 
 export function Afterlife() {
     const { board } = useSenetStore();
@@ -31,7 +31,7 @@ export function Afterlife() {
 
                 <AnimatePresence>
                     {borneOffPieces.map((piece, idx) => {
-                        const pieceIconPath = withBasePath(`assets/royal/${piece.player === 'anubis' ? 'player_anubis.svg' : 'Sphinx.svg'}`);
+                        const pieceIconPath = piece.player === 'anubis' ? playerAnubis : playerSphinx;
                         return (
                             <motion.div
                                 key={piece.id}

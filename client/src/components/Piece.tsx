@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import type { Piece as PieceType } from '../engine/types';
 import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
-import { withBasePath } from '../utils/urls';
+import { playerAnubis, playerSphinx } from '../assets/royal';
 
 interface PieceProps {
     piece: PieceType;
@@ -55,7 +55,7 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
     // Can this piece move?
     const myLegalMove = legalMoves.find(m => m.pieceId === piece.id);
     const canMove = isLocalTurn && !!myLegalMove && !!currentThrow;
-    const playerIconPath = withBasePath(`assets/royal/${piece.player === 'anubis' ? 'player_anubis.svg' : 'Sphinx.svg'}`);
+    const playerIconPath = piece.player === 'anubis' ? playerAnubis : playerSphinx;
 
     // Hide if in afterlife (Board will not render it, handled by Afterlife component)
     // but if it's position 0 (off-board start), keep it null for now
