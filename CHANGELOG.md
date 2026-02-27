@@ -13,3 +13,6 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Refactored `App.tsx` side panel to display dynamic rules based on the currently selected game mode, replacing the generic historical note.
+
+### Removed
+- Removed the 'Museum Classroom' and 'Custom (Toggleable)' gamemodes/rulesets from the engine to focus strictly on the historically detailed 'Common Reconstruction' option.

@@ -58,14 +58,10 @@ const resources = {
             },
             "ruleset": {
                 "names": {
-                    "museum": "Museum Classroom",
-                    "common": "Common Reconstruction",
-                    "custom": "Custom (Toggleable)"
+                    "common": "Common Reconstruction"
                 },
                 "descriptions": {
-                    "museum": "A straightforward, teachable ruleset aligned with museum/education handouts. Minimal confusing rules.",
-                    "common": "A richer ruleset with protected pairs, blockades, and swap-capture logic matching widely-circulated rules.",
-                    "custom": "Rules editor UI allowing the user to toggle game mechanics."
+                    "common": "A richer ruleset with protected pairs, blockades, and swap-capture logic matching widely-circulated rules."
                 }
             },
             "history": {
@@ -136,14 +132,10 @@ const resources = {
             },
             "ruleset": {
                 "names": {
-                    "museum": "فصل المتحف",
-                    "common": "إعادة البناء الشائعة",
-                    "custom": "مخصص (مع مفاتيح)"
+                    "common": "إعادة البناء الشائعة"
                 },
                 "descriptions": {
-                    "museum": "قواعد مباشرة وسهلة التعليم تتماشى مع النشرات التعليمية في المتاحف. الحد الأدنى من القواعد المربكة.",
-                    "common": "قواعد أغنى مع أزواج محمية، وحواجز، ومنطق أسر بالتبديل يطابق القواعد المتداولة على نطاق واسع.",
-                    "custom": "واجهة محرر القواعد تسمح للمستخدم بتبديل آليات اللعبة."
+                    "common": "قواعد أغنى مع أزواج محمية، وحواجز، ومنطق أسر بالتبديل يطابق القواعد المتداولة على نطاق واسع."
                 }
             },
             "history": {
@@ -214,14 +206,10 @@ const resources = {
             },
             "ruleset": {
                 "names": {
-                    "museum": "Musée (Simple)",
-                    "common": "Reconstruction Commune",
-                    "custom": "Personnalisé"
+                    "common": "Reconstruction Commune"
                 },
                 "descriptions": {
-                    "museum": "Des règles simples et faciles à enseigner, alignées sur les documents éducatifs des musées. Finis les règles complexes.",
-                    "common": "Des règles plus riches avec des paires protégées, des blocages et une logique de capture par échange, correspondant aux règles largement diffusées.",
-                    "custom": "Interface de l'éditeur de règles permettant à l'utilisateur d'activer ou de désactiver les mécanismes de jeu."
+                    "common": "Des règles plus riches avec des paires protégées, des blocages et une logique de capture par échange, correspondant aux règles largement diffusées."
                 }
             },
             "history": {

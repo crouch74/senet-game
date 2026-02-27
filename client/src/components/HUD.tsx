@@ -3,7 +3,7 @@ import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
 
 export function HUD() {
-    const { currentPlayer, ruleset, winner, changeRuleset, resetGame } = useSenetStore();
+    const { currentPlayer, ruleset, winner, resetGame } = useSenetStore();
     const { t, i18n } = useTranslation();
 
     const changeLanguage = (lng: string) => {
@@ -15,17 +15,6 @@ export function HUD() {
             <div className="flex flex-col">
                 <h1 className="text-3xl font-serif text-gold tracking-widest uppercase shadow-sm">{t('hud.senet')}</h1>
                 <div className="text-sand/70 text-sm mt-1">{t('hud.rules', { name: t(`ruleset.names.${ruleset.id}`) })}</div>
-                <div className="flex gap-2">
-                    <select
-                        className="mt-2 bg-ebony text-sand border border-sand/30 rounded px-2 py-1 text-xs outline-none focus:border-gold"
-                        value={ruleset.id}
-                        onChange={(e) => changeRuleset(e.target.value)}
-                    >
-                        <option value="museum">{t('ruleset.names.museum')}</option>
-                        <option value="common">{t('ruleset.names.common')}</option>
-                        <option value="custom">{t('ruleset.names.custom')}</option>
-                    </select>
-                </div>
             </div>
 
             <div className="flex flex-col items-center flex-1 my-4 md:my-0">

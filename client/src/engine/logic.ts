@@ -1,5 +1,5 @@
 import type { GameState, Piece, ThrowResult } from './types';
-import { MuseumRuleset } from './rules';
+import { CommonRuleset } from './rules';
 import type { Ruleset } from './types';
 
 export const INITIAL_BOARD: Piece[] = [
@@ -17,7 +17,7 @@ export const INITIAL_BOARD: Piece[] = [
     { id: 'D5', player: 'dark', position: 10 },
 ];
 
-export function createInitialState(ruleset: Ruleset = MuseumRuleset): GameState {
+export function createInitialState(ruleset: Ruleset = CommonRuleset): GameState {
     return {
         board: JSON.parse(JSON.stringify(INITIAL_BOARD)),
         currentPlayer: 'light',

@@ -1,13 +1,12 @@
 import { create } from 'zustand';
-import type { GameState, Ruleset } from './types';
+import type { GameState } from './types';
 import { createInitialState, getThrowResult, getLegalMoves, applyMove, autoPassIfNoMoves } from './logic';
-import { MuseumRuleset, CommonRuleset } from './rules';
 
 interface SenetStore extends GameState {
     // Actions
     throwSticks: () => void;
     movePiece: (pieceId: string) => void;
-    changeRuleset: (rulesetId: string) => void;
+
     resetGame: () => void;
     passTurn: () => void;
     // UI helpers
@@ -50,15 +49,7 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
         set({ ...newState, legalMoves: [] });
     },
 
-    changeRuleset: (rulesetId: string) => {
-        let newRuleset: Ruleset;
-        if (rulesetId === 'museum') newRuleset = MuseumRuleset;
-        else newRuleset = CommonRuleset;
 
-        console.log(`📜 Changed active ruleset to: ${newRuleset.name}`);
-
-        set({ ...createInitialState(newRuleset), ruleset: newRuleset, legalMoves: [] });
-    },
 
     resetGame: () => {
         set({ ...createInitialState(get().ruleset), legalMoves: [] });
