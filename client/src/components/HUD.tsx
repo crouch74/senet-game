@@ -12,26 +12,26 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
     };
 
     return (
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full p-6 bg-[#2a1b18]/60 backdrop-blur-md rounded-md border-b-2 border-royal-gold/40 shadow-[0_20px_30px_rgba(0,0,0,0.8),inset_0_2px_10px_rgba(212,175,55,0.1)] mb-8 relative">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 md:gap-5 w-full p-4 sm:p-5 md:p-6 bg-[#2a1b18]/60 backdrop-blur-md rounded-md border-b-2 border-royal-gold/40 shadow-[0_20px_30px_rgba(0,0,0,0.8),inset_0_2px_10px_rgba(212,175,55,0.1)] mb-5 md:mb-8 relative">
             {/* Top decorative trim */}
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-80" />
 
-            <div className="flex flex-col">
-                <h1 className="text-4xl font-serif text-royal-gold tracking-[0.3em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-bold">{t('hud.senet')}</h1>
-                <div className="text-royal-ivory/80 text-sm mt-1 uppercase tracking-widest font-mono opacity-90">{t('hud.rules', { name: t(`ruleset.names.${ruleset.id}`) })}</div>
+            <div className="flex flex-col w-full lg:w-auto">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-royal-gold tracking-[0.2em] sm:tracking-[0.26em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-bold">{t('hud.senet')}</h1>
+                <div className="text-royal-ivory/80 text-xs sm:text-sm mt-1 uppercase tracking-[0.2em] sm:tracking-widest font-mono opacity-90">{t('hud.rules', { name: t(`ruleset.names.${ruleset.id}`) })}</div>
             </div>
 
-            <div className="flex flex-col items-center flex-1 my-6 md:my-0 relative">
+            <div className="flex flex-col items-center w-full lg:w-auto lg:flex-1 my-1 sm:my-2 lg:my-0 relative">
                 {!isLobby && (
                     winner ? (
-                        <div className="text-3xl font-bold text-royal-gold animate-[pulse_2s_ease-in-out_infinite] tracking-wider uppercase drop-shadow-lg">
+                        <div className="text-xl sm:text-2xl lg:text-3xl text-center font-bold text-royal-gold animate-[pulse_2s_ease-in-out_infinite] tracking-wide uppercase drop-shadow-lg">
                             {t('hud.wins', { player: t(`hud.players.${winner}`) })}
                         </div>
                     ) : (
-                        <div className="flex items-center gap-6 p-3 bg-[#1a1110]/50 rounded border border-royal-gold/20 shadow-inner">
-                            <div className="text-sm text-royal-ivory/80 font-mono tracking-widest uppercase">{t('hud.current_turn')}</div>
+                        <div className="flex items-center justify-center w-full sm:w-auto gap-3 sm:gap-6 p-2.5 sm:p-3 bg-[#1a1110]/50 rounded border border-royal-gold/20 shadow-inner">
+                            <div className="text-xs sm:text-sm text-royal-ivory/80 font-mono tracking-[0.2em] sm:tracking-widest uppercase whitespace-nowrap">{t('hud.current_turn')}</div>
                             <div className={cn(
-                                "px-6 py-1.5 rounded-sm font-bold uppercase tracking-widest text-sm shadow-[0_2px_5px_rgba(0,0,0,0.5)] transition-all duration-300 border",
+                                "px-4 sm:px-6 py-1.5 rounded-sm font-bold uppercase tracking-[0.12em] sm:tracking-widest text-xs sm:text-sm shadow-[0_2px_5px_rgba(0,0,0,0.5)] transition-all duration-300 border whitespace-nowrap",
                                 currentPlayer === 'anubis'
                                     ? 'bg-royal-gold text-[#1a1110] border-yellow-300/50'
                                     : 'bg-[#1a1110] text-royal-gold border-royal-gold/80',
@@ -43,10 +43,10 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
                 )}
             </div>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full lg:w-auto lg:justify-end">
                 <button
                     onClick={() => setShowGuide(true)}
-                    className="flex items-center gap-2 px-3 h-10 bg-royal-gold/10 hover:bg-royal-gold/20 text-royal-gold border border-royal-gold/30 rounded-sm transition-all cursor-pointer group whitespace-nowrap"
+                    className="flex items-center gap-2 px-3 h-10 bg-royal-gold/10 hover:bg-royal-gold/20 text-royal-gold border border-royal-gold/30 rounded-sm transition-all cursor-pointer group whitespace-nowrap grow sm:grow-0"
                     title={t('legend.registry_title')}
                 >
                     <Scroll className="w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -56,7 +56,7 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
                 </button>
 
                 <select
-                    className="bg-[#1a1110] text-royal-ivory border-[1.5px] border-royal-gold/60 rounded-sm px-3 py-1 text-sm outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold/50 h-10 font-serif tracking-wider shadow-inner hover:bg-[#2a1b18] transition-colors"
+                    className="bg-[#1a1110] text-royal-ivory border-[1.5px] border-royal-gold/60 rounded-sm px-3 py-1 text-sm outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold/50 h-10 font-serif tracking-wider shadow-inner hover:bg-[#2a1b18] transition-colors min-w-[7.5rem] grow sm:grow-0"
                     value={i18n.language}
                     onChange={(e) => changeLanguage(e.target.value)}
                 >
@@ -77,7 +77,7 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
                                         useSenetStore.getState().playRandomTurns(parsed);
                                     }
                                 }}
-                                className="px-4 py-2 h-10 bg-purple-900/50 hover:bg-purple-800 text-royal-ivory border-[2px] border-purple-500/60 rounded-sm transition-all font-serif shadow-sm text-xs uppercase tracking-widest font-bold whitespace-nowrap"
+                                className="px-3 sm:px-4 py-2 h-10 bg-purple-900/50 hover:bg-purple-800 text-royal-ivory border-[2px] border-purple-500/60 rounded-sm transition-all font-serif shadow-sm text-[11px] uppercase tracking-[0.15em] sm:tracking-widest font-bold whitespace-nowrap grow sm:grow-0"
                             >
                                 Dev: Auto Play
                             </button>
@@ -85,7 +85,7 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
                         {onReturnToLobby && (
                             <button
                                 onClick={onReturnToLobby}
-                                className="flex items-center gap-2 px-4 py-2 h-10 bg-stone-800 hover:bg-stone-700 text-sand border-[2px] border-sand/20 rounded-sm transition-all font-serif shadow-sm text-sm uppercase tracking-widest font-bold whitespace-nowrap cursor-pointer"
+                                className="flex items-center gap-2 px-3 sm:px-4 py-2 h-10 bg-stone-800 hover:bg-stone-700 text-sand border-[2px] border-sand/20 rounded-sm transition-all font-serif shadow-sm text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-widest font-bold whitespace-nowrap cursor-pointer grow sm:grow-0"
                             >
                                 <Home className="w-4 h-4" />
                                 {t('throw.return_to_lobby')}
@@ -93,7 +93,7 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
                         )}
                         <button
                             onClick={resetGame}
-                            className="px-4 py-2 h-10 bg-[#fcf8ed] hover:bg-white text-[#1a1110] border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-sm uppercase tracking-widest font-bold hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:scale-105 whitespace-nowrap cursor-pointer"
+                            className="px-3 sm:px-4 py-2 h-10 bg-[#fcf8ed] hover:bg-white text-[#1a1110] border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-widest font-bold hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:scale-105 whitespace-nowrap cursor-pointer grow sm:grow-0"
                         >
                             {t('hud.restart_game')}
                         </button>

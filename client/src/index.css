@@ -23,8 +23,13 @@
   body {
     @apply bg-ebony text-sand;
     margin: 0;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  #root {
+    min-height: 100vh;
   }
 }
 

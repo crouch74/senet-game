@@ -63,7 +63,7 @@ export function ThrowSticks() {
             <div className="absolute top-2 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-60" />
             <div className="absolute bottom-2 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-60" />
 
-            <div className="text-xl font-serif text-royal-ivory font-bold tracking-widest uppercase mb-4 drop-shadow-sm opacity-90 z-10">
+            <div className="text-base sm:text-xl text-center font-serif text-royal-ivory font-bold tracking-[0.15em] sm:tracking-widest uppercase mb-4 drop-shadow-sm opacity-90 z-10 px-2">
                 {t('throw.turn', { player: t(`hud.players.${currentPlayer}`) })}
             </div>
 
@@ -201,7 +201,7 @@ export function ThrowSticks() {
                     </motion.div>
                 ) : (
                     <div className={cn(
-                        "font-bold uppercase tracking-[0.2em] drop-shadow-md text-lg -mt-2 transition-transform duration-300",
+                        "font-bold uppercase tracking-[0.12em] sm:tracking-[0.2em] drop-shadow-md text-sm sm:text-lg -mt-2 transition-transform duration-300 text-center px-2 break-words",
                         isMyTurn
                             ? "text-royal-gold animate-pulse group-hover:scale-105"
                             : "text-sand/40 animate-pulse text-sm"

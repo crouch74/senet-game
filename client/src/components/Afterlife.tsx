@@ -13,7 +13,7 @@ export function Afterlife() {
     const darkPieces = borneOffPieces.filter(p => p.player === 'sphinx');
 
     return (
-        <div className="flex flex-col items-center p-4 bg-[#1A1110]/60 backdrop-blur-md rounded-sm border-[2px] border-royal-gold/40 shadow-[0_15px_35px_rgba(0,0,0,0.7),inset_0_0_20px_rgba(0,0,0,0.5)] relative overflow-hidden w-64 h-full group transition-all duration-500 hover:border-royal-gold/60">
+        <div className="flex flex-col items-center p-4 bg-[#1A1110]/60 backdrop-blur-md rounded-sm border-[2px] border-royal-gold/40 shadow-[0_15px_35px_rgba(0,0,0,0.7),inset_0_0_20px_rgba(0,0,0,0.5)] relative overflow-hidden w-full sm:w-64 max-w-full h-full min-h-56 group transition-all duration-500 hover:border-royal-gold/60">
             {/* Title */}
             <h3 className="text-royal-gold font-serif text-sm font-bold tracking-[0.3em] uppercase mb-4 border-b border-royal-gold/20 pb-2 w-full text-center">
                 {t('afterlife.title', { defaultValue: 'Afterlife' })}
