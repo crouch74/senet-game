@@ -36,7 +36,10 @@
             "nile_papyrus": "Nile Papyrus",
             "temple_fresco": "Temple Fresco",
             "solar_court": "Solar Court",
-            "afterlife_ember": "Afterlife Ember"
+            "afterlife_ember": "Afterlife Ember",
+            "desert_storm": "Desert Storm",
+            "obsidian_oracle": "Obsidian Oracle",
+            "lotus_dawn": "Lotus Dawn"
         },
         "theme_descriptions": {
             "royal": "Classic inlaid faience and gold.",
@@ -44,7 +47,10 @@
             "nile_papyrus": "Reed green, silt, and papyrus earth.",
             "temple_fresco": "Mineral pigments and painted limestone.",
             "solar_court": "Ceremonial daylight stone and amber.",
-            "afterlife_ember": "Underworld ember glow and shadow."
+            "afterlife_ember": "Underworld ember glow and shadow.",
+            "desert_storm": "Wind-scoured dunes and storm-dark ruins.",
+            "obsidian_oracle": "Prophetic night temple with cold glow.",
+            "lotus_dawn": "Serene dawn tones along the Nile."
         },
         "players": {
             "anubis": "ANUBIS",

@@ -558,6 +558,276 @@ html[data-theme="afterlife-ember"] {
   --ui-scroll-thumb-hover: rgba(201, 122, 43, 0.52);
 }
 
+html[data-theme="desert-storm"] {
+  --color-sand: #e7d2a4;
+  --color-ochre: #8a4e24;
+  --color-ebony: #3a2a1f;
+  --color-gold: #c18a43;
+  --color-royal-blue: #5a6e7a;
+  --color-royal-green: #8a7b58;
+  --color-royal-ivory: #f3e4c3;
+  --color-royal-gold: #c18a43;
+  --color-royal-ebony: #2f221a;
+  --color-gold-base: #c18a43;
+  --color-gold-highlight: #f0d6a2;
+  --color-gold-shadow: #7a5527;
+
+  --ui-header-bg: rgba(58, 42, 31, 0.68);
+  --ui-header-border: rgba(193, 138, 67, 0.46);
+  --ui-header-shadow-inset: rgba(193, 138, 67, 0.13);
+  --ui-header-inner-bg: rgba(47, 34, 26, 0.58);
+  --ui-turn-pill-bg: #2f221a;
+  --ui-turn-pill-foreground: #2f221a;
+  --ui-input-bg: #2f221a;
+  --ui-input-bg-hover: #4a3528;
+  --ui-paper-surface: #f7ead0;
+  --ui-paper-surface-hover: #fff1dc;
+  --ui-paper-text: #2f221a;
+  --ui-secondary-button-bg: #4a3528;
+  --ui-secondary-button-bg-hover: #5b4231;
+
+  --ui-panel-bg: rgba(31, 22, 16, 0.34);
+  --ui-panel-strong-bg: rgba(31, 22, 16, 0.5);
+  --ui-panel-border: rgba(193, 138, 67, 0.24);
+  --ui-panel-border-strong: rgba(193, 138, 67, 0.36);
+  --ui-panel-divider: rgba(231, 210, 164, 0.26);
+
+  --ui-rule-bg: rgba(138, 78, 36, 0.18);
+  --ui-rule-border: rgba(138, 78, 36, 0.48);
+
+  --ui-board-frame: #2f221a;
+  --ui-board-overlay: rgba(138, 78, 36, 0.22);
+  --ui-board-overlay-edge: rgba(22, 16, 12, 0.82);
+  --ui-board-ivory: #ecddbe;
+  --ui-board-grid: #d9c59b;
+
+  --ui-square-base: #3a2a1f;
+  --ui-square-active: #5a4030;
+  --ui-square-hover: #4b3628;
+  --ui-square-special-border: rgba(217, 197, 155, 0.24);
+
+  --ui-piece-shell-from: #624330;
+  --ui-piece-shell-to: #2a1d14;
+  --ui-piece-core-from: #402d21;
+  --ui-piece-core-to: #1d140f;
+  --ui-piece-emblem-anubis-from: #f0d6a2;
+  --ui-piece-emblem-anubis-via: #c18a43;
+  --ui-piece-emblem-anubis-to: #7a5527;
+  --ui-piece-emblem-sphinx-from: #e7d8b8;
+  --ui-piece-emblem-sphinx-via: #f7ead0;
+  --ui-piece-emblem-sphinx-to: #bca783;
+  --ui-piece-glow-anubis: rgba(193, 138, 67, 0.48);
+  --ui-piece-glow-sphinx: rgba(243, 228, 195, 0.4);
+  --ui-piece-legal-ring: #f0d6a2;
+  --ui-piece-legal-inner: rgba(243, 228, 195, 0.34);
+
+  --ui-stick-light: #e2cfaa;
+  --ui-stick-light-hover: #f7ead0;
+  --ui-stick-dark: #2f221a;
+  --ui-stick-waiting: #6b5747;
+  --ui-stick-light-border: rgba(193, 138, 67, 0.5);
+
+  --ui-tooltip-bg: #f7ead0;
+  --ui-tooltip-text: #2f221a;
+  --ui-tooltip-accent: #8a4e24;
+
+  --ui-modal-paper: #f3e4c3;
+  --ui-modal-shadow: rgba(17, 12, 8, 0.86);
+
+  --ui-legend-surface: rgba(47, 34, 26, 0.82);
+  --ui-legend-surface-hover: #3a2a1f;
+  --ui-legend-paper: #f3e4c3;
+
+  --ui-gameover-surface: #3a2a1f;
+  --ui-gameover-pattern-dot: #c18a43;
+  --ui-gameover-secondary-bg: #4a3528;
+  --ui-gameover-secondary-bg-hover: #5b4231;
+
+  --ui-scroll-track: rgba(26, 19, 14, 0.34);
+  --ui-scroll-thumb: rgba(193, 138, 67, 0.38);
+  --ui-scroll-thumb-hover: rgba(193, 138, 67, 0.58);
+}
+
+html[data-theme="obsidian-oracle"] {
+  --color-sand: #e9e3d2;
+  --color-ochre: #4e6a7a;
+  --color-ebony: #0b0d12;
+  --color-gold: #c9a75a;
+  --color-royal-blue: #1f2a44;
+  --color-royal-green: #4e6a7a;
+  --color-royal-ivory: #f4efe2;
+  --color-royal-gold: #c9a75a;
+  --color-royal-ebony: #080a0f;
+  --color-gold-base: #c9a75a;
+  --color-gold-highlight: #edd69e;
+  --color-gold-shadow: #7a6633;
+
+  --ui-header-bg: rgba(13, 17, 25, 0.74);
+  --ui-header-border: rgba(201, 167, 90, 0.44);
+  --ui-header-shadow-inset: rgba(201, 167, 90, 0.12);
+  --ui-header-inner-bg: rgba(8, 11, 17, 0.66);
+  --ui-turn-pill-bg: #080a0f;
+  --ui-turn-pill-foreground: #10151f;
+  --ui-input-bg: #080a0f;
+  --ui-input-bg-hover: #141a27;
+  --ui-paper-surface: #ece7d8;
+  --ui-paper-surface-hover: #f7f2e6;
+  --ui-paper-text: #121826;
+  --ui-secondary-button-bg: #151c2b;
+  --ui-secondary-button-bg-hover: #212a3d;
+
+  --ui-panel-bg: rgba(5, 7, 11, 0.44);
+  --ui-panel-strong-bg: rgba(5, 7, 11, 0.62);
+  --ui-panel-border: rgba(201, 167, 90, 0.24);
+  --ui-panel-border-strong: rgba(201, 167, 90, 0.36);
+  --ui-panel-divider: rgba(233, 227, 210, 0.22);
+
+  --ui-rule-bg: rgba(31, 42, 68, 0.26);
+  --ui-rule-border: rgba(31, 42, 68, 0.52);
+
+  --ui-board-frame: #080a0f;
+  --ui-board-overlay: rgba(31, 42, 68, 0.28);
+  --ui-board-overlay-edge: rgba(0, 0, 0, 0.9);
+  --ui-board-ivory: #d8d3c7;
+  --ui-board-grid: #c2bcaf;
+
+  --ui-square-base: #121825;
+  --ui-square-active: #1f2a3f;
+  --ui-square-hover: #182032;
+  --ui-square-special-border: rgba(194, 188, 175, 0.22);
+
+  --ui-piece-shell-from: #26324a;
+  --ui-piece-shell-to: #0f141f;
+  --ui-piece-core-from: #161e2f;
+  --ui-piece-core-to: #090d15;
+  --ui-piece-emblem-anubis-from: #edd69e;
+  --ui-piece-emblem-anubis-via: #c9a75a;
+  --ui-piece-emblem-anubis-to: #7a6633;
+  --ui-piece-emblem-sphinx-from: #dbd6c9;
+  --ui-piece-emblem-sphinx-via: #ece7d8;
+  --ui-piece-emblem-sphinx-to: #b9b2a1;
+  --ui-piece-glow-anubis: rgba(201, 167, 90, 0.46);
+  --ui-piece-glow-sphinx: rgba(233, 227, 210, 0.36);
+  --ui-piece-legal-ring: #edd69e;
+  --ui-piece-legal-inner: rgba(233, 227, 210, 0.3);
+
+  --ui-stick-light: #d2ccc0;
+  --ui-stick-light-hover: #ece7d8;
+  --ui-stick-dark: #080a0f;
+  --ui-stick-waiting: #374158;
+  --ui-stick-light-border: rgba(201, 167, 90, 0.5);
+
+  --ui-tooltip-bg: #ece7d8;
+  --ui-tooltip-text: #121826;
+  --ui-tooltip-accent: #4e6a7a;
+
+  --ui-modal-paper: #e9e3d2;
+  --ui-modal-shadow: rgba(0, 0, 0, 0.9);
+
+  --ui-legend-surface: rgba(8, 10, 15, 0.84);
+  --ui-legend-surface-hover: #121825;
+  --ui-legend-paper: #e9e3d2;
+
+  --ui-gameover-surface: #10151f;
+  --ui-gameover-pattern-dot: #c9a75a;
+  --ui-gameover-secondary-bg: #151c2b;
+  --ui-gameover-secondary-bg-hover: #212a3d;
+
+  --ui-scroll-track: rgba(5, 7, 11, 0.42);
+  --ui-scroll-thumb: rgba(201, 167, 90, 0.34);
+  --ui-scroll-thumb-hover: rgba(201, 167, 90, 0.54);
+}
+
+html[data-theme="lotus-dawn"] {
+  --color-sand: #f6ebd0;
+  --color-ochre: #a86d3a;
+  --color-ebony: #2f4f6a;
+  --color-gold: #d7b66e;
+  --color-royal-blue: #2f4f6a;
+  --color-royal-green: #5d7c68;
+  --color-royal-ivory: #fff6df;
+  --color-royal-gold: #d7b66e;
+  --color-royal-ebony: #243d52;
+  --color-gold-base: #d7b66e;
+  --color-gold-highlight: #f2dbab;
+  --color-gold-shadow: #8b6b35;
+
+  --ui-header-bg: rgba(47, 79, 106, 0.66);
+  --ui-header-border: rgba(215, 182, 110, 0.48);
+  --ui-header-shadow-inset: rgba(242, 219, 171, 0.16);
+  --ui-header-inner-bg: rgba(36, 61, 82, 0.58);
+  --ui-turn-pill-bg: #243d52;
+  --ui-turn-pill-foreground: #243d52;
+  --ui-input-bg: #243d52;
+  --ui-input-bg-hover: #315473;
+  --ui-paper-surface: #fff4dc;
+  --ui-paper-surface-hover: #fff9eb;
+  --ui-paper-text: #243d52;
+  --ui-secondary-button-bg: #315473;
+  --ui-secondary-button-bg-hover: #3e6689;
+
+  --ui-panel-bg: rgba(23, 39, 52, 0.34);
+  --ui-panel-strong-bg: rgba(23, 39, 52, 0.5);
+  --ui-panel-border: rgba(215, 182, 110, 0.28);
+  --ui-panel-border-strong: rgba(215, 182, 110, 0.4);
+  --ui-panel-divider: rgba(246, 235, 208, 0.3);
+
+  --ui-rule-bg: rgba(93, 124, 104, 0.22);
+  --ui-rule-border: rgba(93, 124, 104, 0.5);
+
+  --ui-board-frame: #243d52;
+  --ui-board-overlay: rgba(93, 124, 104, 0.24);
+  --ui-board-overlay-edge: rgba(16, 27, 36, 0.8);
+  --ui-board-ivory: #f2e6c8;
+  --ui-board-grid: #dcc89e;
+
+  --ui-square-base: #32536f;
+  --ui-square-active: #4a6e8c;
+  --ui-square-hover: #3d627f;
+  --ui-square-special-border: rgba(220, 200, 158, 0.24);
+
+  --ui-piece-shell-from: #5a7f63;
+  --ui-piece-shell-to: #2a4537;
+  --ui-piece-core-from: #3e6652;
+  --ui-piece-core-to: #203528;
+  --ui-piece-emblem-anubis-from: #f2dbab;
+  --ui-piece-emblem-anubis-via: #d7b66e;
+  --ui-piece-emblem-anubis-to: #8b6b35;
+  --ui-piece-emblem-sphinx-from: #ece2c8;
+  --ui-piece-emblem-sphinx-via: #fff4dc;
+  --ui-piece-emblem-sphinx-to: #c9bb96;
+  --ui-piece-glow-anubis: rgba(215, 182, 110, 0.48);
+  --ui-piece-glow-sphinx: rgba(255, 246, 223, 0.46);
+  --ui-piece-legal-ring: #f2dbab;
+  --ui-piece-legal-inner: rgba(255, 246, 223, 0.35);
+
+  --ui-stick-light: #ead8b4;
+  --ui-stick-light-hover: #fff4dc;
+  --ui-stick-dark: #243d52;
+  --ui-stick-waiting: #648099;
+  --ui-stick-light-border: rgba(215, 182, 110, 0.54);
+
+  --ui-tooltip-bg: #fff4dc;
+  --ui-tooltip-text: #243d52;
+  --ui-tooltip-accent: #a86d3a;
+
+  --ui-modal-paper: #fff6df;
+  --ui-modal-shadow: rgba(11, 19, 25, 0.82);
+
+  --ui-legend-surface: rgba(36, 61, 82, 0.82);
+  --ui-legend-surface-hover: #32536f;
+  --ui-legend-paper: #fff6df;
+
+  --ui-gameover-surface: #2f4f6a;
+  --ui-gameover-pattern-dot: #d7b66e;
+  --ui-gameover-secondary-bg: #315473;
+  --ui-gameover-secondary-bg-hover: #3e6689;
+
+  --ui-scroll-track: rgba(23, 39, 52, 0.34);
+  --ui-scroll-thumb: rgba(215, 182, 110, 0.4);
+  --ui-scroll-thumb-hover: rgba(215, 182, 110, 0.62);
+}
+
 @layer base {
   body {
     @apply bg-ebony text-sand;

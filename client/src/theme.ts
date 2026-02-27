@@ -4,7 +4,10 @@ export const THEME_IDS = [
     'nile-papyrus',
     'temple-fresco',
     'solar-court',
-    'afterlife-ember'
+    'afterlife-ember',
+    'desert-storm',
+    'obsidian-oracle',
+    'lotus-dawn'
 ] as const;
 
 export type ThemeId = (typeof THEME_IDS)[number];
@@ -46,6 +49,21 @@ export const THEMES: ReadonlyArray<{
         id: 'afterlife-ember',
         labelKey: 'hud.theme_options.afterlife_ember',
         descriptionKey: 'hud.theme_descriptions.afterlife_ember'
+    },
+    {
+        id: 'desert-storm',
+        labelKey: 'hud.theme_options.desert_storm',
+        descriptionKey: 'hud.theme_descriptions.desert_storm'
+    },
+    {
+        id: 'obsidian-oracle',
+        labelKey: 'hud.theme_options.obsidian_oracle',
+        descriptionKey: 'hud.theme_descriptions.obsidian_oracle'
+    },
+    {
+        id: 'lotus-dawn',
+        labelKey: 'hud.theme_options.lotus_dawn',
+        descriptionKey: 'hud.theme_descriptions.lotus_dawn'
     }
 ];
 

@@ -36,7 +36,10 @@
             "nile_papyrus": "Papyrus du Nil",
             "temple_fresco": "Fresque du Temple",
             "solar_court": "Cour Solaire",
-            "afterlife_ember": "Braise de l'Au-delà"
+            "afterlife_ember": "Braise de l'Au-delà",
+            "desert_storm": "Tempête du Désert",
+            "obsidian_oracle": "Oracle d'Obsidienne",
+            "lotus_dawn": "Aube du Lotus"
         },
         "theme_descriptions": {
             "royal": "Palette classique faïence et or.",
@@ -44,7 +47,10 @@
             "nile_papyrus": "Verts du Nil et teintes papyrus.",
             "temple_fresco": "Pigments minéraux et calcaire peint.",
             "solar_court": "Pierre lumineuse et ambre cérémoniel.",
-            "afterlife_ember": "Lueurs de braise du monde souterrain."
+            "afterlife_ember": "Lueurs de braise du monde souterrain.",
+            "desert_storm": "Dunes balayées et ruines assombries.",
+            "obsidian_oracle": "Temple nocturne aux reflets mystiques.",
+            "lotus_dawn": "Lumière douce de l'aube sur le Nil."
         },
         "players": {
             "anubis": "ANUBIS",
