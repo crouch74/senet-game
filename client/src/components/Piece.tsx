@@ -68,7 +68,6 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
             <motion.div
                 animate={{
                     y: isCurrentPlayer && !canMove ? [0, -2, 0] : 0,
-                    scale: lastMove?.pieceId === piece.id ? [1, 1.3, 1] : 1,
                     filter: lastMove?.pieceId === piece.id
                         ? (lastMove.isCapture
                             ? ["brightness(1) sepia(0) hue-rotate(0deg)", "brightness(2) sepia(1) hue-rotate(-50deg)", "brightness(1) sepia(0) hue-rotate(0deg)"]
@@ -77,7 +76,6 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
                 }}
                 transition={{
                     y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-                    scale: { duration: 0.5, ease: "easeOut" },
                     filter: { duration: 0.5, ease: "easeOut" }
                 }}
                 className={cn(
@@ -86,9 +84,9 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
                     "shadow-[0_12px_24px_-8px_rgba(0,0,0,0.9),0_1px_2px_rgba(255,255,255,0.2),inset_0_-6px_10px_rgba(0,0,0,0.7),inset_0_2px_5px_rgba(255,255,255,0.1)]",
                     // Polished dark stone/ebony body for both players
                     "bg-gradient-to-b from-[#3a2f2a] to-[#120c0a]",
-                    canMove && 'ring-2 ring-[#f3e5ab] shadow-[0_0_25px_rgba(243,229,171,0.7),inset_0_2px_4px_rgba(255,255,240,0.3)] z-10 scale-[1.18] -translate-y-2 animate-[pulse_2.5s_ease-in-out_infinite] drop-shadow-[0_8px_12px_rgba(0,0,0,0.6)]',
+                    canMove && 'ring-2 ring-[#f3e5ab] shadow-[0_0_25px_rgba(243,229,171,0.7),inset_0_2px_4px_rgba(255,255,240,0.3)] z-10 -translate-y-2 animate-[pulse_2.5s_ease-in-out_infinite] drop-shadow-[0_8px_12px_rgba(0,0,0,0.6)]',
                     isCurrentPlayer && !canMove && 'ring-[1px] ring-royal-gold/30 shadow-[0_2px_8px_rgba(0,0,0,0.5)]',
-                    hoveredPieceId === piece.id && 'scale-[1.3] -translate-y-3 brightness-125 z-40 ring-4 ring-white shadow-[0_15px_40px_rgba(255,255,255,0.6),0_20px_20px_-10px_rgba(0,0,0,0.8)]'
+                    hoveredPieceId === piece.id && '-translate-y-3 brightness-125 z-40 ring-4 ring-white shadow-[0_15px_40px_rgba(255,255,255,0.6),0_20px_20px_-10px_rgba(0,0,0,0.8)]'
                 )}
             >
                 {/* Engraved inlay section */}

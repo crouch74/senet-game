@@ -38,6 +38,13 @@
     - Added "capture flash" and "special square activation" visual effects.
   - **Layout Anchoring**: Geometrically connected the Afterlife panel to the control section with a shared frame and divider.
   - **Typography Precision**: Brightened square numbers and chronicle timestamps for better readability without losing theme contrast.
-- **Refinements & Bugfixes**:
+  - **Refinements & Bugfixes**:
   - Added missing "Afterlife" and "Empty" translations to all locales.
   - Implemented language persistence using browser `localStorage` to remember the player's choice across sessions.
+  - Removed scaling/enlargement effects from tokens on hover, allowed moves, and landing for a more grounded feel.
+  - **Enhanced Dice (ThrowSticks) Physics & Animation**:
+    - Reimagined the throw mechanism with a "physically scattered" result where sticks land in unique, randomized, and tilted positions.
+    - Added stick overlapping logic to simulate a real-life toss on a surface.
+    - Implemented a "burst" animation from a center point with random rotations and spring-loaded landing physics.
+    - Enhanced the "in-flight" animation with high-speed rotation and vertical oscillation for a more dynamic feel.
+

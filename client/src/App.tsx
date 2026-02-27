@@ -77,11 +77,11 @@ function App() {
                 )}
                 <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0">
                   <Board />
-                  <div className="w-full max-w-5xl mt-12 mb-8 bg-black/30 border border-royal-gold/20 rounded-lg p-6 shadow-[inset_0_2px_15px_rgba(0,0,0,0.5)] flex flex-col md:flex-row items-center md:items-stretch justify-center gap-8 backdrop-blur-sm">
-                    <div className="flex-1 w-full md:w-auto flex flex-col justify-center border-r md:border-r border-royal-gold/10 md:pr-8">
+                  <div className="w-full max-w-5xl mt-12 mb-8 bg-black/30 border border-royal-gold/20 rounded-lg p-6 shadow-[inset_0_2px_15px_rgba(0,0,0,0.5)] flex flex-col md:flex-row items-stretch gap-8 backdrop-blur-sm">
+                    <div className="flex-1 w-full md:w-auto flex flex-col border-e border-royal-gold/10 md:pe-8">
                       <ThrowSticks />
                     </div>
-                    <div className="shrink-0 md:pl-4 flex items-center">
+                    <div className="shrink-0 md:ps-4 flex flex-col h-full">
                       <Afterlife />
                     </div>
                   </div>
@@ -90,7 +90,7 @@ function App() {
 
               {/* Side Panel: History & Rules Info */}
               <div className="w-full xl:w-96 flex flex-col h-full min-h-0 gap-8 order-1 xl:order-2 shrink-0">
-                <div className="bg-black/20 border-l-[2px] border-royal-gold/30 rounded-r-lg p-5 flex-1 flex flex-col min-h-0 shadow-inner overflow-hidden">
+                <div className="bg-black/20 border-s-[2px] border-royal-gold/30 rounded-e-lg p-5 flex-1 flex flex-col min-h-0 shadow-inner overflow-hidden">
                   <h2 className="text-gold font-serif text-lg border-b border-sand/20 pb-2 mb-2 uppercase tracking-wide shrink-0">
                     {t('app.chronicle')}
                   </h2>
@@ -118,7 +118,7 @@ function App() {
                   </div>
                 </div>
 
-                <div className="bg-ochre/5 border-l-[2px] border-ochre/40 rounded-r-lg p-5 text-sm shadow-inner shrink-0">
+                <div className="bg-ochre/5 border-s-[2px] border-ochre/40 rounded-e-lg p-5 text-sm shadow-inner shrink-0">
                   <h3 className="text-ochre font-bold mb-2 flex items-center gap-2">
                     <span>📜</span> {t('app.rules_title', { name: t(`ruleset.names.${ruleset.id}`) })}
                   </h3>

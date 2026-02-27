@@ -12,7 +12,7 @@ export function Afterlife() {
     const darkPieces = borneOffPieces.filter(p => p.player === 'dark');
 
     return (
-        <div className="flex flex-col items-center p-4 bg-[#1A1110]/60 backdrop-blur-md rounded-sm border-[2px] border-royal-gold/40 shadow-[0_15px_35px_rgba(0,0,0,0.7),inset_0_0_20px_rgba(0,0,0,0.5)] relative overflow-hidden w-64 h-[240px] group transition-all duration-500 hover:border-royal-gold/60">
+        <div className="flex flex-col items-center p-4 bg-[#1A1110]/60 backdrop-blur-md rounded-sm border-[2px] border-royal-gold/40 shadow-[0_15px_35px_rgba(0,0,0,0.7),inset_0_0_20px_rgba(0,0,0,0.5)] relative overflow-hidden w-64 h-full group transition-all duration-500 hover:border-royal-gold/60">
             {/* Thematic Background Decorative Glyph */}
             <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none">
                 <span className="text-[120px] font-serif text-royal-gold">𓂋</span>

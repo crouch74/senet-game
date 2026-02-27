@@ -1,13 +1,49 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
+
+interface StickLayout {
+    x: number;
+    y: number;
+    rotate: number;
+    zIndex: number;
+    isLight: boolean;
+}
 
 export function ThrowSticks() {
     const [isThrowing, setIsThrowing] = useState(false);
     const { t } = useTranslation();
     const { currentThrow, throwSticks, currentPlayer, winner } = useSenetStore();
+    const [stickLayouts, setStickLayouts] = useState<StickLayout[]>([]);
+
+    // Generate random layouts when a throw happens
+    useEffect(() => {
+        if (currentThrow) {
+            const layouts: StickLayout[] = [];
+            const lightIndices = new Set<number>();
+
+            // Randomly decide which sticks are light
+            while (lightIndices.size < currentThrow.lightSidesUp) {
+                lightIndices.add(Math.floor(Math.random() * 4));
+            }
+
+            for (let i = 0; i < 4; i++) {
+                layouts.push({
+                    // Spread them around the center
+                    x: (Math.random() - 0.5) * 140, // +/- 70px
+                    y: (Math.random() - 0.5) * 40,  // +/- 20px
+                    rotate: (Math.random() - 0.5) * 90, // +/- 45 degrees
+                    zIndex: Math.floor(Math.random() * 10),
+                    isLight: lightIndices.has(i)
+                });
+            }
+            setStickLayouts(layouts);
+        } else {
+            setStickLayouts([]);
+        }
+    }, [currentThrow]);
 
     const handleThrow = () => {
         if (!currentThrow && !winner && !isThrowing) {
@@ -16,7 +52,7 @@ export function ThrowSticks() {
             setTimeout(() => {
                 throwSticks();
                 setIsThrowing(false);
-            }, 600);
+            }, 800);
         }
     };
 
@@ -26,83 +62,118 @@ export function ThrowSticks() {
             <div className="absolute top-2 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-60" />
             <div className="absolute bottom-2 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-60" />
 
-            <div className="text-xl font-serif text-royal-ivory font-bold tracking-widest uppercase mb-4 drop-shadow-sm opacity-90">
+            <div className="text-xl font-serif text-royal-ivory font-bold tracking-widest uppercase mb-4 drop-shadow-sm opacity-90 z-10">
                 {t('throw.turn', { player: t(`hud.players.${currentPlayer}`) })}
             </div>
 
-            <div className="flex gap-4 min-h-[120px] items-center justify-center relative">
-                {currentThrow ? (
-                    // Show the result
-                    Array.from({ length: 4 }).map((_, i) => (
+            <div className="relative w-full h-40 flex items-center justify-center perspective-1000">
+                <AnimatePresence mode="wait">
+                    {isThrowing ? (
                         <motion.div
-                            key={`stick-${i}`}
-                            initial={{ y: -50, rotate: -180, opacity: 0 }}
-                            animate={{ y: 0, rotate: 0, opacity: 1 }}
-                            transition={{
-                                type: 'spring',
-                                bounce: 0.5,
-                                duration: 0.6,
-                                delay: i * 0.1
+                            key="throwing-sticks"
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{
+                                scale: [1, 1.1, 1],
+                                rotate: [0, -5, 5, -5, 5, 0],
                             }}
-                            className={cn(
-                                "w-6 h-24 rounded-full shadow-lg border-2 relative overflow-hidden",
-                                i < currentThrow.lightSidesUp
-                                    ? "bg-[#e8e2d2] border-royal-gold/40 shadow-[inset_0_0_10px_rgba(255,255,255,0.8)]" // Light side up (Ivory)
-                                    : "bg-[#1a1110] border-black shadow-[inset_0_0_10px_rgba(0,0,0,0.8)]" // Dark side up (Ebony)
-                            )}
+                            transition={{ duration: 0.4, repeat: Infinity }}
+                            className="flex gap-2"
                         >
-                            {/* Material texture/shimmer */}
-                            <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent mix-blend-overlay" />
-                            {i < currentThrow.lightSidesUp ? (
-                                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent transform -skew-x-12 animate-[shimmer_2s_ease-out]" />
-                            ) : (
-                                <div className="w-full h-full rounded-full flex flex-col items-center justify-evenly py-2 relative z-10">
-                                    {/* Gold inlaid details on dark side */}
-                                    <div className="w-1.5 h-1.5 rounded-full bg-royal-gold/80 shadow-[0_0_2px_rgba(212,175,55,1)]" />
-                                    <div className="w-1.5 h-4 rounded-full bg-royal-gold/80 shadow-[0_0_2px_rgba(212,175,55,1)]" />
-                                    <div className="w-1.5 h-1.5 rounded-full bg-royal-gold/80 shadow-[0_0_2px_rgba(212,175,55,1)]" />
-                                </div>
-                            )}
+                            {Array.from({ length: 4 }).map((_, i) => (
+                                <motion.div
+                                    key={`throwing-stick-${i}`}
+                                    animate={{
+                                        y: [0, -20, 0],
+                                        rotate: [0, 90, 180, 270, 360],
+                                    }}
+                                    transition={{
+                                        y: { duration: 0.3, repeat: Infinity },
+                                        rotate: { duration: 0.5, repeat: Infinity, ease: "linear" }
+                                    }}
+                                    className="w-4 h-20 rounded-full bg-[#d3ccb8] border-2 border-royal-gold/40 shadow-xl"
+                                />
+                            ))}
                         </motion.div>
-                    ))
-                ) : (
-                    // Idle state (waiting to throw or currently tossing)
-                    <motion.button
-                        animate={isThrowing ? {
-                            x: [0, -5, 5, -5, 5, 0],
-                            y: [0, -10, -5, -15, -5, 0],
-                            rotate: [0, -5, 5, -3, 3, 0]
-                        } : {}}
-                        transition={isThrowing ? { duration: 0.5, repeat: Infinity } : {}}
-                        whileHover={!isThrowing ? { scale: 1.05 } : {}}
-                        whileTap={!isThrowing ? { scale: 0.95 } : {}}
-                        onClick={handleThrow}
-                        className={cn("flex items-center gap-4 group cursor-pointer", isThrowing && "pointer-events-none")}
-                        disabled={!!winner || isThrowing}
-                    >
-                        {Array.from({ length: 4 }).map((_, i) => (
-                            <div
-                                key={`idle-stick-${i}`}
-                                className={cn(
-                                    "w-6 h-24 rounded-full bg-[#d3ccb8] border-2 border-royal-gold/60 shadow-[0_5px_15px_rgba(0,0,0,0.2),inset_0_2px_5px_rgba(255,255,255,0.5)] group-hover:bg-[#fcf8ed] group-hover:border-royal-gold transition-all duration-300 relative overflow-hidden",
-                                    isThrowing && "scale-110 brightness-110"
-                                )}
-                            >
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-                            </div>
-                        ))}
-                    </motion.button>
-                )}
+                    ) : currentThrow && stickLayouts.length > 0 ? (
+                        <div className="relative w-full h-full flex items-center justify-center">
+                            {stickLayouts.map((layout, i) => (
+                                <motion.div
+                                    key={`stick-${i}`}
+                                    initial={{
+                                        x: 0,
+                                        y: -200,
+                                        rotate: 720,
+                                        opacity: 0,
+                                        scale: 1.5
+                                    }}
+                                    animate={{
+                                        x: layout.x,
+                                        y: layout.y,
+                                        rotate: layout.rotate,
+                                        opacity: 1,
+                                        scale: 1
+                                    }}
+                                    transition={{
+                                        type: 'spring',
+                                        stiffness: 120,
+                                        damping: 12,
+                                        delay: i * 0.05
+                                    }}
+                                    style={{ zIndex: layout.zIndex }}
+                                    className={cn(
+                                        "absolute w-6 h-28 rounded-full shadow-2xl border-2 overflow-hidden",
+                                        layout.isLight
+                                            ? "bg-[#e8e2d2] border-royal-gold/40 shadow-[inset_0_0_15px_rgba(255,255,255,0.8),0_10px_20px_rgba(0,0,0,0.4)]"
+                                            : "bg-[#1a1110] border-black shadow-[inset_0_0_15px_rgba(0,0,0,0.8),0_10px_20px_rgba(0,0,0,0.4)]"
+                                    )}
+                                >
+                                    {/* Material texture/shimmer */}
+                                    <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent mix-blend-overlay" />
+                                    {layout.isLight ? (
+                                        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent transform -skew-x-12 animate-[shimmer_2s_ease-out]" />
+                                    ) : (
+                                        <div className="w-full h-full rounded-full flex flex-col items-center justify-evenly py-3 relative z-10">
+                                            {/* Gold inlaid details on dark side */}
+                                            <div className="w-1.5 h-1.5 rounded-full bg-royal-gold/80 shadow-[0_0_4px_rgba(212,175,55,1)]" />
+                                            <div className="w-2 h-6 rounded-full bg-royal-gold/80 shadow-[0_0_4px_rgba(212,175,55,1)]" />
+                                            <div className="w-1.5 h-1.5 rounded-full bg-royal-gold/80 shadow-[0_0_4px_rgba(212,175,55,1)]" />
+                                        </div>
+                                    )}
+                                </motion.div>
+                            ))}
+                        </div>
+                    ) : (
+                        // Idle state
+                        <motion.button
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={handleThrow}
+                            className={cn("flex items-center gap-4 group cursor-pointer relative z-20", winner && "pointer-events-none opacity-50")}
+                            disabled={!!winner || isThrowing}
+                        >
+                            {Array.from({ length: 4 }).map((_, i) => (
+                                <div
+                                    key={`idle-stick-${i}`}
+                                    className="w-6 h-24 rounded-full bg-[#d3ccb8] border-2 border-royal-gold/60 shadow-[0_5px_15px_rgba(0,0,0,0.2),inset_0_2px_5px_rgba(255,255,255,0.5)] group-hover:bg-[#fcf8ed] group-hover:border-royal-gold transition-all duration-300 relative overflow-hidden"
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+                                </div>
+                            ))}
+                        </motion.button>
+                    )}
+                </AnimatePresence>
             </div>
 
-            <div className="mt-8 h-12 flex items-center justify-center">
-                {currentThrow ? (
+            <div className="mt-8 h-12 flex items-center justify-center z-10">
+                {currentThrow && !isThrowing ? (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
+                        initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
                         className="text-center"
                     >
-                        <div className="text-4xl font-bold text-royal-gold drop-shadow-sm font-serif">
+                        <div className="text-4xl font-bold text-royal-gold drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] font-serif">
                             {t('throw.moves', { value: currentThrow.value })}
                         </div>
                         {currentThrow.value === 5 && (

@@ -4,7 +4,7 @@ A modern digital version of the ancient Egyptian board game Senet.
 
 ### Features
 - **Online Multiplayer**: Real-time room-based matches over continuous WebSocket connections.
-- **Cinematic UI**: High-fidelity graphics using the Royal style with "Inlaid Faience + Gold" materials, interactive source-target highlighting, and a **Spirit Ascension** game-over experience for a clear, fluid and premium gameplay experience.
+- **Cinematic UI**: High-fidelity graphics using the Royal style with "Inlaid Faience + Gold" materials, interactive source-target highlighting, dynamic physical throw-stick animations, and a **Spirit Ascension** game-over experience for a clear, fluid and premium gameplay experience.
 - **Dynamic Chronicle**: Track game history with player-attributed logs and real-time event updates.
 - **Rules Documentation**: Read history and gameplay strategies dynamically built into the user interface.
 - **Multilingual Support**: Fully localized in English, Egyptian Arabic, and French.
