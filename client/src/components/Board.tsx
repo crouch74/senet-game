@@ -32,28 +32,34 @@ export function Board() {
     }
 
     return (
-        <div className="relative w-full max-w-5xl mx-auto border-4 border-[#3c2a21] rounded-sm bg-[#523A28]/50 shadow-2xl overflow-hidden p-[2px]">
-            {/* Wood texture background overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#2c1a11]/40 mix-blend-overlay pointer-events-none border border-sand/10" />
+        <div className="relative w-full max-w-5xl mx-auto border-[16px] border-[#1A1110] rounded-md bg-[#1A1110] shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_0_15px_rgba(0,0,0,0.8)] p-[4px]">
+            {/* Wood texture/grain background overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[#2a1b18]/40 to-black/80 mix-blend-multiply pointer-events-none" />
 
-            <div
-                ref={containerRef}
-                dir="ltr"
-                className="w-full relative grid grid-cols-10 grid-rows-3 gap-[1px]"
-            >
-                {squares.map((num) => (
-                    <Square key={`square-${num}`} number={num} />
-                ))}
+            {/* Edge highlights for joinery illusion */}
+            <div className="absolute inset-0 border border-white/5 pointer-events-none rounded-sm" />
 
-                {dimensions.width > 0 &&
-                    board.map((piece) => (
-                        <Piece
-                            key={piece.id}
-                            piece={piece}
-                            containerWidth={dimensions.width}
-                            containerHeight={dimensions.height}
-                        />
+            {/* Inlaid Ivory Grid Base */}
+            <div className="relative bg-[#e8e2d2] p-[2px] rounded-sm shadow-[inset_0_1px_3px_rgba(0,0,0,0.4),0_1px_1px_rgba(255,255,255,0.1)]">
+                <div
+                    ref={containerRef}
+                    dir="ltr"
+                    className="w-full relative grid grid-cols-10 grid-rows-3 gap-[2px] bg-[#d3ccb8]"
+                >
+                    {squares.map((num) => (
+                        <Square key={`square-${num}`} number={num} />
                     ))}
+
+                    {dimensions.width > 0 &&
+                        board.map((piece) => (
+                            <Piece
+                                key={piece.id}
+                                piece={piece}
+                                containerWidth={dimensions.width}
+                                containerHeight={dimensions.height}
+                            />
+                        ))}
+                </div>
             </div>
         </div>
     );

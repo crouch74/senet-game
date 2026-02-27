@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
+import { Attribution } from './Attribution';
 
 export function HUD() {
     const { currentPlayer, ruleset, winner, resetGame } = useSenetStore();
@@ -11,23 +12,28 @@ export function HUD() {
     };
 
     return (
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full p-4 bg-ebony/60 backdrop-blur-md rounded-lg border border-sand/20 mb-6 shadow-2xl">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full p-6 bg-[#2a1b18]/60 backdrop-blur-md rounded-md border-b-2 border-royal-gold/40 shadow-[0_20px_30px_rgba(0,0,0,0.8),inset_0_2px_10px_rgba(212,175,55,0.1)] mb-8 relative">
+            {/* Top decorative trim */}
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-80" />
+
             <div className="flex flex-col">
-                <h1 className="text-3xl font-serif text-gold tracking-widest uppercase shadow-sm">{t('hud.senet')}</h1>
-                <div className="text-sand/70 text-sm mt-1">{t('hud.rules', { name: t(`ruleset.names.${ruleset.id}`) })}</div>
+                <h1 className="text-4xl font-serif text-royal-gold tracking-[0.3em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-bold">{t('hud.senet')}</h1>
+                <div className="text-royal-ivory/80 text-sm mt-1 uppercase tracking-widest font-mono opacity-90">{t('hud.rules', { name: t(`ruleset.names.${ruleset.id}`) })}</div>
             </div>
 
-            <div className="flex flex-col items-center flex-1 my-4 md:my-0">
+            <div className="flex flex-col items-center flex-1 my-6 md:my-0 relative">
                 {winner ? (
-                    <div className="text-2xl font-bold text-gold animate-pulse">
+                    <div className="text-3xl font-bold text-royal-gold animate-[pulse_2s_ease-in-out_infinite] tracking-wider uppercase drop-shadow-lg">
                         {t('hud.wins', { player: t(`hud.players.${winner}`) })}
                     </div>
                 ) : (
-                    <div className="flex items-center gap-4">
-                        <div className="text-lg text-sand/80 font-medium">{t('hud.current_turn')}</div>
+                    <div className="flex items-center gap-6 p-3 bg-[#1a1110]/50 rounded border border-royal-gold/20 shadow-inner">
+                        <div className="text-sm text-royal-ivory/80 font-mono tracking-widest uppercase">{t('hud.current_turn')}</div>
                         <div className={cn(
-                            "px-4 py-1 rounded-full font-bold uppercase tracking-wider text-sm shadow-md transition-colors",
-                            currentPlayer === 'light' ? 'bg-sand text-ebony' : 'bg-ochre text-ebony',
+                            "px-6 py-1.5 rounded-sm font-bold uppercase tracking-widest text-sm shadow-[0_2px_5px_rgba(0,0,0,0.5)] transition-all duration-300 border",
+                            currentPlayer === 'light'
+                                ? 'bg-royal-gold text-[#1a1110] border-yellow-300/50'
+                                : 'bg-[#1a1110] text-royal-gold border-royal-gold/80',
                         )}>
                             {t(`hud.players.${currentPlayer}`)}
                         </div>
@@ -35,9 +41,9 @@ export function HUD() {
                 )}
             </div>
 
-            <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex flex-col md:flex-row items-center gap-4">
                 <select
-                    className="bg-ebony text-sand border border-sand/30 rounded px-2 py-1 text-sm outline-none focus:border-gold h-10"
+                    className="bg-[#1a1110] text-royal-ivory border-[1.5px] border-royal-gold/60 rounded-sm px-3 py-1 text-sm outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold/50 h-10 font-serif tracking-wider shadow-inner hover:bg-[#2a1b18] transition-colors"
                     value={i18n.language}
                     onChange={(e) => changeLanguage(e.target.value)}
                 >
@@ -46,12 +52,16 @@ export function HUD() {
                     <option value="fr">Français</option>
                 </select>
 
-                <button
-                    onClick={resetGame}
-                    className="px-4 py-2 bg-transparent hover:bg-gold/20 text-gold border border-gold/50 rounded transition-all font-serif shadow-sm text-sm"
-                >
-                    {t('hud.restart_game')}
-                </button>
+                <div className="flex flex-col items-center md:items-end w-full">
+                    <button
+                        onClick={resetGame}
+                        className="w-full md:w-auto px-6 py-2 bg-[#fcf8ed] hover:bg-white text-[#1a1110] border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-sm uppercase tracking-widest font-bold hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:scale-105"
+                    >
+                        {t('hud.restart_game')}
+                    </button>
+
+                    <Attribution />
+                </div>
             </div>
         </div>
     );
