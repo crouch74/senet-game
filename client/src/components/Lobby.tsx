@@ -41,7 +41,7 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
                     <button
                         type="button"
                         onClick={handleCreate}
-                        className="bg-gold hover:bg-gold/90 text-ebony font-bold py-3 rounded-md transition-all shadow-lg hover:shadow-gold/20"
+                        className="bg-gold hover:bg-gold/90 text-ebony font-bold py-3 rounded-md transition-all shadow-lg hover:shadow-gold/20 cursor-pointer"
                     >
                         {t('lobby.create_room', 'Create New Room')}
                     </button>
@@ -68,7 +68,7 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
                             <button
                                 type="submit"
                                 disabled={!roomInput.trim()}
-                                className="bg-sand/20 hover:bg-sand/30 text-sand font-bold px-6 rounded-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="bg-sand/20 hover:bg-sand/30 text-sand font-bold px-6 rounded-md transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                             >
                                 {t('lobby.join', 'Join')}
                             </button>
@@ -84,7 +84,7 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
                     <button
                         type="button"
                         onClick={onPlayOffline}
-                        className="bg-ebony border border-sand/30 hover:bg-sand/10 text-sand font-bold py-3 rounded-md transition-all shadow-md"
+                        className="bg-ebony border border-sand/30 hover:bg-sand/10 text-sand font-bold py-3 rounded-md transition-all shadow-md cursor-pointer"
                     >
                         {t('lobby.play_offline', 'Play Offline')}
                     </button>

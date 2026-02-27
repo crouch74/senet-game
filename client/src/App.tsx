@@ -47,7 +47,7 @@ function App() {
                     </div>
                     <button
                       onClick={() => { leaveRoom(); setShowLobby(true); }}
-                      className="bg-red-900/40 hover:bg-red-900/80 text-sand px-4 py-2 rounded-md text-sm border border-red-500/30 transition-colors shadow-sm ml-4"
+                      className="bg-red-900/40 hover:bg-red-900/80 text-sand px-4 py-2 rounded-md text-sm border border-red-500/30 transition-colors shadow-sm ml-4 cursor-pointer"
                     >
                       Leave Room
                     </button>
