@@ -268,7 +268,7 @@ function App() {
                   <h2 className="text-gold font-serif text-lg border-b border-sand/20 pb-2 mb-2 uppercase tracking-wide shrink-0">
                     {t('app.chronicle')}
                   </h2>
-                  <div className="overflow-y-auto flex-1 flex flex-col gap-2 text-sm pr-2 custom-scrollbar min-h-0">
+                  <div className="overflow-y-auto overscroll-contain flex flex-col gap-2 text-sm pr-2 custom-scrollbar h-56">
                     {historyLog.slice().reverse().map((log, i) => {
                       const translatedParams = log.params?.player
                         ? { ...log.params, player: t(`hud.players.${log.params.player}`) }

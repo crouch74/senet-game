@@ -4,7 +4,7 @@ import { cn } from '../utils/cn';
 import { Scroll, Home } from 'lucide-react';
 
 export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; onReturnToLobby?: () => void }) {
-    const { currentPlayer, ruleset, winner, resetGame, isOnline, setShowGuide } = useSenetStore();
+    const { currentPlayer, ruleset, winner, resetGame, isOnline, setShowGuide, isAutoPlaying } = useSenetStore();
     const { t, i18n } = useTranslation();
 
     const changeLanguage = (lng: string) => {
@@ -70,16 +70,34 @@ export function HUD({ isLobby = false, onReturnToLobby }: { isLobby?: boolean; o
                         {import.meta.env.DEV && (
                             <button
                                 onClick={() => {
+                                    if (isAutoPlaying) return;
+
                                     const count = prompt('How many turns to play?', '10');
                                     if (count === null) return;
                                     const parsed = parseInt(count, 10);
-                                    if (!isNaN(parsed) && parsed > 0) {
-                                        useSenetStore.getState().playRandomTurns(parsed);
-                                    }
+                                    if (isNaN(parsed) || parsed <= 0) return;
+
+                                    const speedInput = prompt(
+                                        'Autoplay speed? (1=Human, 2=Quick, 3=Fast, 4=Immediate)',
+                                        '2'
+                                    );
+                                    if (speedInput === null) return;
+
+                                    const selectedSpeed = speedInput.trim();
+                                    const speed = selectedSpeed === '1'
+                                        ? 'human'
+                                        : selectedSpeed === '2'
+                                            ? 'quick'
+                                            : selectedSpeed === '3'
+                                                ? 'fast'
+                                                : 'immediate';
+
+                                    useSenetStore.getState().playRandomTurns(parsed, speed);
                                 }}
+                                disabled={isAutoPlaying}
                                 className="px-3 sm:px-4 py-2 h-10 bg-purple-900/50 hover:bg-purple-800 text-royal-ivory border-[2px] border-purple-500/60 rounded-sm transition-all font-serif shadow-sm text-[11px] uppercase tracking-[0.15em] sm:tracking-widest font-bold whitespace-nowrap grow sm:grow-0"
                             >
-                                Dev: Auto Play
+                                {isAutoPlaying ? 'Dev: Auto Playing...' : 'Dev: Auto Play'}
                             </button>
                         )}
                         <button
