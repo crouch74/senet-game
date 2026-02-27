@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Board } from './components/Board';
 import { HUD } from './components/HUD';
 import { ThrowSticks } from './components/ThrowSticks';
+import { Afterlife } from './components/Afterlife';
 import { Lobby } from './components/Lobby';
 import { useSenetStore } from './engine/store';
 import { cn } from './utils/cn';
@@ -56,7 +57,14 @@ function App() {
                 )}
                 <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0">
                   <Board />
-                  <ThrowSticks />
+                  <div className="w-full max-w-5xl flex flex-col md:flex-row items-center md:items-stretch justify-center gap-6 mt-8">
+                    <div className="flex-1 w-full md:w-auto">
+                      <ThrowSticks />
+                    </div>
+                    <div className="shrink-0">
+                      <Afterlife />
+                    </div>
+                  </div>
                 </div>
               </div>
 

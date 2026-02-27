@@ -14,7 +14,7 @@ export function ThrowSticks() {
     };
 
     return (
-        <div className="flex flex-col items-center mt-6 p-4 bg-[#2a1b18]/40 backdrop-blur-sm rounded-sm border-[1px] border-royal-gold/30 shadow-[0_10px_20px_rgba(0,0,0,0.6),inset_0_0_10px_rgba(212,175,55,0.05)] relative overflow-hidden max-w-md mx-auto w-full group">
+        <div className="flex flex-col items-center p-4 bg-[#2a1b18]/40 backdrop-blur-sm rounded-sm border-[1px] border-royal-gold/30 shadow-[0_10px_20px_rgba(0,0,0,0.6),inset_0_0_10px_rgba(212,175,55,0.05)] relative overflow-hidden h-full w-full group">
             {/* Lotus/Gold decorative borders */}
             <div className="absolute top-2 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-60" />
             <div className="absolute bottom-2 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-60" />

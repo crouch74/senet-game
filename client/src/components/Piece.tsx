@@ -37,12 +37,14 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
     const myLegalMove = legalMoves.find(m => m.pieceId === piece.id);
     const canMove = !!myLegalMove && !!currentThrow;
 
-    // Hide if borne off or in afterlife
+    // Hide if in afterlife (Board will not render it, handled by Afterlife component)
+    // but if it's position 0 (off-board start), keep it null for now
     if (piece.position === 31 || piece.position === 0) return null;
 
     return (
         <motion.div
             layout
+            layoutId={`piece-${piece.id}`}
             className={cn(
                 "absolute flex items-center justify-center cursor-pointer",
             )}
