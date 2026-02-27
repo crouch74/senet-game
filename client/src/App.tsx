@@ -12,7 +12,7 @@ import { cn } from './utils/cn';
 import { formatNumber } from './utils/format';
 
 function App() {
-  const { historyLog, ruleset, isOnline, roomId, localPlayer, leaveRoom, winner, showGuide, setShowGuide } = useSenetStore();
+  const { historyLog, ruleset, isOnline, roomId, localPlayer, leaveRoom, winner, showGuide, setShowGuide, resetGame } = useSenetStore();
   const { t, i18n } = useTranslation();
   const [showLobby, setShowLobby] = useState(true);
 
@@ -20,6 +20,7 @@ function App() {
     if (isOnline) {
       leaveRoom();
     }
+    resetGame();
     setShowLobby(true);
   };
 
