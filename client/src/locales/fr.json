@@ -1,0 +1,82 @@
+{
+    "app": {
+        "chronicle": "Chronique",
+        "capture_mode": "Mode de Capture :",
+        "swap_positions": "Échanger les positions",
+        "forward_only": "Vers l'avant uniquement",
+        "protected_adjacency": "Contiguïté Protégée :",
+        "yes_pieces": "Oui, {{count}} pièces",
+        "no": "Non",
+        "blockades": "Blocages :",
+        "bearing_off": "Sortie des Pièces :",
+        "requires_exact_throw": "Jet exact requis",
+        "any_sufficient_throw": "Tout jet suffisant",
+        "rules_title": "Règles {{name}}"
+    },
+    "hud": {
+        "senet": "Senet",
+        "rules": "Règles : {{name}}",
+        "current_turn": "Tour Actuel :",
+        "wins": "{{player}} GAGNE !",
+        "restart_game": "Recommencer la partie",
+        "language": "Langue",
+        "players": {
+            "light": "LUMIÈRE",
+            "dark": "TÉNÈBRES"
+        }
+    },
+    "throw": {
+        "turn": "TOUR DE {{player}}",
+        "moves": "DÉPLACEMENTS : {{value}}",
+        "perfect_throw": "Jet Parfait",
+        "game_over": "Fin de la Partie",
+        "click_to_throw": "Cliquez sur les bâtons pour jeter"
+    },
+    "square": {
+        "effect": "Effet : {{effect}}",
+        "requires_throw": "Requis : Jet de {{num}}",
+        "cannot_bypass": "Ne peut pas être contourné",
+        "effects": {
+            "none": "Aucun",
+            "lock": "Verrouiller",
+            "water": "Eau",
+            "require_throw": "Jet Requis"
+        },
+        "names": {
+            "15": "Maison de la Renaissance",
+            "26": "Maison du Bonheur",
+            "27": "Maison de l'Eau",
+            "28": "Maison des Trois Vérités",
+            "29": "Maison de Re-Atoum",
+            "30": "Maison d'Horus"
+        }
+    },
+    "ruleset": {
+        "names": {
+            "common": "Reconstruction Commune"
+        },
+        "descriptions": {
+            "common": "Des règles plus riches avec des paires protégées, des blocages et une logique de capture par échange, correspondant aux règles largement diffusées."
+        }
+    },
+    "history": {
+        "game_started": "🎲 [JEU] La partie a commencé.",
+        "captured_swapped": "⚔️ Pièce capturée échangée à la position {{pos}}",
+        "moved_to": "🏃 Pièce déplacée à {{pos}}",
+        "moved_to_afterlife": "🏃 Pièce déplacée vers l'au-delà",
+        "washed_back": "🌊 Ramené à la Maison de la Renaissance (15)",
+        "wins": "🏆 {{player}} GAGNE !",
+        "extra_throw": "🎲 Lancer supplémentaire accordé !",
+        "no_moves": "🚫 Aucun mouvement légal pour {{player}}. Fin du tour."
+    },
+    "lobby": {
+        "create_room": "Créer une nouvelle salle",
+        "or_join": "Ou rejoindre une salle",
+        "room_number": "Code de la salle",
+        "room_placeholder": "ex. abc-def-ghi",
+        "join": "Rejoindre",
+        "join_create": "Rejoindre / Créer",
+        "or": "ou",
+        "play_offline": "Jouer hors ligne"
+    }
+}

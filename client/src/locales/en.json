@@ -1,0 +1,82 @@
+{
+    "app": {
+        "chronicle": "Chronicle",
+        "capture_mode": "Capture Mode:",
+        "swap_positions": "Swap positions",
+        "forward_only": "Forward only",
+        "protected_adjacency": "Protected Adjacency:",
+        "yes_pieces": "Yes, {{count}} pieces",
+        "no": "No",
+        "blockades": "Blockades:",
+        "bearing_off": "Bearing Off:",
+        "requires_exact_throw": "Requires exact throw",
+        "any_sufficient_throw": "Any sufficient throw",
+        "rules_title": "{{name}} Rules"
+    },
+    "hud": {
+        "senet": "Senet",
+        "rules": "Rules: {{name}}",
+        "current_turn": "Current Turn:",
+        "wins": "{{player}} WINS!",
+        "restart_game": "Restart Game",
+        "language": "Language",
+        "players": {
+            "light": "LIGHT",
+            "dark": "DARK"
+        }
+    },
+    "throw": {
+        "turn": "{{player}}'S TURN",
+        "moves": "MOVES: {{value}}",
+        "perfect_throw": "Perfect Throw",
+        "game_over": "Game Over",
+        "click_to_throw": "Click sticks to throw"
+    },
+    "square": {
+        "effect": "Effect: {{effect}}",
+        "requires_throw": "Requires: Throw of {{num}}",
+        "cannot_bypass": "Cannot bypass",
+        "effects": {
+            "none": "None",
+            "lock": "Lock",
+            "water": "Water",
+            "require_throw": "Require Throw"
+        },
+        "names": {
+            "15": "House of Rebirth",
+            "26": "House of Happiness",
+            "27": "House of Water",
+            "28": "House of Three Truths",
+            "29": "House of Re-Atoum",
+            "30": "House of Horus"
+        }
+    },
+    "ruleset": {
+        "names": {
+            "common": "Common Reconstruction"
+        },
+        "descriptions": {
+            "common": "A richer ruleset with protected pairs, blockades, and swap-capture logic matching widely-circulated rules."
+        }
+    },
+    "history": {
+        "game_started": "🎲 [GAME] Game started.",
+        "captured_swapped": "⚔️ Captured piece swapped to {{pos}}",
+        "moved_to": "🏃 Moved piece to {{pos}}",
+        "moved_to_afterlife": "🏃 Moved piece to afterlife",
+        "washed_back": "🌊 Washed back to House of Rebirth (15)",
+        "wins": "🏆 {{player}} WINS!",
+        "extra_throw": "🎲 Extra throw granted!",
+        "no_moves": "🚫 No legal moves for {{player}}. Turn passes."
+    },
+    "lobby": {
+        "create_room": "Create New Room",
+        "or_join": "Or join existing room",
+        "room_number": "Room Code",
+        "room_placeholder": "e.g. abc-def-ghi",
+        "join": "Join",
+        "join_create": "Join / Create Room",
+        "or": "or",
+        "play_offline": "Play Offline"
+    }
+}
