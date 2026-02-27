@@ -17,7 +17,7 @@ export function Square({ number }: SquareProps) {
     const getHouseIcon = () => {
         switch (number) {
             case 15: return { type: 'text', val: '𓋹' };
-            case 26: return { type: 'svg', val: '/assets/royal/house_28_maat_feather.svg', color: 'bg-royal-ivory/90' };
+            case 26: return { type: 'text', val: '𓄤𓄤𓄤' };
             case 27: return { type: 'svg', val: '/assets/royal/house_27_water_n35.svg', color: 'bg-royal-blue' };
             case 28: return { type: 'svg', val: '/assets/royal/house_28_maat_feather.svg', color: 'bg-royal-ivory/90' };
             case 29: return { type: 'svg', val: '/assets/royal/house_29_sun_disk.svg', color: 'bg-royal-gold' };
