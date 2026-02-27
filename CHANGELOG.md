@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+- Implemented real-time online multiplayer over WebSockets utilizing FastAPI endpoints and React Lobby UI.
 - Initial project setup with React Vite frontend, FastAPI backend, and Docker configuration.
 - Localized the application with i18n support for English (en), Egyptian Arabic (ar-EG), and French (fr).
 - Setup two separated Docker development services enabling Vite Hot-Reload (HMR) for the frontend on port 5173, and Uvicorn Hot-Reload for the backend on port 8000.

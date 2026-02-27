@@ -2,6 +2,10 @@
 
 A modern digital version of the ancient Egyptian board game Senet.
 
+### Features
+- **Online Multiplayer**: Real-time room-based matches over continuous WebSocket connections.
+- **Rules Documentation**: Read history and gameplay strategies dynamically built into the user interface.
+
 ## Running Locally (Development with Hot Reload)
 
 1. Run `docker compose up --build`

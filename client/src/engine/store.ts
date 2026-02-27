@@ -1,8 +1,18 @@
 import { create } from 'zustand';
-import type { GameState } from './types';
+import type { GameState, PlayerID } from './types';
 import { createInitialState, getThrowResult, getLegalMoves, applyMove, autoPassIfNoMoves } from './logic';
 
+let socket: WebSocket | null = null;
+
 interface SenetStore extends GameState {
+    // Online matches
+    isOnline: boolean;
+    roomId: string | null;
+    localPlayer: PlayerID | null;
+    joinRoom: (roomId: string) => void;
+    leaveRoom: () => void;
+    syncState: (state: Partial<GameState>) => void;
+
     // Actions
     throwSticks: () => void;
     movePiece: (pieceId: string) => void;
@@ -17,12 +27,71 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
     ...createInitialState(),
     legalMoves: [],
 
+    // Online states
+    isOnline: false,
+    roomId: null,
+    localPlayer: null,
+
+    joinRoom: (roomId: string) => {
+        if (socket) {
+            socket.close();
+        }
+
+        // Determine websocket url
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const wsUrl = `${protocol}//${window.location.host}/api/match/${roomId}`;
+
+        socket = new WebSocket(wsUrl);
+
+        socket.onopen = () => {
+            console.log(`🌐 Joined room ${roomId}`);
+        };
+
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            if (data.type === 'init') {
+                set({ isOnline: true, roomId, localPlayer: data.player });
+                console.log(`🎮 Playing as ${data.player}`);
+            } else if (data.type === 'sync') {
+                set({ ...data.state, legalMoves: [] });
+            } else if (data.type === 'opponent_disconnected') {
+                console.log('⚠️ Opponent disconnected');
+            } else if (data.type === 'error') {
+                console.error('WebSocket Error:', data.message);
+                socket?.close();
+                set({ isOnline: false, roomId: null, localPlayer: null });
+            }
+        };
+
+        socket.onclose = () => {
+            set({ isOnline: false, roomId: null, localPlayer: null });
+            socket = null;
+        };
+    },
+
+    leaveRoom: () => {
+        if (socket) {
+            socket.close();
+            socket = null;
+        }
+        set({ isOnline: false, roomId: null, localPlayer: null });
+    },
+
+    syncState: (state: Partial<GameState>) => {
+        if (get().isOnline && socket && socket.readyState === WebSocket.OPEN) {
+            socket.send(JSON.stringify({ type: 'sync', state }));
+        }
+    },
+
     throwSticks: () => {
         const state = get();
         if (state.winner || state.currentThrow) return;
+        if (state.isOnline && state.currentPlayer !== state.localPlayer) return;
 
         const throwRes = getThrowResult();
-        set({ currentThrow: throwRes });
+        const partialState: Partial<GameState> = { currentThrow: throwRes };
+        set(partialState);
+        get().syncState(partialState);
 
         // Automatically calculate legal moves to see if we need to auto-pass
         const stateAfterThrow = get();
@@ -38,20 +107,38 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
     movePiece: (pieceId: string) => {
         const state = get();
         if (!state.currentThrow) return;
+        if (state.isOnline && state.currentPlayer !== state.localPlayer) return;
 
         const newState = applyMove(state, pieceId);
-        set({ ...newState, legalMoves: [] });
+
+        const partialState: Partial<GameState> = {
+            board: newState.board,
+            currentPlayer: newState.currentPlayer,
+            currentThrow: newState.currentThrow,
+            winner: newState.winner,
+            historyLog: newState.historyLog
+        };
+        set({ ...partialState, legalMoves: [] });
+        get().syncState(partialState);
     },
 
     passTurn: () => {
         const state = get();
         const newState = autoPassIfNoMoves(state);
-        set({ ...newState, legalMoves: [] });
+
+        const partialState: Partial<GameState> = {
+            currentPlayer: newState.currentPlayer,
+            currentThrow: newState.currentThrow,
+            historyLog: newState.historyLog,
+            winner: newState.winner
+        };
+        set({ ...partialState, legalMoves: [] });
+        get().syncState(partialState);
     },
 
-
-
     resetGame: () => {
-        set({ ...createInitialState(get().ruleset), legalMoves: [] });
+        const state = get();
+        if (state.isOnline) return; // Disallow resetting online games for now
+        set({ ...createInitialState(state.ruleset), legalMoves: [] });
     }
 }));
