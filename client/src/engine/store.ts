@@ -7,12 +7,13 @@ let connectionAttempt = 0;
 let autoplayRunId = 0;
 
 type AutoPlaySpeed = 'human' | 'quick' | 'fast' | 'immediate';
-const AUTO_PLAY_DELAYS_MS: Record<AutoPlaySpeed, number> = {
-    human: 1200,
-    quick: 700,
-    fast: 300,
-    immediate: 0
+const AUTO_PLAY_TIMINGS: Record<AutoPlaySpeed, { rollAnimationMs: number; afterThrowMs: number; afterMoveMs: number }> = {
+    human: { rollAnimationMs: 800, afterThrowMs: 650, afterMoveMs: 900 },
+    quick: { rollAnimationMs: 600, afterThrowMs: 350, afterMoveMs: 500 },
+    fast: { rollAnimationMs: 350, afterThrowMs: 180, afterMoveMs: 260 },
+    immediate: { rollAnimationMs: 0, afterThrowMs: 0, afterMoveMs: 0 }
 };
+const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 type RoomJoinError = 'not_found' | 'full' | 'unavailable';
 type LocalRole = PlayerID | 'spectator';
@@ -48,6 +49,7 @@ interface SenetStore extends GameState {
     passTurn: () => void;
     playRandomTurns: (turnsCount: number, speed?: AutoPlaySpeed) => void;
     isAutoPlaying: boolean;
+    isAutoRolling: boolean;
     // UI helpers
     legalMoves: { pieceId: string; targetSquare: number }[];
     hoveredPieceId: string | null;
@@ -198,7 +200,7 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
 
     throwSticks: () => {
         const state = get();
-        if (state.winner || state.currentThrow || state.isAutoPlaying) return;
+        if (state.winner || state.currentThrow || state.isAutoPlaying || state.isAutoRolling) return;
         if (state.isOnline && (state.isWaitingForOpponent || state.currentPlayer !== state.localPlayer)) return;
 
         const throwRes = getThrowResult();
@@ -219,7 +221,7 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
 
     movePiece: (pieceId: string) => {
         const state = get();
-        if (!state.currentThrow || state.isAutoPlaying) return;
+        if (!state.currentThrow || state.isAutoPlaying || state.isAutoRolling) return;
         if (state.isOnline && (state.isWaitingForOpponent || state.currentPlayer !== state.localPlayer)) return;
 
         const newState = applyMove(state, pieceId);
@@ -260,7 +262,7 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
 
     passTurn: () => {
         const state = get();
-        if (state.isAutoPlaying) return;
+        if (state.isAutoPlaying || state.isAutoRolling) return;
         const newState = autoPassIfNoMoves(state);
 
         const partialState: Partial<GameState> = {
@@ -275,19 +277,20 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
 
     resetGame: () => {
         const state = get();
-        if (state.isOnline || state.isAutoPlaying) return; // Disallow resetting online games while autoplay is running
+        if (state.isOnline || state.isAutoPlaying || state.isAutoRolling) return; // Disallow resetting online games while autoplay is running
         set({ ...createInitialState(state.ruleset), legalMoves: [] });
     },
 
     isAutoPlaying: false,
+    isAutoRolling: false,
 
-    playRandomTurns: (turnsCount: number, speed: AutoPlaySpeed = 'immediate') => {
+    playRandomTurns: async (turnsCount: number, speed: AutoPlaySpeed = 'immediate') => {
         const storeState = get();
-        if (storeState.isOnline || storeState.winner || storeState.isAutoPlaying) return;
+        if (storeState.isOnline || storeState.winner || storeState.isAutoPlaying || storeState.isAutoRolling) return;
 
-        const delay = AUTO_PLAY_DELAYS_MS[speed];
+        const timings = AUTO_PLAY_TIMINGS[speed];
         const runId = ++autoplayRunId;
-        set({ isAutoPlaying: true });
+        set({ isAutoPlaying: true, isAutoRolling: false });
         console.log(`🤖 Playing ${turnsCount} random turns at "${speed}" speed...`);
 
         const currentState: GameState = {
@@ -299,8 +302,8 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
             historyLog: storeState.historyLog
         };
 
-        const executeTurn = (state: GameState): GameState => {
-            if (state.winner) return state;
+        const executeTurn = (state: GameState): { nextState: GameState; movedPieceId: string | null } => {
+            if (state.winner) return { nextState: state, movedPieceId: null };
 
             if (!state.currentThrow) {
                 const throwRes = getThrowResult();
@@ -311,14 +314,20 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
 
             if (legalMoves.length === 0) {
                 state = autoPassIfNoMoves(state);
+                return { nextState: state, movedPieceId: null };
             } else {
                 const randomMove = legalMoves[Math.floor(Math.random() * legalMoves.length)];
                 state = applyMove(state, randomMove.pieceId);
+                return { nextState: state, movedPieceId: randomMove.pieceId };
             }
-            return state;
         };
 
-        const commitState = (state: GameState) => {
+        const isCancelled = () => runId !== autoplayRunId;
+
+        const commitState = (state: GameState, movedPieceId: string | null = null) => {
+            const oldState = get();
+            const oldPiece = movedPieceId ? oldState.board.find(p => p.id === movedPieceId) : undefined;
+            const newPiece = movedPieceId ? state.board.find(p => p.id === movedPieceId) : undefined;
             const partialState: Partial<GameState> = {
                 board: state.board,
                 currentPlayer: state.currentPlayer,
@@ -329,40 +338,77 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
             set({
                 ...partialState,
                 legalMoves: state.currentThrow ? getLegalMoves(state) : [],
-                lastMove: null
+                lastMove: oldPiece && newPiece ? { pieceId: movedPieceId!, from: oldPiece.position, to: newPiece.position } : null
             });
             get().syncState(partialState);
         };
 
-        if (delay === 0) {
+        if (timings.rollAnimationMs === 0 && timings.afterMoveMs === 0 && timings.afterThrowMs === 0) {
             let state = currentState;
             for (let i = 0; i < turnsCount; i++) {
                 if (state.winner) break;
-                state = executeTurn(state);
+                const executed = executeTurn(state);
+                state = executed.nextState;
             }
 
-            if (runId !== autoplayRunId) return;
+            if (isCancelled()) return;
             commitState(state);
-            set({ isAutoPlaying: false });
+            set({ isAutoPlaying: false, isAutoRolling: false });
             console.log(`✅ Finished playing random turns. Winner: ${state.winner || 'None'}`);
             return;
         }
 
-        const playStep = (remainingTurns: number, state: GameState) => {
-            if (runId !== autoplayRunId) return;
+        let state = currentState;
+        for (let i = 0; i < turnsCount; i++) {
+            if (state.winner || isCancelled()) break;
 
-            if (remainingTurns <= 0 || state.winner) {
-                commitState(state);
-                set({ isAutoPlaying: false });
-                console.log(`✅ Finished playing random turns. Winner: ${state.winner || 'None'}`);
-                return;
+            if (!state.currentThrow) {
+                set({ isAutoRolling: true, currentThrow: null, legalMoves: [] });
+                await sleep(timings.rollAnimationMs);
+                if (isCancelled()) {
+                    set({ isAutoPlaying: false, isAutoRolling: false });
+                    return;
+                }
+
+                const throwRes = getThrowResult();
+                state = { ...state, currentThrow: throwRes };
+                const throwPartial: Partial<GameState> = { currentThrow: throwRes };
+                set({
+                    currentThrow: throwRes,
+                    legalMoves: getLegalMoves(state),
+                    isAutoRolling: false
+                });
+                get().syncState(throwPartial);
+
+                await sleep(timings.afterThrowMs);
+                if (isCancelled()) {
+                    set({ isAutoPlaying: false, isAutoRolling: false });
+                    return;
+                }
             }
 
-            const nextState = executeTurn(state);
-            commitState(nextState);
-            setTimeout(() => playStep(remainingTurns - 1, nextState), delay);
-        };
+            const legalMoves = getLegalMoves(state);
+            if (legalMoves.length === 0) {
+                state = autoPassIfNoMoves(state);
+                commitState(state);
+                await sleep(timings.afterMoveMs);
+                continue;
+            }
 
-        playStep(turnsCount, currentState);
+            const randomMove = legalMoves[Math.floor(Math.random() * legalMoves.length)];
+            const nextState = applyMove(state, randomMove.pieceId);
+            state = nextState;
+            commitState(nextState, randomMove.pieceId);
+            await sleep(timings.afterMoveMs);
+        }
+
+        if (isCancelled()) {
+            set({ isAutoPlaying: false, isAutoRolling: false });
+            return;
+        }
+
+        commitState(state);
+        set({ isAutoPlaying: false, isAutoRolling: false });
+        console.log(`✅ Finished playing random turns. Winner: ${state.winner || 'None'}`);
     }
 }));

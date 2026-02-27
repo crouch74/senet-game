@@ -13,10 +13,11 @@ interface StickLayout {
 }
 
 export function ThrowSticks() {
-    const [isThrowing, setIsThrowing] = useState(false);
+    const [isManualThrowing, setIsManualThrowing] = useState(false);
     const { t } = useTranslation();
-    const { currentThrow, throwSticks, currentPlayer, winner, isOnline, localPlayer } = useSenetStore();
+    const { currentThrow, throwSticks, currentPlayer, winner, isOnline, localPlayer, isAutoRolling } = useSenetStore();
     const isMyTurn = !isOnline || currentPlayer === localPlayer;
+    const isThrowing = isManualThrowing || isAutoRolling;
     const [stickLayouts, setStickLayouts] = useState<StickLayout[]>([]);
 
     // Generate random layouts when a throw happens
@@ -48,11 +49,11 @@ export function ThrowSticks() {
 
     const handleThrow = () => {
         if (!currentThrow && !winner && !isThrowing && isMyTurn) {
-            setIsThrowing(true);
+            setIsManualThrowing(true);
             // Anticipation delay
             setTimeout(() => {
                 throwSticks();
-                setIsThrowing(false);
+                setIsManualThrowing(false);
             }, 800);
         }
     };
