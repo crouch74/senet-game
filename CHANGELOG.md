@@ -16,3 +16,5 @@
 - Repeated icons for the last three houses on the board (House 28: three times, House 29: two times, House 30: one time) for historical accuracy.
 - Enhanced special squares pop-up tooltips to include historical "Lore/Afterlife Context" showing the mythological meaning behind each of the final five houses.
 - Localized the Lore text in English, Egyptian Arabic, and French.
+- Game Logging Enhancements:
+  - Updated the Chronicle to show which player performed each action using color-coded indicators (Gold for Light, Ebony for Dark).

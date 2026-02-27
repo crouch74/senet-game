@@ -153,7 +153,11 @@ export function applyMove(gameState: GameState, pieceId: string): GameState {
         if (occupant) {
             if (newState.ruleset.captureMode === 'swap') {
                 occupant.position = piece.position; // Swap places
-                newState.historyLog.push({ key: 'history.captured_swapped', params: { pos: piece.position } });
+                newState.historyLog.push({
+                    key: 'history.captured_swapped',
+                    params: { pos: piece.position },
+                    player: newState.currentPlayer
+                });
             } else if (newState.ruleset.captureMode === 'remove') {
                 occupant.position = 0; // Removing puts it to 0 (off board / rebirth start)
             }
@@ -163,7 +167,8 @@ export function applyMove(gameState: GameState, pieceId: string): GameState {
     piece.position = endSquare;
     newState.historyLog.push({
         key: piece.position === 31 ? 'history.moved_to_afterlife' : 'history.moved_to',
-        params: piece.position === 31 ? undefined : { pos: endSquare }
+        params: piece.position === 31 ? undefined : { pos: endSquare },
+        player: newState.currentPlayer
     });
 
     // Apply Special Squares
@@ -175,7 +180,10 @@ export function applyMove(gameState: GameState, pieceId: string): GameState {
                 piece.position = 15;
                 // If 15 is occupied, what happens? Usually they have to go back further or they just go to 15. We assume 15 is available or swaps.
                 // Let's just move to 15 for now.
-                newState.historyLog.push({ key: 'history.washed_back' });
+                newState.historyLog.push({
+                    key: 'history.washed_back',
+                    player: newState.currentPlayer
+                });
             }
         }
     }
@@ -184,7 +192,11 @@ export function applyMove(gameState: GameState, pieceId: string): GameState {
     const currentPieces = newState.board.filter(p => p.player === newState.currentPlayer);
     if (currentPieces.every(p => p.position === 31)) {
         newState.winner = newState.currentPlayer;
-        newState.historyLog.push({ key: 'history.wins', params: { player: newState.currentPlayer } });
+        newState.historyLog.push({
+            key: 'history.wins',
+            params: { player: newState.currentPlayer },
+            player: newState.currentPlayer
+        });
         return newState;
     }
 
@@ -194,7 +206,10 @@ export function applyMove(gameState: GameState, pieceId: string): GameState {
     if (!earnsExtraThrow) {
         newState.currentPlayer = newState.currentPlayer === 'light' ? 'dark' : 'light';
     } else {
-        newState.historyLog.push({ key: 'history.extra_throw' });
+        newState.historyLog.push({
+            key: 'history.extra_throw',
+            player: newState.currentPlayer
+        });
     }
 
     newState.currentThrow = null; // Consume throw
@@ -207,7 +222,11 @@ export function autoPassIfNoMoves(gameState: GameState): GameState {
     const moves = getLegalMoves(gameState);
     if (moves.length === 0) {
         const newState = JSON.parse(JSON.stringify(gameState)) as GameState;
-        newState.historyLog.push({ key: 'history.no_moves', params: { player: newState.currentPlayer } });
+        newState.historyLog.push({
+            key: 'history.no_moves',
+            params: { player: newState.currentPlayer },
+            player: newState.currentPlayer
+        });
         newState.currentPlayer = newState.currentPlayer === 'light' ? 'dark' : 'light';
         newState.currentThrow = null;
         return newState;

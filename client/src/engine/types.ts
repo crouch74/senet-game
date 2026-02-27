@@ -36,6 +36,7 @@ export interface ThrowResult {
 export interface HistoryEvent {
     key: string;
     params?: Record<string, any>;
+    player?: PlayerID;
 }
 
 export interface GameState {

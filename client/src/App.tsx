@@ -5,6 +5,7 @@ import { HUD } from './components/HUD';
 import { ThrowSticks } from './components/ThrowSticks';
 import { Lobby } from './components/Lobby';
 import { useSenetStore } from './engine/store';
+import { cn } from './utils/cn';
 
 function App() {
   const { historyLog, ruleset, isOnline, roomId, localPlayer, leaveRoom } = useSenetStore();
@@ -23,20 +24,20 @@ function App() {
   }, [i18n.language]);
 
   return (
-    <div className={`min-h-screen bg-ebony text-sand flex flex-col font-sans selection:bg-gold/30 ${i18n.language === 'ar-EG' ? 'font-arabic' : ''}`}>
+    <div className={`h-screen bg-ebony text-sand flex flex-col font-sans selection:bg-gold/30 overflow-hidden ${i18n.language === 'ar-EG' ? 'font-arabic' : ''}`}>
       {/* Background thematic elements */}
       <div className="fixed inset-0 pointer-events-none opacity-5 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-sand via-ebony to-ebony" />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 flex flex-col relative z-10">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 flex flex-col relative z-10 min-h-0 overflow-hidden">
         <HUD />
 
-        <div className="flex-1 flex flex-col xl:flex-row gap-8 items-center justify-center">
+        <div className="flex-1 flex flex-col xl:flex-row gap-8 items-stretch justify-center min-h-0 overflow-hidden">
           {(!showLobby || isOnline) ? (
             <>
               {/* Main Game Area */}
-              <div className="flex-1 w-full flex flex-col items-center justify-center order-2 xl:order-1">
+              <div className="flex-1 w-full flex flex-col items-center justify-center order-2 xl:order-1 min-h-0">
                 {isOnline && roomId && (
-                  <div className="mb-4 flex items-center justify-between w-full max-w-5xl bg-black/40 border border-sand/20 rounded-lg p-3 px-6 shadow-md backdrop-blur-sm">
+                  <div className="mb-4 flex items-center justify-between w-full max-w-5xl bg-black/40 border border-sand/20 rounded-lg p-3 px-6 shadow-md backdrop-blur-sm shrink-0">
                     <div className="flex flex-col">
                       <span className="text-sand/60 text-xs uppercase tracking-wider font-bold mb-1">Room</span>
                       <span className="text-gold font-mono text-xl">{roomId}</span>
@@ -53,32 +54,43 @@ function App() {
                     </button>
                   </div>
                 )}
-                <Board />
-                <ThrowSticks />
+                <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0">
+                  <Board />
+                  <ThrowSticks />
+                </div>
               </div>
 
               {/* Side Panel: History & Rules Info */}
-              <div className="w-full xl:w-96 flex flex-col h-full gap-8 order-1 xl:order-2 shrink-0">
-                <div className="bg-black/20 border-l-[2px] border-royal-gold/30 rounded-r-lg p-5 flex-1 overflow-hidden flex flex-col h-64 xl:h-auto shadow-inner">
-                  <h2 className="text-gold font-serif text-lg border-b border-sand/20 pb-2 mb-2 uppercase tracking-wide">
+              <div className="w-full xl:w-96 flex flex-col h-full min-h-0 gap-8 order-1 xl:order-2 shrink-0">
+                <div className="bg-black/20 border-l-[2px] border-royal-gold/30 rounded-r-lg p-5 flex-1 flex flex-col min-h-0 shadow-inner overflow-hidden">
+                  <h2 className="text-gold font-serif text-lg border-b border-sand/20 pb-2 mb-2 uppercase tracking-wide shrink-0">
                     {t('app.chronicle')}
                   </h2>
-                  <div className="overflow-y-auto flex-1 flex flex-col gap-2 text-sm pr-2 custom-scrollbar">
+                  <div className="overflow-y-auto flex-1 flex flex-col gap-2 text-sm pr-2 custom-scrollbar min-h-0">
                     {historyLog.slice().reverse().map((log, i) => {
                       const translatedParams = log.params?.player
                         ? { ...log.params, player: t(`hud.players.${log.params.player}`) }
                         : log.params;
                       return (
-                        <div key={i} className="text-sand/80 font-mono flex gap-2 border-b border-sand/5 pb-1">
-                          <span className="opacity-50 text-xs mt-0.5" dir="ltr">{(historyLog.length - i).toString().padStart(3, '0')}</span>
-                          <span>{t(log.key, translatedParams)}</span>
+                        <div key={i} className="text-sand/80 font-mono flex gap-2 border-b border-sand/5 pb-1 items-start">
+                          <span className="opacity-50 text-xs mt-0.5 shrink-0" dir="ltr">{(historyLog.length - i).toString().padStart(3, '0')}</span>
+                          {log.player && (
+                            <span
+                              className={cn(
+                                "w-2 h-2 rounded-full mt-1.5 shrink-0 shadow-[0_0_5px_rgba(0,0,0,0.5)]",
+                                log.player === 'light' ? "bg-royal-gold" : "bg-royal-ebony border border-royal-gold/30"
+                              )}
+                              title={t(`hud.players.${log.player}`)}
+                            />
+                          )}
+                          <span className="leading-tight">{t(log.key, translatedParams)}</span>
                         </div>
                       );
                     })}
                   </div>
                 </div>
 
-                <div className="bg-ochre/5 border-l-[2px] border-ochre/40 rounded-r-lg p-5 text-sm shadow-inner">
+                <div className="bg-ochre/5 border-l-[2px] border-ochre/40 rounded-r-lg p-5 text-sm shadow-inner shrink-0">
                   <h3 className="text-ochre font-bold mb-2 flex items-center gap-2">
                     <span>📜</span> {t('app.rules_title', { name: t(`ruleset.names.${ruleset.id}`) })}
                   </h3>
