@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
 
@@ -7,6 +8,7 @@ interface SquareProps {
 
 export function Square({ number }: SquareProps) {
     const { ruleset, legalMoves } = useSenetStore();
+    const { t } = useTranslation();
     const specialInfo = ruleset.specialSquares[number];
 
     // Is this square a legal move destination for any piece right now?
@@ -46,10 +48,10 @@ export function Square({ number }: SquareProps) {
             {/* Tooltip for special houses */}
             {specialInfo && (
                 <div className="absolute bottom-full mb-2 w-48 p-2 bg-ebony border border-sand/50 text-sand text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-xl">
-                    <div className="font-bold text-gold">{specialInfo.name}</div>
-                    <div className="mt-1">Effect: {specialInfo.effect.replace('_', ' ')}</div>
-                    {specialInfo.requiredThrow && <div>Requires: Throw of {specialInfo.requiredThrow}</div>}
-                    {!specialInfo.canBypass && <div className="text-ochre mt-1">Cannot bypass</div>}
+                    <div className="font-bold text-gold">{t(`square.names.${number}`)}</div>
+                    <div className="mt-1">{t('square.effect', { effect: t(`square.effects.${specialInfo.effect}`) })}</div>
+                    {specialInfo.requiredThrow && <div>{t('square.requires_throw', { num: specialInfo.requiredThrow })}</div>}
+                    {!specialInfo.canBypass && <div className="text-ochre mt-1">{t('square.cannot_bypass')}</div>}
                 </div>
             )}
         </div>

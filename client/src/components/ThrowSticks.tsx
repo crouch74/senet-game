@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { useSenetStore } from '../engine/store';
 import { cn } from '../utils/cn';
 
 export function ThrowSticks() {
     const { currentThrow, throwSticks, currentPlayer, winner } = useSenetStore();
+    const { t } = useTranslation();
 
     const handleThrow = () => {
         if (!currentThrow && !winner) {
@@ -15,7 +17,7 @@ export function ThrowSticks() {
     return (
         <div className="flex flex-col items-center mt-8 p-6 bg-ebony/40 rounded-xl border border-sand/10 shadow-lg">
             <div className="text-xl font-serif text-sand mb-4">
-                {currentPlayer.toUpperCase()}'S TURN
+                {t('throw.turn', { player: t(`hud.players.${currentPlayer}`) })}
             </div>
 
             <div className="flex gap-4 min-h-[120px] items-center justify-center">
@@ -77,17 +79,17 @@ export function ThrowSticks() {
                         className="text-center"
                     >
                         <div className="text-3xl font-bold text-gold drop-shadow-md">
-                            MOVES: {currentThrow.value}
+                            {t('throw.moves', { value: currentThrow.value })}
                         </div>
                         {currentThrow.value === 5 && (
                             <div className="text-sm text-sand/70 uppercase tracking-widest mt-1">
-                                Perfect Throw
+                                {t('throw.perfect_throw')}
                             </div>
                         )}
                     </motion.div>
                 ) : (
                     <div className="text-sand/50 uppercase tracking-widest animate-pulse">
-                        {winner ? 'Game Over' : 'Click sticks to throw'}
+                        {winner ? t('throw.game_over') : t('throw.click_to_throw')}
                     </div>
                 )}
             </div>
