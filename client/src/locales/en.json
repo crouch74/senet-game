@@ -135,6 +135,7 @@
         "copy": "Copy",
         "copied": "Copied!",
         "copy_room": "Copy room code",
+        "online_unavailable": "Online mode is unavailable while the backend is offline.",
         "waiting_title": "Awaiting the Second Soul",
         "waiting_subtitle": "Share the room code with your opponent to begin the journey.",
         "waiting_you_are": "You are playing as",

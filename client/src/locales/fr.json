@@ -135,6 +135,7 @@
         "copy": "Copier",
         "copied": "Copié !",
         "copy_room": "Copier le code de la salle",
+        "online_unavailable": "Le mode en ligne n'est pas disponible tant que le backend est hors ligne.",
         "waiting_title": "En attente de la Seconde Âme",
         "waiting_subtitle": "Partagez le code de la salle avec votre adversaire pour commencer le voyage.",
         "waiting_you_are": "Vous jouez en tant que",

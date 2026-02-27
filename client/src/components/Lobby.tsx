@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSenetStore } from '../engine/store';
 import { useTranslation } from 'react-i18next';
 import type { OfflineMode } from '../engine/types';
@@ -9,8 +9,36 @@ interface LobbyProps {
 
 export function Lobby({ onStartOfflineMode }: LobbyProps) {
     const [roomInput, setRoomInput] = useState('');
+    const [isBackendAvailable, setIsBackendAvailable] = useState(false);
     const { joinRoom, roomJoinError, clearRoomJoinError } = useSenetStore();
     const { t } = useTranslation();
+
+    useEffect(() => {
+        let isMounted = true;
+        const controller = new AbortController();
+
+        const checkBackendHealth = async () => {
+            try {
+                const res = await fetch('/api/health', { signal: controller.signal });
+                if (!isMounted) return;
+                setIsBackendAvailable(res.ok);
+            } catch {
+                if (!isMounted) return;
+                setIsBackendAvailable(false);
+            }
+        };
+
+        void checkBackendHealth();
+        const intervalId = window.setInterval(() => {
+            void checkBackendHealth();
+        }, 15000);
+
+        return () => {
+            isMounted = false;
+            controller.abort();
+            window.clearInterval(intervalId);
+        };
+    }, []);
 
     const handleJoin = (e: React.FormEvent) => {
         e.preventDefault();
@@ -48,47 +76,55 @@ export function Lobby({ onStartOfflineMode }: LobbyProps) {
                         </div>
                     )}
 
-                    <button
-                        type="button"
-                        onClick={handleCreate}
-                        className="bg-royal-gold hover:bg-royal-gold/90 text-[var(--ui-turn-pill-foreground)] font-bold py-3 rounded-md transition-all shadow-lg hover:shadow-royal-gold/20 cursor-pointer"
-                    >
-                        {t('lobby.create_room', 'Create New Room')}
-                    </button>
-
-                    <div className="relative flex py-2 items-center">
-                        <div className="flex-grow border-t border-sand/20"></div>
-                        <span className="flex-shrink-0 mx-4 text-sand/50 text-xs uppercase tracking-wider">{t('lobby.or_join', 'Or join existing room')}</span>
-                        <div className="flex-grow border-t border-sand/20"></div>
-                    </div>
-
-                    <form onSubmit={handleJoin} className="flex flex-col gap-2">
-                        <label htmlFor="room" className="text-sand/80 text-sm uppercase tracking-wider font-bold">
-                            {t('lobby.room_number', 'Room Code')}
-                        </label>
-                        <div className="flex gap-2">
-                            <input
-                                id="room"
-                                type="text"
-                                value={roomInput}
-                            onChange={(e) => {
-                                if (roomJoinError) {
-                                    clearRoomJoinError();
-                                }
-                                setRoomInput(e.target.value);
-                            }}
-                            placeholder={t('lobby.room_placeholder', 'e.g. abc-def-ghi')}
-                            className="flex-1 bg-[var(--ui-input-bg)] border border-sand/30 rounded-md p-3 text-sand placeholder:text-sand/30 focus:outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold transition-all"
-                        />
+                    {isBackendAvailable ? (
+                        <>
                             <button
-                                type="submit"
-                                disabled={!roomInput.trim()}
-                                className="bg-sand/20 hover:bg-sand/30 text-sand font-bold px-6 rounded-md transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                                type="button"
+                                onClick={handleCreate}
+                                className="bg-royal-gold hover:bg-royal-gold/90 text-[var(--ui-turn-pill-foreground)] font-bold py-3 rounded-md transition-all shadow-lg hover:shadow-royal-gold/20 cursor-pointer"
                             >
-                                {t('lobby.join', 'Join')}
+                                {t('lobby.create_room', 'Create New Room')}
                             </button>
+
+                            <div className="relative flex py-2 items-center">
+                                <div className="flex-grow border-t border-sand/20"></div>
+                                <span className="flex-shrink-0 mx-4 text-sand/50 text-xs uppercase tracking-wider">{t('lobby.or_join', 'Or join existing room')}</span>
+                                <div className="flex-grow border-t border-sand/20"></div>
+                            </div>
+
+                            <form onSubmit={handleJoin} className="flex flex-col gap-2">
+                                <label htmlFor="room" className="text-sand/80 text-sm uppercase tracking-wider font-bold">
+                                    {t('lobby.room_number', 'Room Code')}
+                                </label>
+                                <div className="flex gap-2">
+                                    <input
+                                        id="room"
+                                        type="text"
+                                        value={roomInput}
+                                        onChange={(e) => {
+                                            if (roomJoinError) {
+                                                clearRoomJoinError();
+                                            }
+                                            setRoomInput(e.target.value);
+                                        }}
+                                        placeholder={t('lobby.room_placeholder', 'e.g. abc-def-ghi')}
+                                        className="flex-1 bg-[var(--ui-input-bg)] border border-sand/30 rounded-md p-3 text-sand placeholder:text-sand/30 focus:outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold transition-all"
+                                    />
+                                    <button
+                                        type="submit"
+                                        disabled={!roomInput.trim()}
+                                        className="bg-sand/20 hover:bg-sand/30 text-sand font-bold px-6 rounded-md transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                                    >
+                                        {t('lobby.join', 'Join')}
+                                    </button>
+                                </div>
+                            </form>
+                        </>
+                    ) : (
+                        <div className="rounded-md border border-sand/20 bg-[var(--ui-panel-bg)] px-4 py-3 text-sm text-sand/75">
+                            {t('lobby.online_unavailable', 'Online mode is unavailable while the backend is offline.')}
                         </div>
-                    </form>
+                    )}
 
                     <div className="relative flex py-2 items-center mt-2">
                         <div className="flex-grow border-t border-sand/20"></div>
