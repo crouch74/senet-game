@@ -47,4 +47,6 @@
     - Added stick overlapping logic to simulate a real-life toss on a surface.
     - Implemented a "burst" animation from a center point with random rotations and spring-loaded landing physics.
     - Enhanced the "in-flight" animation with high-speed rotation and vertical oscillation for a more dynamic feel.
+  - **Game Rule Enhancements**:
+    - Designated **House #15 (House of Rebirth)** as a **Safe House**. Pieces landing on this square are protected from capture (swapping) by the opponent.
 

@@ -22,7 +22,7 @@ export interface Ruleset {
         [square: number]: {
             name: string;
             canBypass: boolean; // True if pieces can move past it without landing
-            effect: 'none' | 'water' | 'extra_turn' | 'lock' | 'require_throw';
+            effect: 'none' | 'water' | 'extra_turn' | 'lock' | 'require_throw' | 'safe';
             requiredThrow?: number; // e.g. House 28 requires throw of 3
         }
     };

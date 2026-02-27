@@ -50,7 +50,8 @@
             "none": "None",
             "lock": "Lock",
             "water": "Water",
-            "require_throw": "Require Throw"
+            "require_throw": "Require Throw",
+            "safe": "Safe House"
         },
         "names": {
             "15": "House of Rebirth",

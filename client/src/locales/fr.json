@@ -50,7 +50,8 @@
             "none": "Aucun",
             "lock": "Verrouiller",
             "water": "Eau",
-            "require_throw": "Jet Requis"
+            "require_throw": "Jet Requis",
+            "safe": "Maison de Sécurité"
         },
         "names": {
             "15": "Maison de la Renaissance",

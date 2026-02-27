@@ -11,7 +11,7 @@ export const CommonRuleset: Ruleset = {
     extraThrowConditions: [1, 4, 5],
     bearingOffRequirements: 'exact',
     specialSquares: {
-        15: { name: 'House of Rebirth', canBypass: true, effect: 'none' },
+        15: { name: 'House of Rebirth', canBypass: true, effect: 'safe' },
         26: { name: 'House of Happiness', canBypass: false, effect: 'none' },
         27: { name: 'House of Water', canBypass: true, effect: 'water' },
         28: { name: 'House of Three Truths', canBypass: true, effect: 'require_throw', requiredThrow: 3 },

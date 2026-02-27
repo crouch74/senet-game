@@ -104,6 +104,12 @@ export function isValidMove(gameState: GameState, pieceId: string, steps: number
                 return { valid: false, reason: "Target square occupied by own piece" };
             }
 
+            // Safe house check
+            const targetSquareDetails = gameState.ruleset.specialSquares[targetSquare];
+            if (targetSquareDetails?.effect === 'safe') {
+                return { valid: false, reason: "Target piece is in a safe house" };
+            }
+
             // Protected adjacency check
             if (gameState.ruleset.protectedAdjacency) {
                 const adjacentEnemyLeft = gameState.board.find(p => p.position === targetSquare - 1 && p.player === occupant.player);
