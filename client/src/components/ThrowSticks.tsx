@@ -38,8 +38,22 @@ const createStickLayouts = (value: number, lightSidesUp: number, seedOffset: num
 export function ThrowSticks() {
     const [isManualThrowing, setIsManualThrowing] = useState(false);
     const { t } = useTranslation();
-    const { currentThrow, throwSticks, currentPlayer, winner, isOnline, localPlayer, isAutoRolling } = useSenetStore();
-    const isMyTurn = !isOnline || currentPlayer === localPlayer;
+    const {
+        currentThrow,
+        throwSticks,
+        currentPlayer,
+        winner,
+        isOnline,
+        localPlayer,
+        offlineMode,
+        offlineHumanPlayer,
+        isAutoRolling
+    } = useSenetStore();
+    const isMyTurn = isOnline
+        ? currentPlayer === localPlayer
+        : offlineMode === 'vs_pc'
+            ? currentPlayer === offlineHumanPlayer
+            : true;
     const isThrowing = isManualThrowing || isAutoRolling;
     const stickLayouts = useMemo(() => {
         if (!currentThrow) return [];
@@ -211,7 +225,9 @@ export function ThrowSticks() {
                             ? t('throw.game_over')
                             : isMyTurn
                                 ? t('throw.click_to_throw')
-                                : t('throw.waiting_for_opponent')
+                                : isOnline
+                                    ? t('throw.waiting_for_opponent')
+                                    : t('throw.waiting_for_computer')
                         }
                     </div>
                 )}

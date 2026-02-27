@@ -11,7 +11,19 @@ interface PieceProps {
 }
 
 export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
-    const { currentThrow, currentPlayer, movePiece, legalMoves, setHoveredPieceId, hoveredPieceId, lastMove } = useSenetStore();
+    const {
+        currentThrow,
+        currentPlayer,
+        movePiece,
+        legalMoves,
+        setHoveredPieceId,
+        hoveredPieceId,
+        lastMove,
+        isOnline,
+        localPlayer,
+        offlineMode,
+        offlineHumanPlayer
+    } = useSenetStore();
 
     // Find cell width/height
     const cellW = containerWidth / 10;
@@ -33,9 +45,15 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
 
     const isCurrentPlayer = piece.player === currentPlayer;
 
+    const isLocalTurn = isOnline
+        ? currentPlayer === localPlayer
+        : offlineMode === 'vs_pc'
+            ? currentPlayer === offlineHumanPlayer
+            : true;
+
     // Can this piece move?
     const myLegalMove = legalMoves.find(m => m.pieceId === piece.id);
-    const canMove = !!myLegalMove && !!currentThrow;
+    const canMove = isLocalTurn && !!myLegalMove && !!currentThrow;
 
     // Hide if in afterlife (Board will not render it, handled by Afterlife component)
     // but if it's position 0 (off-board start), keep it null for now
@@ -46,7 +64,8 @@ export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
             layout
             layoutId={`piece-${piece.id}`}
             className={cn(
-                "absolute flex items-center justify-center cursor-pointer",
+                "absolute flex items-center justify-center",
+                canMove ? "cursor-pointer" : "cursor-default",
             )}
             style={{
                 width: cellW,

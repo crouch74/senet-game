@@ -69,7 +69,8 @@
         "defeat_message": "The journey through the Duat remains unfinished.",
         "return_to_lobby": "Return to Lobby",
         "play_again": "Replay the Journey",
-        "waiting_for_opponent": "Awaiting your opponent's move..."
+        "waiting_for_opponent": "Awaiting your opponent's move...",
+        "waiting_for_computer": "Awaiting the computer's move..."
     },
     "square": {
         "effect": "Effect: {{effect}}",
@@ -85,11 +86,11 @@
         },
         "names": {
             "15": "House of Rebirth",
-            "26": "House of Happiness",
+            "26": "House of Beauty",
             "27": "House of Water",
-            "28": "House of Three Truths",
-            "29": "House of Re-Atoum",
-            "30": "House of Horus"
+            "28": "Hall of Three Truths",
+            "29": "The Solar Bark",
+            "30": "The Gate of Horus"
         },
         "contexts": {
             "15": "The starting point of resurrection, where fallen souls are reborn to continue their journey.",
@@ -127,6 +128,8 @@
         "join_create": "Join / Create Room",
         "or": "or",
         "play_offline": "Play Offline",
+        "play_and_pass": "play & pass",
+        "vs_pc": "vs PC",
         "you_are": "You Are",
         "leave_room": "Leave Room",
         "copy": "Copy",

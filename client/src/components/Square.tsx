@@ -8,12 +8,30 @@ interface SquareProps {
 }
 
 export function Square({ number }: SquareProps) {
-    const { ruleset, legalMoves, currentPlayer, hoveredPieceId, setHoveredPieceId, movePiece, lastMove } = useSenetStore();
+    const {
+        ruleset,
+        legalMoves,
+        currentPlayer,
+        hoveredPieceId,
+        setHoveredPieceId,
+        movePiece,
+        lastMove,
+        isOnline,
+        localPlayer,
+        offlineMode,
+        offlineHumanPlayer
+    } = useSenetStore();
     const { t, i18n } = useTranslation();
     const specialInfo = ruleset.specialSquares[number];
 
     const isLegalMove = legalMoves.some(m => m.targetSquare === number);
-    const isHoveredTarget = hoveredPieceId && legalMoves.some(m => m.pieceId === hoveredPieceId && m.targetSquare === number);
+    const isLocalTurn = isOnline
+        ? currentPlayer === localPlayer
+        : offlineMode === 'vs_pc'
+            ? currentPlayer === offlineHumanPlayer
+            : true;
+    const isActionableMove = isLocalTurn && isLegalMove;
+    const isHoveredTarget = isActionableMove && hoveredPieceId && legalMoves.some(m => m.pieceId === hoveredPieceId && m.targetSquare === number);
     const isSpecial = number >= 26 && number <= 30;
     const isRecentlyActivated = lastMove?.to === number && (isSpecial || number === 15);
 
@@ -41,7 +59,7 @@ export function Square({ number }: SquareProps) {
                 "border-[0.5px] border-black/80",
                 "shadow-[inset_0_2px_4px_rgba(255,255,255,0.05),inset_0_-2px_4px_rgba(0,0,0,0.4),inset_0_0_10px_rgba(0,0,0,0.7)]",
                 "after:absolute after:inset-0 after:bg-gradient-to-tr after:from-black/20 after:to-white/5 after:pointer-events-none",
-                isLegalMove && cn(
+                isActionableMove && cn(
                     "cursor-pointer",
                     currentPlayer === 'anubis'
                         ? "ring-1 ring-royal-gold/40 shadow-[inset_0_0_30px_rgba(212,175,55,0.2)]"
@@ -55,16 +73,16 @@ export function Square({ number }: SquareProps) {
                 )
             )}
             onMouseEnter={() => {
-                if (isLegalMove) {
+                if (isActionableMove) {
                     const move = legalMoves.find(m => m.targetSquare === number);
                     if (move) setHoveredPieceId(move.pieceId);
                 }
             }}
             onMouseLeave={() => {
-                if (isLegalMove) setHoveredPieceId(null);
+                if (isActionableMove) setHoveredPieceId(null);
             }}
             onClick={() => {
-                if (isLegalMove) {
+                if (isActionableMove) {
                     const move = legalMoves.find(m => m.targetSquare === number);
                     if (move) {
                         setHoveredPieceId(null);
@@ -180,7 +198,7 @@ export function Square({ number }: SquareProps) {
                         {/* Game Effect */}
                         <div className="mb-2">
                             <div className="font-serif font-bold text-[var(--ui-tooltip-accent)] mb-0.5">{t('square.effect', { effect: t(`square.effects.${specialInfo.effect}`) })}</div>
-                            {specialInfo.requiredThrow && <div className="font-serif text-[var(--ui-tooltip-text)] opacity-80">{t('square.requires_throw', { num: specialInfo.requiredThrow })}</div>}
+                            {specialInfo.requiredThrow && <div className="font-serif text-[var(--ui-tooltip-text)] opacity-80">{t('square.requires_throw', { num: formatNumber(specialInfo.requiredThrow) })}</div>}
                             {!specialInfo.canBypass && <div className="text-royal-blue font-bold text-[10px] uppercase mt-0.5 opacity-90">{t('square.cannot_bypass')}</div>}
                         </div>
 

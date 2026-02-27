@@ -16,7 +16,7 @@ const PARTICLES = Array.from({ length: 20 }, (_, i) => ({
 }));
 
 export function GameOver({ onReturnToLobby }: GameOverProps) {
-    const { winner, localPlayer, isOnline, resetGame } = useSenetStore();
+    const { winner, localPlayer, isOnline, offlineMode, offlineHumanPlayer, resetGame } = useSenetStore();
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -27,7 +27,11 @@ export function GameOver({ onReturnToLobby }: GameOverProps) {
 
     if (!winner) return null;
 
-    const isWinner = isOnline ? (winner === localPlayer) : true; // In offline mode, someone always wins
+    const isWinner = isOnline
+        ? winner === localPlayer
+        : offlineMode === 'vs_pc'
+            ? winner === offlineHumanPlayer
+            : true;
 
     return (
         <AnimatePresence>

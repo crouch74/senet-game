@@ -8,6 +8,7 @@ import { Lobby } from './components/Lobby';
 import { GameOver } from './components/GameOver';
 import { GuideModal } from './components/GuideModal';
 import { useSenetStore } from './engine/store';
+import type { OfflineMode } from './engine/types';
 import { cn } from './utils/cn';
 import { formatNumber } from './utils/format';
 import { Copy, Check } from 'lucide-react';
@@ -45,6 +46,8 @@ function App() {
     isOnline,
     isConnectingToRoom,
     isWaitingForOpponent,
+    offlineMode,
+    currentPlayer,
     roomId,
     localPlayer,
     roomJoinError,
@@ -52,8 +55,11 @@ function App() {
     clearRoomJoinError,
     leaveRoom,
     winner,
+    isAutoPlaying,
+    isAutoRolling,
     showGuide,
     setShowGuide,
+    setOfflineMode,
     resetGame
   } = useSenetStore();
   const { t, i18n } = useTranslation();
@@ -69,6 +75,13 @@ function App() {
     }
     resetGame();
     setShowLobby(true);
+    setLobbyPath();
+  };
+
+  const handleStartOfflineMode = (mode: OfflineMode) => {
+    setOfflineMode(mode);
+    resetGame();
+    setShowLobby(false);
     setLobbyPath();
   };
 
@@ -119,6 +132,26 @@ function App() {
       }
     }
   }, [theme]);
+
+  useEffect(() => {
+    if (showLobbyScreen) return;
+    if (isOnline || isConnectingToRoom) return;
+    if (offlineMode !== 'vs_pc') return;
+    if (winner || isAutoPlaying || isAutoRolling) return;
+    if (currentPlayer !== 'sphinx') return;
+
+    const timer = window.setTimeout(() => {
+      const state = useSenetStore.getState();
+      if (state.isOnline || state.isConnectingToRoom) return;
+      if (state.offlineMode !== 'vs_pc') return;
+      if (state.winner || state.isAutoPlaying || state.isAutoRolling) return;
+      if (state.currentPlayer !== 'sphinx') return;
+
+      state.playRandomTurns(1, 'human');
+    }, 300);
+
+    return () => window.clearTimeout(timer);
+  }, [showLobbyScreen, isOnline, isConnectingToRoom, offlineMode, winner, isAutoPlaying, isAutoRolling, currentPlayer]);
 
   return (
     <div className={`min-h-screen bg-ebony text-sand flex flex-col font-sans selection:bg-gold/30 overflow-x-hidden ${i18n.language === 'ar-EG' ? 'font-arabic' : ''}`}>
@@ -325,7 +358,7 @@ function App() {
               </div>
             </>
           ) : (
-            <Lobby onPlayOffline={() => setShowLobby(false)} />
+            <Lobby onStartOfflineMode={handleStartOfflineMode} />
           )}
         </div>
       </main>

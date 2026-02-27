@@ -1,4 +1,5 @@
 export type PlayerID = 'anubis' | 'sphinx';
+export type OfflineMode = 'play_and_pass' | 'vs_pc';
 
 export interface Piece {
     id: string;

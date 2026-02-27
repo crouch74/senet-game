@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { GameState, PlayerID } from './types';
+import type { GameState, OfflineMode, PlayerID } from './types';
 import { createInitialState, getThrowResult, getLegalMoves, applyMove, autoPassIfNoMoves } from './logic';
 
 let socket: WebSocket | null = null;
@@ -28,7 +28,25 @@ const mapRoomJoinError = (message: unknown): RoomJoinError => {
     return 'unavailable';
 };
 
+const isLocalTurn = (state: Pick<SenetStore, 'isOnline' | 'isWaitingForOpponent' | 'currentPlayer' | 'localPlayer' | 'offlineMode' | 'offlineHumanPlayer'>) => {
+    if (state.isOnline) {
+        if (state.isWaitingForOpponent) return false;
+        return state.currentPlayer === state.localPlayer;
+    }
+
+    if (state.offlineMode === 'vs_pc') {
+        return state.currentPlayer === state.offlineHumanPlayer;
+    }
+
+    return true;
+};
+
 interface SenetStore extends GameState {
+    // Offline modes
+    offlineMode: OfflineMode;
+    offlineHumanPlayer: PlayerID;
+    setOfflineMode: (mode: OfflineMode) => void;
+
     // Online matches
     isOnline: boolean;
     isConnectingToRoom: boolean;
@@ -70,6 +88,11 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
 
     showGuide: false,
     setShowGuide: (show) => set({ showGuide: show }),
+
+    // Offline states
+    offlineMode: 'play_and_pass',
+    offlineHumanPlayer: 'anubis',
+    setOfflineMode: (mode) => set({ offlineMode: mode }),
 
     // Online states
     isOnline: false,
@@ -201,7 +224,7 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
     throwSticks: () => {
         const state = get();
         if (state.winner || state.currentThrow || state.isAutoPlaying || state.isAutoRolling) return;
-        if (state.isOnline && (state.isWaitingForOpponent || state.currentPlayer !== state.localPlayer)) return;
+        if (!isLocalTurn(state)) return;
 
         const throwRes = getThrowResult();
         const partialState: Partial<GameState> = { currentThrow: throwRes };
@@ -222,7 +245,7 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
     movePiece: (pieceId: string) => {
         const state = get();
         if (!state.currentThrow || state.isAutoPlaying || state.isAutoRolling) return;
-        if (state.isOnline && (state.isWaitingForOpponent || state.currentPlayer !== state.localPlayer)) return;
+        if (!isLocalTurn(state)) return;
 
         const newState = applyMove(state, pieceId);
         const oldPiece = state.board.find(p => p.id === pieceId);
@@ -263,6 +286,7 @@ export const useSenetStore = create<SenetStore>((set, get) => ({
     passTurn: () => {
         const state = get();
         if (state.isAutoPlaying || state.isAutoRolling) return;
+        if (!isLocalTurn(state)) return;
         const newState = autoPassIfNoMoves(state);
 
         const partialState: Partial<GameState> = {

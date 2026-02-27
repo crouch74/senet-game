@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useSenetStore } from '../engine/store';
 import { useTranslation } from 'react-i18next';
+import type { OfflineMode } from '../engine/types';
 
 interface LobbyProps {
-    onPlayOffline: () => void;
+    onStartOfflineMode: (mode: OfflineMode) => void;
 }
 
-export function Lobby({ onPlayOffline }: LobbyProps) {
+export function Lobby({ onStartOfflineMode }: LobbyProps) {
     const [roomInput, setRoomInput] = useState('');
     const { joinRoom, roomJoinError, clearRoomJoinError } = useSenetStore();
     const { t } = useTranslation();
@@ -99,11 +100,22 @@ export function Lobby({ onPlayOffline }: LobbyProps) {
                         type="button"
                         onClick={() => {
                             clearRoomJoinError();
-                            onPlayOffline();
+                            onStartOfflineMode('play_and_pass');
                         }}
                         className="bg-[var(--ui-secondary-button-bg)] border border-sand/30 hover:bg-[var(--ui-secondary-button-bg-hover)] text-sand font-bold py-3 rounded-md transition-all shadow-md cursor-pointer"
                     >
-                        {t('lobby.play_offline', 'Play Offline')}
+                        {t('lobby.play_and_pass', 'play & pass')}
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => {
+                            clearRoomJoinError();
+                            onStartOfflineMode('vs_pc');
+                        }}
+                        className="bg-royal-blue/30 border border-royal-blue/50 hover:bg-royal-blue/45 text-royal-ivory font-bold py-3 rounded-md transition-all shadow-md cursor-pointer"
+                    >
+                        {t('lobby.vs_pc', 'vs PC')}
                     </button>
                 </div>
             </div>

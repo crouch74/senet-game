@@ -69,7 +69,8 @@
         "defeat_message": "Le voyage à travers la Douat reste inachevé.",
         "return_to_lobby": "Retour au Salon",
         "play_again": "Recommencer le voyage",
-        "waiting_for_opponent": "En attente de votre adversaire..."
+        "waiting_for_opponent": "En attente de votre adversaire...",
+        "waiting_for_computer": "En attente du coup de l'ordinateur..."
     },
     "square": {
         "effect": "Effet : {{effect}}",
@@ -85,11 +86,11 @@
         },
         "names": {
             "15": "Maison de la Renaissance",
-            "26": "Maison du Bonheur",
+            "26": "Maison de la Beauté",
             "27": "Maison de l'Eau",
-            "28": "Maison des Trois Vérités",
-            "29": "Maison de Re-Atoum",
-            "30": "Maison d'Horus"
+            "28": "Salle des Trois Vérités",
+            "29": "La Barque Solaire",
+            "30": "La Porte d'Horus"
         },
         "contexts": {
             "15": "Le point de départ de la résurrection, où les âmes déchues renaissent pour continuer leur voyage.",
@@ -127,6 +128,8 @@
         "join_create": "Rejoindre / Créer",
         "or": "ou",
         "play_offline": "Jouer hors ligne",
+        "play_and_pass": "play & pass",
+        "vs_pc": "vs PC",
         "you_are": "Vous êtes",
         "leave_room": "Quitter la salle",
         "copy": "Copier",
