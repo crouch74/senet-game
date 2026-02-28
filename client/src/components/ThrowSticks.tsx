@@ -1,10 +1,12 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
+import { playerAnubis, playerSphinx } from '../assets/royal'
 import { useSenetStore } from '../engine/store'
 import {
   throwSticksStoreSelector,
   useShallowSelector,
 } from '../engine/selectors'
+import { MaskedSvgIcon } from './common/MaskedSvgIcon'
 import { cn } from '../utils/cn'
 import { useThrowSticksState } from '../hooks/useThrowSticksState'
 
@@ -26,14 +28,22 @@ export function ThrowSticks() {
       throwSticks,
       winner,
     })
+  const currentPlayerIcon = currentPlayer === 'anubis' ? playerAnubis : playerSphinx
 
   return (
     <div className="flex flex-col items-center p-4 bg-ui-panel-bg backdrop-blur-sm rounded-sm border-[1px] border-royal-gold/30 shadow-[0_10px_20px_rgba(0,0,0,0.6),inset_0_0_10px_var(--ui-header-shadow-inset)] relative overflow-hidden h-full w-full group">
       <div className="absolute top-2 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-60" />
       <div className="absolute bottom-2 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-60" />
 
-      <div className="text-base sm:text-xl text-center font-serif text-royal-ivory font-bold tracking-[0.15em] sm:tracking-widest uppercase mb-4 drop-shadow-sm opacity-90 z-10 px-2">
-        {t('throw.turn', { player: t(`hud.players.${currentPlayer}`) })}
+      <div className="mb-4 flex items-center justify-center gap-3 text-base sm:text-xl text-center font-serif text-royal-ivory font-bold tracking-[0.15em] sm:tracking-widest uppercase drop-shadow-sm opacity-90 z-10 px-2">
+        <MaskedSvgIcon
+          src={currentPlayerIcon}
+          className={cn(
+            'h-5 w-5 sm:h-6 sm:w-6 shrink-0',
+            currentPlayer === 'anubis' ? 'bg-royal-gold' : 'bg-royal-ivory',
+          )}
+        />
+        <span>{t('throw.turn', { player: t(`hud.players.${currentPlayer}`) })}</span>
       </div>
 
       <div className="relative w-full h-40 flex items-center justify-center [perspective:1000px]">
