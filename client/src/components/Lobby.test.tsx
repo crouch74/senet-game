@@ -38,6 +38,24 @@ describe('Lobby', () => {
     ).toBeInTheDocument();
   });
 
+  it('shows brief Senet background and trivia in the lobby', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true }));
+
+    await act(async () => {
+      await renderWithProviders(<Lobby onStartOfflineMode={vi.fn()} />);
+      await Promise.resolve();
+    });
+
+    expect(screen.getByRole('heading', { name: 'What Is Senet?' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'A Journey Through Dynasties' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Fun Facts' })).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'No single ancient rulebook survived, so the Senet played today is part scholarship, part restoration, and part reverent imagination.',
+      ),
+    ).toBeInTheDocument();
+  });
+
   it('creates rooms and joins the returned room id', async () => {
     const joinRoom = vi.fn();
     const clearRoomJoinError = vi.fn();
