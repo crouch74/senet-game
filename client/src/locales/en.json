@@ -479,9 +479,13 @@
                 "aria_label": "Hounds and Jackals board",
                 "peg": "Peg",
                 "goal_title": "Shen Goal",
+                "goal_hole_label": "Shen goal hole",
                 "reserve_hound": "Hound reserve",
                 "reserve_jackal": "Jackal reserve",
-                "hole_label": "{{player}} hole {{number}}"
+                "reserve_pit_label": "{{player}} reserve pit",
+                "hole_label": "{{player}} hole {{number}}",
+                "hole_label_favor": "{{player}} favorable hole {{number}}, linked to hole {{target}}",
+                "hole_label_setback": "{{player}} setback hole {{number}}, linked to hole {{target}}"
             },
             "lobby": {
                 "about_kicker": "Board of 58 Holes",

@@ -10,8 +10,11 @@ export interface BoardPoint {
 }
 
 export interface HoundsAndJackalsVisualHole extends BoardPoint {
-  marker?: string
+  grooveRole?: 'source' | 'target'
+  holeVariant: 'standard' | 'special' | 'goal-adjacent'
   position: number
+  symbol?: 'favor' | 'setback'
+  wearLevel?: 'light' | 'medium' | 'heavy'
 }
 
 const LEFT_LANE_BASE: BoardPoint[] = [
@@ -74,10 +77,37 @@ function buildLane(player: 'anubis' | 'sphinx') {
   const points = player === 'anubis' ? LEFT_LANE_BASE : LEFT_LANE_BASE.map(mirrorPoint)
 
   return points.map((point, index) => ({
+    wearLevel:
+      index + 1 >= LEFT_LANE_BASE.length - 3
+        ? 'heavy'
+        : SPECIAL_HOLES[index + 1]
+          ? 'medium'
+          : index % 4 === 0
+            ? 'medium'
+            : 'light',
+    grooveRole:
+      SPECIAL_HOLES[index + 1]
+        ? 'source'
+        : Object.values(SPECIAL_HOLES).some(
+          (specialHole) => specialHole.target === index + 1,
+        )
+          ? 'target'
+          : undefined,
+    holeVariant:
+      index + 1 >= LEFT_LANE_BASE.length - 2
+        ? 'goal-adjacent'
+        : SPECIAL_HOLES[index + 1]
+          ? 'special'
+          : 'standard',
     position: index + 1,
+    symbol:
+      SPECIAL_HOLES[index + 1]?.type === 'good'
+        ? 'favor'
+        : SPECIAL_HOLES[index + 1]?.type === 'bad'
+          ? 'setback'
+          : undefined,
     x: point.x,
     y: point.y,
-    marker: SPECIAL_HOLES[index + 1]?.marker,
   }))
 }
 

@@ -29,7 +29,7 @@ describe('Hounds and Jackals Board', () => {
     expect(movePiece).toHaveBeenCalledWith('anubis-peg-1')
   })
 
-  it('renders the board goal title', async () => {
+  it('exposes artifact board accessibility labels without visible debug text', async () => {
     useSenetStore.setState({
       ...initializeGame(),
       legalMoves: [],
@@ -38,6 +38,23 @@ describe('Hounds and Jackals Board', () => {
 
     await renderWithProviders(<Board />)
 
-    expect(screen.getByText('Shen Goal')).toBeInTheDocument()
+    expect(
+      screen.getByRole('img', { name: 'Hounds and Jackals board' }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', {
+        name: 'HOUND favorable hole 6, linked to hole 15',
+      }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', {
+        name: 'HOUND setback hole 8, linked to hole 4',
+      }),
+    ).toBeInTheDocument()
+    expect(screen.queryByText('Shen Goal')).not.toBeInTheDocument()
+    expect(screen.queryByText(/^RET$/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/^NFR$/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/^H$/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/^J$/)).not.toBeInTheDocument()
   })
 })

@@ -479,9 +479,13 @@
                 "aria_label": "لوحة الكلاب والواويات",
                 "peg": "وتد",
                 "goal_title": "هدف الشِن",
+                "goal_hole_label": "حفرة هدف الشِن",
                 "reserve_hound": "احتياط الكلب",
                 "reserve_jackal": "احتياط الواوي",
-                "hole_label": "حفرة {{number}} الخاصة بـ {{player}}"
+                "reserve_pit_label": "حفرة احتياط {{player}}",
+                "hole_label": "حفرة {{number}} الخاصة بـ {{player}}",
+                "hole_label_favor": "الحفرة المباركة {{number}} الخاصة بـ {{player}}، مرتبطة بالحفرة {{target}}",
+                "hole_label_setback": "حفرة التراجع {{number}} الخاصة بـ {{player}}، مرتبطة بالحفرة {{target}}"
             },
             "lobby": {
                 "about_kicker": "لوحة الـ ٥٨ حفرة",

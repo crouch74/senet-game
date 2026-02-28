@@ -492,9 +492,13 @@
                 "aria_label": "Plateau de Chiens et Chacals",
                 "peg": "Pion",
                 "goal_title": "But shen",
+                "goal_hole_label": "Trou du but shen",
                 "reserve_hound": "Réserve du chien",
                 "reserve_jackal": "Réserve du chacal",
-                "hole_label": "Trou {{number}} de {{player}}"
+                "reserve_pit_label": "Fosse de réserve de {{player}}",
+                "hole_label": "Trou {{number}} de {{player}}",
+                "hole_label_favor": "Trou favorable {{number}} de {{player}}, lié au trou {{target}}",
+                "hole_label_setback": "Trou de recul {{number}} de {{player}}, lié au trou {{target}}"
             },
             "lobby": {
                 "about_kicker": "Plateau à 58 trous",

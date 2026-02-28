@@ -479,9 +479,13 @@
                 "aria_label": "Bord van Honden en Jakhalzen",
                 "peg": "Pin",
                 "goal_title": "Shen-doel",
+                "goal_hole_label": "Shen-doelgat",
                 "reserve_hound": "Hondenreserve",
                 "reserve_jackal": "Jakhalsreserve",
-                "hole_label": "{{player}} gat {{number}}"
+                "reserve_pit_label": "Reservekuil van {{player}}",
+                "hole_label": "{{player}} gat {{number}}",
+                "hole_label_favor": "Gunstig gat {{number}} van {{player}}, verbonden met gat {{target}}",
+                "hole_label_setback": "Terugslaggat {{number}} van {{player}}, verbonden met gat {{target}}"
             },
             "lobby": {
                 "about_kicker": "Bord van 58 gaten",

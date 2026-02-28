@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useId, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { useSenetStore } from '../../../engine/store'
@@ -7,7 +7,6 @@ import {
   useShallowSelector,
 } from '../../../engine/selectors'
 import { cn } from '../../../utils/cn'
-import { getPlayerAppearance } from '../../../utils/playerAppearance'
 import { getPieceLabel, getPlayerLabel } from '../../../utils/gameLabels'
 import { isLocalTurnState } from '../../../engine/storeHelpers'
 import {
@@ -15,14 +14,20 @@ import {
   HOUNDS_AND_JACKALS_GOAL,
   HOUNDS_AND_JACKALS_LANES,
   HOUNDS_AND_JACKALS_RESERVES,
+  type HoundsAndJackalsVisualHole,
 } from '../boardMetadata'
 
+const BOARD_OUTLINE =
+  'M21.4 96.2 L22.3 58.4 Q15.7 45.8 16.3 32.9 Q16.9 18.6 27.4 11.6 Q37.5 4.7 49.8 3.2 Q63.4 4.9 73.1 12.4 Q83.4 19.7 83.7 33.6 Q83.9 46 77.6 58.2 L78.6 95.4 Z'
+const BOARD_INTERIOR =
+  'M28.5 95.1 L27.8 61.8 Q22.1 47.3 22.6 34.1 Q23 22.1 30.3 15.9 Q39.4 8.8 49.9 7.1 Q61.4 8.8 69.8 16 Q77.4 22.4 77.3 34.2 Q77.2 47.2 71.7 61.9 L72.5 95 Z'
+
 const RESERVE_OFFSETS = [
-  { x: -5, y: 0 },
-  { x: -2.5, y: -4 },
-  { x: 0, y: 1 },
-  { x: 2.5, y: -4 },
-  { x: 5, y: 0 },
+  { x: -4.8, y: 0.2 },
+  { x: -2.2, y: -3.6 },
+  { x: 0.6, y: -0.8 },
+  { x: 3.4, y: -3.2 },
+  { x: 1.8, y: 2.4 },
 ]
 
 function buildLinkPath(
@@ -30,13 +35,116 @@ function buildLinkPath(
   end: { x: number; y: number },
   direction: 'left' | 'right',
 ) {
-  const controlX = direction === 'left' ? start.x - 9 : start.x + 9
-  const controlY = (start.y + end.y) / 2
-  return `M ${start.x} ${start.y} Q ${controlX} ${controlY} ${end.x} ${end.y}`
+  const inwardX =
+    direction === 'left'
+      ? Math.max(start.x, end.x) + 3.4
+      : Math.min(start.x, end.x) - 3.4
+  const upperY = Math.min(start.y, end.y) + 0.8
+  const lowerY = Math.max(start.y, end.y) - 0.8
+  return `M ${start.x} ${start.y} C ${inwardX} ${upperY} ${inwardX} ${lowerY} ${end.x} ${end.y}`
+}
+
+function HoleGlyph({ kind }: { kind: 'favor' | 'setback' }) {
+  if (kind === 'favor') {
+    return (
+      <svg viewBox="0 0 24 24" className="h-full w-full" aria-hidden="true">
+        <path
+          d="M7 18h10M8.5 16.5V8.4M15.5 16.5V8.4M8.5 8.4l3.5-2.2 3.5 2.2M6.5 11.5h11"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.6"
+        />
+      </svg>
+    )
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" className="h-full w-full" aria-hidden="true">
+      <path
+        d="M9 5.5v12.8M14.8 7.2l-5.8 5.4M14.8 11.5l-5.8 5.4M7 18.3h10"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.6"
+      />
+    </svg>
+  )
+}
+
+function PegMedallion({ player }: { player: 'anubis' | 'sphinx' }) {
+  if (player === 'anubis') {
+    return (
+      <svg viewBox="0 0 28 28" className="h-full w-full" aria-hidden="true">
+        <path
+          d="M8.2 18.8c.4-4 2-7.1 5.6-9.5 1.7-1.1 3.2-2.6 3.8-4.3.7.8 1.1 1.8 1.1 3 0 2-1 3.8-2.6 5.2 1.6.4 2.8 1.4 3.4 3 .5 1.3.6 2.4.4 3.7-2.6-.9-5.2-1.3-7.8-1.3-1.4 0-2.7.1-3.9.2z"
+          fill="currentColor"
+        />
+        <path
+          d="M12.1 8.4 9.8 6m6-.6 1.7-2.4m-3 9.2c-.1 1.1.2 2.2.8 3.1"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
+        />
+      </svg>
+    )
+  }
+
+  return (
+    <svg viewBox="0 0 28 28" className="h-full w-full" aria-hidden="true">
+      <path
+        d="M8.5 19.4c.8-2.3 2.1-4.3 4-5.8 1.5-1.2 2.6-2.6 3.3-4.6 1 1.2 1.5 2.6 1.4 4.2 1.3.4 2.3 1.3 2.8 2.7.4 1.3.5 2.4.2 3.8-3.2-.8-5.5-1.2-7.1-1.2-1.7 0-3.2.3-4.6.9z"
+        fill="currentColor"
+      />
+      <path
+        d="M18.4 9.3 20.9 6m-10 7.6c1.2-.1 2.2-.6 3-1.4m2.5 5.5c-.1-.9-.4-1.8-.9-2.6"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+      />
+    </svg>
+  )
+}
+
+function getHoleAriaLabel(
+  t: ReturnType<typeof useTranslation>['t'],
+  hole: HoundsAndJackalsVisualHole,
+  player: 'anubis' | 'sphinx',
+  target: number | undefined,
+) {
+  const playerLabel = getPlayerLabel(t, 'hounds-and-jackals', player)
+  if (hole.symbol === 'favor' && typeof target === 'number') {
+    return t('games.hounds-and-jackals.board.hole_label_favor', {
+      number: hole.position,
+      player: playerLabel,
+      target,
+    })
+  }
+
+  if (hole.symbol === 'setback' && typeof target === 'number') {
+    return t('games.hounds-and-jackals.board.hole_label_setback', {
+      number: hole.position,
+      player: playerLabel,
+      target,
+    })
+  }
+
+  return t('games.hounds-and-jackals.board.hole_label', {
+    number: hole.position,
+    player: playerLabel,
+  })
 }
 
 export function Board() {
   const { t } = useTranslation()
+  const svgId = useId().replace(/:/g, '')
+  const [hoveredHoleKey, setHoveredHoleKey] = useState<string | null>(null)
   const {
     board,
     currentPlayer,
@@ -92,55 +200,107 @@ export function Board() {
     return candidateIds[0]
   }
 
+  const { connectedGrooveKeys, connectedHoleKeys } = useMemo(() => {
+    const grooveKeys = new Set<string>()
+    const holeKeys = new Set<string>()
+
+    if (!hoveredHoleKey) {
+      return { connectedGrooveKeys: grooveKeys, connectedHoleKeys: holeKeys }
+    }
+
+    ;(['anubis', 'sphinx'] as const).forEach((player) => {
+      Object.entries(config.specialHoles).forEach(([source, specialHole]) => {
+        const sourceKey = `${player}-${source}`
+        const targetKey = `${player}-${specialHole.target}`
+        const grooveKey = `${player}-${source}-${specialHole.target}`
+
+        if (hoveredHoleKey === sourceKey || hoveredHoleKey === targetKey) {
+          holeKeys.add(sourceKey)
+          holeKeys.add(targetKey)
+          grooveKeys.add(grooveKey)
+        }
+      })
+    })
+
+    return { connectedGrooveKeys: grooveKeys, connectedHoleKeys: holeKeys }
+  }, [config.specialHoles, hoveredHoleKey])
+
+  const boardWearFilterId = `${svgId}-board-wear`
+  const grooveWearFilterId = `${svgId}-groove-wear`
+  const boardShadeId = `${svgId}-board-shade`
+  const boardEdgeId = `${svgId}-board-edge`
+
   return (
-    <div className="relative w-full max-w-5xl mx-auto border-[10px] sm:border-[12px] md:border-[16px] border-ui-board-frame rounded-2xl bg-ui-board-frame shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_0_15px_rgba(0,0,0,0.8)] p-[2px] sm:p-[3px] md:p-[4px] overflow-hidden [filter:url(#jitter)]">
-      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-ui-board-overlay to-ui-board-overlay-edge mix-blend-multiply pointer-events-none" />
-      <div className="absolute inset-0 border border-white/5 pointer-events-none rounded-[1rem]" />
+    <div className="hounds-jackals-scene relative w-full max-w-6xl mx-auto overflow-hidden rounded-[2.6rem] px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-10">
+      <div className="hounds-jackals-scene__table absolute inset-0" />
 
-      <div className="relative bg-ui-board-ivory rounded-[1rem] shadow-[inset_0_1px_3px_rgba(0,0,0,0.4),0_1px_1px_rgba(255,255,255,0.1)] overflow-hidden">
-        <svg
-          viewBox="0 0 100 100"
-          className="w-full h-auto block"
-          role="img"
-          aria-label={t('games.hounds-and-jackals.board.aria_label')}
-        >
-          <defs>
-            <linearGradient id="axe-head" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="rgba(255,248,220,0.98)" />
-              <stop offset="55%" stopColor="rgba(214,189,132,0.95)" />
-              <stop offset="100%" stopColor="rgba(124,87,38,0.95)" />
+      <div className="relative mx-auto max-w-5xl [transform:perspective(1800px)_rotateX(0.8deg)]">
+        <div className="hounds-jackals-board__frame absolute inset-0 rounded-[2rem]" />
+
+        <div className="hounds-jackals-board relative overflow-hidden rounded-[1.7rem] shadow-[0_22px_55px_rgba(0,0,0,0.58)]">
+          <div className="hounds-jackals-board__surface absolute inset-0 pointer-events-none" />
+
+          <svg
+            viewBox="0 0 100 100"
+            className="relative block h-auto w-full"
+            role="img"
+            aria-label={t('games.hounds-and-jackals.board.aria_label')}
+          >
+            <defs>
+            <filter id={boardWearFilterId} x="-20%" y="-20%" width="140%" height="140%">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.02 0.028"
+                numOctaves="3"
+                seed="19"
+                result="artifactNoise"
+              />
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="artifactNoise"
+                scale="0.9"
+                xChannelSelector="R"
+                yChannelSelector="G"
+              />
+            </filter>
+            <filter id={grooveWearFilterId} x="-20%" y="-20%" width="140%" height="140%">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.042"
+                numOctaves="3"
+                seed="7"
+                result="grooveNoise"
+              />
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="grooveNoise"
+                scale="0.52"
+                xChannelSelector="R"
+                yChannelSelector="G"
+              />
+            </filter>
+            <linearGradient id={boardShadeId} x1="16%" y1="12%" x2="84%" y2="92%">
+              <stop offset="0%" stopColor="var(--hj-board-surface-light)" />
+              <stop offset="52%" stopColor="var(--hj-board-surface-mid)" />
+              <stop offset="100%" stopColor="var(--hj-board-surface-dark)" />
             </linearGradient>
-            <linearGradient id="link-good" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="rgba(212,175,55,0.95)" />
-              <stop offset="100%" stopColor="rgba(141,110,42,0.85)" />
+            <linearGradient id={boardEdgeId} x1="18%" y1="14%" x2="82%" y2="90%">
+              <stop offset="0%" stopColor="var(--hj-board-edge-light)" />
+              <stop offset="100%" stopColor="var(--hj-board-edge-shadow)" />
             </linearGradient>
-            <linearGradient id="link-bad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="rgba(109,154,178,0.9)" />
-              <stop offset="100%" stopColor="rgba(64,98,121,0.85)" />
-            </linearGradient>
-          </defs>
+            </defs>
 
           <path
-            d="M22 96 L22 58 Q16 46 16 33 Q16 19 27 12 Q37 5 50 3 Q63 5 73 12 Q84 19 84 33 Q84 46 78 58 L78 96 Z"
-            fill="url(#axe-head)"
-            stroke="rgba(80,51,16,0.55)"
-            strokeWidth="1.2"
+            d={BOARD_OUTLINE}
+            fill={`url(#${boardEdgeId})`}
+            className="hounds-jackals-board__outline"
+            filter={`url(#${boardWearFilterId})`}
           />
           <path
-            d="M28 96 L28 62 Q22 47 22 34 Q22 22 30 16 Q39 9 50 7 Q61 9 70 16 Q78 22 78 34 Q78 47 72 62 L72 96 Z"
-            fill="rgba(255,251,237,0.38)"
-            stroke="rgba(255,255,255,0.18)"
-            strokeWidth="0.4"
+            d={BOARD_INTERIOR}
+            fill={`url(#${boardShadeId})`}
+            className="hounds-jackals-board__body"
           />
-
-          <g opacity="0.18" stroke="rgba(97,63,16,0.55)" strokeWidth="0.35">
-            <path d="M50 15 L50 55" />
-            <path d="M47.5 18 Q50 10 52.5 18" />
-            <path d="M44 30 Q50 26 56 30" />
-            <path d="M42 37 Q50 33 58 37" />
-            <circle cx="50" cy="61" r="5.8" fill="none" />
-            <circle cx="50" cy="61" r="3.2" fill="none" />
-          </g>
 
           {(['anubis', 'sphinx'] as const).flatMap((player) =>
             Object.entries(config.specialHoles).map(([source, specialHole]) => {
@@ -152,158 +312,162 @@ export function Board() {
               )
               if (!start || !end) return null
 
+              const groovePath = buildLinkPath(
+                start,
+                end,
+                player === 'anubis' ? 'left' : 'right',
+              )
+
               return (
-                <path
+                <g
                   key={`${player}-${source}-${specialHole.target}`}
-                  d={buildLinkPath(start, end, player === 'anubis' ? 'left' : 'right')}
-                  fill="none"
-                  stroke={specialHole.type === 'good' ? 'url(#link-good)' : 'url(#link-bad)'}
-                  strokeWidth="0.75"
-                  strokeLinecap="round"
-                  strokeDasharray={specialHole.type === 'good' ? undefined : '1.25 1.35'}
-                  opacity="0.8"
-                />
+                  className={cn(
+                    'hounds-jackals-board__groove',
+                    connectedGrooveKeys.has(`${player}-${source}-${specialHole.target}`) &&
+                      'hounds-jackals-board__groove--hovered',
+                    specialHole.type === 'good'
+                      ? 'hounds-jackals-board__groove--favor'
+                      : 'hounds-jackals-board__groove--setback',
+                  )}
+                  >
+                  <path
+                    d={groovePath}
+                    className="hounds-jackals-board__groove-base"
+                    filter={`url(#${grooveWearFilterId})`}
+                  />
+                  <path d={groovePath} className="hounds-jackals-board__groove-abrasion" />
+                  <path d={groovePath} className="hounds-jackals-board__groove-highlight" />
+                  <path d={groovePath} className="hounds-jackals-board__groove-pigment" />
+                </g>
               )
             }),
           )}
 
           {(['anubis', 'sphinx'] as const).map((player) => {
             const reserve = HOUNDS_AND_JACKALS_RESERVES[player]
-            const labelKey =
-              player === 'anubis'
-                ? 'games.hounds-and-jackals.board.reserve_hound'
-                : 'games.hounds-and-jackals.board.reserve_jackal'
+            const reserveLabel = t('games.hounds-and-jackals.board.reserve_pit_label', {
+              player:
+                player === 'anubis'
+                  ? t('games.hounds-and-jackals.board.reserve_hound')
+                  : t('games.hounds-and-jackals.board.reserve_jackal'),
+            })
 
             return (
               <g key={`${player}-reserve`}>
+                <title>{reserveLabel}</title>
                 <circle
                   cx={reserve.x}
                   cy={reserve.y}
-                  r="8"
-                  fill="rgba(58,34,12,0.22)"
-                  stroke="rgba(109,76,31,0.45)"
-                  strokeWidth="0.55"
+                  r="8.3"
+                  className="hounds-jackals-board__reserve-shadow"
                 />
-                <text
-                  x={reserve.x}
-                  y={reserve.y + 11}
-                  textAnchor="middle"
-                  fontSize="2.3"
-                  letterSpacing="0.6"
-                  fill="rgba(74,48,15,0.88)"
-                >
-                  {t(labelKey)}
-                </text>
+                <circle
+                  cx={reserve.x}
+                  cy={reserve.y}
+                  r="7.2"
+                  className="hounds-jackals-board__reserve-pit"
+                />
+                <circle
+                  cx={reserve.x}
+                  cy={reserve.y}
+                  r="5.15"
+                  className="hounds-jackals-board__reserve-core"
+                />
               </g>
             )
           })}
 
           <g>
+            <title>{t('games.hounds-and-jackals.board.goal_hole_label')}</title>
             <circle
               cx={HOUNDS_AND_JACKALS_GOAL.x}
               cy={HOUNDS_AND_JACKALS_GOAL.y}
-              r="6"
-              fill="rgba(247,220,111,0.95)"
-              stroke="rgba(122,84,20,0.75)"
-              strokeWidth="0.75"
+              r="6.5"
+              className="hounds-jackals-board__goal"
             />
             <circle
               cx={HOUNDS_AND_JACKALS_GOAL.x}
               cy={HOUNDS_AND_JACKALS_GOAL.y}
-              r="3.2"
-              fill="none"
-              stroke="rgba(122,84,20,0.55)"
-              strokeWidth="0.5"
+              r="4.15"
+              className="hounds-jackals-board__goal-inner"
             />
-            <text
-              x={50}
-              y={18.6}
-              textAnchor="middle"
-              fontSize="2.4"
-              letterSpacing="0.8"
-              fill="rgba(85,53,15,0.92)"
-            >
-              {t('games.hounds-and-jackals.board.goal_title')}
-            </text>
           </g>
-        </svg>
+          </svg>
 
-        <div className="absolute inset-0">
-          {(['anubis', 'sphinx'] as const).flatMap((player) =>
-            HOUNDS_AND_JACKALS_LANES[player].map((hole) => {
-              const targetPieceId =
-                isLocalTurn && currentPlayer === player
-                  ? pickMoveForTarget(hole.position)
-                  : null
-              const isLegalMove = Boolean(targetPieceId)
-              const isHoveredTarget =
-                hoveredPieceId !== null &&
-                (legalMovesByTarget[hole.position] ?? []).includes(hoveredPieceId)
-              const specialHole = config.specialHoles[hole.position]
+          <div className="absolute inset-0">
+            {(['anubis', 'sphinx'] as const).flatMap((player) =>
+              HOUNDS_AND_JACKALS_LANES[player].map((hole) => {
+                const targetPieceId =
+                  isLocalTurn && currentPlayer === player
+                    ? pickMoveForTarget(hole.position)
+                    : null
+                const isLegalMove = Boolean(targetPieceId)
+                const isHoveredTarget =
+                  hoveredPieceId !== null &&
+                  (legalMovesByTarget[hole.position] ?? []).includes(hoveredPieceId)
+                const specialHole = config.specialHoles[hole.position]
+                const holeKey = `${player}-${hole.position}`
+                const isConnectionHovered = connectedHoleKeys.has(holeKey)
 
-              return (
-                <button
-                  key={`${player}-hole-${hole.position}`}
-                  type="button"
-                  onClick={() => {
-                    if (!targetPieceId) return
-                    setHoveredPieceId(null)
-                    movePiece(targetPieceId)
-                  }}
-                  onMouseEnter={() => {
-                    if (!targetPieceId) return
-                    setHoveredPieceId(targetPieceId)
-                  }}
-                  onMouseLeave={() => {
-                    if (!targetPieceId) return
-                    setHoveredPieceId(null)
-                  }}
-                  className={cn(
-                    'absolute -translate-x-1/2 -translate-y-1/2 rounded-full border transition-all duration-200',
-                    isLegalMove
-                      ? 'cursor-pointer shadow-[0_0_20px_rgba(212,175,55,0.35)]'
-                      : 'cursor-default pointer-events-none',
-                    specialHole?.type === 'good'
-                      ? 'bg-amber-50/80 border-amber-700/40'
-                      : specialHole?.type === 'bad'
-                        ? 'bg-sky-100/70 border-sky-900/25'
-                        : 'bg-ebony/14 border-ebony/20',
-                    isLegalMove && 'ring-2 ring-royal-gold/30',
-                    isHoveredTarget && 'scale-110 ring-4 ring-royal-gold/30',
-                    lastMove?.to === hole.position && 'ring-4 ring-royal-gold/35',
-                  )}
-                  style={{
-                    left: `${hole.x}%`,
-                    top: `${hole.y}%`,
-                    width: '7.2%',
-                    height: '7.2%',
-                  }}
-                  aria-label={t('games.hounds-and-jackals.board.hole_label', {
-                    player: getPlayerLabel(t, 'hounds-and-jackals', player),
-                    number: hole.position,
-                  })}
-                >
-                  {hole.marker ? (
-                    <span
-                      className={cn(
-                        'text-[0.5rem] sm:text-[0.62rem] font-bold tracking-[0.18em] uppercase',
-                        specialHole?.type === 'good'
-                          ? 'text-amber-900/90'
-                          : 'text-sky-950/85',
-                      )}
-                    >
-                      {hole.marker}
-                    </span>
-                  ) : null}
-                </button>
-              )
-            }),
-          )}
+                return (
+                  <button
+                    key={`${player}-hole-${hole.position}`}
+                    type="button"
+                    onClick={() => {
+                      if (!targetPieceId) return
+                      setHoveredPieceId(null)
+                      movePiece(targetPieceId)
+                    }}
+                    onMouseEnter={() => {
+                      setHoveredHoleKey(holeKey)
+                      if (targetPieceId) {
+                        setHoveredPieceId(targetPieceId)
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      setHoveredHoleKey(null)
+                      if (targetPieceId) {
+                        setHoveredPieceId(null)
+                      }
+                    }}
+                    className={cn(
+                      'hounds-jackals-hole absolute -translate-x-1/2 -translate-y-1/2',
+                      isLegalMove ? 'cursor-pointer hounds-jackals-hole--legal' : 'cursor-default',
+                      hole.holeVariant === 'goal-adjacent' && 'hounds-jackals-hole--goal-adjacent',
+                      hole.holeVariant === 'special' && 'hounds-jackals-hole--special',
+                      Math.abs(hole.x - 50) > 15 && 'hounds-jackals-hole--peripheral',
+                      hole.symbol === 'favor' && 'hounds-jackals-hole--favor',
+                      hole.symbol === 'setback' && 'hounds-jackals-hole--setback',
+                      hole.wearLevel === 'medium' && 'hounds-jackals-hole--wear-medium',
+                      hole.wearLevel === 'heavy' && 'hounds-jackals-hole--wear-heavy',
+                      isHoveredTarget && 'hounds-jackals-hole--hovered',
+                      isConnectionHovered && 'hounds-jackals-hole--connection-hovered',
+                      lastMove?.to === hole.position && 'hounds-jackals-hole--last-move',
+                    )}
+                    style={{
+                      height: '7.2%',
+                      left: `${hole.x}%`,
+                      top: `${hole.y}%`,
+                      width: '7.2%',
+                    }}
+                    aria-label={getHoleAriaLabel(t, hole, player, specialHole?.target)}
+                  >
+                    <span className="hounds-jackals-hole__dust" aria-hidden="true" />
+                    <span className="hounds-jackals-hole__well" aria-hidden="true" />
+                    <span className="hounds-jackals-hole__rim" aria-hidden="true" />
+                    {hole.symbol ? (
+                      <span className="hounds-jackals-hole__glyph" aria-hidden="true">
+                        <HoleGlyph kind={hole.symbol} />
+                      </span>
+                    ) : null}
+                  </button>
+                )
+              }),
+            )}
 
-          {board
-            .filter((piece) => piece.position < config.goalPosition)
-            .map((piece) => {
-              const appearance = getPlayerAppearance(piece.player)
+            {board
+              .filter((piece) => piece.position < config.goalPosition)
+              .map((piece) => {
               const canMove =
                 isLocalTurn &&
                 Boolean(currentThrow) &&
@@ -319,7 +483,8 @@ export function Board() {
                 )
                 .length - 1
               const reserveBase = HOUNDS_AND_JACKALS_RESERVES[lanePlayer]
-              const reserveOffset = RESERVE_OFFSETS[Math.max(reserveIndex, 0)] ?? { x: 0, y: 0 }
+              const reserveOffset =
+                RESERVE_OFFSETS[Math.max(reserveIndex, 0)] ?? { x: 0, y: 0 }
               const laneHole =
                 piece.position === 0
                   ? null
@@ -330,45 +495,52 @@ export function Board() {
               const y = laneHole ? laneHole.y : reserveBase.y + reserveOffset.y
               const ordinal = piece.id.split('-').at(-1)
 
-              return (
-                <motion.button
-                  key={piece.id}
-                  type="button"
-                  layoutId={`piece-${piece.id}`}
-                  initial={false}
-                  animate={{ left: `${x}%`, top: `${y}%` }}
-                  transition={{ type: 'spring', stiffness: 280, damping: 26 }}
-                  onClick={(event) => {
-                    event.stopPropagation()
-                    if (!canMove) return
-                    setHoveredPieceId(null)
-                    movePiece(piece.id)
-                  }}
-                  onMouseEnter={() => {
-                    if (!canMove) return
-                    setHoveredPieceId(piece.id)
-                  }}
-                  onMouseLeave={() => {
-                    if (!canMove) return
-                    setHoveredPieceId(null)
-                  }}
-                  className={cn(
-                    'absolute -translate-x-1/2 -translate-y-1/2 h-[7.8%] w-[7.8%] rounded-full border-[2px] transition-all duration-300 z-20',
-                    canMove ? 'cursor-pointer' : 'cursor-default',
-                    appearance.tokenClassName,
-                    canMove && 'piece-token--movable',
-                    isHovered && 'scale-110 -translate-y-[55%]',
-                    lastMove?.pieceId === piece.id && 'ring-4 ring-royal-gold/35',
-                  )}
-                  aria-label={`${getPlayerLabel(t, 'hounds-and-jackals', piece.player)} ${getPieceLabel(t, 'hounds-and-jackals', piece.type)} ${ordinal}`}
-                >
-                  <div className="absolute inset-[3px] rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.4),transparent_40%),linear-gradient(145deg,rgba(255,244,214,0.95),rgba(143,103,41,0.98))] shadow-[inset_0_1px_2px_rgba(255,255,255,0.4),inset_0_-2px_4px_rgba(61,35,7,0.5)]" />
-                  <div className="absolute inset-0 flex items-center justify-center text-[0.62rem] sm:text-xs font-bold tracking-[0.18em] text-ebony">
-                    {piece.player === 'anubis' ? 'H' : 'J'}
-                  </div>
-                </motion.button>
-              )
-            })}
+                return (
+                  <motion.button
+                    key={piece.id}
+                    type="button"
+                    layoutId={`piece-${piece.id}`}
+                    initial={false}
+                    animate={{ left: `${x}%`, top: `${y}%` }}
+                    transition={{ type: 'spring', stiffness: 280, damping: 26 }}
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      if (!canMove) return
+                      setHoveredPieceId(null)
+                      movePiece(piece.id)
+                    }}
+                    onMouseEnter={() => {
+                      if (!canMove) return
+                      setHoveredPieceId(piece.id)
+                    }}
+                    onMouseLeave={() => {
+                      if (!canMove) return
+                      setHoveredPieceId(null)
+                    }}
+                    className={cn(
+                      'hounds-jackals-peg absolute -translate-x-1/2 -translate-y-1/2 z-20 h-[13.6%] w-[10.1%]',
+                      lanePlayer === 'anubis'
+                        ? 'hounds-jackals-peg--hound'
+                        : 'hounds-jackals-peg--jackal',
+                      piece.position === 0 && 'hounds-jackals-peg--reserve',
+                      canMove && 'cursor-pointer hounds-jackals-peg--movable',
+                      !canMove && 'cursor-default',
+                      isHovered && 'hounds-jackals-peg--hovered',
+                      lastMove?.pieceId === piece.id && 'hounds-jackals-peg--last-move',
+                    )}
+                    aria-label={`${getPlayerLabel(t, 'hounds-and-jackals', piece.player)} ${getPieceLabel(t, 'hounds-and-jackals', piece.type)} ${ordinal}`}
+                  >
+                    <span className="hounds-jackals-peg__shadow" aria-hidden="true" />
+                    <span className="hounds-jackals-peg__stem" aria-hidden="true" />
+                    <span className="hounds-jackals-peg__head" aria-hidden="true">
+                      <span className="hounds-jackals-peg__medallion">
+                        <PegMedallion player={lanePlayer} />
+                      </span>
+                    </span>
+                  </motion.button>
+                )
+              })}
+          </div>
         </div>
       </div>
     </div>

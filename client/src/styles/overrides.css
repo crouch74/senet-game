@@ -870,3 +870,533 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--ui-scroll-thumb-hover);
 }
+
+@layer components {
+  .hounds-jackals-scene {
+    background:
+      radial-gradient(110% 110% at 22% 14%, rgba(255, 230, 180, 0.06) 0%, rgba(255, 230, 180, 0) 24%),
+      linear-gradient(180deg, rgba(8, 6, 5, 0.08) 0%, rgba(8, 6, 5, 0) 16%, rgba(0, 0, 0, 0.12) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.03),
+      inset 0 -20px 40px rgba(0, 0, 0, 0.26);
+  }
+
+  .hounds-jackals-scene__table {
+    background:
+      radial-gradient(128% 108% at 50% 46%, rgba(0, 0, 0, 0) 34%, rgba(0, 0, 0, 0.16) 76%, rgba(0, 0, 0, 0.42) 100%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.015) 0%, rgba(255, 255, 255, 0) 12%, rgba(0, 0, 0, 0.22) 100%),
+      url("/assets/textures/hounds-and-jackals-table.svg");
+    background-position: center;
+    background-size: cover;
+    filter: saturate(0.82) contrast(1.04) blur(0.35px);
+  }
+
+  .hounds-jackals-board {
+    --hj-board-edge-light: #86613e;
+    --hj-board-edge-shadow: #24140d;
+    --hj-board-surface-light: #926a43;
+    --hj-board-surface-mid: #734c2d;
+    --hj-board-surface-dark: #412617;
+    --hj-favor-accent: rgba(92, 122, 103, 0.42);
+    --hj-favor-accent-soft: rgba(128, 155, 136, 0.16);
+    --hj-setback-accent: rgba(140, 84, 62, 0.42);
+    --hj-setback-accent-soft: rgba(173, 113, 88, 0.16);
+    --hj-hole-shadow: rgba(10, 6, 5, 0.84);
+    --hj-hole-highlight: rgba(231, 202, 149, 0.14);
+    --hj-hole-wear: rgba(214, 184, 136, 0.1);
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0) 14%, rgba(0, 0, 0, 0.14) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(199, 167, 119, 0.05),
+      inset 0 -18px 28px rgba(0, 0, 0, 0.26);
+    isolation: isolate;
+  }
+
+  .hounds-jackals-board__frame {
+    background:
+      linear-gradient(160deg, #7c5a39 0%, #24150d 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(194, 165, 121, 0.05),
+      inset 0 -18px 28px rgba(0, 0, 0, 0.42),
+      0 32px 58px rgba(0, 0, 0, 0.46),
+      0 8px 18px rgba(0, 0, 0, 0.22);
+  }
+
+  .hounds-jackals-board__surface {
+    background:
+      radial-gradient(86% 62% at 50% 46%, rgba(219, 188, 137, 0.12) 0%, rgba(219, 188, 137, 0.03) 40%, rgba(219, 188, 137, 0) 66%),
+      radial-gradient(120% 90% at 80% 84%, rgba(20, 11, 8, 0.28) 0%, rgba(20, 11, 8, 0) 42%),
+      linear-gradient(160deg, rgba(207, 175, 123, 0.04) 0%, rgba(207, 175, 123, 0) 14%, rgba(0, 0, 0, 0.18) 100%),
+      repeating-linear-gradient(72deg, rgba(58, 36, 22, 0.06) 0 1px, rgba(58, 36, 22, 0) 1px 13px),
+      repeating-linear-gradient(108deg, rgba(58, 36, 22, 0.05) 0 1px, rgba(58, 36, 22, 0) 1px 15px),
+      url("/assets/textures/hounds-and-jackals-wear.svg"),
+      url("/assets/textures/hounds-and-jackals-grain.svg");
+    background-position:
+      center,
+      center,
+      center,
+      left 27% top 36%,
+      right 27% top 37%,
+      center,
+      center;
+    background-repeat:
+      no-repeat,
+      no-repeat,
+      no-repeat,
+      no-repeat,
+      no-repeat,
+      no-repeat,
+      no-repeat;
+    background-size:
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      24% 46%,
+      24% 46%,
+      cover,
+      cover;
+    opacity: 0.92;
+  }
+
+  .hounds-jackals-board__outline {
+    stroke: rgba(34, 20, 12, 0.84);
+    stroke-width: 1.2;
+    filter: drop-shadow(0 0.4px 0 rgba(213, 183, 132, 0.12));
+  }
+
+  .hounds-jackals-board__body {
+    stroke: rgba(183, 149, 101, 0.08);
+    stroke-width: 0.42;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.28));
+  }
+
+  .hounds-jackals-board__groove-base,
+  .hounds-jackals-board__groove-abrasion,
+  .hounds-jackals-board__groove-highlight,
+  .hounds-jackals-board__groove-pigment {
+    fill: none;
+    stroke-linecap: round;
+  }
+
+  .hounds-jackals-board__groove-base {
+    stroke: rgba(22, 12, 8, 0.34);
+    stroke-width: 0.74;
+    opacity: 0.58;
+  }
+
+  .hounds-jackals-board__groove-abrasion {
+    stroke: rgba(112, 83, 52, 0.09);
+    stroke-width: 0.98;
+    opacity: 0.12;
+  }
+
+  .hounds-jackals-board__groove-highlight {
+    stroke: rgba(191, 160, 113, 0.1);
+    stroke-width: 0.14;
+    opacity: 0.3;
+    transform: translate(-0.12px, -0.16px);
+    transform-box: fill-box;
+  }
+
+  .hounds-jackals-board__groove-pigment {
+    stroke-width: 0.22;
+    opacity: 0.18;
+  }
+
+  .hounds-jackals-board__groove--favor .hounds-jackals-board__groove-pigment {
+    stroke: var(--hj-favor-accent);
+  }
+
+  .hounds-jackals-board__groove--setback .hounds-jackals-board__groove-pigment {
+    stroke: var(--hj-setback-accent);
+  }
+
+  .hounds-jackals-board__groove--hovered .hounds-jackals-board__groove-base {
+    stroke-width: 0.82;
+    opacity: 0.72;
+  }
+
+  .hounds-jackals-board__groove--hovered .hounds-jackals-board__groove-highlight {
+    opacity: 0.48;
+  }
+
+  .hounds-jackals-board__groove--hovered .hounds-jackals-board__groove-pigment {
+    stroke-width: 0.28;
+    opacity: 0.5;
+  }
+
+  .hounds-jackals-board__reserve-shadow {
+    fill: rgba(0, 0, 0, 0.24);
+  }
+
+  .hounds-jackals-board__reserve-pit {
+    fill: rgba(25, 15, 10, 0.58);
+    stroke: rgba(178, 146, 107, 0.09);
+    stroke-width: 0.4;
+  }
+
+  .hounds-jackals-board__reserve-core {
+    fill: rgba(8, 5, 4, 0.88);
+  }
+
+  .hounds-jackals-board__goal {
+    fill: rgba(35, 20, 13, 0.58);
+    stroke: rgba(138, 108, 71, 0.12);
+    stroke-width: 0.42;
+  }
+
+  .hounds-jackals-board__goal-inner {
+    fill: rgba(8, 5, 4, 0.9);
+    stroke: none;
+  }
+
+  .hounds-jackals-hole {
+    appearance: none;
+    background: none;
+    border: 0;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .hounds-jackals-hole__dust,
+  .hounds-jackals-hole__rim,
+  .hounds-jackals-hole__well,
+  .hounds-jackals-hole__glyph {
+    position: absolute;
+    transition:
+      transform 180ms ease,
+      opacity 180ms ease,
+      box-shadow 180ms ease,
+      filter 180ms ease;
+  }
+
+  .hounds-jackals-hole__dust {
+    inset: 12%;
+    border-radius: 9999px;
+    background:
+      radial-gradient(circle at 36% 36%, rgba(179, 147, 103, 0.07) 0%, rgba(179, 147, 103, 0.02) 46%, rgba(179, 147, 103, 0) 74%),
+      radial-gradient(circle at 52% 72%, rgba(27, 16, 10, 0.14) 0%, rgba(27, 16, 10, 0) 68%);
+    opacity: 0.42;
+  }
+
+  .hounds-jackals-hole__rim {
+    inset: 15%;
+    border-radius: 9999px;
+    background:
+      radial-gradient(circle at 28% 26%, rgba(192, 161, 114, 0.14) 0%, rgba(192, 161, 114, 0.02) 34%, rgba(192, 161, 114, 0) 54%),
+      linear-gradient(155deg, rgba(126, 89, 52, 0.12) 0%, rgba(35, 20, 12, 0.3) 100%);
+    box-shadow:
+      inset 0 1px 0 var(--hj-hole-wear),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.42),
+      0 0 0 0.35px rgba(40, 24, 15, 0.12);
+    opacity: 0.84;
+  }
+
+  .hounds-jackals-hole__well {
+    inset: 24%;
+    border-radius: 9999px;
+    background:
+      radial-gradient(circle at 28% 26%, var(--hj-hole-highlight) 0%, rgba(255, 245, 212, 0) 30%),
+      radial-gradient(circle at 54% 74%, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.8) 48%, rgba(0, 0, 0, 0.95) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.03),
+      inset 0 -3px 6px var(--hj-hole-shadow),
+      0 1px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  .hounds-jackals-hole--peripheral .hounds-jackals-hole__dust {
+    opacity: 0.3;
+  }
+
+  .hounds-jackals-hole--peripheral .hounds-jackals-hole__rim {
+    opacity: 0.74;
+  }
+
+  .hounds-jackals-hole--peripheral .hounds-jackals-hole__well {
+    opacity: 0.86;
+  }
+
+  .hounds-jackals-hole__glyph {
+    width: 16%;
+    height: 16%;
+    color: rgba(110, 86, 58, 0.28);
+    filter: none;
+    transform: translate(42%, -42%);
+  }
+
+  .hounds-jackals-hole--favor .hounds-jackals-hole__glyph {
+    color: rgba(132, 100, 66, 0.34);
+  }
+
+  .hounds-jackals-hole--setback .hounds-jackals-hole__glyph {
+    color: rgba(110, 90, 72, 0.32);
+  }
+
+  .hounds-jackals-hole--favor .hounds-jackals-hole__rim {
+    box-shadow:
+      inset 0 1px 0 rgba(170, 195, 175, 0.12),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.42),
+      0 0 0 0.45px var(--hj-favor-accent-soft);
+  }
+
+  .hounds-jackals-hole--favor .hounds-jackals-hole__glyph {
+    color: var(--hj-favor-accent);
+  }
+
+  .hounds-jackals-hole--setback .hounds-jackals-hole__rim {
+    box-shadow:
+      inset 0 1px 0 rgba(204, 161, 141, 0.12),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.42),
+      0 0 0 0.45px var(--hj-setback-accent-soft);
+  }
+
+  .hounds-jackals-hole--setback .hounds-jackals-hole__glyph {
+    color: var(--hj-setback-accent);
+  }
+
+  .hounds-jackals-hole--special .hounds-jackals-hole__rim {
+    inset: 13%;
+  }
+
+  .hounds-jackals-hole--goal-adjacent .hounds-jackals-hole__dust {
+    opacity: 0.62;
+  }
+
+  .hounds-jackals-hole--wear-medium .hounds-jackals-hole__rim {
+    box-shadow:
+      inset 0 1px 0 rgba(196, 167, 124, 0.09),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.42),
+      0 0 0 0.6px rgba(48, 28, 17, 0.16);
+  }
+
+  .hounds-jackals-hole--wear-heavy .hounds-jackals-hole__rim {
+    inset: 12%;
+    box-shadow:
+      inset 0 1px 0 rgba(196, 167, 124, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.46),
+      0 0 0 0.8px rgba(48, 28, 17, 0.22);
+  }
+
+  .hounds-jackals-hole--legal .hounds-jackals-hole__rim {
+    box-shadow:
+      inset 0 1px 0 rgba(201, 171, 124, 0.08),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.42),
+      0 0 0 1px rgba(74, 47, 27, 0.1);
+  }
+
+  .hounds-jackals-hole--legal .hounds-jackals-hole__well {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.03),
+      inset 0 -3px 4px var(--hj-hole-shadow),
+      0 1px 1px rgba(0, 0, 0, 0.28);
+  }
+
+  .hounds-jackals-hole--hovered .hounds-jackals-hole__rim,
+  .hounds-jackals-hole--hovered .hounds-jackals-hole__well {
+    transform: scale(1.03);
+  }
+
+  .hounds-jackals-hole--hovered .hounds-jackals-hole__glyph {
+    opacity: 0.64;
+    transform: translate(42%, -44%) scale(1.02);
+  }
+
+  .hounds-jackals-hole--connection-hovered .hounds-jackals-hole__rim {
+    opacity: 1;
+    box-shadow:
+      inset 0 1px 0 rgba(216, 187, 138, 0.12),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.42),
+      0 0 0 0.9px rgba(166, 126, 74, 0.16);
+    transform: scale(1.05);
+  }
+
+  .hounds-jackals-hole--connection-hovered .hounds-jackals-hole__well {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      inset 0 -3px 6px var(--hj-hole-shadow),
+      0 1px 2px rgba(0, 0, 0, 0.24);
+    transform: scale(1.05);
+  }
+
+  .hounds-jackals-hole--connection-hovered .hounds-jackals-hole__glyph {
+    opacity: 0.88;
+    transform: translate(42%, -44%) scale(1.06);
+  }
+
+  .hounds-jackals-hole--favor.hounds-jackals-hole--connection-hovered .hounds-jackals-hole__rim {
+    box-shadow:
+      inset 0 1px 0 rgba(182, 208, 187, 0.14),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.42),
+      0 0 0 0.9px rgba(108, 143, 121, 0.28);
+  }
+
+  .hounds-jackals-hole--setback.hounds-jackals-hole--connection-hovered .hounds-jackals-hole__rim {
+    box-shadow:
+      inset 0 1px 0 rgba(214, 172, 151, 0.14),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.42),
+      0 0 0 0.9px rgba(154, 97, 74, 0.28);
+  }
+
+  .hounds-jackals-hole--last-move .hounds-jackals-hole__rim {
+    box-shadow:
+      inset 0 1px 0 rgba(205, 177, 129, 0.09),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.42),
+      0 0 0 1px rgba(82, 51, 29, 0.12);
+  }
+
+  .hounds-jackals-peg {
+    appearance: none;
+    background: none;
+    border: 0;
+    overflow: visible;
+    padding: 0;
+  }
+
+  .hounds-jackals-peg,
+  .hounds-jackals-peg__shadow,
+  .hounds-jackals-peg__stem,
+  .hounds-jackals-peg__head,
+  .hounds-jackals-peg__medallion {
+    transition:
+      transform 220ms ease,
+      box-shadow 220ms ease,
+      filter 220ms ease,
+      opacity 220ms ease;
+  }
+
+  .hounds-jackals-peg__shadow,
+  .hounds-jackals-peg__stem,
+  .hounds-jackals-peg__head {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .hounds-jackals-peg__shadow {
+    bottom: 18%;
+    width: 54%;
+    height: 13%;
+    border-radius: 9999px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.44) 0%, rgba(0, 0, 0, 0.22) 42%, rgba(0, 0, 0, 0) 78%);
+    filter: blur(3px);
+    opacity: 0.7;
+  }
+
+  .hounds-jackals-peg--reserve .hounds-jackals-peg__shadow {
+    width: 62%;
+    opacity: 0.62;
+  }
+
+  .hounds-jackals-peg__stem {
+    bottom: 22%;
+    width: 9%;
+    height: 45%;
+    border-radius: 999px;
+    background:
+      linear-gradient(180deg, var(--hj-peg-stem-light) 0%, var(--hj-peg-stem-mid) 52%, var(--hj-peg-stem-shadow) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.03),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.32),
+      0 2px 5px rgba(0, 0, 0, 0.12);
+  }
+
+  .hounds-jackals-peg__head {
+    top: 6%;
+    width: 64%;
+    height: 46%;
+    border-radius: 48% 48% 44% 44%;
+    background:
+      radial-gradient(76% 50% at 28% 22%, var(--hj-peg-glint) 0%, rgba(255, 255, 255, 0) 34%),
+      linear-gradient(160deg, var(--hj-peg-shell-light) 0%, var(--hj-peg-shell-mid) 58%, var(--hj-peg-shell-shadow) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      inset 0 -4px 6px rgba(0, 0, 0, 0.3),
+      0 8px 12px -12px rgba(0, 0, 0, 0.4);
+  }
+
+  .hounds-jackals-peg__head::before {
+    content: "";
+    position: absolute;
+    inset: 9% 12% auto;
+    height: 16%;
+    border-radius: 9999px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0.22;
+  }
+
+  .hounds-jackals-peg__medallion {
+    position: absolute;
+    inset: 22%;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      linear-gradient(155deg, var(--hj-peg-medallion-light) 0%, var(--hj-peg-medallion-shadow) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      inset 0 -2px 3px rgba(0, 0, 0, 0.3);
+    color: var(--hj-peg-ink);
+    overflow: hidden;
+  }
+
+  .hounds-jackals-peg__medallion svg {
+    width: 76%;
+    height: 76%;
+  }
+
+  .hounds-jackals-peg--reserve {
+    z-index: 14;
+  }
+
+  .hounds-jackals-peg--hound {
+    --hj-peg-shell-light: #e6d7bc;
+    --hj-peg-shell-mid: #c7b08c;
+    --hj-peg-shell-shadow: #8f7454;
+    --hj-peg-stem-light: #ccb493;
+    --hj-peg-stem-mid: #9c7f5d;
+    --hj-peg-stem-shadow: #694c34;
+    --hj-peg-medallion-light: #eadbc0;
+    --hj-peg-medallion-shadow: #b99769;
+    --hj-peg-glint: rgba(245, 237, 220, 0.1);
+    --hj-peg-ink: #593c23;
+  }
+
+  .hounds-jackals-peg--jackal {
+    --hj-peg-shell-light: #70543a;
+    --hj-peg-shell-mid: #4a3322;
+    --hj-peg-shell-shadow: #22150e;
+    --hj-peg-stem-light: #5c4330;
+    --hj-peg-stem-mid: #392619;
+    --hj-peg-stem-shadow: #1b110c;
+    --hj-peg-medallion-light: #75563a;
+    --hj-peg-medallion-shadow: #332217;
+    --hj-peg-glint: rgba(208, 177, 145, 0.06);
+    --hj-peg-ink: #efe6d5;
+  }
+
+  .hounds-jackals-peg--movable .hounds-jackals-peg__head {
+    filter: none;
+  }
+
+  .hounds-jackals-peg--hovered .hounds-jackals-peg__head,
+  .hounds-jackals-peg--hovered .hounds-jackals-peg__stem {
+    transform: translateX(-50%) translateY(-1.5%);
+  }
+
+  .hounds-jackals-peg--hovered .hounds-jackals-peg__shadow {
+    opacity: 0.62;
+    transform: translateX(-50%) scale(1.01);
+  }
+
+  .hounds-jackals-peg--last-move .hounds-jackals-peg__head {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      inset 0 -4px 6px rgba(0, 0, 0, 0.28),
+      0 0 0 1px rgba(109, 81, 51, 0.14),
+      0 10px 14px -12px rgba(0, 0, 0, 0.58);
+  }
+}
