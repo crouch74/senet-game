@@ -82,7 +82,7 @@ export function GameOver({ onReturnToLobby }: GameOverProps) {
           initial={{ scale: 0.9, y: 20, opacity: 0 }}
           animate={{ scale: 1, y: 0, opacity: 1 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300, delay: 0.2 }}
-          className="relative max-w-lg w-full bg-[var(--ui-gameover-surface)] border-2 border-royal-gold/50 rounded-xl p-8 shadow-[0_0_50px_rgba(0,0,0,0.8),0_0_20px_var(--ui-piece-glow-anubis)] text-center overflow-hidden"
+          className="relative max-w-lg w-full bg-ui-gameover-surface border-2 border-royal-gold/50 rounded-xl p-8 shadow-[0_0_50px_rgba(0,0,0,0.8),0_0_20px_var(--ui-piece-glow-anubis)] text-center overflow-hidden"
         >
           <div
             className="absolute inset-0 opacity-5 pointer-events-none"
@@ -133,7 +133,7 @@ export function GameOver({ onReturnToLobby }: GameOverProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10">
             <button
               onClick={resetGame}
-              className="flex items-center justify-center gap-2 bg-royal-gold hover:bg-gold text-[var(--ui-turn-pill-foreground)] font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 active:scale-95 shadow-lg cursor-pointer"
+              className="flex items-center justify-center gap-2 bg-royal-gold hover:bg-gold text-ui-turn-pill-foreground font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 active:scale-95 shadow-lg cursor-pointer"
             >
               <RotateCcw className="w-5 h-5" />
               {t('throw.play_again')}
@@ -141,7 +141,7 @@ export function GameOver({ onReturnToLobby }: GameOverProps) {
 
             <button
               onClick={onReturnToLobby}
-              className="flex items-center justify-center gap-2 bg-[var(--ui-gameover-secondary-bg)] hover:bg-[var(--ui-gameover-secondary-bg-hover)] text-sand border border-sand/20 font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 active:scale-95 shadow-md cursor-pointer"
+              className="flex items-center justify-center gap-2 bg-ui-gameover-secondary-bg hover:bg-ui-gameover-secondary-bg-hover text-sand border border-sand/20 font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 active:scale-95 shadow-md cursor-pointer"
             >
               <Home className="w-5 h-5" />
               {t('throw.return_to_lobby')}

@@ -1,0 +1,9 @@
+@layer base {
+  body {
+    @apply bg-ebony text-sand;
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}

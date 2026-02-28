@@ -11,7 +11,7 @@ export function ChroniclePanel({ historyLog }: ChroniclePanelProps) {
   const { t } = useTranslation()
 
   return (
-    <div className="bg-[var(--ui-panel-bg)] border-s-[2px] border-royal-gold/30 rounded-e-lg p-5 flex-1 flex flex-col min-h-0 shadow-inner overflow-hidden">
+    <div className="bg-ui-panel-bg border-s-[2px] border-royal-gold/30 rounded-e-lg p-5 flex-1 flex flex-col min-h-0 shadow-inner overflow-hidden">
       <h2 className="text-gold font-serif text-lg border-b border-sand/20 pb-2 mb-2 uppercase tracking-wide shrink-0">
         {t('app.chronicle')}
       </h2>

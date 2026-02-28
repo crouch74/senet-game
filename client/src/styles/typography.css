@@ -1,0 +1,51 @@
+.font-arabic,
+.lang-ar {
+  font-family: var(--font-body-ar);
+  letter-spacing: normal;
+  line-height: 1.6;
+}
+
+html:lang(ar-EG) {
+  --font-body: var(--font-body-ar);
+  --font-display: var(--font-display-ar);
+  --font-sans: var(--font-body-ar);
+  --font-serif: var(--font-display-ar);
+  --font-manuscript: var(--font-manuscript-ar);
+  --font-manuscript-display: var(--font-manuscript-display-ar);
+}
+
+html:lang(ar-EG) body {
+  font-family: var(--font-body-ar);
+  letter-spacing: normal;
+  line-height: 1.6;
+}
+
+html:lang(ar-EG) .font-mono {
+  font-family: var(--font-mono);
+  letter-spacing: normal;
+}
+
+html:lang(ar-EG) .font-serif,
+html:lang(ar-EG) .font-display,
+html:lang(ar-EG) h1,
+html:lang(ar-EG) h2,
+html:lang(ar-EG) h3 {
+  font-family: var(--font-display-ar);
+  letter-spacing: normal;
+}
+
+html:lang(ar-EG) .senet-manuscript {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+html:lang(ar-EG) .senet-manuscript h2,
+html:lang(ar-EG) .senet-manuscript h3 {
+  font-family: var(--font-manuscript-display-ar);
+}
+
+html:lang(ar-EG) .senet-manuscript p {
+  font-family: var(--font-manuscript-ar);
+  font-size: 1.15em;
+  line-height: 1.85;
+}

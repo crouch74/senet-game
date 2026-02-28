@@ -28,7 +28,7 @@ export function ThrowSticks() {
     })
 
   return (
-    <div className="flex flex-col items-center p-4 bg-[var(--ui-panel-bg)] backdrop-blur-sm rounded-sm border-[1px] border-royal-gold/30 shadow-[0_10px_20px_rgba(0,0,0,0.6),inset_0_0_10px_var(--ui-header-shadow-inset)] relative overflow-hidden h-full w-full group">
+    <div className="flex flex-col items-center p-4 bg-ui-panel-bg backdrop-blur-sm rounded-sm border-[1px] border-royal-gold/30 shadow-[0_10px_20px_rgba(0,0,0,0.6),inset_0_0_10px_var(--ui-header-shadow-inset)] relative overflow-hidden h-full w-full group">
       <div className="absolute top-2 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-60" />
       <div className="absolute bottom-2 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-60" />
 
@@ -36,7 +36,7 @@ export function ThrowSticks() {
         {t('throw.turn', { player: t(`hud.players.${currentPlayer}`) })}
       </div>
 
-      <div className="relative w-full h-40 flex items-center justify-center perspective-1000">
+      <div className="relative w-full h-40 flex items-center justify-center [perspective:1000px]">
         <div className="absolute inset-x-6 inset-y-3 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.03)_28%,rgba(0,0,0,0.16)_58%,rgba(0,0,0,0)_82%)] pointer-events-none" />
         <AnimatePresence mode="wait">
           {isThrowing ? (
@@ -65,7 +65,7 @@ export function ThrowSticks() {
                       ease: 'linear',
                     },
                   }}
-                  className="w-4 h-20 rounded-full bg-[var(--ui-stick-light)] border-2 border-[var(--ui-stick-light-border)] shadow-[0_0_0_1px_rgba(0,0,0,0.28),0_10px_20px_rgba(0,0,0,0.5),inset_0_1px_4px_rgba(255,255,255,0.55)] relative overflow-hidden"
+                  className="w-4 h-20 rounded-full bg-ui-stick-light border-2 border-ui-stick-light-border shadow-[0_0_0_1px_rgba(0,0,0,0.28),0_10px_20px_rgba(0,0,0,0.5),inset_0_1px_4px_rgba(255,255,255,0.55)] relative overflow-hidden"
                 >
                   <div className="w-full h-full flex flex-col items-center justify-evenly py-2 scale-75">
                     <div className="w-1 h-1 rounded-full bg-royal-ebony/60" />
@@ -104,8 +104,8 @@ export function ThrowSticks() {
                   className={cn(
                     'absolute w-6 h-28 rounded-full shadow-2xl border-2 overflow-hidden',
                     layout.isLight
-                      ? 'bg-[var(--ui-stick-light)] border-[var(--ui-stick-light-border)] shadow-[0_0_0_1px_rgba(0,0,0,0.25),inset_0_0_15px_rgba(255,255,255,0.8),0_12px_24px_rgba(0,0,0,0.55)]'
-                      : 'bg-[var(--ui-stick-dark)] border-white/18 shadow-[0_0_0_1px_rgba(255,255,255,0.08),inset_0_0_15px_rgba(0,0,0,0.85),inset_0_1px_3px_rgba(255,255,255,0.08),0_12px_24px_rgba(0,0,0,0.62)]',
+                      ? 'bg-ui-stick-light border-ui-stick-light-border shadow-[0_0_0_1px_rgba(0,0,0,0.25),inset_0_0_15px_rgba(255,255,255,0.8),0_12px_24px_rgba(0,0,0,0.55)]'
+                      : 'bg-ui-stick-dark border-white/18 shadow-[0_0_0_1px_rgba(255,255,255,0.08),inset_0_0_15px_rgba(0,0,0,0.85),inset_0_1px_3px_rgba(255,255,255,0.08),0_12px_24px_rgba(0,0,0,0.62)]',
                   )}
                 >
                   <div
@@ -144,7 +144,7 @@ export function ThrowSticks() {
               {Array.from({ length: 4 }).map((_, index) => (
                 <div
                   key={`idle-stick-${index}`}
-                  className="w-6 h-24 rounded-full bg-[var(--ui-stick-light)] border-2 border-royal-gold/60 shadow-[0_0_0_1px_rgba(0,0,0,0.28),0_8px_18px_rgba(0,0,0,0.35),inset_0_2px_5px_rgba(255,255,255,0.55)] group-hover:bg-[var(--ui-stick-light-hover)] group-hover:border-royal-gold transition-all duration-300 relative overflow-hidden"
+                  className="w-6 h-24 rounded-full bg-ui-stick-light border-2 border-royal-gold/60 shadow-[0_0_0_1px_rgba(0,0,0,0.28),0_8px_18px_rgba(0,0,0,0.35),inset_0_2px_5px_rgba(255,255,255,0.55)] group-hover:bg-ui-stick-light-hover group-hover:border-royal-gold transition-all duration-300 relative overflow-hidden"
                 >
                   <div className="w-full h-full flex flex-col items-center justify-evenly py-2 scale-90 relative z-10">
                     <div className="w-1.5 h-1.5 rounded-full bg-royal-ebony/60" />
@@ -171,7 +171,7 @@ export function ThrowSticks() {
                     delay: index * 0.3,
                     ease: 'easeInOut',
                   }}
-                  className="w-6 h-24 rounded-full bg-[var(--ui-stick-waiting)] border-2 border-white/12 shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_6px_12px_rgba(0,0,0,0.38)]"
+                  className="w-6 h-24 rounded-full bg-ui-stick-waiting border-2 border-white/12 shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_6px_12px_rgba(0,0,0,0.38)]"
                 />
               ))}
             </motion.div>

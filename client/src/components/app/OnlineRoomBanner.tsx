@@ -19,7 +19,7 @@ export function OnlineRoomBanner({
   const { t } = useTranslation()
 
   return (
-    <div className="mb-4 flex w-full max-w-5xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between bg-[var(--ui-panel-strong-bg)] border border-sand/20 rounded-lg p-3 sm:px-4 md:px-6 shadow-md backdrop-blur-sm shrink-0">
+    <div className="mb-4 flex w-full max-w-5xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between bg-ui-panel-strong-bg border border-sand/20 rounded-lg p-3 sm:px-4 md:px-6 shadow-md backdrop-blur-sm shrink-0">
       <div className="flex flex-col">
         <span className="text-sand/60 text-xs uppercase tracking-wider font-bold mb-1">
           {t('lobby.room_number')}

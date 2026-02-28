@@ -45,7 +45,7 @@ export function HUD({
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 md:gap-5 w-full p-4 sm:p-5 md:p-6 bg-[var(--ui-header-bg)] backdrop-blur-md rounded-md border-b-2 border-[var(--ui-header-border)] shadow-[0_20px_30px_rgba(0,0,0,0.8),inset_0_2px_10px_var(--ui-header-shadow-inset)] mb-5 md:mb-8 relative">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 md:gap-5 w-full p-4 sm:p-5 md:p-6 bg-ui-header-bg backdrop-blur-md rounded-md border-b-2 border-ui-header-border shadow-[0_20px_30px_rgba(0,0,0,0.8),inset_0_2px_10px_var(--ui-header-shadow-inset)] mb-5 md:mb-8 relative">
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-80" />
 
         <div className="flex flex-col w-full lg:w-auto">
@@ -64,7 +64,7 @@ export function HUD({
                 {t('hud.wins', { player: t(`hud.players.${winner}`) })}
               </div>
             ) : (
-              <div className="flex items-center justify-center w-full sm:w-auto gap-3 sm:gap-6 p-2.5 sm:p-3 bg-[var(--ui-header-inner-bg)] rounded border border-royal-gold/20 shadow-inner">
+              <div className="flex items-center justify-center w-full sm:w-auto gap-3 sm:gap-6 p-2.5 sm:p-3 bg-ui-header-inner-bg rounded border border-royal-gold/20 shadow-inner">
                 <div className="text-xs sm:text-sm text-royal-ivory/80 font-mono tracking-[0.2em] sm:tracking-widest uppercase whitespace-nowrap">
                   {t('hud.current_turn')}
                 </div>
@@ -72,8 +72,8 @@ export function HUD({
                   className={cn(
                     'px-4 sm:px-6 py-1.5 rounded-sm font-bold uppercase tracking-[0.12em] sm:tracking-widest text-xs sm:text-sm shadow-[0_2px_5px_rgba(0,0,0,0.5)] transition-all duration-300 border whitespace-nowrap',
                     currentPlayer === 'anubis'
-                      ? 'bg-royal-gold text-[var(--ui-turn-pill-foreground)] border-yellow-300/50'
-                      : 'bg-[var(--ui-turn-pill-bg)] text-royal-gold border-royal-gold/80',
+                      ? 'bg-royal-gold text-ui-turn-pill-foreground border-yellow-300/50'
+                      : 'bg-ui-turn-pill-bg text-royal-gold border-royal-gold/80',
                   )}
                 >
                   {t(`hud.players.${currentPlayer}`)}
@@ -95,7 +95,7 @@ export function HUD({
           </button>
 
           <select
-            className="bg-[var(--ui-input-bg)] text-royal-ivory border-[1.5px] border-royal-gold/60 rounded-sm px-3 py-1 text-sm outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold/50 h-10 font-serif tracking-wider shadow-inner hover:bg-[var(--ui-input-bg-hover)] transition-colors min-w-[7.5rem] grow sm:grow-0"
+            className="bg-ui-input-bg text-royal-ivory border-[1.5px] border-royal-gold/60 rounded-sm px-3 py-1 text-sm outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold/50 h-10 font-serif tracking-wider shadow-inner hover:bg-ui-input-bg-hover transition-colors min-w-[7.5rem] grow sm:grow-0"
             value={i18n.language}
             onChange={(event) => i18n.changeLanguage(event.target.value)}
             aria-label={t('hud.language')}
@@ -106,7 +106,7 @@ export function HUD({
           </select>
 
           <select
-            className="bg-[var(--ui-input-bg)] text-royal-ivory border-[1.5px] border-royal-gold/60 rounded-sm px-3 py-1 text-sm outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold/50 h-10 font-serif tracking-wider shadow-inner hover:bg-[var(--ui-input-bg-hover)] transition-colors min-w-[10.5rem] grow sm:grow-0"
+            className="bg-ui-input-bg text-royal-ivory border-[1.5px] border-royal-gold/60 rounded-sm px-3 py-1 text-sm outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold/50 h-10 font-serif tracking-wider shadow-inner hover:bg-ui-input-bg-hover transition-colors min-w-[10.5rem] grow sm:grow-0"
             value={theme}
             onChange={(event) => setTheme(event.target.value as ThemeId)}
             aria-label={t('hud.theme')}
@@ -122,7 +122,7 @@ export function HUD({
           {!isOnline && !isLobby && (
             <button
               onClick={resetGame}
-              className="px-3 sm:px-4 py-2 h-10 bg-[var(--ui-paper-surface)] hover:bg-[var(--ui-paper-surface-hover)] text-[var(--ui-paper-text)] border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-widest font-bold hover:shadow-[0_0_15px_var(--ui-piece-glow-anubis)] hover:scale-105 whitespace-nowrap cursor-pointer grow sm:grow-0"
+              className="px-3 sm:px-4 py-2 h-10 bg-ui-paper-surface hover:bg-ui-paper-surface-hover text-ui-paper-text border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-widest font-bold hover:shadow-[0_0_15px_var(--ui-piece-glow-anubis)] hover:scale-105 whitespace-nowrap cursor-pointer grow sm:grow-0"
             >
               {t('hud.restart_game')}
             </button>
@@ -131,7 +131,7 @@ export function HUD({
           {onReturnToLobby && (
             <button
               onClick={onReturnToLobby}
-              className="flex items-center gap-2 px-3 sm:px-4 py-2 h-10 bg-[var(--ui-secondary-button-bg)] hover:bg-[var(--ui-secondary-button-bg-hover)] text-sand border-[2px] border-sand/20 rounded-sm transition-all font-serif shadow-sm text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-widest font-bold whitespace-nowrap cursor-pointer grow sm:grow-0"
+              className="flex items-center gap-2 px-3 sm:px-4 py-2 h-10 bg-ui-secondary-button-bg hover:bg-ui-secondary-button-bg-hover text-sand border-[2px] border-sand/20 rounded-sm transition-all font-serif shadow-sm text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-widest font-bold whitespace-nowrap cursor-pointer grow sm:grow-0"
             >
               <Home className="w-4 h-4" />
               {t('throw.return_to_lobby')}

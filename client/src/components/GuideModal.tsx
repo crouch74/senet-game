@@ -31,7 +31,7 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.9, opacity: 0, y: 40 }}
                         transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                        className="relative w-full max-w-5xl h-full max-h-[85vh] flex flex-col bg-[var(--ui-modal-paper)] rounded-sm shadow-[0_0_100px_var(--ui-modal-shadow)] overflow-hidden border-2 border-royal-gold/60"
+                        className="relative w-full max-w-5xl h-full max-h-[85vh] flex flex-col bg-ui-modal-paper rounded-sm shadow-[0_0_100px_var(--ui-modal-shadow)] overflow-hidden border-2 border-royal-gold/60"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Header */}

@@ -19,12 +19,12 @@ export function Afterlife() {
   const darkPieces = borneOffPieces.filter((piece) => piece.player === 'sphinx')
 
   return (
-    <div className="flex flex-col items-center p-4 bg-[var(--ui-header-inner-bg)] backdrop-blur-md rounded-sm border-[2px] border-royal-gold/40 shadow-[0_15px_35px_rgba(0,0,0,0.7),inset_0_0_20px_rgba(0,0,0,0.5)] relative overflow-hidden w-full sm:w-64 max-w-full h-full min-h-56 group transition-all duration-500 hover:border-royal-gold/60">
+    <div className="flex flex-col items-center p-4 bg-ui-header-inner-bg backdrop-blur-md rounded-sm border-[2px] border-royal-gold/40 shadow-[0_15px_35px_rgba(0,0,0,0.7),inset_0_0_20px_rgba(0,0,0,0.5)] relative overflow-hidden w-full sm:w-64 max-w-full h-full min-h-56 group transition-all duration-500 hover:border-royal-gold/60">
       <h3 className="text-royal-gold font-serif text-sm font-bold tracking-[0.3em] uppercase mb-4 border-b border-royal-gold/20 pb-2 w-full text-center">
         {t('afterlife.title', { defaultValue: 'Afterlife' })}
       </h3>
 
-      <div className="flex-1 w-full bg-[var(--ui-panel-strong-bg)] rounded-sm p-4 shadow-inner flex flex-wrap content-start gap-3 relative overflow-y-auto custom-scrollbar">
+      <div className="flex-1 w-full bg-ui-panel-strong-bg rounded-sm p-4 shadow-inner flex flex-wrap content-start gap-3 relative overflow-y-auto custom-scrollbar">
         {borneOffPieces.length === 0 && (
           <div className="absolute inset-0 flex flex-col items-center justify-center opacity-20 italic text-xs text-royal-ivory text-center px-4">
             <span className="text-3xl mb-2">𓅓</span>

@@ -33,19 +33,19 @@ export function LegendContent() {
   ]
 
   return (
-    <div className="legend-content-surface bg-[var(--ui-legend-paper)] p-8 md:p-14 text-[var(--ui-paper-text)] relative overflow-hidden">
+    <div className="legend-content-surface bg-ui-legend-paper p-8 md:p-14 text-ui-paper-text relative overflow-hidden">
       <div className="absolute inset-4 border border-royal-gold/10 pointer-events-none" />
 
       <section className="relative z-10 mb-16">
         <div className="flex flex-col items-center mb-10">
           <div className="w-12 h-px bg-royal-gold/40 mb-4" />
-          <h3 className="text-[var(--ui-paper-text)] font-serif text-3xl md:text-4xl text-center tracking-[0.16em] uppercase font-semibold drop-shadow-[0_1px_0_rgba(255,255,255,0.2)]">
+          <h3 className="text-ui-paper-text font-serif text-3xl md:text-4xl text-center tracking-[0.16em] uppercase font-semibold drop-shadow-[0_1px_0_rgba(255,255,255,0.2)]">
             {t('legend.title')}
           </h3>
           <div className="w-24 h-[2px] bg-royal-gold/20 mt-4" />
         </div>
 
-        <div className="space-y-6 font-serif text-lg md:text-xl leading-relaxed italic text-[var(--ui-paper-text)] opacity-90 max-w-2xl mx-auto text-center rtl:text-right ltr:text-left">
+        <div className="space-y-6 font-serif text-lg md:text-xl leading-relaxed italic text-ui-paper-text opacity-90 max-w-2xl mx-auto text-center rtl:text-right ltr:text-left">
           <p className="first-letter:text-4xl first-letter:font-bold first-letter:text-royal-gold first-letter:me-2 first-letter:float-left rtl:first-letter:float-right">
             {t('legend.p1')}
           </p>
@@ -63,7 +63,7 @@ export function LegendContent() {
       </div>
 
       <section className="relative z-10 mb-16">
-        <h3 className="text-[var(--ui-paper-text)] font-serif text-2xl md:text-3xl mb-12 text-center tracking-[0.16em] font-semibold uppercase">
+        <h3 className="text-ui-paper-text font-serif text-2xl md:text-3xl mb-12 text-center tracking-[0.16em] font-semibold uppercase">
           {t('sacred_houses.title')}
         </h3>
 
@@ -98,10 +98,10 @@ export function LegendContent() {
               </div>
 
               <div className="flex flex-col gap-1">
-                <h4 className="font-bold text-[var(--ui-paper-text)] uppercase tracking-[0.18em] text-base">
+                <h4 className="font-bold text-ui-paper-text uppercase tracking-[0.18em] text-base">
                   {t(`sacred_houses.h${house.num}.title`)}
                 </h4>
-                <p className="font-serif text-[var(--ui-paper-text)] opacity-80 text-base leading-relaxed">
+                <p className="font-serif text-ui-paper-text opacity-80 text-base leading-relaxed">
                   {t(`sacred_houses.h${house.num}.desc`)}
                 </p>
               </div>
@@ -117,7 +117,7 @@ export function LegendContent() {
       </div>
 
       <section className="relative z-10 max-w-xl mx-auto">
-        <h3 className="text-[var(--ui-paper-text)] font-serif text-3xl md:text-4xl mb-12 text-center tracking-[0.16em] font-semibold uppercase">
+        <h3 className="text-ui-paper-text font-serif text-3xl md:text-4xl mb-12 text-center tracking-[0.16em] font-semibold uppercase">
           {t('guide.title')}
         </h3>
 
@@ -126,10 +126,10 @@ export function LegendContent() {
             <li key={key} className="flex gap-5 items-start">
               <div className="shrink-0 mt-2 w-2 h-2 bg-royal-gold rotate-45" />
               <div className="flex flex-col">
-                <span className="font-bold text-[var(--ui-paper-text)] uppercase text-sm tracking-[0.18em] mb-2 opacity-90">
+                <span className="font-bold text-ui-paper-text uppercase text-sm tracking-[0.18em] mb-2 opacity-90">
                   {t(`guide.labels.${key}`)}
                 </span>
-                <span className="font-serif text-[var(--ui-paper-text)] opacity-90 text-lg md:text-xl leading-relaxed">
+                <span className="font-serif text-ui-paper-text opacity-90 text-lg md:text-xl leading-relaxed">
                   {t(`guide.${key}`)}
                 </span>
               </div>

@@ -149,7 +149,7 @@ function App() {
                 ) : (
                   <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0">
                     <Board />
-                    <div className="w-full max-w-5xl mt-8 md:mt-12 mb-6 md:mb-8 bg-[var(--ui-panel-bg)] border border-royal-gold/20 rounded-lg p-4 sm:p-5 md:p-6 shadow-[inset_0_2px_15px_rgba(0,0,0,0.5)] flex flex-col lg:flex-row items-stretch gap-4 md:gap-6 lg:gap-8 backdrop-blur-sm">
+                    <div className="w-full max-w-5xl mt-8 md:mt-12 mb-6 md:mb-8 bg-ui-panel-bg border border-royal-gold/20 rounded-lg p-4 sm:p-5 md:p-6 shadow-[inset_0_2px_15px_rgba(0,0,0,0.5)] flex flex-col lg:flex-row items-stretch gap-4 md:gap-6 lg:gap-8 backdrop-blur-sm">
                       <div className="flex-1 w-full flex flex-col min-w-0 lg:border-e lg:border-royal-gold/10 lg:pe-8">
                         <ThrowSticks />
                       </div>

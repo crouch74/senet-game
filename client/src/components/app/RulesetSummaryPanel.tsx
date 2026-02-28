@@ -12,7 +12,7 @@ export function RulesetSummaryPanel({
   const { t } = useTranslation()
 
   return (
-    <div className="bg-[var(--ui-rule-bg)] border-s-[2px] border-[var(--ui-rule-border)] rounded-e-lg p-5 text-sm shadow-inner shrink-0">
+    <div className="bg-ui-rule-bg border-s-[2px] border-ui-rule-border rounded-e-lg p-5 text-sm shadow-inner shrink-0">
       <h3 className="text-ochre font-bold mb-2 flex items-center gap-2">
         <span>📜</span>
         {t('app.rules_title', { name: t(`ruleset.names.${ruleset.id}`) })}

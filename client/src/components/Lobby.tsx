@@ -58,7 +58,7 @@ export function Lobby({ onStartOfflineMode }: LobbyProps) {
   return (
     <div className="flex-1 w-full flex items-center justify-center p-4 py-16 overflow-y-auto custom-scrollbar">
       <div className="grid w-full max-w-6xl gap-6 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)]">
-        <div className="bg-[var(--ui-panel-strong-bg)] border border-royal-gold/20 rounded-lg p-8 w-full backdrop-blur-sm shadow-2xl shrink-0">
+        <div className="bg-ui-panel-strong-bg border border-royal-gold/20 rounded-lg p-8 w-full backdrop-blur-sm shadow-2xl shrink-0">
           <h1 className="text-4xl text-royal-gold font-serif mb-8 text-center tracking-[0.4em] drop-shadow-md">
             SENET
           </h1>
@@ -75,7 +75,7 @@ export function Lobby({ onStartOfflineMode }: LobbyProps) {
                 <button
                   type="button"
                   onClick={handleCreate}
-                  className="bg-royal-gold hover:bg-royal-gold/90 text-[var(--ui-turn-pill-foreground)] font-bold py-3 rounded-md transition-all shadow-lg hover:shadow-royal-gold/20 cursor-pointer"
+                  className="bg-royal-gold hover:bg-royal-gold/90 text-ui-turn-pill-foreground font-bold py-3 rounded-md transition-all shadow-lg hover:shadow-royal-gold/20 cursor-pointer"
                 >
                   {t('lobby.create_room', 'Create New Room')}
                 </button>
@@ -111,7 +111,7 @@ export function Lobby({ onStartOfflineMode }: LobbyProps) {
                         'lobby.room_placeholder',
                         'e.g. abc-def-ghi',
                       )}
-                      className="flex-1 bg-[var(--ui-input-bg)] border border-sand/30 rounded-md p-3 text-sand placeholder:text-sand/30 focus:outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold transition-all"
+                      className="flex-1 bg-ui-input-bg border border-sand/30 rounded-md p-3 text-sand placeholder:text-sand/30 focus:outline-none focus:border-royal-gold focus:ring-1 focus:ring-royal-gold transition-all"
                     />
                     <button
                       type="submit"
@@ -124,7 +124,7 @@ export function Lobby({ onStartOfflineMode }: LobbyProps) {
                 </form>
               </>
             ) : (
-              <div className="rounded-md border border-sand/20 bg-[var(--ui-panel-bg)] px-4 py-3 text-sm text-sand/75">
+              <div className="rounded-md border border-sand/20 bg-ui-panel-bg px-4 py-3 text-sm text-sand/75">
                 {t(
                   'lobby.online_unavailable',
                   'Online mode is unavailable while the backend is offline.',
@@ -143,7 +143,7 @@ export function Lobby({ onStartOfflineMode }: LobbyProps) {
             <button
               type="button"
               onClick={() => handleOfflineStart('play_and_pass')}
-              className="bg-[var(--ui-secondary-button-bg)] border border-sand/30 hover:bg-[var(--ui-secondary-button-bg-hover)] text-sand font-bold py-3 rounded-md transition-all shadow-md cursor-pointer"
+              className="bg-ui-secondary-button-bg border border-sand/30 hover:bg-ui-secondary-button-bg-hover text-sand font-bold py-3 rounded-md transition-all shadow-md cursor-pointer"
             >
               {t('lobby.play_and_pass', 'play & pass')}
             </button>
@@ -162,7 +162,7 @@ export function Lobby({ onStartOfflineMode }: LobbyProps) {
           aria-label={t('lobby.about_title')}
           className="flex flex-col gap-4"
         >
-          <article className="rounded-lg border border-royal-gold/15 bg-[var(--ui-panel-strong-bg)]/90 p-6 shadow-xl backdrop-blur-sm">
+          <article className="rounded-lg border border-royal-gold/15 bg-ui-panel-strong-bg/90 p-6 shadow-xl backdrop-blur-sm">
             <p className="text-xs uppercase tracking-[0.3em] text-royal-gold/85">
               {t('lobby.about_kicker')}
             </p>
@@ -174,7 +174,7 @@ export function Lobby({ onStartOfflineMode }: LobbyProps) {
             </p>
           </article>
 
-          <article className="rounded-lg border border-sand/15 bg-[var(--ui-panel-bg)]/90 p-6 shadow-xl backdrop-blur-sm">
+          <article className="rounded-lg border border-sand/15 bg-ui-panel-bg/90 p-6 shadow-xl backdrop-blur-sm">
             <p className="text-xs uppercase tracking-[0.3em] text-sand/80">
               {t('lobby.history_kicker')}
             </p>
@@ -186,7 +186,7 @@ export function Lobby({ onStartOfflineMode }: LobbyProps) {
             </p>
           </article>
 
-          <article className="rounded-lg border border-royal-gold/20 bg-[var(--ui-panel-strong-bg)] p-6 shadow-xl backdrop-blur-sm">
+          <article className="rounded-lg border border-royal-gold/20 bg-ui-panel-strong-bg p-6 shadow-xl backdrop-blur-sm">
             <p className="text-xs uppercase tracking-[0.3em] text-royal-gold/90">
               {t('lobby.fun_facts.kicker')}
             </p>

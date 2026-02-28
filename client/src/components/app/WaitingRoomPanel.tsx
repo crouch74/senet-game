@@ -45,7 +45,7 @@ export function WaitingRoomPanel({
         </div>
 
         {roomId && (
-          <div className="w-full bg-[var(--ui-panel-strong-bg)] border border-royal-gold/30 rounded-lg p-5 backdrop-blur-sm shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+          <div className="w-full bg-ui-panel-strong-bg border border-royal-gold/30 rounded-lg p-5 backdrop-blur-sm shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
             <div className="text-sand/50 text-xs uppercase tracking-widest mb-2">
               {t('lobby.room_number')}
             </div>

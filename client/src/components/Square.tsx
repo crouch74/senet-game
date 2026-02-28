@@ -39,9 +39,9 @@ export function Square({
     <div
       className={cn(
         'relative flex flex-col items-center justify-center aspect-square group box-border',
-        'bg-[var(--ui-square-base)] transition-all duration-500',
+        'bg-ui-square-base transition-all duration-500',
         isRecentlyActivated &&
-          'z-30 bg-[var(--ui-square-active)] scale-[1.05] ring-2 ring-white/50 shadow-[0_0_40px_rgba(255,255,255,0.4)] animate-pulse',
+          'z-30 bg-ui-square-active scale-[1.05] ring-2 ring-white/50 shadow-[0_0_40px_rgba(255,255,255,0.4)] animate-pulse',
         'border-[0.5px] border-black/80',
         'shadow-[inset_0_2px_4px_rgba(255,255,255,0.05),inset_0_-2px_4px_rgba(0,0,0,0.4),inset_0_0_10px_rgba(0,0,0,0.7)]',
         'after:absolute after:inset-0 after:bg-gradient-to-tr after:from-black/20 after:to-white/5 after:pointer-events-none',
@@ -54,7 +54,7 @@ export function Square({
           ),
         isHoveredTarget &&
           cn(
-            'z-20 scale-[1.02] bg-[var(--ui-square-hover)]',
+            'z-20 scale-[1.02] bg-ui-square-hover',
             currentPlayer === 'anubis'
               ? 'ring-2 ring-royal-gold shadow-[0_10px_30px_rgba(212,175,55,0.4),inset_0_0_40px_rgba(212,175,55,0.2)]'
               : 'ring-2 ring-royal-ivory shadow-[0_10px_30px_rgba(255,255,240,0.4),inset_0_0_40px_rgba(255,255,240,0.2)]',
@@ -65,7 +65,7 @@ export function Square({
       onClick={onClick}
     >
       {isSpecial && (
-        <div className="absolute inset-[3px] border-[0.5px] border-[var(--ui-square-special-border)] pointer-events-none mix-blend-overlay" />
+        <div className="absolute inset-[3px] border-[0.5px] border-ui-square-special-border pointer-events-none mix-blend-overlay" />
       )}
 
       <div className="absolute top-1 left-[6px] text-[10px] text-royal-ivory/40 font-mono z-10 pointer-events-none">
@@ -151,7 +151,7 @@ export function Square({
       {specialInfo && (
         <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 flex justify-center z-50 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
           <div
-            className="w-[240px] shrink-0 p-3 bg-[var(--ui-tooltip-bg)] border-[2px] border-royal-gold shadow-[0_10px_25px_rgba(0,0,0,0.5)] text-[var(--ui-tooltip-text)] text-xs rounded-sm text-start"
+            className="w-[240px] shrink-0 p-3 bg-ui-tooltip-bg border-[2px] border-royal-gold shadow-[0_10px_25px_rgba(0,0,0,0.5)] text-ui-tooltip-text text-xs rounded-sm text-start"
             dir={i18n.language === 'ar-EG' ? 'rtl' : 'ltr'}
           >
             <div className="flex items-center gap-2 border-b border-royal-gold/20 pb-2 mb-2">
@@ -164,13 +164,13 @@ export function Square({
             </div>
 
             <div className="mb-2">
-              <div className="font-serif font-bold text-[var(--ui-tooltip-accent)] mb-0.5">
+              <div className="font-serif font-bold text-ui-tooltip-accent mb-0.5">
                 {t('square.effect', {
                   effect: t(`square.effects.${specialInfo.effect}`),
                 })}
               </div>
               {specialInfo.requiredThrow && (
-                <div className="font-serif text-[var(--ui-tooltip-text)] opacity-80">
+                <div className="font-serif text-ui-tooltip-text opacity-80">
                   {t('square.requires_throw', {
                     num: formatNumber(specialInfo.requiredThrow),
                   })}
@@ -187,7 +187,7 @@ export function Square({
               <div className="text-[10px] text-royal-gold font-bold uppercase tracking-widest mb-1 opacity-80">
                 {t('square.lore')}
               </div>
-              <div className="font-serif text-[var(--ui-tooltip-text)] opacity-70 italic leading-relaxed">
+              <div className="font-serif text-ui-tooltip-text opacity-70 italic leading-relaxed">
                 {t(`square.contexts.${number}`)}
               </div>
             </div>

@@ -1,0 +1,276 @@
+@layer components {
+  .piece-token {
+    position: relative;
+    border-radius: 9999px;
+    overflow: visible;
+    --ui-piece-symbol-scale: 1;
+    background:
+      radial-gradient(78% 54% at 33% 24%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.055) 22%, rgba(255, 255, 255, 0) 42%),
+      radial-gradient(120% 92% at 52% 76%, rgba(69, 45, 30, 0.14) 0%, rgba(15, 9, 7, 0) 58%),
+      linear-gradient(165deg, color-mix(in srgb, var(--ui-piece-token-shell-from, var(--ui-piece-shell-from)) 90%, #6a4731 10%) 0%, color-mix(in srgb, var(--ui-piece-token-shell-from, var(--ui-piece-shell-from)) 38%, var(--ui-piece-token-shell-to, var(--ui-piece-shell-to)) 62%) 44%, color-mix(in srgb, var(--ui-piece-token-shell-to, var(--ui-piece-shell-to)) 90%, #050404 10%) 100%);
+    box-shadow:
+      0 1px 1px rgba(255, 255, 255, 0.08),
+      0 8px 10px -10px rgba(0, 0, 0, 0.62),
+      inset 0 1px 1px rgba(255, 255, 255, 0.05),
+      inset 0 -4px 7px rgba(0, 0, 0, 0.24);
+  }
+
+  .piece-token::before,
+  .piece-token::after,
+  .piece-token__core::before,
+  .piece-token__core::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .piece-token::before {
+    inset: auto 15% -6% 15%;
+    height: 14%;
+    border-radius: 9999px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.24) 38%, rgba(0, 0, 0, 0) 78%);
+    filter: blur(2.4px);
+    opacity: 0.96;
+  }
+
+  .piece-token::after {
+    inset: 1px;
+    border-radius: inherit;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.16);
+    opacity: 0.7;
+  }
+
+  .piece-token__core {
+    border-radius: 9999px;
+    overflow: hidden;
+    background:
+      radial-gradient(70% 44% at 34% 24%, rgba(255, 248, 238, 0.08) 0%, rgba(255, 248, 238, 0.035) 28%, rgba(255, 248, 238, 0) 44%),
+      radial-gradient(108% 84% at 50% 76%, rgba(39, 25, 19, 0.16) 0%, rgba(0, 0, 0, 0) 56%),
+      linear-gradient(165deg, color-mix(in srgb, var(--ui-piece-token-core-from, var(--ui-piece-core-from)) 92%, #3f2a21 8%) 0%, color-mix(in srgb, var(--ui-piece-token-core-from, var(--ui-piece-core-from)) 46%, var(--ui-piece-token-core-to, var(--ui-piece-core-to)) 54%) 50%, color-mix(in srgb, var(--ui-piece-token-core-to, var(--ui-piece-core-to)) 94%, #040303 6%) 100%);
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.03),
+      inset 0 -6px 7px rgba(0, 0, 0, 0.44);
+  }
+
+  .piece-token__core::before {
+    inset: 0;
+    border-radius: inherit;
+    background:
+      radial-gradient(52% 24% at 34% 25%, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.05) 46%, rgba(255, 255, 255, 0) 82%),
+      radial-gradient(108% 90% at 66% 84%, rgba(0, 0, 0, 0.14) 0%, rgba(0, 0, 0, 0) 60%);
+    opacity: 0.78;
+  }
+
+  .piece-token__core::after {
+    inset: 0;
+    border-radius: inherit;
+    background-image:
+      radial-gradient(circle at 24% 26%, rgba(255, 255, 255, 0.04) 0.45px, transparent 0.95px),
+      radial-gradient(circle at 68% 72%, rgba(0, 0, 0, 0.045) 0.5px, transparent 1px);
+    background-size: 7px 7px, 9px 9px;
+    mix-blend-mode: soft-light;
+    opacity: 0.18;
+  }
+
+  .piece-token__symbol-wrap {
+    position: relative;
+    width: 65%;
+    height: 65%;
+    flex: 0 0 auto;
+    transform: scale(var(--ui-piece-symbol-scale));
+  }
+
+  .piece-token__symbol-wrap--small {
+    width: 60%;
+    height: 60%;
+  }
+
+  .piece-token__symbol {
+    position: absolute;
+    inset: 0;
+  }
+
+  .piece-token__symbol--cavity {
+    transform: scale(1.035) translateY(1%);
+    background: linear-gradient(180deg, rgba(5, 4, 4, 0.92) 0%, rgba(18, 13, 11, 0.82) 100%);
+    opacity: 0.82;
+    filter: blur(0.45px);
+  }
+
+  .piece-token__symbol--shadow {
+    transform: translate(0.8%, 3.8%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.26) 0%, rgba(0, 0, 0, 0.48) 100%);
+    opacity: 0.56;
+    filter: blur(0.28px);
+  }
+
+  .piece-token__symbol--base {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 22%),
+      linear-gradient(165deg, var(--ui-piece-emblem-from) 0%, var(--ui-piece-emblem-via) 52%, var(--ui-piece-emblem-to) 100%);
+    box-shadow:
+      inset 0 0.7px 0 rgba(255, 255, 255, 0.05),
+      inset 0 -1.3px 0 rgba(0, 0, 0, 0.34);
+  }
+
+  .piece-token__symbol--edge {
+    transform: translate(-1.1%, -1.4%);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 20%, rgba(255, 255, 255, 0) 42%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 28%);
+    opacity: 0.22;
+  }
+
+  .piece-token--anubis {
+    --ui-piece-token-shell-from: var(--ui-piece-anubis-shell-from, color-mix(in srgb, var(--ui-piece-shell-from) 82%, var(--ui-piece-emblem-anubis-via) 18%));
+    --ui-piece-token-shell-to: var(--ui-piece-anubis-shell-to, color-mix(in srgb, var(--ui-piece-shell-to) 88%, #080606 12%));
+    --ui-piece-token-core-from: var(--ui-piece-anubis-core-from, color-mix(in srgb, var(--ui-piece-core-from) 84%, var(--ui-piece-emblem-anubis-via) 16%));
+    --ui-piece-token-core-to: var(--ui-piece-anubis-core-to, color-mix(in srgb, var(--ui-piece-core-to) 92%, #040303 8%));
+    --ui-piece-emblem-from: var(--ui-piece-emblem-anubis-from);
+    --ui-piece-emblem-via: color-mix(in srgb, var(--ui-piece-emblem-anubis-via) 88%, #b48a3f 12%);
+    --ui-piece-emblem-to: color-mix(in srgb, var(--ui-piece-emblem-anubis-to) 88%, #4d3314 12%);
+    --ui-piece-glow-current: var(--ui-piece-glow-anubis);
+    --ui-piece-symbol-scale: 1;
+  }
+
+  .piece-token--sphinx {
+    --ui-piece-token-shell-from: var(--ui-piece-sphinx-shell-from, color-mix(in srgb, var(--ui-piece-shell-from) 76%, var(--ui-piece-emblem-sphinx-via) 24%));
+    --ui-piece-token-shell-to: var(--ui-piece-sphinx-shell-to, color-mix(in srgb, var(--ui-piece-shell-to) 86%, var(--ui-piece-emblem-sphinx-to) 14%));
+    --ui-piece-token-core-from: var(--ui-piece-sphinx-core-from, color-mix(in srgb, var(--ui-piece-core-from) 80%, var(--ui-piece-emblem-sphinx-from) 20%));
+    --ui-piece-token-core-to: var(--ui-piece-sphinx-core-to, color-mix(in srgb, var(--ui-piece-core-to) 88%, var(--ui-piece-emblem-sphinx-to) 12%));
+    --ui-piece-emblem-from: color-mix(in srgb, var(--ui-piece-emblem-sphinx-from) 84%, #ddd0b2 16%);
+    --ui-piece-emblem-via: color-mix(in srgb, var(--ui-piece-emblem-sphinx-via) 86%, #d9c9a9 14%);
+    --ui-piece-emblem-to: color-mix(in srgb, var(--ui-piece-emblem-sphinx-to) 86%, #8f836f 14%);
+    --ui-piece-glow-current: var(--ui-piece-glow-sphinx);
+    --ui-piece-symbol-scale: 1.06;
+  }
+
+  .piece-token--movable {
+    box-shadow:
+      0 1px 1px rgba(255, 255, 255, 0.1),
+      0 9px 11px -10px rgba(0, 0, 0, 0.66),
+      0 0 12px color-mix(in srgb, var(--ui-piece-legal-ring) 24%, transparent),
+      inset 0 1px 1px rgba(255, 255, 255, 0.05),
+      inset 0 -4px 7px rgba(0, 0, 0, 0.24);
+  }
+
+  .piece-token--movable::after {
+    inset: 0;
+    box-shadow:
+      inset 0 0 0 1px color-mix(in srgb, var(--ui-piece-legal-ring) 64%, transparent),
+      inset 0 0 0 2px rgba(255, 255, 255, 0.02);
+  }
+
+  .piece-token--current {
+    box-shadow:
+      0 8px 10px -10px rgba(0, 0, 0, 0.62),
+      0 0 8px color-mix(in srgb, var(--ui-piece-glow-current) 24%, transparent),
+      inset 0 1px 1px rgba(255, 255, 255, 0.04),
+      inset 0 -4px 7px rgba(0, 0, 0, 0.24);
+  }
+
+  .piece-token--hovered {
+    filter: brightness(1.08);
+  }
+
+  .piece-token--hovered::before {
+    opacity: 1;
+    filter: blur(3px);
+  }
+
+  .piece-token--hovered::after {
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+      inset 0 0 0 2px rgba(255, 255, 255, 0.12);
+  }
+
+  .piece-token--afterlife {
+    box-shadow:
+      0 7px 8px -10px rgba(0, 0, 0, 0.68),
+      0 0 7px color-mix(in srgb, var(--ui-piece-glow-current) 20%, transparent),
+      inset 0 1px 1px rgba(255, 255, 255, 0.04),
+      inset 0 -4px 6px rgba(0, 0, 0, 0.22);
+  }
+
+  .senet-manuscript {
+    position: relative;
+    isolation: isolate;
+    background-color: var(--ui-modal-paper);
+    background-image:
+      radial-gradient(140% 115% at 50% 12%, rgba(255, 248, 229, 0.54) 0%, rgba(255, 244, 215, 0.32) 46%, rgba(120, 86, 40, 0.15) 100%),
+      linear-gradient(160deg, rgba(255, 246, 221, 0.66) 0%, rgba(245, 229, 194, 0.5) 48%, rgba(233, 213, 171, 0.56) 100%),
+      url("/assets/textures/papyrus_base.webp");
+    background-blend-mode: soft-light, multiply, normal;
+    background-position: center, center, center top;
+    background-repeat: no-repeat;
+    background-size: 100% 100%, 100% 100%, cover;
+    box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.12), inset 0 10px 30px rgba(0, 0, 0, 0.06);
+  }
+
+  .senet-manuscript::before,
+  .senet-manuscript::after {
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 0;
+  }
+
+  .senet-manuscript::before {
+    background: linear-gradient(180deg, rgba(255, 251, 236, 0.5) 0%, rgba(255, 247, 228, 0.4) 38%, rgba(249, 237, 209, 0.44) 100%);
+  }
+
+  .senet-manuscript::after {
+    background-image: url("/assets/textures/papyrus_fibers.webp");
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    mix-blend-mode: multiply;
+    opacity: 0.12;
+  }
+
+  .senet-manuscript > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .senet-manuscript .legend-content-surface {
+    background: transparent;
+  }
+}
+
+@media (max-width: 640px) {
+  .senet-manuscript::after {
+    opacity: 0.09;
+  }
+}
+
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  position: fixed;
+  z-index: 9999;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--ui-scroll-track);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--ui-scroll-thumb);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--ui-scroll-thumb-hover);
+}
