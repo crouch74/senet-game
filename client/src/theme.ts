@@ -7,6 +7,9 @@ export const THEME_IDS = [
   'afterlife-ember',
   'lotus-dawn',
   'color-blind',
+  'verdigris-copper',
+  'amethyst-canopy',
+  'red-oasis',
 ] as const
 
 export type ThemeId = (typeof THEME_IDS)[number]
@@ -49,6 +52,18 @@ export const THEMES: ReadonlyArray<{
   {
     id: 'color-blind',
     labelKey: 'hud.theme_options.color_blind',
+  },
+  {
+    id: 'verdigris-copper',
+    labelKey: 'hud.theme_options.verdigris_copper',
+  },
+  {
+    id: 'amethyst-canopy',
+    labelKey: 'hud.theme_options.amethyst_canopy',
+  },
+  {
+    id: 'red-oasis',
+    labelKey: 'hud.theme_options.red_oasis',
   },
 ]
 

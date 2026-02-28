@@ -38,7 +38,10 @@
             "solar_court": "Solar Court",
             "afterlife_ember": "Afterlife Ember",
             "lotus_dawn": "Lotus Dawn",
-            "color_blind": "Color-Blind High Contrast"
+            "color_blind": "Color-Blind High Contrast",
+            "verdigris_copper": "Verdigris Copper",
+            "amethyst_canopy": "Amethyst Canopy",
+            "red_oasis": "Red Oasis"
         },
         "theme_descriptions": {
             "royal": "Classic inlaid faience and gold.",
@@ -48,7 +51,10 @@
             "solar_court": "Ceremonial daylight stone and amber.",
             "afterlife_ember": "Underworld ember glow and shadow.",
             "lotus_dawn": "Serene dawn tones along the Nile.",
-            "color_blind": "High-contrast blues, golds, ivory, and charcoal for clearer piece and UI separation."
+            "color_blind": "High-contrast blues, golds, ivory, and charcoal for clearer piece and UI separation.",
+            "verdigris_copper": "Oxidized copper, patina teal, and pale limestone.",
+            "amethyst_canopy": "Jewel-toned violet, indigo, and silver moonlight.",
+            "red_oasis": "Clay red, basalt shadow, and chalk-white desert contrast."
         },
         "players": {
             "anubis": "ANUBIS",

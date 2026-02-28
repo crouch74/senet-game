@@ -38,7 +38,10 @@
             "solar_court": "Cour Solaire",
             "afterlife_ember": "Braise de l'Au-delà",
             "lotus_dawn": "Aube du Lotus",
-            "color_blind": "Contraste élevé daltonisme"
+            "color_blind": "Contraste élevé daltonisme",
+            "verdigris_copper": "Cuivre Vert-de-gris",
+            "amethyst_canopy": "Canopée Améthyste",
+            "red_oasis": "Oasis Rouge"
         },
         "theme_descriptions": {
             "royal": "Palette classique faïence et or.",
@@ -48,7 +51,10 @@
             "solar_court": "Pierre lumineuse et ambre cérémoniel.",
             "afterlife_ember": "Lueurs de braise du monde souterrain.",
             "lotus_dawn": "Lumière douce de l'aube sur le Nil.",
-            "color_blind": "Bleus, ors, ivoire et anthracite à fort contraste pour mieux distinguer les pièces et l'interface."
+            "color_blind": "Bleus, ors, ivoire et anthracite à fort contraste pour mieux distinguer les pièces et l'interface.",
+            "verdigris_copper": "Cuivre oxydé, patine bleu-vert et calcaire clair.",
+            "amethyst_canopy": "Violets précieux, indigo profond et lueur argentée.",
+            "red_oasis": "Rouge argile, ombre basaltique et blanc crayeux très lisible."
         },
         "players": {
             "anubis": "ANUBIS",
