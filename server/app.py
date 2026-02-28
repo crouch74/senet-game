@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Dict, Optional
 
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI, HTTPException, WebSocket
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -14,6 +14,7 @@ from .websocket_handler import handle_match_websocket
 
 configure_logging()
 logger = get_logger(__name__)
+SUPPORTED_GAMES = {"senet", "mehen"}
 
 
 def create_app(
@@ -35,9 +36,11 @@ def create_app(
         log_event(logger, "✅", "SYSTEM", "Senet Backend Booting up")
 
     @app.post("/api/match/create")
-    def create_room() -> Dict[str, str]:
-        room_id = room_service.create_room()
-        log_event(logger, "✅", "REST", f"Created new room {room_id}")
+    def create_room(game: str = "senet") -> Dict[str, str]:
+        if game not in SUPPORTED_GAMES:
+            raise HTTPException(status_code=400, detail="Unsupported game type")
+        room_id = room_service.create_room(game_type=game)
+        log_event(logger, "✅", "REST", f"Created new {game} room {room_id}")
         return {"room_id": room_id}
 
     @app.websocket("/api/match/{room_id}")

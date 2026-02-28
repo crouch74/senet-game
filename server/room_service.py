@@ -38,16 +38,26 @@ class RoomService:
         self.choose_letters = choose_letters
         self.roll_die = roll_die
 
-    def create_room(self) -> str:
+    def create_room(self, game_type: str = "senet") -> str:
         while True:
             letters = "".join(self.choose_letters(string.ascii_lowercase, k=9))
             room_id = f"{letters[:3]}-{letters[3:6]}-{letters[6:]}"
             if not self.registry.has(room_id):
-                self.registry.create_room(room_id)
+                self.registry.create_room(room_id, game_type=game_type)
                 return room_id
 
-    def assign_role(self, room_id: str, websocket: WebSocket) -> RoomRole:
+    def assign_role(
+        self,
+        room_id: str,
+        websocket: WebSocket,
+        expected_game_type: str | None = None,
+    ) -> RoomRole:
         room = self._get_room_or_raise(room_id)
+
+        if expected_game_type is not None and expected_game_type != room.game_type:
+            raise RoomAssignmentError(
+                f"Room game type mismatch: expected {expected_game_type}, got {room.game_type}"
+            )
 
         if self._is_spectator_join(room):
             room.spectators.add(websocket)

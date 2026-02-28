@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import type { GameState, Piece } from './types';
+import type { GameState, Piece } from '../../../engine/types';
 import {
   INITIAL_BOARD,
   applyMove,
@@ -13,6 +13,7 @@ const piece = (id: string, player: 'anubis' | 'sphinx', position: number): Piece
   id,
   player,
   position,
+  type: 'senet_piece',
 });
 
 const buildState = (overrides: Partial<GameState> = {}): GameState => {

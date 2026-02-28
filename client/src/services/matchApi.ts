@@ -33,8 +33,9 @@ export function createMatchApi(dependencies: MatchApiDependencies = {}) {
       return response.ok
     },
 
-    async createRoom(signal?: AbortSignal) {
-      const response = await fetchFn(MATCH_CREATE_PATH, {
+    async createRoom(gameType: 'senet' | 'mehen' = 'senet', signal?: AbortSignal) {
+      const url = gameType === 'senet' ? MATCH_CREATE_PATH : `${MATCH_CREATE_PATH}?game=${gameType}`
+      const response = await fetchFn(url, {
         method: 'POST',
         signal,
       })

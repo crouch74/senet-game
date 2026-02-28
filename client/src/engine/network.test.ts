@@ -54,8 +54,9 @@ describe('network', () => {
       buildMatchWebSocketUrl(
         { protocol: 'https:', host: 'example.com' },
         'Abc-Def-Ghi',
+        'mehen',
       ),
-    ).toBe('wss://example.com/api/match/abc-def-ghi');
+    ).toBe('wss://example.com/api/match/abc-def-ghi?game=mehen');
   });
 
   it('routes websocket lifecycle messages to the provided handlers', () => {
@@ -79,10 +80,10 @@ describe('network', () => {
       onSync: vi.fn(),
     };
 
-    manager.connect(' ABC-DEF-GHI ', handlers);
+    manager.connect(' ABC-DEF-GHI ', 'senet', handlers);
     const socket = sockets[0];
 
-    expect(socket.url).toBe('ws://localhost:5173/api/match/abc-def-ghi');
+    expect(socket.url).toBe('ws://localhost:5173/api/match/abc-def-ghi?game=senet');
 
     socket.emitOpen();
     socket.emitMessage(JSON.stringify({ type: 'init', player: 'anubis' }));
@@ -133,8 +134,8 @@ describe('network', () => {
       onSync: vi.fn(),
     };
 
-    manager.connect('abc-def-ghi', handlers);
-    manager.connect('jkl-mno-pqr', handlers);
+    manager.connect('abc-def-ghi', 'senet', handlers);
+    manager.connect('jkl-mno-pqr', 'mehen', handlers);
 
     sockets[0].emitOpen();
     expect(handlers.onOpen).not.toHaveBeenCalledWith('abc-def-ghi');
@@ -155,7 +156,7 @@ describe('network', () => {
     });
     const onError = vi.fn();
 
-    manager.connect('abc-def-ghi', {
+    manager.connect('abc-def-ghi', 'senet', {
       onClose: vi.fn(),
       onError,
       onGameStart: vi.fn(),
@@ -181,7 +182,7 @@ describe('network', () => {
       getLocation: () => ({ protocol: 'http:', host: 'localhost' }),
     });
 
-    manager.connect('abc-def-ghi', {
+    manager.connect('abc-def-ghi', 'senet', {
       onClose: vi.fn(),
       onError,
       onGameStart: vi.fn(),
@@ -207,7 +208,7 @@ describe('network', () => {
       getLocation: () => ({ protocol: 'http:', host: 'localhost' }),
     });
 
-    manager.connect('abc-def-ghi', {
+    manager.connect('abc-def-ghi', 'senet', {
       onClose: vi.fn(),
       onError: vi.fn(),
       onGameStart: vi.fn(),

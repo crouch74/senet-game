@@ -21,15 +21,33 @@ def test_nonexistent_rooms_are_rejected(client):
         }
 
 
+def test_room_join_rejects_game_type_mismatch(client):
+    room_id = client.post("/api/match/create?game=mehen").json()["room_id"]
+
+    with client.websocket_connect(f"/api/match/{room_id}?game=senet") as websocket:
+        assert websocket.receive_json() == {
+            "type": "error",
+            "message": "Room game type mismatch: expected senet, got mehen",
+        }
+
+
 def test_players_get_roles_and_opening_rolls_with_tie_rerolls(client, room_service):
     room_service.roll_die = fixed_rolls(3, 3, 2, 5)
     room_id = create_room(client)
 
     with client.websocket_connect(f"/api/match/{room_id}") as anubis:
-        assert anubis.receive_json() == {"type": "init", "player": "anubis"}
+        assert anubis.receive_json() == {
+            "type": "init",
+            "player": "anubis",
+            "game_type": "senet",
+        }
 
         with client.websocket_connect(f"/api/match/{room_id}") as sphinx:
-            assert sphinx.receive_json() == {"type": "init", "player": "sphinx"}
+            assert sphinx.receive_json() == {
+                "type": "init",
+                "player": "sphinx",
+                "game_type": "senet",
+            }
 
             game_start_for_anubis = anubis.receive_json()
             game_start_for_sphinx = sphinx.receive_json()
@@ -63,7 +81,11 @@ def test_spectators_receive_game_start_and_the_latest_sync_state(client, room_se
             }
 
             with client.websocket_connect(f"/api/match/{room_id}") as spectator:
-                assert spectator.receive_json() == {"type": "init", "role": "spectator"}
+                assert spectator.receive_json() == {
+                    "type": "init",
+                    "role": "spectator",
+                    "game_type": "senet",
+                }
                 assert spectator.receive_json() == {"type": "game_start"}
                 assert spectator.receive_json() == {
                     "type": "sync",

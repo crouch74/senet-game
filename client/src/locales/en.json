@@ -9,21 +9,55 @@
         "swap_positions": "Swap positions",
         "forward_only": "Forward only",
         "protected_adjacency": "Protected Adjacency:",
+        "yes": "Yes",
         "yes_pieces": "Yes, {{num}} pieces",
         "no": "No",
         "blockades": "Blockades:",
         "bearing_off": "Bearing Off:",
         "requires_exact_throw": "Requires exact throw",
         "any_sufficient_throw": "Any sufficient throw",
+        "sticks_count": "Throw Sticks:",
+        "extra_throws": "Extra turns on:",
         "rules_title": "Ancient Tradition",
+        "mehen_rules_title": "Papyrus of Play",
+        "mehen_board_size": "Coils on the board:",
+        "mehen_balls_per_player": "Balls per player:",
+        "mehen_entry_rule": "Reserve entry:",
+        "mehen_entry_from_reserve": "Any roll may bring one piece from the reserve box to coil 1",
+        "mehen_finish_rule": "Center entry:",
+        "mehen_exact_finish": "Exact roll required",
+        "mehen_bounce_back": "Bounce back on overshoot",
+        "mehen_capture_mode": "Capture result:",
+        "mehen_capture_rule": "Captures:",
+        "mehen_send_to_start": "Captured balls return to start",
+        "mehen_lion_blocking": "Lion blocks enemy balls:",
+        "mehen_safe_cells": "Safe coils:",
+        "mehen_forced_move": "If a move exists:",
+        "mehen_forced_move_value": "You must make one legal move or yield the turn",
+        "mehen_win_condition": "Victory condition:",
+        "mehen_win_conditions": {
+            "ALL_BALLS_AND_LION": "All balls and the lion reach the center",
+            "LION_ONLY": "The lion reaches the center",
+            "BALLS_ONLY": "All balls reach the center",
+            "FIRST_PIECE_TO_CENTER": "First piece to the center wins"
+        },
         "wins": "WINS"
     },
     "afterlife": {
         "title": "Afterlife",
-        "empty": "No souls have passed yet..."
+        "empty": "No souls have passed yet...",
+        "mehen": {
+            "title": "Heart of Mehen",
+            "empty": "No lion or ball has reached the serpent's heart yet."
+        },
+        "senet": {
+            "title": "Afterlife",
+            "empty": "No souls have passed yet..."
+        }
     },
     "hud": {
         "senet": "Senet",
+        "back_to_games": "Return to Games",
         "rules": "Rules: {{name}}",
         "current_turn": "Current Turn:",
         "wins": "{{player}} WINS!",
@@ -65,6 +99,10 @@
         "players": {
             "anubis": "ANUBIS",
             "sphinx": "SPHINX",
+            "horus": "HORUS",
+            "seth": "SETH",
+            "osiris": "OSIRIS",
+            "isis": "ISIS",
             "spectator": "SPECTATOR"
         }
     },
@@ -108,15 +146,18 @@
             "27": "The chaotic abyss. Souls unprepared may drown and be swept back to the House of Rebirth.",
             "28": "The hall of judgment, where the heart is weighed against the feather of Ma'at.",
             "29": "Joining the sun god Re-Atum on his eternal solar bark journey.",
-            "30": "The final threshold. Escaping with the blessing of Horus into the eternal afterlife."
+            "30": "The final threshold. Escaping with the blessing of Horus into the eternal afterlife.",
+            "60": "The Eye of Ra. The sacred center where the innermost coil ends and victory may be won."
         }
     },
     "ruleset": {
         "names": {
-            "common": "Sacred Path"
+            "common": "Sacred Path",
+            "mehen-standard": "Tradition of the Guarding Coil"
         },
         "descriptions": {
-            "common": "The traditional path of the soul through the Duat, involving protected pairs and strategic blockades."
+            "common": "The traditional path of the soul through the Duat, involving protected pairs and strategic blockades.",
+            "mehen-standard": "This house tradition of Mehen sends lions and balls inward from the reserve box. Safe coils grant sanctuary, lions guard the route, and victory comes only when every piece reaches the heart of the serpent."
         }
     },
     "history": {
@@ -127,7 +168,15 @@
         "washed_back": "🌊 Washed back to House of Rebirth (15)",
         "wins": "🏆 {{player}} WINS!",
         "extra_throw": "🎲 Extra throw granted!",
-        "no_moves": "🚫 No legal moves for {{player}}. Turn passes."
+        "no_moves": "🚫 No legal moves for {{player}}. Turn passes.",
+        "mehen_started": "🎲 [MEHEN] The serpent awakens. The journey begins.",
+        "mehen_move": "🏃 {{piece}} advances from {{from}} to {{to}}.",
+        "mehen_capture": "⚔️ {{piece}} is displaced from {{from}} to {{to}}.",
+        "mehen_safe_land": "🛡️ {{piece}} lands safely on coil {{to}}.",
+        "mehen_finish": "✨ {{piece}} reaches the center.",
+        "mehen_blocked": "🚫 {{player}} has no legal move and yields the turn.",
+        "mehen_extra_turn": "🎲 {{player}} receives an extra turn.",
+        "mehen_win": "🏆 {{player}} claims the center and wins!"
     },
     "lobby": {
         "create_room": "Create New Room",
@@ -145,19 +194,6 @@
         "copy": "Copy",
         "copied": "Copied!",
         "copy_room": "Copy room code",
-        "about_kicker": "The Sacred Game",
-        "about_title": "What Is Senet?",
-        "about_body": "Senet is not merely a board game, but a ceremonial race through fate itself. Two souls guide five pieces across a winding path, where every throw of the sticks may grant favor, invite peril, or open the road to immortality.",
-        "history_kicker": "Legacy of the Nile",
-        "history_title": "A Journey Through Dynasties",
-        "history_body": "Born in the courts and tombs of ancient Egypt, Senet endured for millennia as both noble pastime and sacred symbol. In painted walls, carved boxes, and royal burials, it appears as a game played at the threshold between earthly life and the eternal Duat.",
-        "fun_facts": {
-            "kicker": "Whispers of the Board",
-            "title": "Fun Facts",
-            "fact_1": "Senet boards were placed in tombs beside the dead, as though the contest might continue beyond the veil.",
-            "fact_2": "Its final squares were understood as charged places of trial and blessing, where danger, judgment, and divine passage gathered at the board's edge.",
-            "fact_3": "No single ancient rulebook survived, so the Senet played today is part scholarship, part restoration, and part reverent imagination."
-        },
         "online_unavailable": "Online mode is unavailable while the backend is offline.",
         "waiting_title": "Awaiting the Second Soul",
         "waiting_subtitle": "Share the room code with your opponent to begin the journey.",
@@ -169,59 +205,183 @@
             "not_found": "Room not found. Returning to the lobby.",
             "full": "Room is full. Returning to the lobby.",
             "unavailable": "Room is unavailable. Returning to the lobby."
-        }
+        },
+        "select_your_path": "Choose your journey"
     },
     "legend": {
-        "registry_title": "Tome of Resurrection",
-        "registry_subtitle": "WISDOM OF THE SCRIBE",
-        "title": "THE LEGEND OF THE TWILIGHT VOYAGE",
-        "p1": "Before the Great Pyramids touched the sky, the Scribes of Thoth recorded the first game of Senet. It is more than a diversion; it is a ritualistic map of the soul's perilous crossing through the Duat—the Egyptian underworld. Each board is a shadow of the cosmic order, where the journey from life to eternity is decided not just by skill, but by the favor of the gods.",
-        "p2": "Five 'Ba-souls' represent the fragments of your spirit, struggling to navigate the S-shaped path of existence. The sticks you cast are the breath of life; a 'perfect throw' signals the path is clear, while a 'miscast' leaves you vulnerable to the encroaching darkness. To move with a brother is to be shielded by Ma'at; to move alone is to invite the chaos of the void.",
-        "p3": "To win is to navigate the treacherous 'House of Water' and face the 'Three Truths' before finally ascending through the 'Gate of Horus' into the Field of Reeds. There, you shall join the Imperishable Stars and find eternal rest. To lose is to remain a wandering shadow, destined to repeat the cycle until your heart is light as a feather."
+        "registry_subtitle": "Tome of Knowledge",
+        "registry_title": "Legend & Instructions"
     },
-    "sacred_houses": {
-        "title": "THE FIVE GATES",
-        "h26": {
-            "title": "House of Beauty",
-            "desc": "The sanctuary of ritual anointing. Here, the soul gathers its strength for the final trials of the afterlife."
+    "landing": {
+        "title": "Valley of Kings",
+        "subtitle": "Ancient Egyptian Games",
+        "select_your_path": "Choose your journey"
+    },
+    "games": {
+        "senet": {
+            "title": "Senet",
+            "description": "The Game of Passing. A race across 30 squares to reach the afterlife.",
+            "legend": {
+                "title": "THE LEGEND OF THE TWILIGHT VOYAGE",
+                "p1": "Before the Great Pyramids touched the sky, the Scribes of Thoth recorded the first game of Senet. It is more than a diversion; it is a ritualistic map of the soul's perilous crossing through the Duat—the Egyptian underworld. Each board is a shadow of the cosmic order, where the journey from life to eternity is decided not just by skill, but by the favor of the gods.",
+                "p2": "Five 'Ba-souls' represent the fragments of your spirit, struggling to navigate the S-shaped path of existence. The sticks you cast are the breath of life; a 'perfect throw' signals the path is clear, while a 'miscast' leaves you vulnerable to the encroaching darkness. To move with a brother is to be shielded by Ma'at; to move alone is to invite the chaos of the void.",
+                "p3": "To win is to navigate the treacherous 'House of Water' and face the 'Three Truths' before finally ascending through the 'Gate of Horus' into the Field of Reeds. There, you shall join the Imperishable Stars and find eternal rest. To lose is to remain a wandering shadow, destined to repeat the cycle until your heart is light as a feather."
+            },
+            "sacred_houses": {
+                "title": "THE FIVE GATES",
+                "h26": {
+                    "title": "House of Beauty",
+                    "desc": "The sanctuary of ritual anointing. Here, the soul gathers its strength for the final trials of the afterlife."
+                },
+                "h27": {
+                    "title": "House of Water",
+                    "desc": "The Abyssal Abode. A perilous void; failing to cross will wash your spirit back to the House of Rebirth (15)."
+                },
+                "h28": {
+                    "title": "Hall of Three Truths",
+                    "desc": "The first trial of the scales. Only a precise command of THREE will allow you to hold your ground."
+                },
+                "h29": {
+                    "title": "The Solar Bark",
+                    "desc": "Joining the Sun God Re on his nocturnal voyage. A precise throw of TWO moves you toward the dawn."
+                },
+                "h30": {
+                    "title": "The Gate of Horus",
+                    "desc": "The final threshold. A single precise step of ONE grants your spirit ascension into the eternal stars."
+                }
+            },
+            "guide": {
+                "title": "SCROLL OF GUIDANCE",
+                "labels": {
+                    "objective": "The Divine Mandate",
+                    "movement": "The Spiral of Fate",
+                    "throwing": "Casting the Bones",
+                    "capturing": "The Shadow's Exchange",
+                    "protection": "The Sacred Pair",
+                    "blockades": "The Celestial Wall",
+                    "special": "The Gates of Duat",
+                    "bearing_off": "Spirit Ascension"
+                },
+                "objective": "Guide all five of your spirit pieces off the board's edge to secure your place among the stars.",
+                "movement": "Travel the S-shaped path across thirty squares. The journey begins on the first row and ends at the threshold of eternity.",
+                "throwing": "Cast the four sticks to determine your fate (1–5 steps). Throws of 1, 4, or 5 are blessed by the gods, granting an extra turn.",
+                "capturing": "An isolated enemy is vulnerable. Land upon them to banish their soul back to your previous position.",
+                "protection": "A pair of brothers standing together is sanctified by Ma'at. They cannot be captured or displaced.",
+                "blockades": "Three or more pieces in a row form an impassable barrier, for no soul may leap over such a concentration of spirit.",
+                "special": "Squares 26 to 30 are the final gates. Beware Square 27 (Water), for falling there washes you back to the House of Rebirth (15).",
+                "bearing_off": "To pass the final threshold, you must roll the exact count needed to step beyond the final square."
+            },
+            "lobby": {
+                "about_kicker": "The Sacred Game",
+                "about_title": "What Is Senet?",
+                "about_body": "Senet is not merely a board game, but a ceremonial race through fate itself. Two souls guide five pieces across a winding path, where every throw of the sticks may grant favor, invite peril, or open the road to immortality.",
+                "history_kicker": "Legacy of the Nile",
+                "history_title": "A Journey Through Dynasties",
+                "history_body": "Born in the courts and tombs of ancient Egypt, Senet endured for millennia as both noble pastime and sacred symbol. In painted walls, carved boxes, and royal burials, it appears as a game played at the threshold between earthly life and the eternal Duat.",
+                "fun_facts": {
+                    "kicker": "Whispers of the Board",
+                    "title": "Fun Facts",
+                    "fact_1": "Senet boards were placed in tombs beside the dead, as though the contest might continue beyond the veil.",
+                    "fact_2": "Its final squares were understood as charged places of trial and blessing, where danger, judgment, and divine passage gathered at the board's edge.",
+                    "fact_3": "No single ancient rulebook survived, so the Senet played today is part scholarship, part restoration, and part reverent imagination."
+                }
+            }
         },
-        "h27": {
-            "title": "House of Water",
-            "desc": "The Abyssal Abode. A perilous void; failing to cross will wash your spirit back to the House of Rebirth (15)."
-        },
-        "h28": {
-            "title": "Hall of Three Truths",
-            "desc": "The first trial of the scales. Only a precise command of THREE will allow you to hold your ground."
-        },
-        "h29": {
-            "title": "The Solar Bark",
-            "desc": "Joining the Sun God Re on his nocturnal voyage. A precise throw of TWO moves you toward the dawn."
-        },
-        "h30": {
-            "title": "The Gate of Horus",
-            "desc": "The final threshold. A single precise step of ONE grants your spirit ascension into the eternal stars."
+        "mehen": {
+            "title": "Mehen",
+            "description": "The Tradition of the Guarding Coil. Lions and balls race inward through a sacred spiral to claim the serpent's heart.",
+            "legend": {
+                "title": "THE LEGEND OF THE COILED SERPENT",
+                "p1": "In the deepest hours of the night, when the Sun God Re sails through the underworld, the great serpent Mehen coils around his bark. The serpent is protector, labyrinth, and sacred arena all at once, turning every inward step into a contest of nerve and favor.",
+                "p2": "Your balls race along the coils under the watch of a lion guardian. Some coils offer sanctuary, others invite sudden capture, and the lion's presence can turn a narrow path into a wall that only the worthy may cross.",
+                "p3": "This edition follows the Tradition of the Guarding Coil: every lion and every ball must press inward from the reserve box until all of them stand at the serpent's heart. Whoever completes that guarded ascent first wins Mehen's favor."
+            },
+            "sacred_coils": {
+                "title": "MARKS OF THE GUARDED COIL",
+                "reserve": {
+                    "title": "Reserve Box",
+                    "desc": "All lions and balls wait outside the spiral until a roll calls one of them onto the first coil."
+                },
+                "safe": {
+                    "title": "Guarded Coils",
+                    "desc": "Coils 10, 20, 30, 40, and 50 are protected places where a vulnerable ball may rest beyond capture."
+                },
+                "lion": {
+                    "title": "Lion's Wall",
+                    "desc": "A lion can strike enemy balls and bar their passage, turning one narrow coil into a living barrier."
+                },
+                "heart": {
+                    "title": "Heart of Mehen",
+                    "desc": "The spiral ends at Mehen's head, the seat of Ra. Every ball and the lion must reach this sacred center to win."
+                }
+            },
+            "guide": {
+                "title": "SCROLL OF THE SERPENT",
+                "labels": {
+                    "objective": "The Sacred Spiral",
+                    "players": "Keepers of the Coil",
+                    "opening": "Who Moves First",
+                    "setup": "Lions and Balls",
+                    "entry": "The Reserve Box",
+                    "turn": "Order of the Turn",
+                    "movement": "The Path of Coils",
+                    "throwing": "Sticks of Fate",
+                    "pieces": "The Two Kinds of Piece",
+                    "capturing": "The Lion's Strike",
+                    "protection": "Shelter of the Coil",
+                    "safe_spaces": "Guarded Coils",
+                    "blocking": "The Guardian's Wall",
+                    "finishing": "The Center Coil",
+                    "no_legal_move": "When the Path Closes",
+                    "clarifications": "Marks of the Coil",
+                    "tie_rule": "If Two Reach the Heart",
+                    "winning": "Claiming Mehen"
+                },
+                "objective": "Guide your lion and all five balls from the reserve box through the serpent's coils until every one of them reaches the center.",
+                "players": "The Tradition of the Guarding Coil is strongest with two to four players, though this board supports up to six. Each player commands one lion and five balls.",
+                "opening": "Before the race begins, each player rolls once. The highest roll takes the first turn, then play continues clockwise around the board.",
+                "setup": "All lions and balls begin outside the board in the reserve box. The spiral itself is a sequence of guarded coils that begins at the outer edge and ends at Mehen's head in the center.",
+                "entry": "All pieces begin outside the board in the reserve box. On any roll, you may bring one off-board lion or ball onto coil 1 if it is unoccupied.",
+                "turn": "Play proceeds clockwise. On each turn, roll, choose one legal piece, move it, resolve any capture or protection effects, then check whether the roll grants an extra turn.",
+                "movement": "Each turn moves one piece forward exactly the value rolled. You must make a legal move if one exists; if none exists, your turn ends immediately.",
+                "throwing": "The Mehen throw produces values from 1 to 5. Rolls of 1 or 5 are blessed and grant an extra turn after your move.",
+                "pieces": "Balls are vulnerable pieces that may be captured and returned to the reserve. The lion is the strong piece: it may capture enemy balls, it cannot be captured by balls, and it can hold the path against them.",
+                "capturing": "Landing on an unprotected enemy ball captures it and sends it back to the reserve box. Landing on your own piece or on an enemy lion is not allowed.",
+                "protection": "A ball is protected when it rests on a safe coil or on a coil next to its own lion. Protected balls cannot be captured.",
+                "safe_spaces": "Coils 10, 20, 30, 40, and 50 are safe coils. Any piece resting there is beyond capture for as long as it remains on that guarded place.",
+                "blocking": "A lion blocks the path of enemy balls. Opposing balls cannot pass through its coil, though enemy lions may still move beyond it.",
+                "finishing": "The center is the final coil. You must roll the exact number needed to enter it; overshooting the center makes that piece unable to move.",
+                "no_legal_move": "If the roll gives you no legal move at all, your turn ends at once. You may not pass voluntarily while a legal move remains.",
+                "clarifications": "Only one piece may occupy a coil at a time. Movement always follows the spiral inward; pieces never move backward except when a captured ball returns to the reserve.",
+                "tie_rule": "If more than one player completes the journey in the same round, the winner is the one who reached the center first.",
+                "winning": "You win only when all five balls and your lion have reached the center."
+            },
+            "board": {
+                "center_title": "Head of Mehen",
+                "center_subtitle": "Seat of Ra",
+                "reserve_title": "Reserve Box",
+                "reserve_subtitle": "Lions and balls wait here before entering the spiral.",
+                "lion": "Lion",
+                "ball": "Ball"
+            },
+            "lobby": {
+                "about_kicker": "Papyrus Fragment",
+                "about_title": "What Is Mehen?",
+                "about_body": "Mehen is a spiral race played in the shelter of the serpent god. In the Tradition of the Guarding Coil, each player commands one lion and five balls, entering from the reserve box and pressing inward while safe coils, captures, and blocking lions turn the road to the center into a guarded ascent.",
+                "history_kicker": "House Tradition",
+                "history_title": "The Guarding Coil",
+                "history_body": "Ancient Mehen survives in carved spiral boards and scattered evidence rather than in one complete rulebook. This edition resolves that uncertainty by adopting a single house tradition, the Tradition of the Guarding Coil, and using it consistently across the papyrus, the lobby, and the board.",
+                "fun_facts": {
+                    "kicker": "Secrets of the Spiral",
+                    "title": "Serpent Lore",
+                    "fact_1": "Mehen boards were carved as snakes curled into dense spirals, making the board itself part icon and part race track.",
+                    "fact_2": "This edition keeps the surviving spiral form but fixes play around one consistent tradition: reserve entry, exact center rolls, lion blocking, and victory only when every piece reaches the heart.",
+                    "fact_3": "Safe coils at 10, 20, 30, 40, and 50 reflect the serpent's guarded rings, where even a vulnerable ball may rest beyond capture."
+                }
+            }
         }
     },
     "guide": {
-        "title": "SCROLL OF GUIDANCE",
-        "button_label": "The Rules Papyrus",
-        "labels": {
-            "objective": "The Divine Mandate",
-            "movement": "The Spiral of Fate",
-            "throwing": "Casting the Bones",
-            "capturing": "The Shadow's Exchange",
-            "protection": "The Sacred Pair",
-            "blockades": "The Celestial Wall",
-            "special": "The Gates of Duat",
-            "bearing_off": "Spirit Ascension"
-        },
-        "objective": "Guide all five of your spirit pieces off the board's edge to secure your place among the stars.",
-        "movement": "Travel the S-shaped path across thirty squares. The journey begins on the first row and ends at the threshold of eternity.",
-        "throwing": "Cast the four sticks to determine your fate (1–5 steps). Throws of 1, 4, or 5 are blessed by the gods, granting an extra turn.",
-        "capturing": "An isolated enemy is vulnerable. Land upon them to banish their soul back to your previous position.",
-        "protection": "A pair of brothers standing together is sanctified by Ma'at. They cannot be captured or displaced.",
-        "blockades": "Three or more pieces in a row form an impassable barrier, for no soul may leap over such a concentration of spirit.",
-        "special": "Squares 26 to 30 are the final gates. Beware Square 27 (Water), for falling there washes you back to the House of Rebirth (15).",
-        "bearing_off": "To pass the final threshold, you must roll the exact count needed to step beyond the final square."
+        "button_label": "Rules Papyrus"
     }
 }

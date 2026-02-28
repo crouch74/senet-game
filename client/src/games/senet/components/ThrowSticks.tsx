@@ -1,14 +1,14 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
-import { playerAnubis, playerSphinx } from '../assets/royal'
-import { useSenetStore } from '../engine/store'
+import { playerAnubis, playerSphinx } from '../../../assets/royal'
+import { useSenetStore } from '../../../engine/store'
 import {
   throwSticksStoreSelector,
   useShallowSelector,
-} from '../engine/selectors'
-import { MaskedSvgIcon } from './common/MaskedSvgIcon'
-import { cn } from '../utils/cn'
-import { useThrowSticksState } from '../hooks/useThrowSticksState'
+} from '../../../engine/selectors'
+import { MaskedSvgIcon } from '../../../components/common/MaskedSvgIcon'
+import { cn } from '../../../utils/cn'
+import { useThrowSticksState } from '../../../hooks/useThrowSticksState'
 
 export function ThrowSticks() {
   const { t } = useTranslation()
@@ -19,7 +19,9 @@ export function ThrowSticks() {
     isOnline,
     throwSticks,
     winner,
+    ruleset,
   } = useSenetStore(useShallowSelector(throwSticksStoreSelector))
+  const sticksCount = ruleset.sticksCount ?? 4
   const { handleThrow, isMyTurn, isThrowing, stickLayouts } =
     useThrowSticksState({
       currentPlayer,
@@ -27,6 +29,7 @@ export function ThrowSticks() {
       isAutoRolling,
       throwSticks,
       winner,
+      sticksCount,
     })
   const currentPlayerIcon = currentPlayer === 'anubis' ? playerAnubis : playerSphinx
 
@@ -60,7 +63,7 @@ export function ThrowSticks() {
               transition={{ duration: 0.4, repeat: Infinity }}
               className="flex gap-2"
             >
-              {Array.from({ length: 4 }).map((_, index) => (
+              {Array.from({ length: sticksCount }).map((_, index) => (
                 <motion.div
                   key={`throwing-stick-${index}`}
                   animate={{
@@ -151,7 +154,7 @@ export function ThrowSticks() {
               )}
               disabled={Boolean(winner) || isThrowing}
             >
-              {Array.from({ length: 4 }).map((_, index) => (
+              {Array.from({ length: sticksCount }).map((_, index) => (
                 <div
                   key={`idle-stick-${index}`}
                   className="w-6 h-24 rounded-full bg-ui-stick-light border-2 border-royal-gold/60 shadow-[0_0_0_1px_rgba(0,0,0,0.28),0_8px_18px_rgba(0,0,0,0.35),inset_0_2px_5px_rgba(255,255,255,0.55)] group-hover:bg-ui-stick-light-hover group-hover:border-royal-gold transition-all duration-300 relative overflow-hidden"
@@ -171,7 +174,7 @@ export function ThrowSticks() {
               animate={{ opacity: 1 }}
               className="flex items-center gap-4 pointer-events-none"
             >
-              {Array.from({ length: 4 }).map((_, index) => (
+              {Array.from({ length: sticksCount }).map((_, index) => (
                 <motion.div
                   key={`waiting-stick-${index}`}
                   animate={{ opacity: [0.2, 0.5, 0.2] }}
@@ -199,7 +202,7 @@ export function ThrowSticks() {
             <div className="text-4xl font-bold text-royal-gold drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] font-serif">
               {t('throw.moves', { value: currentThrow.value })}
             </div>
-            {currentThrow.value === 5 && (
+            {(currentThrow.value === 5 || currentThrow.value === 12) && (
               <div className="text-xs text-royal-blue uppercase font-bold tracking-[0.2em] mt-2 opacity-90">
                 {t('throw.perfect_throw')}
               </div>

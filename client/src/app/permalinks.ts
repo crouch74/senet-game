@@ -1,4 +1,4 @@
-import type { OfflineMode } from '../engine/types'
+import type { OfflineMode, GameType } from '../engine/types'
 import { stripBasePath, withBasePath } from '../utils/urls'
 
 const ROOM_PATH_REGEX = /^\/room\/([a-z]{3}-[a-z]{3}-[a-z]{3})\/?$/i
@@ -18,33 +18,50 @@ export interface InitialPermalinkState {
   roomCode: string | null
   offlineMode: OfflineMode | null
   showLobby: boolean
+  gameType: GameType | null
 }
 
 export const getRoomCodeFromPath = (path: string) => {
-  const match = stripBasePath(path).match(ROOM_PATH_REGEX)
+  const match = path.match(ROOM_PATH_REGEX)
   return match ? match[1].toLowerCase() : null
 }
 
-export const getRoomPermalinkPath = (roomCode: string) =>
-  withBasePath(`/room/${roomCode.toLowerCase()}`)
+export const getRoomPermalinkPath = (roomCode: string, gameType: GameType) =>
+  withBasePath(`/${gameType}/room/${roomCode.toLowerCase()}`)
 
-export const getOfflineModePermalinkPath = (mode: OfflineMode) =>
-  withBasePath(`/mode/${OFFLINE_MODE_TO_SLUG[mode]}`)
+export const getOfflineModePermalinkPath = (mode: OfflineMode, gameType: GameType) =>
+  withBasePath(`/${gameType}/mode/${OFFLINE_MODE_TO_SLUG[mode]}`)
 
 export const getOfflineModeFromPath = (path: string): OfflineMode | null => {
-  const match = stripBasePath(path).match(OFFLINE_MODE_PATH_REGEX)
+  const match = path.match(OFFLINE_MODE_PATH_REGEX)
   if (!match) return null
   return SLUG_TO_OFFLINE_MODE[match[1].toLowerCase()] ?? null
 }
 
-export const getInitialPermalinkState = (path: string): InitialPermalinkState => {
-  const roomCode = getRoomCodeFromPath(path)
-  const offlineMode = roomCode ? null : getOfflineModeFromPath(path)
+export const getInitialPermalinkState = (path: string, _search: string): InitialPermalinkState => {
+  const strippedPath = stripBasePath(path)
+  const parts = strippedPath.split('/').filter(Boolean)
+
+  let gameType: GameType | null = null
+  let remainingPath = strippedPath
+
+  if (parts.length > 0 && (parts[0] === 'senet' || parts[0] === 'mehen')) {
+    gameType = parts[0] as GameType
+    remainingPath = '/' + parts.slice(1).join('/')
+    if (remainingPath === '//') remainingPath = '/'
+  }
+
+  const roomCode = getRoomCodeFromPath(remainingPath)
+  const offlineMode = roomCode ? null : getOfflineModeFromPath(remainingPath)
+
+  // If we have a game type but no specific sub-route, we show the lobby
+  const isAtGameRoot = gameType !== null && remainingPath === '/'
 
   return {
     roomCode,
     offlineMode,
-    showLobby: offlineMode === null,
+    showLobby: isAtGameRoot || (gameType !== null && roomCode === null && offlineMode === null),
+    gameType,
   }
 }
 
@@ -54,8 +71,9 @@ const replacePath = (path: string) => {
   }
 }
 
-export const setLobbyPath = () => replacePath(withBasePath('/'))
-export const setRoomPath = (roomCode: string) =>
-  replacePath(getRoomPermalinkPath(roomCode))
-export const setOfflineModePath = (mode: OfflineMode) =>
-  replacePath(getOfflineModePermalinkPath(mode))
+export const setLobbyPath = (gameType: GameType) => replacePath(withBasePath(`/${gameType}`))
+export const setRoomPath = (roomCode: string, gameType: GameType) =>
+  replacePath(getRoomPermalinkPath(roomCode, gameType))
+export const setOfflineModePath = (mode: OfflineMode, gameType: GameType) =>
+  replacePath(getOfflineModePermalinkPath(mode, gameType))
+export const setLandingPath = () => replacePath(withBasePath('/'))

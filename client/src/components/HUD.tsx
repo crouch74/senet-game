@@ -8,10 +8,12 @@ import {
 import { cn } from '../utils/cn'
 import { THEMES, type ThemeId } from '../theme'
 import { getDevAutoplayConfig } from './hud/devAutoplay'
+import { getPlayerAppearance } from '../utils/playerAppearance'
 
 interface HUDProps {
   isLobby?: boolean
   onReturnToLobby?: () => void
+  onBackToGames?: () => void
   theme: ThemeId
   setTheme: (theme: ThemeId) => void
 }
@@ -19,11 +21,13 @@ interface HUDProps {
 export function HUD({
   isLobby = false,
   onReturnToLobby,
+  onBackToGames,
   theme,
   setTheme,
 }: HUDProps) {
   const {
     currentPlayer,
+    gameType,
     isAutoPlaying,
     isOnline,
     playRandomTurns,
@@ -43,15 +47,28 @@ export function HUD({
     playRandomTurns(config.turnsCount, config.speed)
   }
 
+  const currentPlayerAppearance = getPlayerAppearance(currentPlayer)
+
   return (
     <>
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 md:gap-5 w-full p-4 sm:p-5 md:p-6 bg-ui-header-bg backdrop-blur-md rounded-md border-b-2 border-ui-header-border shadow-[0_20px_30px_rgba(0,0,0,0.8),inset_0_2px_10px_var(--ui-header-shadow-inset)] mb-5 md:mb-8 relative">
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-royal-gold to-transparent opacity-80" />
 
         <div className="flex flex-col w-full lg:w-auto">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-royal-gold tracking-[0.2em] sm:tracking-[0.26em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-bold">
-            {t('hud.senet')}
-          </h1>
+          <div className="flex items-center gap-3">
+            {onBackToGames && (
+              <button
+                onClick={onBackToGames}
+                className="p-1.5 hover:bg-royal-gold/10 text-royal-gold/60 hover:text-royal-gold border border-royal-gold/20 rounded transition-all group"
+                title={t('hud.back_to_games', { defaultValue: 'Back to Games' })}
+              >
+                <Home className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              </button>
+            )}
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-royal-gold tracking-[0.2em] sm:tracking-[0.26em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-bold">
+              {t(`games.${gameType}.title`)}
+            </h1>
+          </div>
           <div className="text-royal-ivory/80 text-xs sm:text-sm mt-1 uppercase tracking-[0.2em] sm:tracking-widest font-mono opacity-90">
             {t('hud.rules', { name: t(`ruleset.names.${ruleset.id}`) })}
           </div>
@@ -71,9 +88,7 @@ export function HUD({
                 <div
                   className={cn(
                     'px-4 sm:px-6 py-1.5 rounded-sm font-bold uppercase tracking-[0.12em] sm:tracking-widest text-xs sm:text-sm shadow-[0_2px_5px_rgba(0,0,0,0.5)] transition-all duration-300 border whitespace-nowrap',
-                    currentPlayer === 'anubis'
-                      ? 'bg-royal-gold text-ui-turn-pill-foreground border-yellow-300/50'
-                      : 'bg-ui-turn-pill-bg text-royal-gold border-royal-gold/80',
+                    currentPlayerAppearance.pillClassName,
                   )}
                 >
                   {t(`hud.players.${currentPlayer}`)}

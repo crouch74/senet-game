@@ -15,11 +15,13 @@ class ErrorPayload(TypedDict):
 class SpectatorInitPayload(TypedDict):
     role: Literal["spectator"]
     type: Literal["init"]
+    game_type: str
 
 
 class PlayerInitPayload(TypedDict):
     player: RoomPlayer
     type: Literal["init"]
+    game_type: str
 
 
 class GameStartPayload(TypedDict, total=False):
@@ -41,11 +43,13 @@ def build_error_payload(message: str) -> ErrorPayload:
     return {"type": "error", "message": message}
 
 
-def build_init_payload(role: RoomRole) -> SpectatorInitPayload | PlayerInitPayload:
+def build_init_payload(
+    role: RoomRole, game_type: str = "senet"
+) -> SpectatorInitPayload | PlayerInitPayload:
     if role == "spectator":
-        return {"type": "init", "role": role}
+        return {"type": "init", "role": role, "game_type": game_type}
 
-    return {"type": "init", "player": role}
+    return {"type": "init", "player": role, "game_type": game_type}
 
 
 def build_game_start_payload(

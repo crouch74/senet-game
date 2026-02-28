@@ -1,10 +1,4 @@
 import type { GameState, ThrowResult } from './types'
-import {
-  applyMove as applyMoveDefault,
-  autoPassIfNoMoves as autoPassIfNoMovesDefault,
-  getLegalMoves as getLegalMovesDefault,
-  getThrowResult as getThrowResultDefault,
-} from './logic'
 
 export type AutoPlaySpeed = 'human' | 'quick' | 'fast' | 'immediate'
 
@@ -22,10 +16,10 @@ export const sleep = (ms: number) =>
   new Promise<void>((resolve) => setTimeout(resolve, ms))
 
 export interface AutoPlayDependencies {
-  applyMove?: typeof applyMoveDefault
-  autoPassIfNoMoves?: typeof autoPassIfNoMovesDefault
-  getLegalMoves?: typeof getLegalMovesDefault
-  getThrowResult?: typeof getThrowResultDefault
+  applyMove: (state: GameState, pieceId: string) => GameState
+  autoPassIfNoMoves: (state: GameState) => GameState
+  getLegalMoves: (state: GameState) => { pieceId: string; targetSquare: number }[]
+  getThrowResult: () => ThrowResult
   random?: () => number
 }
 
@@ -37,14 +31,9 @@ export interface AutoPlayTurnResult {
 
 export const executeAutoPlayTurn = (
   state: GameState,
-  dependencies: AutoPlayDependencies = {},
+  dependencies: AutoPlayDependencies,
 ): AutoPlayTurnResult => {
-  const getThrowResult = dependencies.getThrowResult ?? getThrowResultDefault
-  const getLegalMoves = dependencies.getLegalMoves ?? getLegalMovesDefault
-  const applyMove = dependencies.applyMove ?? applyMoveDefault
-  const autoPassIfNoMoves =
-    dependencies.autoPassIfNoMoves ?? autoPassIfNoMovesDefault
-  const random = dependencies.random ?? Math.random
+  const { applyMove, autoPassIfNoMoves, getLegalMoves, getThrowResult, random = Math.random } = dependencies
 
   if (state.winner) {
     return { nextState: state, movedPieceId: null }
@@ -80,7 +69,7 @@ export const executeAutoPlayTurn = (
 export const playImmediateAutoTurns = (
   state: GameState,
   turnsCount: number,
-  dependencies: AutoPlayDependencies = {},
+  dependencies: AutoPlayDependencies,
 ) => {
   let nextState = state
 

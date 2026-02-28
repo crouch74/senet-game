@@ -1,8 +1,9 @@
-import type { GameState, Piece, ThrowResult } from './types';
+import type { GameState, Piece, ThrowResult } from '../../../engine/types';
 import { CommonRuleset } from './rules';
-import type { Ruleset } from './types';
+import type { Ruleset } from '../../../engine/types';
 
 const toGameStateSnapshot = (gameState: GameState): GameState => ({
+    gameType: gameState.gameType,
     board: gameState.board,
     currentPlayer: gameState.currentPlayer,
     currentThrow: gameState.currentThrow,
@@ -17,20 +18,21 @@ const cloneBoard = (board: Piece[]): Piece[] => structuredClone(board);
 export const INITIAL_BOARD: Piece[] = [
     // Senet usually starts with pieces alternating on the first 10 squares
     // e.g., Anubis, Sphinx, Anubis, Sphinx...
-    { id: 'L1', player: 'anubis', position: 1 },
-    { id: 'D1', player: 'sphinx', position: 2 },
-    { id: 'L2', player: 'anubis', position: 3 },
-    { id: 'D2', player: 'sphinx', position: 4 },
-    { id: 'L3', player: 'anubis', position: 5 },
-    { id: 'D3', player: 'sphinx', position: 6 },
-    { id: 'L4', player: 'anubis', position: 7 },
-    { id: 'D4', player: 'sphinx', position: 8 },
-    { id: 'L5', player: 'anubis', position: 9 },
-    { id: 'D5', player: 'sphinx', position: 10 },
+    { id: 'L1', player: 'anubis', position: 1, type: 'senet_piece' },
+    { id: 'D1', player: 'sphinx', position: 2, type: 'senet_piece' },
+    { id: 'L2', player: 'anubis', position: 3, type: 'senet_piece' },
+    { id: 'D2', player: 'sphinx', position: 4, type: 'senet_piece' },
+    { id: 'L3', player: 'anubis', position: 5, type: 'senet_piece' },
+    { id: 'D3', player: 'sphinx', position: 6, type: 'senet_piece' },
+    { id: 'L4', player: 'anubis', position: 7, type: 'senet_piece' },
+    { id: 'D4', player: 'sphinx', position: 8, type: 'senet_piece' },
+    { id: 'L5', player: 'anubis', position: 9, type: 'senet_piece' },
+    { id: 'D5', player: 'sphinx', position: 10, type: 'senet_piece' },
 ];
 
 export function createInitialState(ruleset: Ruleset = CommonRuleset): GameState {
     return {
+        gameType: 'senet',
         board: cloneBoard(INITIAL_BOARD),
         currentPlayer: 'anubis',
         currentThrow: null,

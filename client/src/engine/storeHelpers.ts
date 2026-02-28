@@ -5,6 +5,7 @@ export interface LastMove {
   from: number
   isCapture?: boolean
   pieceId: string
+  roll?: number
   to: number
 }
 
@@ -19,10 +20,17 @@ export interface LocalTurnState {
 }
 
 export const extractGameState = (state: GameState): GameState => ({
+  gameType: state.gameType,
   board: state.board,
+  boardSize: state.boardSize,
   currentPlayer: state.currentPlayer,
   currentThrow: state.currentThrow,
+  lastRoll: state.lastRoll,
   ruleset: state.ruleset,
+  mehenConfig: state.mehenConfig,
+  players: state.players,
+  safeCells: state.safeCells,
+  turnIndex: state.turnIndex,
   winner: state.winner,
   historyLog: state.historyLog,
 })
@@ -30,14 +38,32 @@ export const extractGameState = (state: GameState): GameState => ({
 export const buildSyncedGameState = (
   state: Pick<
     GameState,
-    'board' | 'currentPlayer' | 'currentThrow' | 'historyLog' | 'winner'
+    | 'board'
+    | 'boardSize'
+    | 'currentPlayer'
+    | 'currentThrow'
+    | 'historyLog'
+    | 'lastRoll'
+    | 'mehenConfig'
+    | 'players'
+    | 'safeCells'
+    | 'turnIndex'
+    | 'winner'
+    | 'gameType'
   >,
 ): Partial<GameState> => ({
+  gameType: state.gameType,
   board: state.board,
+  boardSize: state.boardSize,
   currentPlayer: state.currentPlayer,
   currentThrow: state.currentThrow,
+  lastRoll: state.lastRoll,
   winner: state.winner,
   historyLog: state.historyLog,
+  mehenConfig: state.mehenConfig,
+  players: state.players,
+  safeCells: state.safeCells,
+  turnIndex: state.turnIndex,
 })
 
 export const isLocalTurnState = (state: LocalTurnState) => {
@@ -77,10 +103,19 @@ export const buildLastMove = (
     )
   })
 
+  const latestMoveEvent = [...nextState.historyLog]
+    .reverse()
+    .find(
+      (event) =>
+        event.eventType === 'MOVE' &&
+        (event.pieceId === movedPieceId || event.piece === movedPieceId),
+    )
+
   return {
     pieceId: movedPieceId,
     from: previousPiece.position,
     to: nextPiece.position,
     isCapture: Boolean(capturedPiece),
+    roll: latestMoveEvent?.roll,
   }
 }

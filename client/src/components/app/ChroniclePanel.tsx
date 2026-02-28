@@ -2,10 +2,53 @@ import { useTranslation } from 'react-i18next'
 import type { HistoryEvent } from '../../engine/types'
 import { cn } from '../../utils/cn'
 import { formatNumber } from '../../utils/format'
+import { getPlayerAppearance } from '../../utils/playerAppearance'
 
 interface ChroniclePanelProps {
   historyLog: HistoryEvent[]
 }
+
+const PLAYER_IDS = new Set([
+  'anubis',
+  'sphinx',
+  'horus',
+  'seth',
+  'osiris',
+  'isis',
+  'spectator',
+])
+
+const localizePlayer = (
+  value: unknown,
+  t: ReturnType<typeof useTranslation>['t'],
+) => {
+  if (typeof value !== 'string' || !PLAYER_IDS.has(value)) return value
+  return t(`hud.players.${value}`)
+}
+
+const localizePiece = (
+  value: unknown,
+  t: ReturnType<typeof useTranslation>['t'],
+) => {
+  if (typeof value !== 'string') return value
+
+  const match = value.match(
+    /^(anubis|sphinx|horus|seth|osiris|isis)-(lion|ball)(?:-(\d+))?$/,
+  )
+  if (!match) return value
+
+  const [, owner, type, ordinal] = match
+  const ownerLabel = t(`hud.players.${owner}`)
+  const typeLabel = t(`games.mehen.board.${type}`)
+  return ordinal
+    ? `${ownerLabel} ${typeLabel} ${formatNumber(ordinal)}`
+    : `${ownerLabel} ${typeLabel}`
+}
+
+const localizeNumberish = (value: unknown) =>
+  typeof value === 'number' || typeof value === 'string'
+    ? formatNumber(value)
+    : value
 
 export function ChroniclePanel({ historyLog }: ChroniclePanelProps) {
   const { t } = useTranslation()
@@ -17,9 +60,26 @@ export function ChroniclePanel({ historyLog }: ChroniclePanelProps) {
       </h2>
       <div className="overflow-y-auto overscroll-contain flex flex-col gap-2 text-sm pr-2 custom-scrollbar h-56">
         {historyLog.slice().reverse().map((log, index) => {
-          const translatedParams = log.params?.player
-            ? { ...log.params, player: t(`hud.players.${log.params.player}`) }
-            : log.params
+          const mergedParams: Record<string, unknown> = {
+            from: log.from,
+            to: log.to,
+            turn: log.turn,
+            roll: log.roll,
+            piece: log.piece ?? log.pieceId,
+            player: log.player,
+            ...log.params,
+          }
+
+          const translatedParams = {
+            ...mergedParams,
+            player: localizePlayer(mergedParams.player, t),
+            piece: localizePiece(mergedParams.piece, t),
+            from: localizeNumberish(mergedParams.from),
+            to: localizeNumberish(mergedParams.to),
+            turn: localizeNumberish(mergedParams.turn),
+            roll: localizeNumberish(mergedParams.roll),
+            pos: localizeNumberish(mergedParams.pos),
+          }
 
           return (
             <div
@@ -33,9 +93,7 @@ export function ChroniclePanel({ historyLog }: ChroniclePanelProps) {
                 <span
                   className={cn(
                     'w-2 h-2 rounded-full mt-1.5 shrink-0 shadow-[0_0_5px_rgba(0,0,0,0.5)]',
-                    log.player === 'anubis'
-                      ? 'bg-royal-gold'
-                      : 'bg-royal-ebony border border-royal-gold/30',
+                    getPlayerAppearance(log.player).accentClassName,
                   )}
                   title={t(`hud.players.${log.player}`)}
                 />

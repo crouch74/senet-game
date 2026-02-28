@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next'
-import type { PlayerID, Ruleset } from '../engine/types'
-import { cn } from '../utils/cn'
-import { formatNumber } from '../utils/format'
-import { MaskedSvgIcon } from './common/MaskedSvgIcon'
+import type { PlayerID, Ruleset } from '../../../engine/types'
+import { cn } from '../../../utils/cn'
+import { formatNumber } from '../../../utils/format'
+import { MaskedSvgIcon } from '../../../components/common/MaskedSvgIcon'
 import type { HouseIcon } from './board/houseIcons'
 
 interface SquareProps {
@@ -41,24 +41,24 @@ export function Square({
         'relative flex flex-col items-center justify-center aspect-square group box-border',
         'bg-ui-square-base transition-all duration-500',
         isRecentlyActivated &&
-          'z-30 bg-ui-square-active scale-[1.05] ring-2 ring-white/50 shadow-[0_0_40px_rgba(255,255,255,0.4)] animate-pulse',
+        'z-30 bg-ui-square-active scale-[1.05] ring-2 ring-white/50 shadow-[0_0_40px_rgba(255,255,255,0.4)] animate-pulse',
         'border-[0.5px] border-black/80',
         'shadow-[inset_0_2px_4px_rgba(255,255,255,0.05),inset_0_-2px_4px_rgba(0,0,0,0.4),inset_0_0_10px_rgba(0,0,0,0.7)]',
         'after:absolute after:inset-0 after:bg-gradient-to-tr after:from-black/20 after:to-white/5 after:pointer-events-none',
         isActionableMove &&
-          cn(
-            'cursor-pointer',
-            currentPlayer === 'anubis'
-              ? 'ring-1 ring-royal-gold/40 shadow-[inset_0_0_30px_rgba(212,175,55,0.2)]'
-              : 'ring-1 ring-royal-ivory/40 shadow-[inset_0_0_30px_rgba(255,255,240,0.2)]',
-          ),
+        cn(
+          'cursor-pointer',
+          currentPlayer === 'anubis'
+            ? 'ring-1 ring-royal-gold/40 shadow-[inset_0_0_30px_rgba(212,175,55,0.2)]'
+            : 'ring-1 ring-royal-ivory/40 shadow-[inset_0_0_30px_rgba(255,255,240,0.2)]',
+        ),
         isHoveredTarget &&
-          cn(
-            'z-20 scale-[1.02] bg-ui-square-hover',
-            currentPlayer === 'anubis'
-              ? 'ring-2 ring-royal-gold shadow-[0_10px_30px_rgba(212,175,55,0.4),inset_0_0_40px_rgba(212,175,55,0.2)]'
-              : 'ring-2 ring-royal-ivory shadow-[0_10px_30px_rgba(255,255,240,0.4),inset_0_0_40px_rgba(255,255,240,0.2)]',
-          ),
+        cn(
+          'z-20 scale-[1.02] bg-ui-square-hover',
+          currentPlayer === 'anubis'
+            ? 'ring-2 ring-royal-gold shadow-[0_10px_30px_rgba(212,175,55,0.4),inset_0_0_40px_rgba(212,175,55,0.2)]'
+            : 'ring-2 ring-royal-ivory shadow-[0_10px_30px_rgba(255,255,240,0.4),inset_0_0_40px_rgba(255,255,240,0.2)]',
+        ),
       )}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -112,10 +112,10 @@ export function Square({
                 style={
                   isLegalMove
                     ? {
-                        backgroundColor: 'var(--ui-piece-legal-ring)',
-                        filter:
-                          'drop-shadow(0 0 5px var(--ui-piece-legal-ring))',
-                      }
+                      backgroundColor: 'var(--ui-piece-legal-ring)',
+                      filter:
+                        'drop-shadow(0 0 5px var(--ui-piece-legal-ring))',
+                    }
                     : icon.backgroundStyle
                 }
               >
@@ -143,7 +143,7 @@ export function Square({
               ? 'bg-gradient-to-r from-transparent via-royal-gold to-transparent shadow-[0_0_12px_rgba(212,175,55,0.8)]'
               : 'bg-gradient-to-r from-transparent via-royal-ivory to-transparent shadow-[0_0_12px_rgba(255,255,240,0.8)]',
             isHoveredTarget &&
-              'h-[4px] bottom-0 opacity-100 via-white shadow-[0_0_20px_rgba(255,255,255,0.6)]',
+            'h-[4px] bottom-0 opacity-100 via-white shadow-[0_0_20px_rgba(255,255,255,0.6)]',
           )}
         />
       )}

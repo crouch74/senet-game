@@ -10,6 +10,7 @@ import {
 import { cn } from '../utils/cn'
 import { createLogger } from '../services/logger'
 import { getIsWinner } from './gameOver/winnerStatus'
+import { getPlayerAppearance } from '../utils/playerAppearance'
 
 interface GameOverProps {
   onReturnToLobby: () => void
@@ -49,6 +50,7 @@ export function GameOver({ onReturnToLobby }: GameOverProps) {
     offlineMode,
     winner,
   })
+  const winnerAppearance = getPlayerAppearance(winner)
 
   return (
     <AnimatePresence>
@@ -115,9 +117,7 @@ export function GameOver({ onReturnToLobby }: GameOverProps) {
               <div
                 className={cn(
                   'text-3xl font-bold px-6 py-2 rounded-lg border',
-                  winner === 'anubis'
-                    ? 'bg-royal-gold/20 border-royal-gold text-royal-gold'
-                    : 'bg-royal-ebony/40 border-royal-gold/30 text-sand',
+                  winnerAppearance.pillClassName,
                 )}
               >
                 {t(`hud.players.${winner}`)}{' '}

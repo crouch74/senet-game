@@ -7,10 +7,14 @@ import {
   house30Falcon,
 } from '../assets/royal'
 
+interface LegendContentProps {
+  gameType: 'senet' | 'mehen'
+}
+
 /**
  * Styled manuscript content for the guide modal.
  */
-export function LegendContent() {
+export function LegendContent({ gameType }: LegendContentProps) {
   const { t } = useTranslation()
 
   const sacredHouses = [
@@ -20,17 +24,45 @@ export function LegendContent() {
     { num: 29, icon: house29SunDisk, type: 'svg' as const },
     { num: 30, icon: house30Falcon, type: 'svg' as const },
   ]
-
-  const guideItems = [
-    'objective',
-    'movement',
-    'throwing',
-    'capturing',
-    'protection',
-    'blockades',
-    'special',
-    'bearing_off',
+  const mehenStations = [
+    { id: 'reserve', icon: '□', type: 'text' as const },
+    { id: 'safe', icon: '◈', type: 'text' as const },
+    { id: 'lion', icon: '𓃭', type: 'text' as const },
+    { id: 'heart', icon: house29SunDisk, type: 'svg' as const },
   ]
+
+  const guideItems =
+    gameType === 'senet'
+      ? [
+        'objective',
+        'movement',
+        'throwing',
+        'capturing',
+        'protection',
+        'blockades',
+        'special',
+        'bearing_off',
+      ]
+      : [
+        'objective',
+        'players',
+        'opening',
+        'setup',
+        'entry',
+        'turn',
+        'movement',
+        'throwing',
+        'pieces',
+        'capturing',
+        'protection',
+        'safe_spaces',
+        'blocking',
+        'finishing',
+        'no_legal_move',
+        'clarifications',
+        'tie_rule',
+        'winning',
+      ]
 
   return (
     <div className="legend-content-surface bg-ui-legend-paper p-8 md:p-14 text-ui-paper-text relative overflow-hidden">
@@ -40,18 +72,18 @@ export function LegendContent() {
         <div className="flex flex-col items-center mb-10">
           <div className="w-12 h-px bg-royal-gold/40 mb-4" />
           <h3 className="text-ui-paper-text font-serif text-3xl md:text-4xl text-center tracking-[0.16em] uppercase font-semibold drop-shadow-[0_1px_0_rgba(255,255,255,0.2)]">
-            {t('legend.title')}
+            {t(`games.${gameType}.legend.title`)}
           </h3>
           <div className="w-24 h-[2px] bg-royal-gold/20 mt-4" />
         </div>
 
         <div className="space-y-6 font-serif text-lg md:text-xl leading-relaxed italic text-ui-paper-text opacity-90 max-w-2xl mx-auto text-center rtl:text-right ltr:text-left">
           <p className="first-letter:text-4xl first-letter:font-bold first-letter:text-royal-gold first-letter:me-2 first-letter:float-left rtl:first-letter:float-right">
-            {t('legend.p1')}
+            {t(`games.${gameType}.legend.p1`)}
           </p>
-          <p>{t('legend.p2')}</p>
+          <p>{t(`games.${gameType}.legend.p2`)}</p>
           <p className="border-t border-royal-gold/10 pt-6 mt-6">
-            {t('legend.p3')}
+            {t(`games.${gameType}.legend.p3`)}
           </p>
         </div>
       </section>
@@ -62,53 +94,105 @@ export function LegendContent() {
         <div className="flex-1 h-px bg-royal-gold" />
       </div>
 
-      <section className="relative z-10 mb-16">
-        <h3 className="text-ui-paper-text font-serif text-2xl md:text-3xl mb-12 text-center tracking-[0.16em] font-semibold uppercase">
-          {t('sacred_houses.title')}
-        </h3>
+      {gameType === 'senet' && (
+        <section className="relative z-10 mb-16">
+          <h3 className="text-ui-paper-text font-serif text-2xl md:text-3xl mb-12 text-center tracking-[0.16em] font-semibold uppercase">
+            {t(`games.${gameType}.sacred_houses.title`)}
+          </h3>
 
-        <div className="grid grid-cols-1 gap-8 max-w-lg mx-auto">
-          {sacredHouses.map((house) => (
-            <div
-              key={house.num}
-              className="flex items-center gap-6 group hover:translate-x-1 transition-transform duration-300"
-            >
-              <div className="shrink-0 w-16 h-16 flex items-center justify-center bg-royal-ebony/5 border-2 border-royal-gold/15 rounded-sm shadow-sm group-hover:border-royal-gold/40 transition-all duration-500 overflow-hidden relative">
-                <div className="absolute inset-0 bg-royal-gold/0 group-hover:bg-royal-gold/5 transition-colors" />
+          <div className="grid grid-cols-1 gap-8 max-w-lg mx-auto">
+            {sacredHouses.map((house) => (
+              <div
+                key={house.num}
+                className="flex items-center gap-6 group hover:translate-x-1 transition-transform duration-300"
+              >
+                <div className="shrink-0 w-16 h-16 flex items-center justify-center bg-royal-ebony/5 border-2 border-royal-gold/15 rounded-sm shadow-sm group-hover:border-royal-gold/40 transition-all duration-500 overflow-hidden relative">
+                  <div className="absolute inset-0 bg-royal-gold/0 group-hover:bg-royal-gold/5 transition-colors" />
 
-                {house.type === 'text' ? (
-                  <span className="text-3xl text-royal-green drop-shadow-sm font-bold">
-                    {house.icon}
-                  </span>
-                ) : (
-                  <div
-                    className="w-10 h-10 bg-royal-gold opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
-                    style={{
-                      maskImage: `url("${house.icon}")`,
-                      maskRepeat: 'no-repeat',
-                      maskPosition: 'center',
-                      maskSize: 'contain',
-                      WebkitMaskImage: `url("${house.icon}")`,
-                      WebkitMaskRepeat: 'no-repeat',
-                      WebkitMaskPosition: 'center',
-                      WebkitMaskSize: 'contain',
-                    }}
-                  />
-                )}
+                  {house.type === 'text' ? (
+                    <span className="text-3xl text-royal-green drop-shadow-sm font-bold">
+                      {house.icon}
+                    </span>
+                  ) : (
+                    <div
+                      className="w-10 h-10 bg-royal-gold opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
+                      style={{
+                        maskImage: `url("${house.icon}")`,
+                        maskRepeat: 'no-repeat',
+                        maskPosition: 'center',
+                        maskSize: 'contain',
+                        WebkitMaskImage: `url("${house.icon}")`,
+                        WebkitMaskRepeat: 'no-repeat',
+                        WebkitMaskPosition: 'center',
+                        WebkitMaskSize: 'contain',
+                      }}
+                    />
+                  )}
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <h4 className="font-bold text-ui-paper-text uppercase tracking-[0.18em] text-base">
+                    {t(`games.${gameType}.sacred_houses.h${house.num}.title`)}
+                  </h4>
+                  <p className="font-serif text-ui-paper-text opacity-80 text-base leading-relaxed">
+                    {t(`games.${gameType}.sacred_houses.h${house.num}.desc`)}
+                  </p>
+                </div>
               </div>
+            ))}
+          </div>
+        </section>
+      )}
 
-              <div className="flex flex-col gap-1">
-                <h4 className="font-bold text-ui-paper-text uppercase tracking-[0.18em] text-base">
-                  {t(`sacred_houses.h${house.num}.title`)}
-                </h4>
-                <p className="font-serif text-ui-paper-text opacity-80 text-base leading-relaxed">
-                  {t(`sacred_houses.h${house.num}.desc`)}
-                </p>
+      {gameType === 'mehen' && (
+        <section className="relative z-10 mb-16">
+          <h3 className="text-ui-paper-text font-serif text-2xl md:text-3xl mb-12 text-center tracking-[0.16em] font-semibold uppercase">
+            {t('games.mehen.sacred_coils.title')}
+          </h3>
+
+          <div className="grid grid-cols-1 gap-8 max-w-lg mx-auto">
+            {mehenStations.map((station) => (
+              <div
+                key={station.id}
+                className="flex items-center gap-6 group hover:translate-x-1 transition-transform duration-300"
+              >
+                <div className="shrink-0 w-16 h-16 flex items-center justify-center bg-royal-ebony/5 border-2 border-royal-gold/15 rounded-sm shadow-sm group-hover:border-royal-gold/40 transition-all duration-500 overflow-hidden relative">
+                  <div className="absolute inset-0 bg-royal-gold/0 group-hover:bg-royal-gold/5 transition-colors" />
+
+                  {station.type === 'text' ? (
+                    <span className="text-3xl text-royal-green drop-shadow-sm font-bold">
+                      {station.icon}
+                    </span>
+                  ) : (
+                    <div
+                      className="w-10 h-10 bg-royal-gold opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
+                      style={{
+                        maskImage: `url("${station.icon}")`,
+                        maskRepeat: 'no-repeat',
+                        maskPosition: 'center',
+                        maskSize: 'contain',
+                        WebkitMaskImage: `url("${station.icon}")`,
+                        WebkitMaskRepeat: 'no-repeat',
+                        WebkitMaskPosition: 'center',
+                        WebkitMaskSize: 'contain',
+                      }}
+                    />
+                  )}
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <h4 className="font-bold text-ui-paper-text uppercase tracking-[0.18em] text-base">
+                    {t(`games.mehen.sacred_coils.${station.id}.title`)}
+                  </h4>
+                  <p className="font-serif text-ui-paper-text opacity-80 text-base leading-relaxed">
+                    {t(`games.mehen.sacred_coils.${station.id}.desc`)}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="w-full flex items-center justify-center my-12 opacity-30">
         <div className="flex-1 h-px bg-royal-gold" />
@@ -118,7 +202,7 @@ export function LegendContent() {
 
       <section className="relative z-10 max-w-xl mx-auto">
         <h3 className="text-ui-paper-text font-serif text-3xl md:text-4xl mb-12 text-center tracking-[0.16em] font-semibold uppercase">
-          {t('guide.title')}
+          {t(`games.${gameType}.guide.title`)}
         </h3>
 
         <ul className="space-y-8">
@@ -127,10 +211,10 @@ export function LegendContent() {
               <div className="shrink-0 mt-2 w-2 h-2 bg-royal-gold rotate-45" />
               <div className="flex flex-col">
                 <span className="font-bold text-ui-paper-text uppercase text-sm tracking-[0.18em] mb-2 opacity-90">
-                  {t(`guide.labels.${key}`)}
+                  {t(`games.${gameType}.guide.labels.${key}`)}
                 </span>
                 <span className="font-serif text-ui-paper-text opacity-90 text-lg md:text-xl leading-relaxed">
-                  {t(`guide.${key}`)}
+                  {t(`games.${gameType}.guide.${key}`)}
                 </span>
               </div>
             </li>

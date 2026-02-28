@@ -6,7 +6,9 @@ export const normalizeRoomId = (roomId: string) => roomId.trim().toLowerCase()
 export const buildMatchWebSocketUrl = (
   locationLike: Pick<Location, 'host' | 'protocol'>,
   roomId: string,
+  gameType?: 'senet' | 'mehen',
 ) => {
   const protocol = locationLike.protocol === 'https:' ? 'wss:' : 'ws:'
-  return `${protocol}//${locationLike.host}/api/match/${normalizeRoomId(roomId)}`
+  const suffix = gameType ? `?game=${gameType}` : ''
+  return `${protocol}//${locationLike.host}/api/match/${normalizeRoomId(roomId)}${suffix}`
 }

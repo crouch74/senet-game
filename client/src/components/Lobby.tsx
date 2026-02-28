@@ -13,11 +13,12 @@ import { normalizeRoomId } from '../services/matchConfig'
 
 interface LobbyProps {
   onStartOfflineMode: (mode: OfflineMode) => void
+  gameType: 'senet' | 'mehen'
 }
 
 const logger = createLogger('Lobby')
 
-export function Lobby({ onStartOfflineMode }: LobbyProps) {
+export function Lobby({ onStartOfflineMode, gameType }: LobbyProps) {
   const [roomInput, setRoomInput] = useState('')
   const isBackendAvailable = useBackendHealth()
   const { joinRoom, roomJoinError, clearRoomJoinError } = useSenetStore(
@@ -25,9 +26,9 @@ export function Lobby({ onStartOfflineMode }: LobbyProps) {
   )
   const { t } = useTranslation()
   const triviaFacts = [
-    t('lobby.fun_facts.fact_1'),
-    t('lobby.fun_facts.fact_2'),
-    t('lobby.fun_facts.fact_3'),
+    t(`games.${gameType}.lobby.fun_facts.fact_1`),
+    t(`games.${gameType}.lobby.fun_facts.fact_2`),
+    t(`games.${gameType}.lobby.fun_facts.fact_3`),
   ]
 
   const handleJoin = (event: FormEvent<HTMLFormElement>) => {
@@ -43,7 +44,7 @@ export function Lobby({ onStartOfflineMode }: LobbyProps) {
     clearRoomJoinError()
 
     try {
-      const roomId = await matchApi.createRoom()
+      const roomId = await matchApi.createRoom(gameType)
       joinRoom(roomId)
     } catch (error) {
       logger.error('Failed to create room', error)
@@ -60,7 +61,7 @@ export function Lobby({ onStartOfflineMode }: LobbyProps) {
       <div className="grid w-full max-w-6xl gap-6 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)]">
         <div className="bg-ui-panel-strong-bg border border-royal-gold/20 rounded-lg p-8 w-full backdrop-blur-sm shadow-2xl shrink-0">
           <h1 className="text-4xl text-royal-gold font-serif mb-8 text-center tracking-[0.4em] drop-shadow-md">
-            SENET
+            {t(`games.${gameType}.title`)}
           </h1>
 
           <div className="flex flex-col gap-5">
@@ -159,39 +160,39 @@ export function Lobby({ onStartOfflineMode }: LobbyProps) {
         </div>
 
         <section
-          aria-label={t('lobby.about_title')}
+          aria-label={t(`games.${gameType}.lobby.about_title`)}
           className="flex flex-col gap-4"
         >
           <article className="rounded-lg border border-royal-gold/15 bg-ui-panel-strong-bg/90 p-6 shadow-xl backdrop-blur-sm">
             <p className="text-xs uppercase tracking-[0.3em] text-royal-gold/85">
-              {t('lobby.about_kicker')}
+              {t(`games.${gameType}.lobby.about_kicker`)}
             </p>
             <h2 className="mt-3 font-serif text-2xl text-royal-ivory">
-              {t('lobby.about_title')}
+              {t(`games.${gameType}.lobby.about_title`)}
             </h2>
             <p className="mt-4 text-sm leading-7 text-sand">
-              {t('lobby.about_body')}
+              {t(`games.${gameType}.lobby.about_body`)}
             </p>
           </article>
 
           <article className="rounded-lg border border-sand/15 bg-ui-panel-bg/90 p-6 shadow-xl backdrop-blur-sm">
             <p className="text-xs uppercase tracking-[0.3em] text-sand/80">
-              {t('lobby.history_kicker')}
+              {t(`games.${gameType}.lobby.history_kicker`)}
             </p>
             <h2 className="mt-3 font-serif text-2xl text-royal-ivory">
-              {t('lobby.history_title')}
+              {t(`games.${gameType}.lobby.history_title`)}
             </h2>
             <p className="mt-4 text-sm leading-7 text-sand">
-              {t('lobby.history_body')}
+              {t(`games.${gameType}.lobby.history_body`)}
             </p>
           </article>
 
           <article className="rounded-lg border border-royal-gold/20 bg-ui-panel-strong-bg p-6 shadow-xl backdrop-blur-sm">
             <p className="text-xs uppercase tracking-[0.3em] text-royal-gold/90">
-              {t('lobby.fun_facts.kicker')}
+              {t(`games.${gameType}.lobby.fun_facts.kicker`)}
             </p>
             <h2 className="mt-3 font-serif text-2xl text-royal-ivory">
-              {t('lobby.fun_facts.title')}
+              {t(`games.${gameType}.lobby.fun_facts.title`)}
             </h2>
             <ul className="mt-4 space-y-3 text-sm leading-7 text-sand">
               {triviaFacts.map((fact) => (

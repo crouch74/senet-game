@@ -17,12 +17,14 @@ interface UseThrowSticksStateOptions {
   throwDelayMs?: number
   throwSticks: () => void
   winner: PlayerID | null
+  sticksCount?: number
 }
 
 const createStickLayouts = (
   value: number,
   lightSidesUp: number,
   seedOffset: number,
+  sticksCount: number,
 ): StickLayout[] => {
   let seed =
     ((value + 1) * 2654435761 + (lightSidesUp + 1) * 1013904223 + seedOffset) >>> 0
@@ -32,17 +34,17 @@ const createStickLayouts = (
     return seed / 4294967296
   }
 
-  const shuffled = [0, 1, 2, 3]
+  const shuffled = Array.from({ length: sticksCount }, (_, i) => i)
   for (let index = shuffled.length - 1; index > 0; index -= 1) {
     const nextIndex = Math.floor(next() * (index + 1))
-    ;[shuffled[index], shuffled[nextIndex]] = [shuffled[nextIndex], shuffled[index]]
+      ;[shuffled[index], shuffled[nextIndex]] = [shuffled[nextIndex], shuffled[index]]
   }
 
   const lightIndices = new Set<number>(shuffled.slice(0, lightSidesUp))
 
-  return Array.from({ length: 4 }, (_, index) => ({
-    x: (next() - 0.5) * 140,
-    y: (next() - 0.5) * 40,
+  return Array.from({ length: sticksCount }, (_, index) => ({
+    x: (next() - 0.5) * 160,
+    y: (next() - 0.5) * 50,
     rotate: (next() - 0.5) * 90,
     zIndex: Math.floor(next() * 10),
     isLight: lightIndices.has(index),
@@ -56,6 +58,7 @@ export function useThrowSticksState({
   throwDelayMs = 800,
   throwSticks,
   winner,
+  sticksCount = 4,
 }: UseThrowSticksStateOptions) {
   const [isManualThrowing, setIsManualThrowing] = useState(false)
   const throwTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -78,8 +81,9 @@ export function useThrowSticksState({
       currentThrow.value,
       currentThrow.lightSidesUp,
       playerSeed,
+      sticksCount,
     )
-  }, [currentPlayer, currentThrow])
+  }, [currentPlayer, currentThrow, sticksCount])
 
   const handleThrow = () => {
     if (!isMyTurn || currentThrow || winner || isThrowing) return

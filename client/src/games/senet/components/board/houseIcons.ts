@@ -4,26 +4,26 @@ import {
   house28Feather,
   house29SunDisk,
   house30Falcon,
-} from '../../assets/royal'
+} from '../../../../assets/royal'
 import type { CSSProperties } from 'react'
 
 export type HouseIcon =
   | {
-      className?: string
-      repeat?: number
-      stack?: boolean
-      style?: CSSProperties
-      type: 'text'
-      value: string
-    }
+    className?: string
+    repeat?: number
+    stack?: boolean
+    style?: CSSProperties
+    type: 'text'
+    value: string
+  }
   | {
-      backgroundClassName?: string
-      backgroundStyle?: CSSProperties
-      repeat?: number
-      stack?: boolean
-      type: 'svg'
-      value: string
-    }
+    backgroundClassName?: string
+    backgroundStyle?: CSSProperties
+    repeat?: number
+    stack?: boolean
+    type: 'svg'
+    value: string
+  }
 
 export const getHouseIcon = (number: number): HouseIcon | null => {
   switch (number) {

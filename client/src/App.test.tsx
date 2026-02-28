@@ -57,6 +57,19 @@ vi.mock('./components/Lobby', () => ({
   ),
 }));
 
+vi.mock('./components/LandingPage', () => ({
+  LandingPage: ({
+    onSelectGame,
+  }: {
+    onSelectGame: (game: 'senet' | 'mehen') => void;
+  }) => (
+    <div>
+      <span>Landing</span>
+      <button onClick={() => onSelectGame('mehen')}>Choose Mehen</button>
+    </div>
+  ),
+}));
+
 import App from './App';
 import i18n from './i18n';
 
@@ -92,6 +105,20 @@ describe('App', () => {
     expect(screen.queryByText('Lobby')).not.toBeInTheDocument();
   });
 
+  it('opens the lobby after choosing a game from the landing page', async () => {
+    window.history.replaceState({}, '', '/');
+
+    await renderWithProviders(<App />);
+
+    expect(screen.getByText('Landing')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Choose Mehen'));
+
+    await waitFor(() => {
+      expect(screen.getByText('Lobby')).toBeInTheDocument();
+    });
+    expect(window.location.pathname).toBe('/mehen');
+  });
+
   it('returns the browser path to the lobby when a room join error appears', async () => {
     window.history.replaceState({}, '', '/room/abc-def-ghi');
     useSenetStore.setState({
@@ -105,11 +132,13 @@ describe('App', () => {
     });
 
     await waitFor(() => {
-      expect(window.location.pathname).toBe('/');
+      expect(window.location.pathname).toBe('/senet');
     });
   });
 
   it('persists theme changes and updates document direction with language changes', async () => {
+    window.history.replaceState({}, '', '/senet');
+
     await renderWithProviders(<App />);
 
     fireEvent.click(screen.getByText('Set Theme'));
@@ -123,6 +152,7 @@ describe('App', () => {
   });
 
   it('copies room ids for active online games', async () => {
+    window.history.replaceState({}, '', '/senet');
     useSenetStore.setState({
       isOnline: true,
       isWaitingForOpponent: false,
@@ -144,6 +174,7 @@ describe('App', () => {
   });
 
   it('renders the waiting-room panel while connecting to an opponent', async () => {
+    window.history.replaceState({}, '', '/senet');
     useSenetStore.setState({
       isConnectingToRoom: true,
       isWaitingForOpponent: true,
@@ -178,6 +209,7 @@ describe('App', () => {
   });
 
   it('starts offline modes from the lobby and can return to the lobby', async () => {
+    window.history.replaceState({}, '', '/senet');
     const originalSetOfflineMode = useSenetStore.getState().setOfflineMode;
     const setOfflineMode = vi.fn((mode: 'vs_pc' | 'play_and_pass') =>
       originalSetOfflineMode(mode),
@@ -191,7 +223,7 @@ describe('App', () => {
 
     expect(setOfflineMode).toHaveBeenCalledWith('vs_pc');
     expect(resetGame).toHaveBeenCalled();
-    expect(window.location.pathname).toBe('/mode/vs-pc');
+    expect(window.location.pathname).toBe('/senet/mode/vs-pc');
 
     act(() => {
       useSenetStore.setState({
@@ -206,10 +238,11 @@ describe('App', () => {
     fireEvent.click(screen.getByText('Return To Lobby'));
 
     expect(leaveRoom).toHaveBeenCalled();
-    expect(window.location.pathname).toBe('/');
+    expect(window.location.pathname).toBe('/senet');
   });
 
   it('renders translated history params and player markers in the chronicle', async () => {
+    window.history.replaceState({}, '', '/senet/mode/pass-and-play');
     useSenetStore.setState({
       historyLog: [
         {
@@ -218,9 +251,10 @@ describe('App', () => {
           player: 'sphinx',
         },
       ],
-      isOnline: true,
+      isOnline: false,
       isWaitingForOpponent: false,
-      roomId: 'abc-def-ghi',
+      roomId: null,
+      localPlayer: null,
     });
 
     await renderWithProviders(<App />);

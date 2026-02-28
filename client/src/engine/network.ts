@@ -1,4 +1,4 @@
-import type { GameState, PlayerID } from './types'
+import type { GameState, GameType, PlayerID } from './types'
 import {
   buildMatchWebSocketUrl,
   normalizeRoomId,
@@ -49,7 +49,7 @@ export function createMatchConnectionManager(
   let socket: WebSocket | null = null
 
   return {
-    connect(roomId: string, handlers: MatchConnectionHandlers) {
+    connect(roomId: string, gameType: GameType, handlers: MatchConnectionHandlers) {
       const normalizedRoomId = normalizeRoomId(roomId)
       if (!normalizedRoomId) return
 
@@ -60,7 +60,7 @@ export function createMatchConnectionManager(
       }
 
       socket = createSocket(
-        buildMatchWebSocketUrl(getLocation(), normalizedRoomId),
+        buildMatchWebSocketUrl(getLocation(), normalizedRoomId, gameType),
       )
 
       socket.onopen = () => {

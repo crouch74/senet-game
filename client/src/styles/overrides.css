@@ -148,6 +148,432 @@
     --ui-piece-symbol-scale: 1.06;
   }
 
+  .piece-token--horus {
+    --ui-piece-token-shell-from: #706144;
+    --ui-piece-token-shell-to: #1d1812;
+    --ui-piece-token-core-from: #8a7851;
+    --ui-piece-token-core-to: #251a13;
+    --ui-piece-emblem-from: #d5efc5;
+    --ui-piece-emblem-via: #5ea06d;
+    --ui-piece-emblem-to: #1d4b37;
+    --ui-piece-glow-current: rgba(132, 231, 165, 0.38);
+  }
+
+  .piece-token--seth {
+    --ui-piece-token-shell-from: #775842;
+    --ui-piece-token-shell-to: #1e120f;
+    --ui-piece-token-core-from: #8f6650;
+    --ui-piece-token-core-to: #25110f;
+    --ui-piece-emblem-from: #f0d0bd;
+    --ui-piece-emblem-via: #c86453;
+    --ui-piece-emblem-to: #6e1f19;
+    --ui-piece-glow-current: rgba(229, 107, 88, 0.35);
+  }
+
+  .piece-token--osiris {
+    --ui-piece-token-shell-from: #62553c;
+    --ui-piece-token-shell-to: #17130f;
+    --ui-piece-token-core-from: #7c6a4b;
+    --ui-piece-token-core-to: #17120f;
+    --ui-piece-emblem-from: #d8e8e6;
+    --ui-piece-emblem-via: #6faeb7;
+    --ui-piece-emblem-to: #205d67;
+    --ui-piece-glow-current: rgba(108, 198, 214, 0.32);
+  }
+
+  .piece-token--isis {
+    --ui-piece-token-shell-from: #6f5647;
+    --ui-piece-token-shell-to: #191110;
+    --ui-piece-token-core-from: #89685a;
+    --ui-piece-token-core-to: #1b1110;
+    --ui-piece-emblem-from: #f4dbec;
+    --ui-piece-emblem-via: #bb7ca3;
+    --ui-piece-emblem-to: #693254;
+    --ui-piece-glow-current: rgba(212, 128, 177, 0.34);
+  }
+
+  .mehen-token {
+    isolation: isolate;
+    filter: saturate(0.92) contrast(1.02);
+  }
+
+  .mehen-token::before {
+    inset: auto 10% -11% 10%;
+    height: 22%;
+    background:
+      radial-gradient(ellipse at 28% 38%, rgba(0, 0, 0, 0.56) 0%, rgba(0, 0, 0, 0.34) 28%, rgba(0, 0, 0, 0.12) 46%, rgba(0, 0, 0, 0) 66%),
+      radial-gradient(ellipse at 62% 62%, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.06) 34%, rgba(0, 0, 0, 0) 76%);
+    filter: blur(3.2px);
+    opacity: 0.96;
+    transform: translate(1px, 1px) scaleX(1.03);
+  }
+
+  .mehen-token::after {
+    inset: 1px;
+    box-shadow:
+      inset 1px 1px 0 rgba(255, 244, 216, 0.06),
+      inset -1px -2px 0 rgba(0, 0, 0, 0.18),
+      inset 0 0 0 1px rgba(255, 247, 226, 0.025);
+    opacity: 0.86;
+  }
+
+  .mehen-token .piece-token__core {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 248, 228, 0.05),
+      inset 0 -8px 10px rgba(0, 0, 0, 0.42),
+      inset 2px 2px 5px rgba(255, 246, 214, 0.02);
+  }
+
+  .mehen-token .piece-token__core::after {
+    background-image:
+      radial-gradient(circle at 22% 28%, rgba(255, 255, 255, 0.045) 0.55px, transparent 1.1px),
+      radial-gradient(circle at 70% 70%, rgba(0, 0, 0, 0.08) 0.55px, transparent 1.2px),
+      radial-gradient(circle at 32% 58%, rgba(255, 248, 229, 0.03) 0.35px, transparent 0.9px),
+      linear-gradient(108deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 38%, rgba(0, 0, 0, 0.04) 100%),
+      repeating-linear-gradient(22deg, rgba(255, 255, 255, 0.02) 0 1px, rgba(0, 0, 0, 0) 1px 6px);
+    background-size: 7px 7px, 9px 9px, 11px 11px, 100% 100%, 100% 100%;
+    opacity: 0.34;
+  }
+
+  .mehen-token--ball {
+    --ui-piece-symbol-scale: 0.9;
+  }
+
+  .mehen-token--lion {
+    --ui-piece-symbol-scale: 0.98;
+  }
+
+  .mehen-token--lion .piece-token__core {
+    background:
+      repeating-linear-gradient(102deg, rgba(255, 240, 205, 0.04) 0 1px, rgba(0, 0, 0, 0) 1px 7px),
+      radial-gradient(70% 44% at 34% 24%, rgba(255, 249, 238, 0.1) 0%, rgba(255, 248, 238, 0.04) 28%, rgba(255, 248, 238, 0) 46%),
+      radial-gradient(108% 84% at 50% 76%, rgba(39, 25, 19, 0.18) 0%, rgba(0, 0, 0, 0) 56%),
+      linear-gradient(165deg, color-mix(in srgb, var(--ui-piece-token-core-from) 84%, #cba864 16%) 0%, color-mix(in srgb, var(--ui-piece-token-core-from) 42%, var(--ui-piece-token-core-to) 58%) 52%, color-mix(in srgb, var(--ui-piece-token-core-to) 94%, #050404 6%) 100%);
+  }
+
+  .mehen-token--ball .piece-token__core {
+    background:
+      radial-gradient(circle at 66% 66%, rgba(0, 0, 0, 0.05) 0.7px, transparent 1.3px),
+      radial-gradient(circle at 38% 54%, rgba(255, 251, 245, 0.05) 0.55px, transparent 1.2px),
+      radial-gradient(74% 48% at 34% 22%, rgba(255, 251, 244, 0.16) 0%, rgba(255, 249, 242, 0.08) 24%, rgba(255, 248, 238, 0) 46%),
+      radial-gradient(108% 86% at 52% 78%, rgba(33, 21, 18, 0.18) 0%, rgba(0, 0, 0, 0) 58%),
+      linear-gradient(165deg, color-mix(in srgb, var(--ui-piece-token-core-from) 62%, #f6e9d3 38%) 0%, color-mix(in srgb, var(--ui-piece-token-core-from) 54%, var(--ui-piece-token-core-to) 46%) 54%, color-mix(in srgb, var(--ui-piece-token-core-to) 82%, #2d1b14 18%) 100%);
+  }
+
+  .mehen-token--protected {
+    box-shadow:
+      0 8px 10px -10px rgba(0, 0, 0, 0.62),
+      0 0 0 1px rgba(128, 181, 205, 0.24),
+      0 0 14px rgba(78, 145, 181, 0.18),
+      inset 0 1px 1px rgba(255, 255, 255, 0.05),
+      inset 0 -4px 7px rgba(0, 0, 0, 0.24);
+  }
+
+  .mehen-token__crest {
+    position: absolute;
+    top: -8%;
+    right: -6%;
+    min-width: 1.2rem;
+    padding: 0.05rem 0.2rem;
+    border: 1px solid rgba(183, 145, 76, 0.7);
+    border-radius: 9999px;
+    background:
+      linear-gradient(155deg, rgba(28, 20, 13, 0.96) 0%, rgba(13, 9, 7, 0.98) 100%);
+    box-shadow:
+      0 2px 6px rgba(0, 0, 0, 0.48),
+      inset 0 1px 0 rgba(255, 241, 206, 0.08);
+    color: #d7b36e;
+    font-size: 0.65rem;
+    line-height: 1;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.65);
+  }
+
+  .mehen-board {
+    --mehen-rim-shadow: color-mix(in srgb, var(--ui-board-frame) 84%, black 16%);
+    --mehen-rim-highlight: color-mix(in srgb, var(--color-royal-gold) 34%, transparent);
+    --mehen-rim-patina: color-mix(in srgb, var(--ui-board-grid) 14%, transparent);
+    --mehen-rim-glint: color-mix(in srgb, var(--color-gold-highlight) 12%, transparent);
+    --mehen-track-shadow: color-mix(in srgb, var(--ui-board-frame) 72%, black 28%);
+    --mehen-track-highlight: color-mix(in srgb, var(--color-royal-gold) 22%, transparent);
+    --mehen-track-mid: color-mix(in srgb, var(--ui-board-frame) 44%, var(--color-gold-shadow) 56%);
+    --mehen-track-wear-shadow: color-mix(in srgb, black 24%, transparent);
+    --mehen-track-ridge: color-mix(in srgb, var(--color-gold-base) 16%, transparent);
+    --mehen-track-glint: color-mix(in srgb, var(--color-gold-highlight) 10%, transparent);
+    --mehen-center-ring-shadow: color-mix(in srgb, var(--ui-board-frame) 46%, var(--color-gold-shadow) 54%);
+    --mehen-center-ring-highlight: color-mix(in srgb, var(--color-gold-base) 22%, transparent);
+    --mehen-center-icon: linear-gradient(180deg, color-mix(in srgb, var(--color-gold-highlight) 72%, white 28%) 0%, color-mix(in srgb, var(--color-gold-base) 86%, var(--color-gold-shadow) 14%) 55%, color-mix(in srgb, var(--color-gold-shadow) 90%, black 10%) 100%);
+    --mehen-board-spotlight: color-mix(in srgb, var(--color-royal-gold) 22%, transparent);
+    --mehen-board-spotlight-falloff: color-mix(in srgb, var(--color-royal-gold) 7%, transparent);
+    --mehen-board-shadow-wash: color-mix(in srgb, black 46%, transparent);
+    --mehen-board-shadow-falloff: color-mix(in srgb, black 20%, transparent);
+    --mehen-board-base-1: color-mix(in srgb, var(--ui-board-grid) 20%, var(--ui-board-frame) 80%);
+    --mehen-board-base-2: color-mix(in srgb, var(--ui-board-frame) 72%, var(--ui-board-overlay) 28%);
+    --mehen-board-base-3: color-mix(in srgb, var(--ui-board-frame) 58%, var(--ui-board-grid) 42%);
+    --mehen-board-base-4: color-mix(in srgb, var(--ui-board-frame) 86%, black 14%);
+    --mehen-patina-1: color-mix(in srgb, var(--color-gold-shadow) 18%, transparent);
+    --mehen-patina-1-soft: color-mix(in srgb, var(--color-gold-shadow) 6%, transparent);
+    --mehen-patina-2: color-mix(in srgb, var(--ui-board-overlay) 48%, transparent);
+    --mehen-patina-2-soft: color-mix(in srgb, var(--ui-board-overlay) 16%, transparent);
+    --mehen-patina-3: color-mix(in srgb, var(--ui-board-frame) 26%, transparent);
+    --mehen-patina-3-soft: color-mix(in srgb, var(--ui-board-frame) 10%, transparent);
+    --mehen-patina-4: color-mix(in srgb, var(--color-gold-shadow) 12%, transparent);
+    --mehen-patina-4-soft: color-mix(in srgb, var(--color-gold-shadow) 5%, transparent);
+    --mehen-patina-5: color-mix(in srgb, var(--ui-board-grid) 14%, transparent);
+    --mehen-patina-5-soft: color-mix(in srgb, var(--ui-board-grid) 5%, transparent);
+    --mehen-center-basin-light: rgba(220, 191, 124, 0.16);
+    --mehen-center-basin-shadow: rgba(5, 6, 5, 0.78);
+    --mehen-center-basin-shadow-soft: rgba(10, 11, 8, 0.46);
+    --mehen-center-core-light: rgba(217, 188, 121, 0.13);
+    --mehen-center-core-1: rgba(14, 16, 13, 0.96);
+    --mehen-center-core-2: rgba(22, 19, 15, 0.92);
+    --mehen-center-core-3: rgba(9, 10, 9, 0.98);
+    background:
+      radial-gradient(125% 110% at 24% 16%, var(--mehen-board-spotlight) 0%, var(--mehen-board-spotlight-falloff) 22%, rgba(0, 0, 0, 0) 42%),
+      radial-gradient(120% 96% at 72% 74%, var(--mehen-board-shadow-wash) 0%, var(--mehen-board-shadow-falloff) 34%, rgba(0, 0, 0, 0) 68%),
+      linear-gradient(160deg, var(--mehen-board-base-1) 0%, var(--mehen-board-base-2) 34%, var(--mehen-board-base-3) 62%, var(--mehen-board-base-4) 100%);
+    box-shadow:
+      inset 0 2px 1px rgba(255, 246, 219, 0.06),
+      inset 0 -14px 26px rgba(0, 0, 0, 0.48),
+      0 26px 54px rgba(0, 0, 0, 0.55);
+    filter: url(#jitter);
+  }
+
+  .mehen-board::before,
+  .mehen-board::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .mehen-board::before {
+    box-shadow:
+      inset 0 0 0 1px rgba(204, 170, 96, 0.15),
+      inset 0 0 0 18px rgba(10, 13, 12, 0.14),
+      inset -16px -20px 30px rgba(0, 0, 0, 0.28),
+      inset 18px 14px 26px rgba(255, 239, 201, 0.035);
+    opacity: 0.9;
+  }
+
+  .mehen-board::after {
+    background:
+      radial-gradient(closest-side, rgba(255, 244, 214, 0.06) 0%, rgba(255, 244, 214, 0.02) 46%, rgba(255, 244, 214, 0) 72%),
+      radial-gradient(circle at 18% 20%, rgba(255, 245, 218, 0.1) 0%, rgba(255, 245, 218, 0) 30%),
+      radial-gradient(circle at 84% 84%, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0) 28%);
+    mix-blend-mode: screen;
+    opacity: 0.55;
+  }
+
+  .mehen-board__patina {
+    background:
+      radial-gradient(circle at 22% 26%, var(--mehen-patina-1) 0%, var(--mehen-patina-1-soft) 18%, rgba(0, 0, 0, 0) 38%),
+      radial-gradient(circle at 72% 32%, var(--mehen-patina-2) 0%, var(--mehen-patina-2-soft) 22%, rgba(0, 0, 0, 0) 44%),
+      radial-gradient(circle at 62% 78%, var(--mehen-patina-3) 0%, var(--mehen-patina-3-soft) 20%, rgba(0, 0, 0, 0) 42%),
+      radial-gradient(circle at 36% 64%, var(--mehen-patina-4) 0%, var(--mehen-patina-4-soft) 16%, rgba(0, 0, 0, 0) 34%),
+      radial-gradient(circle at 58% 18%, var(--mehen-patina-5) 0%, var(--mehen-patina-5-soft) 18%, rgba(0, 0, 0, 0) 34%);
+    opacity: 0.8;
+  }
+
+  .mehen-board__grain {
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255, 245, 218, 0.018) 0 1px, transparent 1px 18px),
+      repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.018) 0 1px, transparent 1px 21px),
+      radial-gradient(circle at 35% 38%, rgba(255, 241, 203, 0.05) 0.6px, transparent 1.6px),
+      radial-gradient(circle at 68% 62%, rgba(0, 0, 0, 0.08) 0.8px, transparent 1.8px);
+    background-size: auto, auto, 16px 16px, 24px 24px;
+    mix-blend-mode: soft-light;
+    opacity: 0.52;
+  }
+
+  .mehen-board__micrograin {
+    background-image:
+      radial-gradient(circle at 18% 24%, rgba(255, 251, 239, 0.06) 0.35px, transparent 0.95px),
+      radial-gradient(circle at 72% 46%, rgba(0, 0, 0, 0.08) 0.45px, transparent 1px),
+      radial-gradient(circle at 42% 72%, rgba(255, 248, 224, 0.05) 0.4px, transparent 0.9px),
+      radial-gradient(circle at 84% 70%, rgba(0, 0, 0, 0.07) 0.35px, transparent 0.9px);
+    background-size: 8px 8px, 11px 11px, 9px 9px, 12px 12px;
+    mix-blend-mode: overlay;
+    opacity: 0.06;
+  }
+
+  .mehen-board__vignette {
+    background:
+      radial-gradient(circle at center, rgba(0, 0, 0, 0) 54%, rgba(0, 0, 0, 0.14) 74%, rgba(0, 0, 0, 0.36) 100%);
+  }
+
+  .mehen-node {
+    position: relative;
+    border-radius: var(--mehen-node-bevel, 22%);
+    clip-path: polygon(10% 7%, 92% 9%, 95% 88%, 8% 93%);
+    background:
+      linear-gradient(145deg, rgba(244, 227, 189, 0.08) 0%, rgba(244, 227, 189, 0.02) 28%, rgba(0, 0, 0, 0) 52%),
+      linear-gradient(180deg, rgba(9, 9, 8, 0.82) 0%, rgba(20, 17, 13, 0.74) 34%, rgba(54, 40, 22, 0.22) 78%, rgba(0, 0, 0, 0) 100%);
+    box-shadow:
+      inset 1px 1px 1px rgba(255, 244, 216, 0.08),
+      inset -3px -5px 9px rgba(0, 0, 0, 0.56),
+      0 0 0 1px rgba(181, 148, 87, 0.14),
+      1px 2px 5px rgba(0, 0, 0, 0.12);
+  }
+
+  .mehen-node::before,
+  .mehen-node::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .mehen-node::before {
+    inset: 10% 9% 12% 11%;
+    border-radius: calc(var(--mehen-node-bevel, 22%) - 5%);
+    border: 1px solid rgba(188, 156, 95, 0.22);
+    box-shadow:
+      inset 1px 1px 1px rgba(255, 241, 205, 0.1),
+      inset -2px -3px 5px rgba(0, 0, 0, 0.38);
+    opacity: 0.84;
+  }
+
+  .mehen-node::after {
+    inset: -5%;
+    border-radius: calc(var(--mehen-node-bevel, 22%) + 2%);
+    border: 1px solid rgba(163, 133, 80, 0.08);
+    opacity: 0.8;
+  }
+
+  .mehen-node--safe {
+    box-shadow:
+      inset 1px 1px 1px rgba(255, 245, 214, 0.08),
+      inset -2px -3px 7px rgba(0, 0, 0, 0.52),
+      0 0 0 1px color-mix(in srgb, var(--ui-square-icon-life) 34%, transparent),
+      0 0 14px color-mix(in srgb, var(--ui-square-icon-life-shadow) 44%, transparent);
+  }
+
+  .mehen-node__safe-mark {
+    position: absolute;
+    top: 16%;
+    left: 50%;
+    width: 18%;
+    height: 18%;
+    transform: translateX(-50%) rotate(45deg);
+    background:
+      linear-gradient(145deg, color-mix(in srgb, white 58%, var(--ui-square-icon-life) 42%) 0%, color-mix(in srgb, var(--ui-square-icon-life) 86%, transparent) 54%, color-mix(in srgb, var(--ui-square-icon-life-shadow) 90%, transparent) 100%);
+    box-shadow:
+      0 0 8px color-mix(in srgb, var(--ui-square-icon-life-shadow) 42%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--ui-square-icon-life) 34%, transparent);
+    opacity: 0.92;
+  }
+
+  .mehen-node--goal {
+    background:
+      linear-gradient(145deg, rgba(233, 207, 149, 0.12) 0%, rgba(233, 207, 149, 0.05) 26%, rgba(233, 207, 149, 0) 46%),
+      linear-gradient(180deg, rgba(12, 12, 10, 0.8) 0%, rgba(16, 14, 11, 0.62) 30%, rgba(71, 55, 29, 0.32) 78%, rgba(0, 0, 0, 0) 100%);
+    box-shadow:
+      inset 1px 1px 1px rgba(255, 244, 216, 0.1),
+      inset -3px -4px 10px rgba(0, 0, 0, 0.56),
+      0 0 0 1px rgba(193, 156, 84, 0.32),
+      0 0 14px rgba(193, 156, 84, 0.16);
+  }
+
+  .mehen-node--legal {
+    box-shadow:
+      inset 1px 1px 1px rgba(255, 244, 216, 0.08),
+      inset -2px -3px 7px rgba(0, 0, 0, 0.52),
+      0 0 0 1px rgba(206, 171, 102, 0.38),
+      0 0 16px rgba(208, 170, 89, 0.18);
+  }
+
+  .mehen-node__number {
+    position: relative;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: rgba(220, 202, 160, var(--mehen-number-opacity, 0.72));
+    letter-spacing: 0.02em;
+    text-shadow:
+      -0.42px -0.42px 0 rgba(231, 215, 178, 0.15),
+      0.82px 1.1px 0 rgba(7, 6, 5, 0.9),
+      0 0 0.8px rgba(26, 18, 12, 0.3);
+    filter: saturate(0.92) contrast(1.02);
+    transform: translateY(0.5px);
+  }
+
+  .mehen-board__center {
+    position: relative;
+    border-radius: 9999px;
+    background:
+      radial-gradient(circle at 28% 22%, var(--mehen-center-basin-light) 0%, rgba(220, 191, 124, 0) 30%),
+      radial-gradient(circle at 52% 60%, var(--mehen-center-basin-shadow) 0%, var(--mehen-center-basin-shadow-soft) 60%, rgba(0, 0, 0, 0) 100%);
+    box-shadow:
+      inset 1px 1px 0 rgba(242, 227, 188, 0.05),
+      inset -6px -8px 16px rgba(0, 0, 0, 0.62),
+      inset 4px 4px 10px rgba(255, 238, 198, 0.03);
+  }
+
+  .mehen-board__center::before {
+    content: "";
+    position: absolute;
+    inset: -13%;
+    border-radius: 9999px;
+    border: 2px solid rgba(170, 132, 73, 0.34);
+    box-shadow:
+      0 0 0 1px rgba(12, 11, 9, 0.44),
+      inset 0 1px 0 rgba(242, 223, 182, 0.06),
+      inset 0 -5px 8px rgba(0, 0, 0, 0.24);
+    opacity: 0.9;
+  }
+
+  .mehen-board__center-core {
+    min-width: 8.5rem;
+    min-height: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(circle at 24% 20%, var(--mehen-center-core-light) 0%, rgba(217, 188, 121, 0) 36%),
+      linear-gradient(160deg, var(--mehen-center-core-1) 0%, var(--mehen-center-core-2) 52%, var(--mehen-center-core-3) 100%);
+    border: 1px solid rgba(179, 146, 85, 0.3);
+    box-shadow:
+      inset 0 1px 0 rgba(244, 229, 195, 0.06),
+      inset 0 -10px 14px rgba(0, 0, 0, 0.52),
+      inset 5px 4px 10px rgba(255, 236, 190, 0.03),
+      0 10px 20px rgba(0, 0, 0, 0.24);
+  }
+
+  .mehen-board__serpent-sigil {
+    width: 5.25rem;
+    height: 5.25rem;
+    filter:
+      drop-shadow(0 2px 3px rgba(0, 0, 0, 0.46))
+      drop-shadow(0 0 10px rgba(217, 176, 86, 0.08));
+  }
+
+  .mehen-board__sun-disk {
+    filter: drop-shadow(0 1px 0 rgba(255, 241, 204, 0.26));
+  }
+
+  .mehen-board__serpent-body,
+  .mehen-board__serpent-head,
+  .mehen-board__serpent-hood,
+  .mehen-board__serpent-inner-arc {
+    filter: drop-shadow(0 1px 0 rgba(255, 236, 195, 0.12));
+  }
+
+  .mehen-board__serpent-hood {
+    stroke: rgba(90, 58, 24, 0.92);
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .mehen-board__serpent-inner-arc {
+    stroke: rgba(109, 72, 31, 0.82);
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+
   .piece-token--movable {
     box-shadow:
       0 1px 1px rgba(255, 255, 255, 0.1),
@@ -155,6 +581,176 @@
       0 0 12px color-mix(in srgb, var(--ui-piece-legal-ring) 24%, transparent),
       inset 0 1px 1px rgba(255, 255, 255, 0.05),
       inset 0 -4px 7px rgba(0, 0, 0, 0.24);
+  }
+
+  html[data-theme="royal"] .mehen-board {
+    --mehen-board-spotlight: rgba(208, 171, 96, 0.22);
+    --mehen-board-base-1: #445248;
+    --mehen-board-base-2: #1a2620;
+    --mehen-board-base-3: #24332c;
+    --mehen-board-base-4: #101714;
+  }
+
+  html[data-theme="moonlit-necropolis"] .mehen-board {
+    --mehen-board-spotlight: rgba(197, 217, 255, 0.12);
+    --mehen-board-spotlight-falloff: rgba(197, 217, 255, 0.03);
+    --mehen-board-base-1: #46556d;
+    --mehen-board-base-2: #202b3d;
+    --mehen-board-base-3: #2a3a53;
+    --mehen-board-base-4: #0b1018;
+    --mehen-patina-2: rgba(101, 132, 188, 0.2);
+    --mehen-patina-5: rgba(201, 162, 39, 0.1);
+    --mehen-center-basin-light: rgba(211, 226, 255, 0.12);
+    --mehen-center-core-1: rgba(16, 22, 33, 0.96);
+    --mehen-center-core-2: rgba(24, 31, 47, 0.94);
+    --mehen-center-core-3: rgba(8, 12, 19, 0.98);
+  }
+
+  html[data-theme="nile-papyrus"] .mehen-board {
+    --mehen-board-spotlight: rgba(191, 180, 121, 0.18);
+    --mehen-board-base-1: #798160;
+    --mehen-board-base-2: #46503a;
+    --mehen-board-base-3: #5d684c;
+    --mehen-board-base-4: #242a1f;
+    --mehen-patina-2: rgba(111, 120, 67, 0.18);
+    --mehen-patina-4: rgba(137, 104, 56, 0.12);
+    --mehen-center-icon: linear-gradient(180deg, #efe2a7 0%, #b8a24a 58%, #6f5922 100%);
+  }
+
+  html[data-theme="color-blind"] .mehen-board {
+    --mehen-board-spotlight: rgba(255, 205, 92, 0.18);
+    --mehen-board-base-1: #6f7c92;
+    --mehen-board-base-2: #243041;
+    --mehen-board-base-3: #35516d;
+    --mehen-board-base-4: #111821;
+    --mehen-track-highlight: rgba(255, 221, 128, 0.24);
+    --mehen-track-ridge: rgba(255, 221, 128, 0.18);
+    --mehen-patina-2: rgba(103, 162, 255, 0.18);
+    --mehen-center-icon: linear-gradient(180deg, #fff2b8 0%, #ffcc5c 55%, #9a7126 100%);
+  }
+
+  html[data-theme="amethyst-canopy"] .mehen-board {
+    --mehen-board-spotlight: rgba(216, 170, 255, 0.18);
+    --mehen-board-base-1: #6d5a86;
+    --mehen-board-base-2: #2d2144;
+    --mehen-board-base-3: #4c3b69;
+    --mehen-board-base-4: #140d21;
+    --mehen-patina-2: rgba(125, 88, 180, 0.22);
+    --mehen-patina-5: rgba(232, 123, 204, 0.1);
+    --mehen-center-icon: linear-gradient(180deg, #f4d8ff 0%, #d489ff 52%, #7e42b6 100%);
+  }
+
+  html[data-theme="red-oasis"] .mehen-board {
+    --mehen-board-spotlight: rgba(255, 190, 128, 0.18);
+    --mehen-board-base-1: #9a6a55;
+    --mehen-board-base-2: #5b3128;
+    --mehen-board-base-3: #744235;
+    --mehen-board-base-4: #26120f;
+    --mehen-patina-1: rgba(171, 94, 60, 0.18);
+    --mehen-patina-4: rgba(110, 66, 38, 0.14);
+    --mehen-center-icon: linear-gradient(180deg, #ffd7b0 0%, #ef9b67 56%, #89472b 100%);
+  }
+
+  html[data-theme="obsidian-eclipse"] .mehen-board {
+    --mehen-board-spotlight: rgba(245, 245, 245, 0.08);
+    --mehen-board-spotlight-falloff: rgba(245, 245, 245, 0.02);
+    --mehen-board-shadow-wash: rgba(0, 0, 0, 0.7);
+    --mehen-board-shadow-falloff: rgba(0, 0, 0, 0.34);
+    --mehen-board-base-1: #353535;
+    --mehen-board-base-2: #121212;
+    --mehen-board-base-3: #202020;
+    --mehen-board-base-4: #050505;
+    --mehen-rim-highlight: rgba(220, 220, 220, 0.14);
+    --mehen-rim-patina: rgba(112, 112, 112, 0.12);
+    --mehen-track-highlight: rgba(208, 208, 208, 0.08);
+    --mehen-track-ridge: rgba(185, 185, 185, 0.07);
+    --mehen-patina-2: rgba(86, 86, 86, 0.16);
+    --mehen-patina-5: rgba(255, 255, 255, 0.04);
+    --mehen-center-icon: linear-gradient(180deg, #f3f3f3 0%, #b8b8b8 55%, #5b5b5b 100%);
+  }
+
+  html[data-theme="turquoise-tomb"] .mehen-board {
+    --mehen-board-spotlight: rgba(161, 236, 235, 0.16);
+    --mehen-board-base-1: #5b878a;
+    --mehen-board-base-2: #21484f;
+    --mehen-board-base-3: #31676d;
+    --mehen-board-base-4: #10272b;
+    --mehen-patina-2: rgba(69, 139, 152, 0.22);
+    --mehen-patina-3: rgba(14, 47, 53, 0.18);
+    --mehen-center-icon: linear-gradient(180deg, #d5ffff 0%, #74d8d5 55%, #2c7b7d 100%);
+  }
+
+  html[data-theme="sahara-mirage"] .mehen-board {
+    --mehen-board-spotlight: rgba(255, 219, 176, 0.22);
+    --mehen-board-base-1: #c8a47c;
+    --mehen-board-base-2: #8b6247;
+    --mehen-board-base-3: #a57658;
+    --mehen-board-base-4: #4f3428;
+    --mehen-patina-1: rgba(201, 132, 84, 0.18);
+    --mehen-patina-4: rgba(145, 99, 67, 0.14);
+    --mehen-patina-5: rgba(240, 223, 186, 0.1);
+    --mehen-center-icon: linear-gradient(180deg, #ffe8c7 0%, #e4b179 56%, #9a6439 100%);
+  }
+
+  html[data-theme="jade-sarcophagus"] .mehen-board {
+    --mehen-board-spotlight: rgba(166, 255, 214, 0.16);
+    --mehen-board-base-1: #4f7e6e;
+    --mehen-board-base-2: #17392e;
+    --mehen-board-base-3: #245445;
+    --mehen-board-base-4: #0b1915;
+    --mehen-patina-2: rgba(52, 110, 88, 0.22);
+    --mehen-patina-5: rgba(219, 190, 128, 0.1);
+    --mehen-center-icon: linear-gradient(180deg, #dbffe9 0%, #7ae0af 55%, #2e7755 100%);
+  }
+
+  html[data-theme="lapis-lazuli"] .mehen-board {
+    --mehen-board-spotlight: rgba(154, 195, 255, 0.18);
+    --mehen-board-base-1: #4766a8;
+    --mehen-board-base-2: #162653;
+    --mehen-board-base-3: #263d79;
+    --mehen-board-base-4: #0c1431;
+    --mehen-rim-highlight: rgba(240, 212, 122, 0.18);
+    --mehen-track-highlight: rgba(240, 212, 122, 0.14);
+    --mehen-patina-2: rgba(45, 78, 150, 0.24);
+    --mehen-patina-5: rgba(240, 212, 122, 0.08);
+    --mehen-center-icon: linear-gradient(180deg, #fff0b5 0%, #e0b85a 56%, #855f21 100%);
+  }
+
+  html[data-theme="copper-patina"] .mehen-board {
+    --mehen-board-spotlight: rgba(228, 182, 142, 0.18);
+    --mehen-board-base-1: #7e775e;
+    --mehen-board-base-2: #3b4034;
+    --mehen-board-base-3: #55604e;
+    --mehen-board-base-4: #1b211a;
+    --mehen-rim-highlight: rgba(195, 132, 90, 0.18);
+    --mehen-rim-patina: rgba(86, 140, 120, 0.14);
+    --mehen-patina-1: rgba(170, 106, 71, 0.16);
+    --mehen-patina-2: rgba(76, 132, 114, 0.18);
+    --mehen-center-icon: linear-gradient(180deg, #ffd8bd 0%, #c27b48 56%, #6b4f37 100%);
+  }
+
+  html[data-theme="malachite-carnelian"] .mehen-board {
+    --mehen-board-spotlight: rgba(157, 255, 187, 0.16);
+    --mehen-board-base-1: #58724f;
+    --mehen-board-base-2: #223125;
+    --mehen-board-base-3: #32493a;
+    --mehen-board-base-4: #111913;
+    --mehen-rim-highlight: rgba(255, 130, 92, 0.16);
+    --mehen-track-highlight: rgba(96, 240, 144, 0.14);
+    --mehen-patina-1: rgba(197, 90, 56, 0.14);
+    --mehen-patina-2: rgba(30, 144, 78, 0.2);
+    --mehen-center-icon: linear-gradient(180deg, #ffe1cf 0%, #ff8d61 50%, #9d3f21 100%);
+  }
+
+  html[data-theme="celestial-cartouche"] .mehen-board {
+    --mehen-board-spotlight: rgba(255, 184, 242, 0.18);
+    --mehen-board-base-1: #6a4c93;
+    --mehen-board-base-2: #241342;
+    --mehen-board-base-3: #3c2365;
+    --mehen-board-base-4: #120923;
+    --mehen-patina-2: rgba(159, 84, 196, 0.2);
+    --mehen-patina-5: rgba(232, 123, 204, 0.1);
+    --mehen-center-icon: linear-gradient(180deg, #ffd8f7 0%, #e87bcc 52%, #8e3f86 100%);
   }
 
   .piece-token--movable::after {

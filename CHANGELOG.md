@@ -1,6 +1,18 @@
 # Changelog
 
 ## Unreleased
+- **Mehen Game Integration**:
+  - Implemented the full "Game of the Snake" (Mehen) with a 60-square spiral board.
+  - Added unique piece types: **Beads** and **Lions**, each with specialized movement and combat logic.
+  - Implemented **Piece Enlightenment** mechanics (beads becoming protected when reach the center).
+  - Added **Lion Combat** rules where lions can "eat" (remove) unprotected opponent beads.
+- **Multi-Game Architecture**:
+  - Refactored the engine to support multiple games (Senet and Mehen) under a unified `src/games/` directory.
+  - Generalized the Zustand store to dynamically select game logic based on the session's `gameType`.
+  - Updated the backend room registry and WebSocket protocol to manage and broadcast the `game_type` for each match.
+- **New Landing Page**:
+  - Created a premium, thematic landing page for game selection with high-end animations and cinematic Egyptian aesthetics.
+  - Integrated "Wait for Opponent" logic and "Spirit Ascension" victory systems for both games.
 - **Stick Counting Fix**:
   - Corrected the visual "inversion" where marked sticks (dots) were being displayed for the "back" side instead of the "front/counting" side.
   - Swapped the decoration logic so that the number of dotted sticks correctly matches the movement value shown.

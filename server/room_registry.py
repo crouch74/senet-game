@@ -15,14 +15,15 @@ class RoomState:
     opening_player: Optional[str] = None
     spectators: Set[WebSocket] = field(default_factory=set)
     sphinx: Optional[WebSocket] = None
+    game_type: str = "senet"
 
 
 class RoomRegistry:
     def __init__(self) -> None:
         self.active_rooms: Dict[RoomId, RoomState] = {}
 
-    def create_room(self, room_id: RoomId) -> RoomState:
-        room = RoomState()
+    def create_room(self, room_id: RoomId, game_type: str = "senet") -> RoomState:
+        room = RoomState(game_type=game_type)
         self.active_rooms[room_id] = room
         return room
 

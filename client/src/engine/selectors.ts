@@ -7,6 +7,7 @@ export const useShallowSelector = useShallow
 export const appStoreSelector = (state: SenetStore) => ({
   clearRoomJoinError: state.clearRoomJoinError,
   currentPlayer: state.currentPlayer,
+  gameType: state.gameType,
   historyLog: state.historyLog,
   isAutoPlaying: state.isAutoPlaying,
   isAutoRolling: state.isAutoRolling,
@@ -21,9 +22,11 @@ export const appStoreSelector = (state: SenetStore) => ({
   resetGame: state.resetGame,
   roomId: state.roomId,
   roomJoinError: state.roomJoinError,
+  mehenConfig: state.mehenConfig,
   ruleset: state.ruleset,
   setOfflineMode: state.setOfflineMode,
   setShowGuide: state.setShowGuide,
+  setGameType: state.setGameType,
   showGuide: state.showGuide,
   winner: state.winner,
 })
@@ -36,6 +39,7 @@ export const lobbyStoreSelector = (state: SenetStore) => ({
 
 export const hudStoreSelector = (state: SenetStore) => ({
   currentPlayer: state.currentPlayer,
+  gameType: state.gameType,
   isAutoPlaying: state.isAutoPlaying,
   isOnline: state.isOnline,
   playRandomTurns: state.playRandomTurns,
@@ -56,10 +60,12 @@ export const throwSticksStoreSelector = (state: SenetStore) => ({
   offlineMode: state.offlineMode,
   throwSticks: state.throwSticks,
   winner: state.winner,
+  ruleset: state.ruleset,
 })
 
 export const boardStoreSelector = (state: SenetStore) => ({
   board: state.board,
+  boardSize: state.boardSize,
   currentPlayer: state.currentPlayer,
   currentThrow: state.currentThrow,
   hoveredPieceId: state.hoveredPieceId,
@@ -78,6 +84,8 @@ export const boardStoreSelector = (state: SenetStore) => ({
 
 export const afterlifeSelector = (state: SenetStore) => ({
   board: state.board,
+  boardSize: state.boardSize,
+  gameType: state.gameType,
 })
 
 export const gameOverSelector = (state: SenetStore) => ({

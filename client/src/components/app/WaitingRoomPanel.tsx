@@ -1,10 +1,12 @@
 import { useTranslation } from 'react-i18next'
+import type { LocalRole } from '../../engine/network'
 import { cn } from '../../utils/cn'
 import { CopyRoomButton } from './CopyRoomButton'
+import { getPlayerAppearance } from '../../utils/playerAppearance'
 
 interface WaitingRoomPanelProps {
   copiedRoom: boolean
-  localPlayer: 'anubis' | 'sphinx' | 'spectator' | null
+  localPlayer: LocalRole | null
   onCopyRoomId: () => void | Promise<void>
   onLeaveRoom: () => void
   roomId: string | null
@@ -18,6 +20,10 @@ export function WaitingRoomPanel({
   roomId,
 }: WaitingRoomPanelProps) {
   const { t } = useTranslation()
+  const playerAppearance =
+    localPlayer && localPlayer !== 'spectator'
+      ? getPlayerAppearance(localPlayer)
+      : null
 
   return (
     <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0">
@@ -66,11 +72,7 @@ export function WaitingRoomPanel({
               <div
                 className={cn(
                   'mt-1 text-lg font-bold uppercase tracking-widest font-serif',
-                  localPlayer === 'anubis'
-                    ? 'text-royal-gold'
-                    : localPlayer === 'sphinx'
-                      ? 'text-royal-ivory'
-                      : 'text-sand',
+                  playerAppearance ? playerAppearance.pillClassName : 'text-sand',
                 )}
               >
                 {localPlayer ? t(`hud.players.${localPlayer}`) : ''}

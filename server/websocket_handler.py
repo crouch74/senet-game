@@ -77,9 +77,10 @@ async def _send_initial_state(
 ) -> None:
     if assigned_role == "spectator":
         log_event(logger, "✅", "WS", f"Spectator joined room {room_id}")
+        room_state = room_service.registry.get(room_id)
         await safe_send_json(
             websocket,
-            build_init_payload(assigned_role),
+            build_init_payload(assigned_role, game_type=room_state.game_type),
             logger,
             room_id=room_id,
             description="Sending spectator init payload",
@@ -103,9 +104,10 @@ async def _send_initial_state(
         return
 
     log_event(logger, "✅", "WS", f"Player joined room {room_id} as {assigned_role}")
+    room_state = room_service.registry.get(room_id)
     await safe_send_json(
         websocket,
-        build_init_payload(assigned_role),
+        build_init_payload(assigned_role, game_type=room_state.game_type),
         logger,
         room_id=room_id,
         description="Sending player init payload",
@@ -227,7 +229,12 @@ async def handle_match_websocket(
     log_event(logger, "🔍", "WS", f"New connection attempt for room {room_id}")
 
     try:
-        assigned_role = room_service.assign_role(room_id, websocket)
+        expected_game_type = websocket.query_params.get("game")
+        assigned_role = room_service.assign_role(
+            room_id,
+            websocket,
+            expected_game_type=expected_game_type,
+        )
     except RoomAssignmentError as exc:
         log_event(
             logger,

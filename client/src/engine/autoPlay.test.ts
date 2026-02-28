@@ -1,19 +1,44 @@
 import { describe, expect, it, vi } from 'vitest';
-import type { GameState, ThrowResult } from './types';
+import type { GameState, ThrowResult, Ruleset } from './types';
 import { executeAutoPlayTurn, playImmediateAutoTurns } from './autoPlay';
-import { createInitialState } from './logic';
+
+const mockRuleset: Ruleset = {
+  id: 'common',
+  name: 'Sacred Path',
+  description: 'Mock ruleset for testing',
+  captureMode: 'swap',
+  protectedAdjacency: true,
+  protectedAdjacencyCount: 2,
+  blockadeLength: 3,
+  extraThrowConditions: [1, 4, 5],
+  bearingOffRequirements: 'exact',
+  specialSquares: {
+    15: { name: 'House of Rebirth', canBypass: true, effect: 'safe' },
+    26: { name: 'House of Beauty', canBypass: false, effect: 'none' },
+    27: { name: 'House of Water', canBypass: true, effect: 'water' },
+  },
+};
 
 const buildState = (overrides: Partial<GameState> = {}): GameState => ({
-  ...createInitialState(),
+  board: [],
+  currentPlayer: 'anubis',
+  currentThrow: null,
+  historyLog: [],
+  gameType: 'senet',
+  ruleset: mockRuleset,
+  winner: null,
   ...overrides,
-  board: overrides.board ?? createInitialState().board,
-  historyLog: overrides.historyLog ?? createInitialState().historyLog,
 });
 
 describe('autoPlay', () => {
   it('returns the same state when a winner already exists', () => {
     const state = buildState({ winner: 'anubis' });
-    const result = executeAutoPlayTurn(state);
+    const result = executeAutoPlayTurn(state, {
+      applyMove: vi.fn(),
+      autoPassIfNoMoves: vi.fn(),
+      getLegalMoves: vi.fn(),
+      getThrowResult: vi.fn(),
+    });
 
     expect(result.nextState).toBe(state);
     expect(result.movedPieceId).toBeNull();
@@ -28,6 +53,7 @@ describe('autoPlay', () => {
     }));
 
     const result = executeAutoPlayTurn(buildState(), {
+      applyMove: vi.fn(),
       autoPassIfNoMoves,
       getLegalMoves: vi.fn(() => []),
       getThrowResult: vi.fn(() => throwResult),
@@ -50,6 +76,7 @@ describe('autoPlay', () => {
 
     const result = executeAutoPlayTurn(buildState(), {
       applyMove,
+      autoPassIfNoMoves: vi.fn(),
       getLegalMoves: vi.fn(() => [
         { pieceId: 'L1', targetSquare: 2 },
         { pieceId: 'L2', targetSquare: 4 },
@@ -71,6 +98,7 @@ describe('autoPlay', () => {
 
     const result = playImmediateAutoTurns(buildState(), 3, {
       applyMove,
+      autoPassIfNoMoves: vi.fn(),
       getLegalMoves: vi.fn(() => [{ pieceId: 'L1', targetSquare: 2 }]),
       getThrowResult: vi.fn(() => ({ lightSidesUp: 1, value: 1 })),
       random: () => 0,

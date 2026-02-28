@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useSenetStore } from '../../engine/store'
+import { useSenetStore } from '../../../../engine/store'
 import {
   boardStoreSelector,
   useShallowSelector,
-} from '../../engine/selectors'
-import { isLocalTurnState, type LastMove } from '../../engine/storeHelpers'
-import type { Piece, PlayerID, Ruleset } from '../../engine/types'
-import { getSquareNumber } from '../../utils/grid'
+} from '../../../../engine/selectors'
+import { isLocalTurnState, type LastMove } from '../../../../engine/storeHelpers'
+import type { Piece, PlayerID, Ruleset } from '../../../../engine/types'
+import { getSquareNumber } from '../../../../utils/grid'
 import { getHouseIcon, type HouseIcon } from './houseIcons'
 
 interface BoardDimensions {

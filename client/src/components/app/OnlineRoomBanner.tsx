@@ -1,9 +1,10 @@
+import type { LocalRole } from '../../engine/network'
 import { useTranslation } from 'react-i18next'
 import { CopyRoomButton } from './CopyRoomButton'
 
 interface OnlineRoomBannerProps {
   copiedRoom: boolean
-  localPlayer: 'anubis' | 'sphinx' | 'spectator' | null
+  localPlayer: LocalRole | null
   onCopyRoomId: () => void | Promise<void>
   onLeaveRoom: () => void
   roomId: string

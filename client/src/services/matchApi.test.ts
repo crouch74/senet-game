@@ -24,6 +24,20 @@ describe('matchApi', () => {
     })
   })
 
+  it('passes the selected game type when creating a mehen room', async () => {
+    const fetchFn = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ room_id: 'abc-def-ghi' }),
+    })
+    const api = createMatchApi({ fetchFn })
+
+    await expect(api.createRoom('mehen')).resolves.toBe('abc-def-ghi')
+    expect(fetchFn).toHaveBeenCalledWith('/api/match/create?game=mehen', {
+      method: 'POST',
+      signal: undefined,
+    })
+  })
+
   it('throws when create-room responds with a non-ok status', async () => {
     const fetchFn = vi.fn().mockResolvedValue({
       ok: false,

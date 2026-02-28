@@ -7,9 +7,10 @@ import { createPortal } from 'react-dom';
 interface GuideModalProps {
     isOpen: boolean;
     onClose: () => void;
+    gameType: 'senet' | 'mehen';
 }
 
-export function GuideModal({ isOpen, onClose }: GuideModalProps) {
+export function GuideModal({ isOpen, onClose, gameType }: GuideModalProps) {
     const { t } = useTranslation();
 
     const modalContent = (
@@ -54,7 +55,7 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
 
                         {/* Scrollable Content */}
                         <div className="senet-manuscript flex-1 overflow-y-auto custom-scrollbar">
-                            <LegendContent />
+                            <LegendContent gameType={gameType} />
                         </div>
 
                         {/* Footer Decorative Trim */}

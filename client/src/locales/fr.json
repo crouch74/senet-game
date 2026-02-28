@@ -9,21 +9,55 @@
         "swap_positions": "Échanger les positions",
         "forward_only": "Vers l'avant uniquement",
         "protected_adjacency": "Contiguïté Protégée :",
+        "yes": "Oui",
         "yes_pieces": "Oui, {{num}} pièces",
         "no": "Non",
         "blockades": "Blocages :",
         "bearing_off": "Sortie des Pièces :",
         "requires_exact_throw": "Jet exact requis",
         "any_sufficient_throw": "Tout jet suffisant",
+        "sticks_count": "Nombre de bâtonnets :",
+        "extra_throws": "Tours supplémentaires sur :",
         "rules_title": "Tradition Ancestrale",
+        "mehen_rules_title": "Papyrus du jeu",
+        "mehen_board_size": "Cases de la spirale :",
+        "mehen_balls_per_player": "Billes par joueur :",
+        "mehen_entry_rule": "Entrée depuis la réserve :",
+        "mehen_entry_from_reserve": "N'importe quel jet peut faire entrer une pièce de la réserve sur l'anneau 1",
+        "mehen_finish_rule": "Entrée au centre :",
+        "mehen_exact_finish": "Jet exact requis",
+        "mehen_bounce_back": "Rebond en cas de dépassement",
+        "mehen_capture_mode": "Résultat de capture :",
+        "mehen_capture_rule": "Captures :",
+        "mehen_send_to_start": "Les billes capturées reviennent au départ",
+        "mehen_lion_blocking": "Le lion bloque les billes adverses :",
+        "mehen_safe_cells": "Anneaux sûrs :",
+        "mehen_forced_move": "Si un coup existe :",
+        "mehen_forced_move_value": "vous devez jouer un coup légal, sinon céder le tour",
+        "mehen_win_condition": "Condition de victoire :",
+        "mehen_win_conditions": {
+            "ALL_BALLS_AND_LION": "Toutes les billes et le lion atteignent le centre",
+            "LION_ONLY": "Le lion atteint le centre",
+            "BALLS_ONLY": "Toutes les billes atteignent le centre",
+            "FIRST_PIECE_TO_CENTER": "La première pièce au centre l'emporte"
+        },
         "wins": "GAGNE !"
     },
     "afterlife": {
         "title": "Au-delà",
-        "empty": "Aucune âme n'est encore passée..."
+        "empty": "Aucune âme n'est encore passée...",
+        "mehen": {
+            "title": "Cœur de Mehen",
+            "empty": "Aucun lion ni aucune bille n'a encore atteint le cœur du serpent."
+        },
+        "senet": {
+            "title": "Au-delà",
+            "empty": "Aucune âme n'est encore passée..."
+        }
     },
     "hud": {
         "senet": "Senet",
+        "back_to_games": "Retour aux jeux",
         "rules": "{{name}}",
         "current_turn": "Tour Actuel :",
         "wins": "{{player}} GAGNE !",
@@ -65,6 +99,10 @@
         "players": {
             "anubis": "ANUBIS",
             "sphinx": "SPHINX",
+            "horus": "HORUS",
+            "seth": "SETH",
+            "osiris": "OSIRIS",
+            "isis": "ISIS",
             "spectator": "SPECTATEUR"
         }
     },
@@ -108,15 +146,18 @@
             "27": "L'abîme chaotique. Les âmes non préparées peuvent s'y noyer et être ramenées à la Maison de la Renaissance.",
             "28": "La salle du jugement, où le cœur est pesé contre la plume de Maât.",
             "29": "Rejoindre le dieu soleil Rê-Atoum dans son voyage éternel sur la barque solaire.",
-            "30": "Le seuil final. S'échapper avec la bénédiction d'Horus vers l'au-delà éternel."
+            "30": "Le seuil final. S'échapper avec la bénédiction d'Horus vers l'au-delà éternel.",
+            "60": "L'Œil de Rê. Le centre sacré où s'achève la spirale intérieure et où la victoire peut être remportée."
         }
     },
     "ruleset": {
         "names": {
-            "common": "Voie Sacrée"
+            "common": "Voie Sacrée",
+            "mehen-standard": "Tradition de l'Anneau Gardé"
         },
         "descriptions": {
-            "common": "Le chemin traditionnel de l'âme à travers la Douat, impliquant des paires protégées et des blocages stratégiques."
+            "common": "Le chemin traditionnel de l'âme à travers la Douat, impliquant des paires protégées et des blocages stratégiques.",
+            "mehen-standard": "Cette tradition de maison de Mehen fait entrer lions et billes depuis la réserve. Les anneaux sûrs offrent un refuge, les lions gardent la route, et la victoire n'arrive que lorsque chaque pièce atteint le cœur du serpent."
         }
     },
     "history": {
@@ -127,7 +168,15 @@
         "washed_back": "🌊 Ramené à la Maison de la Renaissance (15)",
         "wins": "🏆 {{player}} GAGNE !",
         "extra_throw": "🎲 Lancer supplémentaire accordé !",
-        "no_moves": "🚫 Aucun mouvement légal pour {{player}}. Fin du tour."
+        "no_moves": "🚫 Aucun mouvement légal pour {{player}}. Fin du tour.",
+        "mehen_started": "🎲 [MEHEN] Le serpent s'éveille. Le voyage commence.",
+        "mehen_move": "🏃 {{piece}} avance de {{from}} à {{to}}.",
+        "mehen_capture": "⚔️ {{piece}} est déplacée de {{from}} à {{to}}.",
+        "mehen_safe_land": "🛡️ {{piece}} se pose en sécurité sur l'anneau {{to}}.",
+        "mehen_finish": "✨ {{piece}} atteint le centre.",
+        "mehen_blocked": "🚫 {{player}} n'a aucun coup légal et cède le tour.",
+        "mehen_extra_turn": "🎲 {{player}} obtient un tour supplémentaire.",
+        "mehen_win": "🏆 {{player}} s'empare du centre et l'emporte !"
     },
     "lobby": {
         "create_room": "Créer une nouvelle salle",
@@ -169,59 +218,183 @@
             "not_found": "Salle introuvable. Retour au salon.",
             "full": "La salle est pleine. Retour au salon.",
             "unavailable": "La salle est indisponible. Retour au salon."
-        }
+        },
+        "select_your_path": "Choisissez votre défi"
     },
     "legend": {
-        "registry_title": "Tome de la Résurrection",
-        "registry_subtitle": "SAGESSE DU SCRIBE",
-        "title": "LA LÉGENDE DU VOYAGE CRÉPUSCULAIRE",
-        "p1": "Avant que les Grandes Pyramides ne touchent le ciel, les scribes de Thoth consignèrent la première partie de Senet. C'est bien plus qu'une simple distraction ; c'est une carte rituelle de la traversée périlleuse de l'âme à travers la Douat — l'inframonde égyptien. Chaque plateau est un reflet de l'ordre cosmique, où le passage de la vie à l'éternité n'est pas seulement une question de talent, mais aussi de faveur divine.",
-        "p2": "Cinq 'âmes-Bâ' représentent les fragments de votre esprit, luttant pour naviguer sur le chemin sinueux de l'existence. Les bâtonnets que vous jetez sont le souffle de vie ; un 'jet parfait' signale que la voie est libre, tandis qu'une erreur vous laisse vulnérable aux ténèbres envahissantes. Se déplacer avec un frère, c'est être protégé par Maât ; se déplacer seul, c'est inviter le chaos du néant.",
-        "p3": "Gagner, c'est franchir la traîtresse 'Maison de l'Eau' et affronter les 'Trois Vérités' avant de s'élever par la 'Porte d'Horus' vers les champs d'Ialou. Là, vous rejoindrez les Étoiles Impérissables et trouverez le repos éternel. Perdre, c'est rester une ombre errante, condamnée à répéter le cycle jusqu'à ce que votre cœur soit aussi léger qu'une plume."
+        "registry_subtitle": "Tome du savoir",
+        "registry_title": "Légende et instructions"
     },
-    "sacred_houses": {
-        "title": "LES CINQ PORTES",
-        "h26": {
-            "title": "Maison de la Beauté",
-            "desc": "Le sanctuaire de l'onction rituelle. Ici, l'âme rassemble ses forces pour les épreuves finales de l'au-delà."
+    "landing": {
+        "title": "La Vallée des Rois",
+        "subtitle": "Jeux de l’Égypte Antique",
+        "select_your_path": "Choisissez votre voyage"
+    },
+    "games": {
+        "senet": {
+            "title": "Senet",
+            "description": "Le Jeu de passage. Une course à travers 30 cases pour atteindre l'au-delà.",
+            "legend": {
+                "title": "LA LÉGENDE DU VOYAGE CRÉPUSCULAIRE",
+                "p1": "Avant que les Grandes Pyramides ne touchent le ciel, les scribes de Thoth consignèrent la première partie de Senet. C'est bien plus qu'une simple distraction ; c'est une carte rituelle de la traversée périlleuse de l'âme à travers la Douat — l'inframonde égyptien. Chaque plateau est un reflet de l'ordre cosmique, où le passage de la vie à l'éternité n'est pas seulement une question de talent, mais aussi de faveur divine.",
+                "p2": "Cinq 'âmes-Bâ' représentent les fragments de votre esprit, luttant pour naviguer sur le chemin sinueux de l'existence. Les bâtonnets que vous jetez sont le souffle de vie ; un 'jet parfait' signale que la voie est libre, tandis qu'une erreur vous laisse vulnérable aux ténèbres envahissantes. Se déplacer avec un frère, c'est être protégé par Maât ; se déplacer seul, c'est inviter le chaos du néant.",
+                "p3": "Gagner, c'est franchir la traîtresse 'Maison de l'Eau' et affronter les 'Trois Vérités' avant de s'élever par la 'Porte d'Horus' vers les champs d'Ialou. Là, vous rejoindrez les Étoiles Impérissables et trouverez le repos éternel. Perdre, c'est rester une ombre errante, condamnée à répéter le cycle jusqu'à ce que votre cœur soit aussi léger qu'une plume."
+            },
+            "sacred_houses": {
+                "title": "LES CINQ PORTES",
+                "h26": {
+                    "title": "Maison de la Beauté",
+                    "desc": "Le sanctuaire de l'onction rituelle. Ici, l'âme rassemble ses forces pour les épreuves finales de l'au-delà."
+                },
+                "h27": {
+                    "title": "Maison de l'Eau",
+                    "desc": "L'Abîme du Néant. Un vide périlleux ; échouer à le traverser rejettera votre esprit à la Maison de la Renaissance (15)."
+                },
+                "h28": {
+                    "title": "Salle des Trois Vérités",
+                    "desc": "La première épreuve des balances. Seul un commandement précis de TROIS vous permettra de tenir bon."
+                },
+                "h29": {
+                    "title": "La Barque Solaire",
+                    "desc": "Rejoindre le Dieu Soleil Rê dans son voyage nocturne. Un jet précis de DEUX vous rapproche de l'aube."
+                },
+                "h30": {
+                    "title": "La Porte d'Horus",
+                    "desc": "Le seuil final. Un seul pas précis de UN accorde à votre esprit l'ascension vers les étoiles éternelles."
+                }
+            },
+            "guide": {
+                "title": "PARCHEMIN DE GUIDANCE",
+                "labels": {
+                    "objective": "Le Mandat Divin",
+                    "movement": "La Spirale du Destin",
+                    "throwing": "Le Jet du Sort",
+                    "capturing": "L'Échange des Ombres",
+                    "protection": "La Paire Sacrée",
+                    "blockades": "Le Mur Céleste",
+                    "special": "Les Portes de la Douat",
+                    "bearing_off": "Ascension de l'Esprit"
+                },
+                "objective": "Guidez vos cinq pièces-esprits hors du plateau pour assurer votre place parmi les étoiles.",
+                "movement": "Parcourez le chemin en S à travers trente cases. Le voyage commence sur la première rangée et s'achève au seuil de l'éternité.",
+                "throwing": "Jetez les quatre bâtonnets pour donner vie à votre sort (1 à 5 cases). Les jets de 1, 4 ou 5 sont bénis des dieux et accordent un tour supplémentaire.",
+                "capturing": "Un enemy isolé est vulnérable. Atterrissez sur lui pour bannir son âme vers votre position précédente.",
+                "protection": "Deux frères se tenant ensemble sont sanctifiés par Maât. Ils ne peuvent être capturés ni déplacés.",
+                "blockades": "Trois pièces ou plus à la suite forment une barrière infranchissable ; aucune âme ne peut sauter une telle concentration d'esprits.",
+                "special": "Les cases 26 à 30 sont les portes finales. Prenez garde à la case 27 (Eau), car y tomber vous rejette à la Maison de la Renaissance (15).",
+                "bearing_off": "Pour franchir le seuil final, vous devez obtenir le jet exact nécessaire pour sortir du plateau."
+            },
+            "lobby": {
+                "about_kicker": "Le Jeu Sacré",
+                "about_title": "Qu'est-ce que le Senet ?",
+                "about_body": "Le Senet n'est pas seulement un jeu de plateau, mais une course cérémonielle à travers le destin lui-même. Deux âmes guident cinq pièces sur un chemin sinueux, où chaque jet de bâtonnets peut accorder la faveur, inviter le péril ou ouvrir la voie à l'immortalité.",
+                "history_kicker": "Héritage du Nil",
+                "history_title": "Un Voyage à travers les Dynasties",
+                "history_body": "Né dans les cours et les tombes de l'Égypte ancienne, le Senet a duré des millénaires en tant que passe-temps noble et symbole sacré. Sur les murs peints, dans les boîtes sculptées et les sépultures royales, il apparaît comme un jeu joué au seuil entre la vie terrestre et l'éternelle Douat.",
+                "fun_facts": {
+                    "kicker": "Murmures du Plateau",
+                    "title": "Anecdotes",
+                    "fact_1": "Des plateaux de Senet étaient placés dans les tombes aux côtés des défunts, comme si la compétition pouvait se poursuivre au-delà du voile.",
+                    "fact_2": "Ses dernières cases étaient comprises comme des lieux chargés d'épreuves et de bénédictions, où le danger, le jugement et le passage divin se rassemblaient au bord du plateau.",
+                    "fact_3": "Aucun livre de règles antique unique n'a survécu, de sorte que le Senet joué aujourd'hui est en partie de l'érudition, en partie de la restauration et en partie de l'imagination révérencieuse."
+                }
+            }
         },
-        "h27": {
-            "title": "Maison de l'Eau",
-            "desc": "L'Abîme du Néant. Un vide périlleux ; échouer à le traverser rejettera votre esprit à la Maison de la Renaissance (15)."
-        },
-        "h28": {
-            "title": "Salle des Trois Vérités",
-            "desc": "La première épreuve des balances. Seul un commandement précis de TROIS vous permettra de tenir bon."
-        },
-        "h29": {
-            "title": "La Barque Solaire",
-            "desc": "Rejoindre le Dieu Soleil Rê dans son voyage nocturne. Un jet précis de DEUX vous rapproche de l'aube."
-        },
-        "h30": {
-            "title": "La Porte d'Horus",
-            "desc": "Le seuil final. Un seul pas précis de UN accorde à votre esprit l'ascension vers les étoiles éternelles."
+        "mehen": {
+            "title": "Mehen",
+            "description": "La Tradition de l'Anneau Gardé. Lions et billes progressent vers le centre à travers une spirale sacrée pour s'emparer du cœur du serpent.",
+            "legend": {
+                "title": "LA LÉGENDE DU SERPENT ENROULÉ",
+                "p1": "Dans les heures les plus sombres de la nuit, lorsque Rê traverse l'inframonde, le grand serpent Mehen s'enroule autour de sa barque. Le serpent est à la fois protecteur, labyrinthe et arène sacrée, et chaque pas vers l'intérieur devient une épreuve.",
+                "p2": "Vos billes avancent sous la garde d'un lion. Certains anneaux offrent un refuge, d'autres exposent à la capture, et la présence du lion peut transformer un passage étroit en rempart infranchissable.",
+                "p3": "Cette édition suit la Tradition de l'Anneau Gardé : chaque lion et chaque bille doivent quitter la réserve et gagner l'intérieur jusqu'au cœur du serpent. Le premier joueur à accomplir cette ascension gardée obtient la faveur de Mehen."
+            },
+            "sacred_coils": {
+                "title": "MARQUES DE L'ANNEAU GARDÉ",
+                "reserve": {
+                    "title": "Boîte de Réserve",
+                    "desc": "Tous les lions et toutes les billes attendent hors de la spirale jusqu'à ce qu'un jet en appelle un sur le premier anneau."
+                },
+                "safe": {
+                    "title": "Anneaux Gardés",
+                    "desc": "Les anneaux 10, 20, 30, 40 et 50 sont des lieux protégés où une bille vulnérable peut demeurer hors de portée."
+                },
+                "lion": {
+                    "title": "Mur du Lion",
+                    "desc": "Le lion peut frapper les billes ennemies et leur barrer le passage, transformant un anneau étroit en barrière vivante."
+                },
+                "heart": {
+                    "title": "Cœur de Mehen",
+                    "desc": "La spirale s'achève à la tête de Mehen, siège de Rê. Chaque bille et le lion doivent atteindre ce centre sacré pour l'emporter."
+                }
+            },
+            "guide": {
+                "title": "PARCHEMIN DU SERPENT",
+                "labels": {
+                    "objective": "La Spirale Sacrée",
+                    "players": "Les Gardiens de l'Anneau",
+                    "opening": "Qui Commence",
+                    "setup": "Lions et billes",
+                    "entry": "La Boîte de Réserve",
+                    "turn": "L'Ordre du Tour",
+                    "movement": "Le Chemin des Anneaux",
+                    "throwing": "Bâtonnets du Destin",
+                    "pieces": "Les Deux Sortes de Pièces",
+                    "capturing": "La Frappe du Lion",
+                    "protection": "L'Abri de l'Anneau",
+                    "safe_spaces": "Les Anneaux Gardés",
+                    "blocking": "Le Mur du Gardien",
+                    "finishing": "L'Anneau Central",
+                    "no_legal_move": "Quand le Passage se Ferme",
+                    "clarifications": "Marques de l'Anneau",
+                    "tie_rule": "Si Deux Atteignent le Cœur",
+                    "winning": "S'emparer de Mehen"
+                },
+                "objective": "Guidez votre lion et vos cinq billes depuis la réserve jusqu'au centre afin que toutes vos pièces atteignent le cœur du serpent.",
+                "players": "La Tradition de l'Anneau Gardé s'exprime le mieux à deux, trois ou quatre joueurs, mais ce plateau peut en accueillir jusqu'à six. Chaque joueur commande un lion et cinq billes.",
+                "opening": "Avant le départ, chaque joueur lance une fois. Le plus haut jet joue en premier, puis le tour passe dans le sens horaire.",
+                "setup": "Tous les lions et toutes les billes commencent hors du plateau dans la réserve. La spirale forme une suite d'anneaux gardés qui débute au bord extérieur et s'achève à la tête de Mehen, au centre.",
+                "entry": "Toutes les pièces commencent hors du plateau dans la boîte de réserve. Sur n'importe quel jet, vous pouvez faire entrer un lion ou une bille sur l'anneau 1 s'il est libre.",
+                "turn": "Le jeu tourne dans le sens horaire. À votre tour, lancez, choisissez une pièce légale, déplacez-la, résolvez capture et protection, puis vérifiez si le jet vous accorde un tour supplémentaire.",
+                "movement": "Chaque tour déplace une pièce exactement du nombre indiqué par le jet. Vous devez jouer un coup légal s'il en existe un ; sinon votre tour prend fin aussitôt.",
+                "throwing": "Le lancer de Mehen produit une valeur de 1 à 5. Les jets de 1 ou de 5 sont bénis et accordent un tour supplémentaire après votre mouvement.",
+                "pieces": "Les billes sont vulnérables : elles peuvent être capturées et renvoyées à la réserve. Le lion est la pièce forte : il capture les billes ennemies, ne peut pas être capturé par elles et peut tenir le passage contre elles.",
+                "capturing": "Atterrir sur une bille ennemie non protégée la capture et la renvoie à la boîte de réserve. Atterrir sur votre propre pièce ou sur un lion ennemi est interdit.",
+                "protection": "Une bille est protégée lorsqu'elle repose sur un anneau sûr ou sur un anneau adjacent à son propre lion. Les billes protégées ne peuvent pas être capturées.",
+                "safe_spaces": "Les anneaux 10, 20, 30, 40 et 50 sont des anneaux sûrs. Toute pièce qui s'y repose échappe à la capture tant qu'elle demeure sur cette place gardée.",
+                "blocking": "Un lion bloque le chemin des billes ennemies. Les billes adverses ne peuvent pas franchir son anneau, même si les lions peuvent se dépasser.",
+                "finishing": "Le centre est l'anneau final. Il faut obtenir le nombre exact pour y entrer ; dépasser le centre rend ce mouvement impossible.",
+                "no_legal_move": "Si votre jet ne vous donne aucun coup légal, votre tour s'achève immédiatement. Vous ne pouvez jamais passer volontairement tant qu'un coup légal existe.",
+                "clarifications": "Un seul pion peut occuper un anneau à la fois. Le mouvement suit toujours la spirale vers l'intérieur ; aucune pièce ne recule, sauf lorsqu'une bille capturée retourne à la réserve.",
+                "tie_rule": "Si plusieurs joueurs terminent au cours du même tour de table, l'emporte celui qui a atteint le centre en premier.",
+                "winning": "Vous gagnez seulement lorsque vos cinq billes et votre lion ont tous atteint le centre."
+            },
+            "board": {
+                "center_title": "Tête de Méhen",
+                "center_subtitle": "Siège de Rê",
+                "reserve_title": "Boîte de réserve",
+                "reserve_subtitle": "Les lions et les billes attendent ici avant d'entrer dans la spirale.",
+                "lion": "Lion",
+                "ball": "Bille"
+            },
+            "lobby": {
+                "about_kicker": "Fragment de papyrus",
+                "about_title": "Qu'est-ce que Mehen ?",
+                "about_body": "Mehen est une course en spirale jouée sous la protection du serpent divin. Dans la Tradition de l'Anneau Gardé, chaque joueur commande un lion et cinq billes, les fait entrer depuis la réserve et progresse anneau après anneau pendant que refuges, captures et lions bloquants transforment la route vers le centre en ascension surveillée.",
+                "history_kicker": "Tradition de maison",
+                "history_title": "L'Anneau Gardé",
+                "history_body": "Mehen nous est parvenu par des plateaux en spirale et des indices fragmentaires plutôt que par un livre de règles complet. Cette édition tranche cette incertitude en adoptant une seule tradition de maison, la Tradition de l'Anneau Gardé, et l'applique partout de façon cohérente.",
+                "fun_facts": {
+                    "kicker": "Secrets de la Spirale",
+                    "title": "Savoir du serpent",
+                    "fact_1": "Les plateaux de Mehen étaient sculptés comme des serpents enroulés, si bien que le plateau lui-même faisait partie du symbole.",
+                    "fact_2": "Cette édition conserve la forme en spirale attestée, mais fixe le jeu autour d'une seule tradition cohérente : entrée depuis la réserve, jet exact pour le centre, blocage par le lion et victoire seulement lorsque toutes les pièces atteignent le cœur.",
+                    "fact_3": "Les anneaux sûrs 10, 20, 30, 40 et 50 représentent les zones gardées du serpent, où même une bille vulnérable peut demeurer hors de portée."
+                }
+            }
         }
     },
     "guide": {
-        "title": "PARCHEMIN DE GUIDANCE",
-        "button_label": "Le Papyrus des Règles",
-        "labels": {
-            "objective": "Le Mandat Divin",
-            "movement": "La Spirale du Destin",
-            "throwing": "Le Jet du Sort",
-            "capturing": "L'Échange des Ombres",
-            "protection": "La Paire Sacrée",
-            "blockades": "Le Mur Céleste",
-            "special": "Les Portes de la Douat",
-            "bearing_off": "Ascension de l'Esprit"
-        },
-        "objective": "Guidez vos cinq pièces-esprits hors du plateau pour assurer votre place parmi les étoiles.",
-        "movement": "Parcourez le chemin en S à travers trente cases. Le voyage commence sur la première rangée et s'achève au seuil de l'éternité.",
-        "throwing": "Jetez les quatre bâtonnets pour donner vie à votre sort (1 à 5 cases). Les jets de 1, 4 ou 5 sont bénis des dieux et accordent un tour supplémentaire.",
-        "capturing": "Un ennemi isolé est vulnérable. Atterrissez sur lui pour bannir son âme vers votre position précédente.",
-        "protection": "Deux frères se tenant ensemble sont sanctifiés par Maât. Ils ne peuvent être capturés ni déplacés.",
-        "blockades": "Trois pièces ou plus à la suite forment une barrière infranchissable ; aucune âme ne peut sauter une telle concentration d'esprits.",
-        "special": "Les cases 26 à 30 sont les portes finales. Prenez garde à la case 27 (Eau), car y tomber vous rejette à la Maison de la Renaissance (15).",
-        "bearing_off": "Pour franchir le seuil final, vous devez obtenir le jet exact nécessaire pour sortir du plateau."
+        "button_label": "Papyrus des règles"
     }
 }

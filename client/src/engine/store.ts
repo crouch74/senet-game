@@ -1,12 +1,8 @@
 import { create } from 'zustand'
-import type { GameState, OfflineMode, PlayerID } from './types'
-import {
-  applyMove as applyMoveDefault,
-  autoPassIfNoMoves as autoPassIfNoMovesDefault,
-  createInitialState,
-  getLegalMoves as getLegalMovesDefault,
-  getThrowResult as getThrowResultDefault,
-} from './logic'
+import type { GameState, OfflineMode, PlayerID, GameType } from './types'
+import * as senetLogic from '../games/senet/engine/logic'
+import * as mehenLogic from '../games/mehen/engine/logic'
+
 import {
   AUTO_PLAY_TIMINGS,
   executeAutoPlayTurn,
@@ -31,7 +27,7 @@ import {
 } from './storeHelpers'
 import { createLogger } from '../services/logger'
 
-interface SenetStoreDependencies extends AutoPlayDependencies {
+interface SenetStoreDependencies extends Partial<AutoPlayDependencies> {
   clearTimeoutFn?: typeof window.clearTimeout
   createConnectionManager?: typeof createMatchConnectionManager
   log?: Pick<Console, 'error' | 'log' | 'warn'>
@@ -62,9 +58,15 @@ export interface SenetStore extends GameState {
   setHoveredPieceId: (pieceId: string | null) => void
   setOfflineMode: (mode: OfflineMode) => void
   setShowGuide: (show: boolean) => void
+  setGameType: (type: GameType) => void
   showGuide: boolean
   syncState: (state: Partial<GameState>) => void
   throwSticks: () => void
+}
+
+const getGameLogic = (gameType: GameType) => {
+  if (gameType === 'mehen') return mehenLogic
+  return senetLogic
 }
 
 export const createSenetStore = (
@@ -75,11 +77,12 @@ export const createSenetStore = (
     dependencies.setTimeoutFn ?? window.setTimeout.bind(window)
   const clearTimeoutFn =
     dependencies.clearTimeoutFn ?? window.clearTimeout.bind(window)
-  const getThrowResult = dependencies.getThrowResult ?? getThrowResultDefault
-  const getLegalMoves = dependencies.getLegalMoves ?? getLegalMovesDefault
-  const applyMove = dependencies.applyMove ?? applyMoveDefault
-  const autoPassIfNoMoves =
-    dependencies.autoPassIfNoMoves ?? autoPassIfNoMovesDefault
+
+  const getThrowResult = (gameType: GameType) => getGameLogic(gameType).getThrowResult()
+  const getLegalMoves = (state: GameState) => getGameLogic(state.gameType).getLegalMoves(state)
+  const applyMove = (state: GameState, pieceId: string) => getGameLogic(state.gameType).applyMove(state, pieceId)
+  const autoPassIfNoMoves = (state: GameState) => getGameLogic(state.gameType).autoPassIfNoMoves(state)
+
   const connectionManager =
     (dependencies.createConnectionManager ?? createMatchConnectionManager)()
 
@@ -104,7 +107,7 @@ export const createSenetStore = (
   }
 
   return create<SenetStore>((set, get) => ({
-    ...createInitialState(),
+    ...senetLogic.createInitialState(),
     hoveredPieceId: null,
     isAutoPlaying: false,
     isAutoRolling: false,
@@ -140,7 +143,7 @@ export const createSenetStore = (
         roomJoinError: null,
       })
 
-      connectionManager.connect(normalizedRoomId, {
+      connectionManager.connect(normalizedRoomId, get().gameType, {
         onOpen: (joinedRoomId) => {
           logger.info(`Connected to room ${joinedRoomId}`)
         },
@@ -302,7 +305,7 @@ export const createSenetStore = (
           applyMove,
           autoPassIfNoMoves,
           getLegalMoves,
-          getThrowResult,
+          getThrowResult: () => getThrowResult(currentState.gameType),
           random: dependencies.random,
         })
 
@@ -326,7 +329,7 @@ export const createSenetStore = (
             return
           }
 
-          const throwResult = getThrowResult()
+          const throwResult = getThrowResult(nextState.gameType)
           nextState = { ...nextState, currentThrow: throwResult }
           const throwPartial: Partial<GameState> = { currentThrow: throwResult }
           set({
@@ -347,7 +350,7 @@ export const createSenetStore = (
           applyMove,
           autoPassIfNoMoves,
           getLegalMoves,
-          getThrowResult,
+          getThrowResult: () => getThrowResult(nextState.gameType),
           random: dependencies.random,
         })
         nextState = executedTurn.nextState
@@ -372,8 +375,11 @@ export const createSenetStore = (
       cancelAutoplay()
       clearAutoPassTimer()
       clearLastMoveTimeout()
-
-      set({ ...createInitialState(state.ruleset), legalMoves: [] })
+      const nextState =
+        state.gameType === 'senet'
+          ? senetLogic.createInitialState(state.ruleset)
+          : mehenLogic.createInitialState()
+      set({ ...nextState, legalMoves: [] })
     },
 
     setHoveredPieceId: (pieceId) => set({ hoveredPieceId: pieceId }),
@@ -381,6 +387,18 @@ export const createSenetStore = (
     setOfflineMode: (mode) => set({ offlineMode: mode }),
 
     setShowGuide: (show) => set({ showGuide: show }),
+
+    setGameType: (type) => {
+      cancelAutoplay()
+      clearAutoPassTimer()
+      clearLastMoveTimeout()
+      const logic = getGameLogic(type)
+      set({
+        ...logic.createInitialState(),
+        gameType: type,
+        legalMoves: []
+      })
+    },
 
     syncState: (state) => {
       if (get().isOnline) {
@@ -402,13 +420,14 @@ export const createSenetStore = (
 
       clearAutoPassTimer()
 
-      const throwResult = getThrowResult()
+      const throwResult = getThrowResult(state.gameType)
       const partialState: Partial<GameState> = { currentThrow: throwResult }
       set(partialState)
       get().syncState(partialState)
 
       const stateAfterThrow = get()
-      const legalMoves = getLegalMoves(extractGameState(stateAfterThrow))
+      const currentGameState = extractGameState(stateAfterThrow)
+      const legalMoves = getLegalMoves(currentGameState)
 
       if (legalMoves.length === 0) {
         autoPassTimer = setTimeoutFn(() => {

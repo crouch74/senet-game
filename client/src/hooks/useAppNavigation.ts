@@ -5,7 +5,7 @@ import {
   setOfflineModePath,
   setRoomPath,
 } from '../app/permalinks'
-import type { OfflineMode } from '../engine/types'
+import type { OfflineMode, GameType } from '../engine/types'
 
 interface UseAppNavigationOptions {
   clearRoomJoinError: () => void
@@ -18,6 +18,7 @@ interface UseAppNavigationOptions {
   roomId: string | null
   roomJoinError: string | null
   setOfflineMode: (mode: OfflineMode) => void
+  gameType: GameType
 }
 
 export function useAppNavigation({
@@ -31,10 +32,12 @@ export function useAppNavigation({
   roomId,
   roomJoinError,
   setOfflineMode,
+  gameType,
 }: UseAppNavigationOptions) {
   const [initialPermalinkState] = useState(() =>
     getInitialPermalinkState(
       typeof window === 'undefined' ? '/' : window.location.pathname,
+      typeof window === 'undefined' ? '' : window.location.search,
     ),
   )
   const [showLobby, setShowLobby] = useState(initialPermalinkState.showLobby)
@@ -64,19 +67,19 @@ export function useAppNavigation({
 
   useEffect(() => {
     if (!isOnline || !roomId) return
-    setRoomPath(roomId)
-  }, [isOnline, roomId])
+    setRoomPath(roomId, gameType)
+  }, [isOnline, roomId, gameType])
 
   useEffect(() => {
     if (showLobbyScreen) return
     if (isOnline || isConnectingToRoom) return
-    setOfflineModePath(offlineMode)
-  }, [showLobbyScreen, isOnline, isConnectingToRoom, offlineMode])
+    setOfflineModePath(offlineMode, gameType)
+  }, [showLobbyScreen, isOnline, isConnectingToRoom, offlineMode, gameType])
 
   useEffect(() => {
     if (!roomJoinError) return
-    setLobbyPath()
-  }, [roomJoinError])
+    setLobbyPath(gameType)
+  }, [roomJoinError, gameType])
 
   const handleReturnToLobby = () => {
     if (isOnline || isConnectingToRoom) {
@@ -85,20 +88,20 @@ export function useAppNavigation({
 
     resetGame()
     setShowLobby(true)
-    setLobbyPath()
+    setLobbyPath(gameType)
   }
 
   const handleLeaveRoom = () => {
     leaveRoom()
     setShowLobby(true)
-    setLobbyPath()
+    setLobbyPath(gameType)
   }
 
   const handleStartOfflineMode = (mode: OfflineMode) => {
     setOfflineMode(mode)
     resetGame()
     setShowLobby(false)
-    setOfflineModePath(mode)
+    setOfflineModePath(mode, gameType)
   }
 
   return {
@@ -108,5 +111,6 @@ export function useAppNavigation({
     setShowLobby,
     showLobby,
     showLobbyScreen,
+    initialGameType: initialPermalinkState.gameType,
   }
 }

@@ -1,4 +1,4 @@
-import type { Ruleset } from './types';
+import type { Ruleset } from '../../../engine/types';
 
 export const CommonRuleset: Ruleset = {
     id: 'common',
