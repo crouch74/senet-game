@@ -143,6 +143,21 @@ describe('App', () => {
     });
   });
 
+  it('renders the waiting-room panel while connecting to an opponent', async () => {
+    useSenetStore.setState({
+      isConnectingToRoom: true,
+      isWaitingForOpponent: true,
+      localPlayer: 'anubis',
+      roomId: 'abc-def-ghi',
+    });
+
+    await renderWithProviders(<App />);
+
+    expect(screen.getByText('Awaiting the Second Soul')).toBeInTheDocument();
+    expect(screen.getByText('abc-def-ghi')).toBeInTheDocument();
+    expect(screen.getByText('Leave Room')).toBeInTheDocument();
+  });
+
   it('schedules computer turns in vs-pc mode once the sphinx turn is active', async () => {
     vi.useFakeTimers();
     window.history.replaceState({}, '', '/mode/pass-and-play');
