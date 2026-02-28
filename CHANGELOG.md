@@ -1,6 +1,14 @@
 # Changelog
 
 ## Unreleased
+- **Theme-Specific Arabic Typography**:
+  - Implemented unique Arabic font pairings for each of the 14 themes, matching the unique aesthetic of each board skin.
+  - Added **El Messiri** (elegant/fluid) and **Vazirmatn** (modern/clean) to the font stack.
+  - Consolidated Arabic font management using theme variables for better performance and maintainability.
+- **Arabic Typography Improvements**:
+  - Implemented a premium Arabic font stack using **Reem Kufi** for headers and **IBM Plex Sans Arabic** for body text.
+  - Added **Amiri** specifically for the manuscript/legend section for an authentic historical feel.
+  - Reset `letter-spacing` and increased `line-height` for all Arabic text to ensure proper script rendering and legibility.
 - **8 New Board Skins**:
   - **Obsidian Eclipse** — Pure monochrome (black/silver), volcanic glass aesthetic.
   - **Turquoise Tomb** — Cool teal/cyan, inspired by flooded Ptolemaic passages.

@@ -14,7 +14,7 @@ A modern digital adaptation of the ancient Egyptian board game Senet. The projec
 - Offline play against local turn logic and computer-assisted turns
 - Cinematic board presentation with animated throw sticks, themed artwork, and a game-over sequence
 - Chronicle and rules panels that keep match history and rules context visible during play
-- Localization support for English, Egyptian Arabic, and French
+- Localization support for English, Egyptian Arabic (with premium typography), and French
 - Static frontend build support for GitHub Pages deployments
 
 ## Tech Stack

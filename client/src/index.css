@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;700;800&family=Caudex:wght@400;700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Marcellus&family=Spectral:wght@400;500;600;700&family=Unna:wght@400;700&family=Vollkorn+SC:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;700;800&family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Caudex:wght@400;700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=El+Messiri:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Marcellus&family=Reem+Kufi:wght@400;500;600;700&family=Spectral:wght@400;500;600;700&family=Unna:wght@400;700&family=Vazirmatn:wght@400;500;600;700&family=Vollkorn+SC:wght@400;600;700&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -20,8 +20,10 @@
   --font-body: "Cormorant Garamond", Georgia, serif;
   --font-display: "Cinzel", "Cormorant Garamond", serif;
   --font-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
-  --font-body-ar: "Geeza Pro", "SF Arabic", "Dubai", "Tahoma", sans-serif;
-  --font-display-ar: "Geeza Pro", "SF Arabic", "Dubai", "Tahoma", sans-serif;
+  --font-body-ar: "IBM Plex Sans Arabic", "Cairo", "Dubai", "Tahoma", sans-serif;
+  --font-display-ar: "Reem Kufi", "Amiri", "Geeza Pro", serif;
+  --font-manuscript-ar: "Amiri", "Geeza Pro", serif;
+  --font-manuscript-display-ar: "Reem Kufi", "Amiri", serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
 }
@@ -42,6 +44,8 @@ html[data-theme="royal"] {
   --color-gold-shadow: #996515;
   --font-body: "Cormorant Garamond", Georgia, serif;
   --font-display: "Cinzel", "Cormorant Garamond", serif;
+  --font-body-ar: "IBM Plex Sans Arabic", "Cairo", "Dubai", "Tahoma", sans-serif;
+  --font-display-ar: "Reem Kufi", "Amiri", "Geeza Pro", serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
 
@@ -144,6 +148,8 @@ html[data-theme="moonlit-necropolis"] {
   --color-gold-shadow: #7f6520;
   --font-body: "Spectral", Georgia, serif;
   --font-display: "Marcellus", "Spectral", serif;
+  --font-body-ar: "Cairo", "Vazirmatn", sans-serif;
+  --font-display-ar: "Amiri", "Reem Kufi", serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
 
@@ -246,6 +252,8 @@ html[data-theme="nile-papyrus"] {
   --color-gold-shadow: #6e4f1f;
   --font-body: "Alegreya", Georgia, serif;
   --font-display: "Caudex", "Alegreya", serif;
+  --font-body-ar: "Amiri", "Geeza Pro", serif;
+  --font-display-ar: "Amiri", "Geeza Pro", serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
 
@@ -348,6 +356,8 @@ html[data-theme="color-blind"] {
   --color-gold-shadow: #8b6100;
   --font-body: "Alegreya", Georgia, serif;
   --font-display: "Marcellus", "Alegreya", serif;
+  --font-body-ar: "IBM Plex Sans Arabic", sans-serif;
+  --font-display-ar: "IBM Plex Sans Arabic", sans-serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
 
@@ -458,6 +468,8 @@ html[data-theme="amethyst-canopy"] {
   --color-gold-shadow: #7158a7;
   --font-body: "Spectral", Georgia, serif;
   --font-display: "Unna", "Spectral", serif;
+  --font-body-ar: "El Messiri", "IBM Plex Sans Arabic", sans-serif;
+  --font-display-ar: "El Messiri", "Reem Kufi", sans-serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
 
@@ -560,6 +572,8 @@ html[data-theme="red-oasis"] {
   --color-gold-shadow: #95532a;
   --font-body: "Alegreya", Georgia, serif;
   --font-display: "Vollkorn SC", "Alegreya", serif;
+  --font-body-ar: "Cairo", "IBM Plex Sans Arabic", sans-serif;
+  --font-display-ar: "Reem Kufi", "Cairo", sans-serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
 
@@ -662,6 +676,8 @@ html[data-theme="obsidian-eclipse"] {
   --color-gold-shadow: #6a6a6a;
   --font-body: "Spectral", Georgia, serif;
   --font-display: "Marcellus", "Spectral", serif;
+  --font-body-ar: "Vazirmatn", "IBM Plex Sans Arabic", sans-serif;
+  --font-display-ar: "Vazirmatn", "IBM Plex Sans Arabic", sans-serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
 
@@ -764,6 +780,8 @@ html[data-theme="turquoise-tomb"] {
   --color-gold-shadow: #1a7a70;
   --font-body: "Alegreya", Georgia, serif;
   --font-display: "Caudex", "Alegreya", serif;
+  --font-body-ar: "Cairo", "El Messiri", sans-serif;
+  --font-display-ar: "El Messiri", "Reem Kufi", sans-serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
 
@@ -866,6 +884,8 @@ html[data-theme="sahara-mirage"] {
   --color-gold-shadow: #8a5030;
   --font-body: "Cormorant Garamond", Georgia, serif;
   --font-display: "Cinzel", "Cormorant Garamond", serif;
+  --font-body-ar: "Cairo", "IBM Plex Sans Arabic", sans-serif;
+  --font-display-ar: "Reem Kufi", "Cairo", sans-serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
 
@@ -968,6 +988,8 @@ html[data-theme="jade-sarcophagus"] {
   --color-gold-shadow: #2a6b42;
   --font-body: "Alegreya", Georgia, serif;
   --font-display: "Marcellus", "Alegreya", serif;
+  --font-body-ar: "IBM Plex Sans Arabic", "Cairo", sans-serif;
+  --font-display-ar: "Reem Kufi", "Amiri", serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
 
@@ -1070,6 +1092,8 @@ html[data-theme="lapis-lazuli"] {
   --color-gold-shadow: #2840a8;
   --font-body: "Spectral", Georgia, serif;
   --font-display: "Unna", "Spectral", serif;
+  --font-body-ar: "Cairo", "IBM Plex Sans Arabic", sans-serif;
+  --font-display-ar: "Amiri", "Reem Kufi", serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
 
@@ -1172,6 +1196,8 @@ html[data-theme="copper-patina"] {
   --color-gold-shadow: #6e4420;
   --font-body: "Alegreya", Georgia, serif;
   --font-display: "Vollkorn SC", "Alegreya", serif;
+  --font-body-ar: "Vazirmatn", "Cairo", sans-serif;
+  --font-display-ar: "Reem Kufi", "Vazirmatn", sans-serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
 
@@ -1274,6 +1300,8 @@ html[data-theme="malachite-carnelian"] {
   --color-gold-shadow: #088a30;
   --font-body: "Spectral", Georgia, serif;
   --font-display: "Cinzel", "Spectral", serif;
+  --font-body-ar: "IBM Plex Sans Arabic", "Cairo", sans-serif;
+  --font-display-ar: "Reem Kufi", "IBM Plex Sans Arabic", sans-serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
 
@@ -1376,6 +1404,8 @@ html[data-theme="celestial-cartouche"] {
   --color-gold-shadow: #8a3a7a;
   --font-body: "Spectral", Georgia, serif;
   --font-display: "Unna", "Spectral", serif;
+  --font-body-ar: "Cairo", "El Messiri", sans-serif;
+  --font-display-ar: "El Messiri", "Reem Kufi", sans-serif;
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
 
@@ -1464,12 +1494,7 @@ html[data-theme="celestial-cartouche"] {
 }
 
 @layer base {
-  html:lang(ar-EG) {
-    --font-body: var(--font-body-ar);
-    --font-display: var(--font-display-ar);
-    --font-sans: var(--font-body-ar);
-    --font-serif: var(--font-display-ar);
-  }
+
 
   body {
     @apply bg-ebony text-sand;
@@ -1486,29 +1511,343 @@ html[data-theme="celestial-cartouche"] {
 
   .font-arabic {
     font-family: var(--font-body-ar) !important;
+    line-height: 1.6 !important;
+    letter-spacing: normal !important;
   }
 
-  .lang-ar,
-  .lang-ar.font-sans,
-  .lang-ar *:not(.font-mono) {
-    font-family: var(--font-body-ar) !important;
-  }
-
-  .lang-ar .font-sans,
-  .lang-ar .font-arabic {
-    font-family: var(--font-body-ar) !important;
-  }
-
-  .lang-ar .font-serif {
-    font-family: var(--font-display-ar) !important;
+  .lang-ar {
+    font-family: var(--font-body-ar);
+    line-height: 1.6;
     letter-spacing: normal;
   }
 
-  .lang-ar .font-mono {
-    font-family: var(--font-body-ar) !important;
-    letter-spacing: normal;
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-150%) skewX(-12deg);
+    }
+
+    100% {
+      transform: translateX(250%) skewX(-12deg);
+    }
+  }
+
+  .noise-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  .jitter-stroke {
+    filter: url(#jitter);
+  }
+
+  .piece-token {
+    position: relative;
+    border-radius: 9999px;
+    overflow: visible;
+    --ui-piece-symbol-scale: 1;
+    background:
+      radial-gradient(78% 54% at 33% 24%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.055) 22%, rgba(255, 255, 255, 0) 42%),
+      radial-gradient(120% 92% at 52% 76%, rgba(69, 45, 30, 0.14) 0%, rgba(15, 9, 7, 0) 58%),
+      linear-gradient(165deg, color-mix(in srgb, var(--ui-piece-token-shell-from, var(--ui-piece-shell-from)) 90%, #6a4731 10%) 0%, color-mix(in srgb, var(--ui-piece-token-shell-from, var(--ui-piece-shell-from)) 38%, var(--ui-piece-token-shell-to, var(--ui-piece-shell-to)) 62%) 44%, color-mix(in srgb, var(--ui-piece-token-shell-to, var(--ui-piece-shell-to)) 90%, #050404 10%) 100%);
+    box-shadow:
+      0 1px 1px rgba(255, 255, 255, 0.08),
+      0 8px 10px -10px rgba(0, 0, 0, 0.62),
+      inset 0 1px 1px rgba(255, 255, 255, 0.05),
+      inset 0 -4px 7px rgba(0, 0, 0, 0.24);
+  }
+
+  .piece-token::before,
+  .piece-token::after,
+  .piece-token__core::before,
+  .piece-token__core::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .piece-token::before {
+    inset: auto 15% -6% 15%;
+    height: 14%;
+    border-radius: 9999px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.24) 38%, rgba(0, 0, 0, 0) 78%);
+    filter: blur(2.4px);
+    opacity: 0.96;
+  }
+
+  .piece-token::after {
+    inset: 1px;
+    border-radius: inherit;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.16);
+    opacity: 0.7;
+  }
+
+  .piece-token__core {
+    border-radius: 9999px;
+    overflow: hidden;
+    background:
+      radial-gradient(70% 44% at 34% 24%, rgba(255, 248, 238, 0.08) 0%, rgba(255, 248, 238, 0.035) 28%, rgba(255, 248, 238, 0) 44%),
+      radial-gradient(108% 84% at 50% 76%, rgba(39, 25, 19, 0.16) 0%, rgba(0, 0, 0, 0) 56%),
+      linear-gradient(165deg, color-mix(in srgb, var(--ui-piece-token-core-from, var(--ui-piece-core-from)) 92%, #3f2a21 8%) 0%, color-mix(in srgb, var(--ui-piece-token-core-from, var(--ui-piece-core-from)) 46%, var(--ui-piece-token-core-to, var(--ui-piece-core-to)) 54%) 50%, color-mix(in srgb, var(--ui-piece-token-core-to, var(--ui-piece-core-to)) 94%, #040303 6%) 100%);
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.03),
+      inset 0 -6px 7px rgba(0, 0, 0, 0.44);
+  }
+
+  .piece-token__core::before {
+    inset: 0;
+    border-radius: inherit;
+    background:
+      radial-gradient(52% 24% at 34% 25%, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.05) 46%, rgba(255, 255, 255, 0) 82%),
+      radial-gradient(108% 90% at 66% 84%, rgba(0, 0, 0, 0.14) 0%, rgba(0, 0, 0, 0) 60%);
+    opacity: 0.78;
+  }
+
+  .piece-token__core::after {
+    inset: 0;
+    border-radius: inherit;
+    background-image:
+      radial-gradient(circle at 24% 26%, rgba(255, 255, 255, 0.04) 0.45px, transparent 0.95px),
+      radial-gradient(circle at 68% 72%, rgba(0, 0, 0, 0.045) 0.5px, transparent 1px);
+    background-size: 7px 7px, 9px 9px;
+    mix-blend-mode: soft-light;
+    opacity: 0.18;
+  }
+
+  .piece-token__symbol-wrap {
+    position: relative;
+    width: 65%;
+    height: 65%;
+    flex: 0 0 auto;
+    transform: scale(var(--ui-piece-symbol-scale));
+  }
+
+  .piece-token__symbol-wrap--small {
+    width: 60%;
+    height: 60%;
+  }
+
+  .piece-token__symbol {
+    position: absolute;
+    inset: 0;
+  }
+
+  .piece-token__symbol--cavity {
+    transform: scale(1.035) translateY(1%);
+    background: linear-gradient(180deg, rgba(5, 4, 4, 0.92) 0%, rgba(18, 13, 11, 0.82) 100%);
+    opacity: 0.82;
+    filter: blur(0.45px);
+  }
+
+  .piece-token__symbol--shadow {
+    transform: translate(0.8%, 3.8%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.26) 0%, rgba(0, 0, 0, 0.48) 100%);
+    opacity: 0.56;
+    filter: blur(0.28px);
+  }
+
+  .piece-token__symbol--base {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 22%),
+      linear-gradient(165deg, var(--ui-piece-emblem-from) 0%, var(--ui-piece-emblem-via) 52%, var(--ui-piece-emblem-to) 100%);
+    box-shadow:
+      inset 0 0.7px 0 rgba(255, 255, 255, 0.05),
+      inset 0 -1.3px 0 rgba(0, 0, 0, 0.34);
+  }
+
+  .piece-token__symbol--edge {
+    transform: translate(-1.1%, -1.4%);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 20%, rgba(255, 255, 255, 0) 42%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 28%);
+    opacity: 0.22;
+  }
+
+  .piece-token--anubis {
+    --ui-piece-token-shell-from: var(--ui-piece-anubis-shell-from, color-mix(in srgb, var(--ui-piece-shell-from) 82%, var(--ui-piece-emblem-anubis-via) 18%));
+    --ui-piece-token-shell-to: var(--ui-piece-anubis-shell-to, color-mix(in srgb, var(--ui-piece-shell-to) 88%, #080606 12%));
+    --ui-piece-token-core-from: var(--ui-piece-anubis-core-from, color-mix(in srgb, var(--ui-piece-core-from) 84%, var(--ui-piece-emblem-anubis-via) 16%));
+    --ui-piece-token-core-to: var(--ui-piece-anubis-core-to, color-mix(in srgb, var(--ui-piece-core-to) 92%, #040303 8%));
+    --ui-piece-emblem-from: var(--ui-piece-emblem-anubis-from);
+    --ui-piece-emblem-via: color-mix(in srgb, var(--ui-piece-emblem-anubis-via) 88%, #b48a3f 12%);
+    --ui-piece-emblem-to: color-mix(in srgb, var(--ui-piece-emblem-anubis-to) 88%, #4d3314 12%);
+    --ui-piece-glow-current: var(--ui-piece-glow-anubis);
+    --ui-piece-symbol-scale: 1;
+  }
+
+  .piece-token--sphinx {
+    --ui-piece-token-shell-from: var(--ui-piece-sphinx-shell-from, color-mix(in srgb, var(--ui-piece-shell-from) 76%, var(--ui-piece-emblem-sphinx-via) 24%));
+    --ui-piece-token-shell-to: var(--ui-piece-sphinx-shell-to, color-mix(in srgb, var(--ui-piece-shell-to) 86%, var(--ui-piece-emblem-sphinx-to) 14%));
+    --ui-piece-token-core-from: var(--ui-piece-sphinx-core-from, color-mix(in srgb, var(--ui-piece-core-from) 80%, var(--ui-piece-emblem-sphinx-from) 20%));
+    --ui-piece-token-core-to: var(--ui-piece-sphinx-core-to, color-mix(in srgb, var(--ui-piece-core-to) 88%, var(--ui-piece-emblem-sphinx-to) 12%));
+    --ui-piece-emblem-from: color-mix(in srgb, var(--ui-piece-emblem-sphinx-from) 84%, #ddd0b2 16%);
+    --ui-piece-emblem-via: color-mix(in srgb, var(--ui-piece-emblem-sphinx-via) 86%, #d9c9a9 14%);
+    --ui-piece-emblem-to: color-mix(in srgb, var(--ui-piece-emblem-sphinx-to) 86%, #8f836f 14%);
+    --ui-piece-glow-current: var(--ui-piece-glow-sphinx);
+    --ui-piece-symbol-scale: 1.06;
+  }
+
+  .piece-token--movable {
+    box-shadow:
+      0 1px 1px rgba(255, 255, 255, 0.1),
+      0 9px 11px -10px rgba(0, 0, 0, 0.66),
+      0 0 12px color-mix(in srgb, var(--ui-piece-legal-ring) 24%, transparent),
+      inset 0 1px 1px rgba(255, 255, 255, 0.05),
+      inset 0 -4px 7px rgba(0, 0, 0, 0.24);
+  }
+
+  .piece-token--movable::after {
+    inset: 0;
+    box-shadow:
+      inset 0 0 0 1px color-mix(in srgb, var(--ui-piece-legal-ring) 64%, transparent),
+      inset 0 0 0 2px rgba(255, 255, 255, 0.02);
+  }
+
+  .piece-token--current {
+    box-shadow:
+      0 8px 10px -10px rgba(0, 0, 0, 0.62),
+      0 0 8px color-mix(in srgb, var(--ui-piece-glow-current) 24%, transparent),
+      inset 0 1px 1px rgba(255, 255, 255, 0.04),
+      inset 0 -4px 7px rgba(0, 0, 0, 0.24);
+  }
+
+  .piece-token--hovered {
+    filter: brightness(1.08);
+  }
+
+  .piece-token--hovered::before {
+    opacity: 1;
+    filter: blur(3px);
+  }
+
+  .piece-token--hovered::after {
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+      inset 0 0 0 2px rgba(255, 255, 255, 0.12);
+  }
+
+  .piece-token--afterlife {
+    box-shadow:
+      0 7px 8px -10px rgba(0, 0, 0, 0.68),
+      0 0 7px color-mix(in srgb, var(--ui-piece-glow-current) 20%, transparent),
+      inset 0 1px 1px rgba(255, 255, 255, 0.04),
+      inset 0 -4px 6px rgba(0, 0, 0, 0.22);
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .senet-manuscript {
+    position: relative;
+    isolation: isolate;
+    background-color: var(--ui-modal-paper);
+    background-image:
+      radial-gradient(140% 115% at 50% 12%, rgba(255, 248, 229, 0.54) 0%, rgba(255, 244, 215, 0.32) 46%, rgba(120, 86, 40, 0.15) 100%),
+      linear-gradient(160deg, rgba(255, 246, 221, 0.66) 0%, rgba(245, 229, 194, 0.5) 48%, rgba(233, 213, 171, 0.56) 100%),
+      url('/assets/textures/papyrus_base.webp');
+    background-repeat: no-repeat;
+    background-size: 100% 100%, 100% 100%, cover;
+    background-position: center, center, center top;
+    background-blend-mode: soft-light, multiply, normal;
+    box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.12), inset 0 10px 30px rgba(0, 0, 0, 0.06);
+  }
+
+  .senet-manuscript::before,
+  .senet-manuscript::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .senet-manuscript::before {
+    background: linear-gradient(180deg, rgba(255, 251, 236, 0.5) 0%, rgba(255, 247, 228, 0.4) 38%, rgba(249, 237, 209, 0.44) 100%);
+  }
+
+  .senet-manuscript::after {
+    background-image: url('/assets/textures/papyrus_fibers.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;
+    mix-blend-mode: multiply;
+    opacity: 0.12;
+  }
+
+  .senet-manuscript>* {
+    position: relative;
+    z-index: 1;
+  }
+
+  .senet-manuscript .legend-content-surface {
+    background: transparent;
+  }
+
+  @media (max-width: 640px) {
+    .senet-manuscript::after {
+      opacity: 0.09;
+    }
+  }
+
+  html:lang(ar-EG) .senet-manuscript h2,
+  html:lang(ar-EG) .senet-manuscript h3 {
+    font-family: var(--font-manuscript-display-ar) !important;
   }
 }
+
+/**
+ * Arabic Localization Overrides
+ * Must be un-layered and at the bottom to ensure variable precedence over theme-specific font assignments.
+ */
+html:lang(ar-EG) {
+  --font-body: var(--font-body-ar);
+  --font-display: var(--font-display-ar);
+  --font-sans: var(--font-body-ar);
+  --font-serif: var(--font-display-ar);
+  --font-manuscript: var(--font-manuscript-ar);
+  --font-manuscript-display: var(--font-manuscript-display-ar);
+}
+
+html:lang(ar-EG) body {
+  font-family: var(--font-body-ar);
+  line-height: 1.6;
+  letter-spacing: normal;
+}
+
+html:lang(ar-EG) .font-mono {
+  font-family: var(--font-mono) !important;
+  letter-spacing: normal !important;
+}
+
+html:lang(ar-EG) .font-serif,
+html:lang(ar-EG) .font-display,
+html:lang(ar-EG) h1,
+html:lang(ar-EG) h2,
+html:lang(ar-EG) h3 {
+  font-family: var(--font-display-ar) !important;
+  letter-spacing: normal !important;
+}
+
+html:lang(ar-EG) .senet-manuscript {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+html:lang(ar-EG) .senet-manuscript p {
+  font-family: var(--font-manuscript-ar) !important;
+  font-size: 1.15em;
+  line-height: 1.85;
+}
+
+
+
 
 .custom-scrollbar::-webkit-scrollbar {
   width: 5px;
@@ -1526,279 +1865,4 @@ html[data-theme="celestial-cartouche"] {
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--ui-scroll-thumb-hover);
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-150%) skewX(-12deg);
-  }
-
-  100% {
-    transform: translateX(250%) skewX(-12deg);
-  }
-}
-
-.noise-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
-
-.jitter-stroke {
-  filter: url(#jitter);
-}
-
-.piece-token {
-  position: relative;
-  border-radius: 9999px;
-  overflow: visible;
-  --ui-piece-symbol-scale: 1;
-  background:
-    radial-gradient(78% 54% at 33% 24%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.055) 22%, rgba(255, 255, 255, 0) 42%),
-    radial-gradient(120% 92% at 52% 76%, rgba(69, 45, 30, 0.14) 0%, rgba(15, 9, 7, 0) 58%),
-    linear-gradient(165deg, color-mix(in srgb, var(--ui-piece-token-shell-from, var(--ui-piece-shell-from)) 90%, #6a4731 10%) 0%, color-mix(in srgb, var(--ui-piece-token-shell-from, var(--ui-piece-shell-from)) 38%, var(--ui-piece-token-shell-to, var(--ui-piece-shell-to)) 62%) 44%, color-mix(in srgb, var(--ui-piece-token-shell-to, var(--ui-piece-shell-to)) 90%, #050404 10%) 100%);
-  box-shadow:
-    0 1px 1px rgba(255, 255, 255, 0.08),
-    0 8px 10px -10px rgba(0, 0, 0, 0.62),
-    inset 0 1px 1px rgba(255, 255, 255, 0.05),
-    inset 0 -4px 7px rgba(0, 0, 0, 0.24);
-}
-
-.piece-token::before,
-.piece-token::after,
-.piece-token__core::before,
-.piece-token__core::after {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-}
-
-.piece-token::before {
-  inset: auto 15% -6% 15%;
-  height: 14%;
-  border-radius: 9999px;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.24) 38%, rgba(0, 0, 0, 0) 78%);
-  filter: blur(2.4px);
-  opacity: 0.96;
-}
-
-.piece-token::after {
-  inset: 1px;
-  border-radius: inherit;
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.02),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.16);
-  opacity: 0.7;
-}
-
-.piece-token__core {
-  border-radius: 9999px;
-  overflow: hidden;
-  background:
-    radial-gradient(70% 44% at 34% 24%, rgba(255, 248, 238, 0.08) 0%, rgba(255, 248, 238, 0.035) 28%, rgba(255, 248, 238, 0) 44%),
-    radial-gradient(108% 84% at 50% 76%, rgba(39, 25, 19, 0.16) 0%, rgba(0, 0, 0, 0) 56%),
-    linear-gradient(165deg, color-mix(in srgb, var(--ui-piece-token-core-from, var(--ui-piece-core-from)) 92%, #3f2a21 8%) 0%, color-mix(in srgb, var(--ui-piece-token-core-from, var(--ui-piece-core-from)) 46%, var(--ui-piece-token-core-to, var(--ui-piece-core-to)) 54%) 50%, color-mix(in srgb, var(--ui-piece-token-core-to, var(--ui-piece-core-to)) 94%, #040303 6%) 100%);
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.03),
-    inset 0 -6px 7px rgba(0, 0, 0, 0.44);
-}
-
-.piece-token__core::before {
-  inset: 0;
-  border-radius: inherit;
-  background:
-    radial-gradient(52% 24% at 34% 25%, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.05) 46%, rgba(255, 255, 255, 0) 82%),
-    radial-gradient(108% 90% at 66% 84%, rgba(0, 0, 0, 0.14) 0%, rgba(0, 0, 0, 0) 60%);
-  opacity: 0.78;
-}
-
-.piece-token__core::after {
-  inset: 0;
-  border-radius: inherit;
-  background-image:
-    radial-gradient(circle at 24% 26%, rgba(255, 255, 255, 0.04) 0.45px, transparent 0.95px),
-    radial-gradient(circle at 68% 72%, rgba(0, 0, 0, 0.045) 0.5px, transparent 1px);
-  background-size: 7px 7px, 9px 9px;
-  mix-blend-mode: soft-light;
-  opacity: 0.18;
-}
-
-.piece-token__symbol-wrap {
-  position: relative;
-  width: 65%;
-  height: 65%;
-  flex: 0 0 auto;
-  transform: scale(var(--ui-piece-symbol-scale));
-}
-
-.piece-token__symbol-wrap--small {
-  width: 60%;
-  height: 60%;
-}
-
-.piece-token__symbol {
-  position: absolute;
-  inset: 0;
-}
-
-.piece-token__symbol--cavity {
-  transform: scale(1.035) translateY(1%);
-  background: linear-gradient(180deg, rgba(5, 4, 4, 0.92) 0%, rgba(18, 13, 11, 0.82) 100%);
-  opacity: 0.82;
-  filter: blur(0.45px);
-}
-
-.piece-token__symbol--shadow {
-  transform: translate(0.8%, 3.8%);
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.26) 0%, rgba(0, 0, 0, 0.48) 100%);
-  opacity: 0.56;
-  filter: blur(0.28px);
-}
-
-.piece-token__symbol--base {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 22%),
-    linear-gradient(165deg, var(--ui-piece-emblem-from) 0%, var(--ui-piece-emblem-via) 52%, var(--ui-piece-emblem-to) 100%);
-  box-shadow:
-    inset 0 0.7px 0 rgba(255, 255, 255, 0.05),
-    inset 0 -1.3px 0 rgba(0, 0, 0, 0.34);
-}
-
-.piece-token__symbol--edge {
-  transform: translate(-1.1%, -1.4%);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 20%, rgba(255, 255, 255, 0) 42%),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 28%);
-  opacity: 0.22;
-}
-
-.piece-token--anubis {
-  --ui-piece-token-shell-from: var(--ui-piece-anubis-shell-from, color-mix(in srgb, var(--ui-piece-shell-from) 82%, var(--ui-piece-emblem-anubis-via) 18%));
-  --ui-piece-token-shell-to: var(--ui-piece-anubis-shell-to, color-mix(in srgb, var(--ui-piece-shell-to) 88%, #080606 12%));
-  --ui-piece-token-core-from: var(--ui-piece-anubis-core-from, color-mix(in srgb, var(--ui-piece-core-from) 84%, var(--ui-piece-emblem-anubis-via) 16%));
-  --ui-piece-token-core-to: var(--ui-piece-anubis-core-to, color-mix(in srgb, var(--ui-piece-core-to) 92%, #040303 8%));
-  --ui-piece-emblem-from: var(--ui-piece-emblem-anubis-from);
-  --ui-piece-emblem-via: color-mix(in srgb, var(--ui-piece-emblem-anubis-via) 88%, #b48a3f 12%);
-  --ui-piece-emblem-to: color-mix(in srgb, var(--ui-piece-emblem-anubis-to) 88%, #4d3314 12%);
-  --ui-piece-glow-current: var(--ui-piece-glow-anubis);
-  --ui-piece-symbol-scale: 1;
-}
-
-.piece-token--sphinx {
-  --ui-piece-token-shell-from: var(--ui-piece-sphinx-shell-from, color-mix(in srgb, var(--ui-piece-shell-from) 76%, var(--ui-piece-emblem-sphinx-via) 24%));
-  --ui-piece-token-shell-to: var(--ui-piece-sphinx-shell-to, color-mix(in srgb, var(--ui-piece-shell-to) 86%, var(--ui-piece-emblem-sphinx-to) 14%));
-  --ui-piece-token-core-from: var(--ui-piece-sphinx-core-from, color-mix(in srgb, var(--ui-piece-core-from) 80%, var(--ui-piece-emblem-sphinx-from) 20%));
-  --ui-piece-token-core-to: var(--ui-piece-sphinx-core-to, color-mix(in srgb, var(--ui-piece-core-to) 88%, var(--ui-piece-emblem-sphinx-to) 12%));
-  --ui-piece-emblem-from: color-mix(in srgb, var(--ui-piece-emblem-sphinx-from) 84%, #ddd0b2 16%);
-  --ui-piece-emblem-via: color-mix(in srgb, var(--ui-piece-emblem-sphinx-via) 86%, #d9c9a9 14%);
-  --ui-piece-emblem-to: color-mix(in srgb, var(--ui-piece-emblem-sphinx-to) 86%, #8f836f 14%);
-  --ui-piece-glow-current: var(--ui-piece-glow-sphinx);
-  --ui-piece-symbol-scale: 1.06;
-}
-
-.piece-token--movable {
-  box-shadow:
-    0 1px 1px rgba(255, 255, 255, 0.1),
-    0 9px 11px -10px rgba(0, 0, 0, 0.66),
-    0 0 12px color-mix(in srgb, var(--ui-piece-legal-ring) 24%, transparent),
-    inset 0 1px 1px rgba(255, 255, 255, 0.05),
-    inset 0 -4px 7px rgba(0, 0, 0, 0.24);
-}
-
-.piece-token--movable::after {
-  inset: 0;
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--ui-piece-legal-ring) 64%, transparent),
-    inset 0 0 0 2px rgba(255, 255, 255, 0.02);
-}
-
-.piece-token--current {
-  box-shadow:
-    0 8px 10px -10px rgba(0, 0, 0, 0.62),
-    0 0 8px color-mix(in srgb, var(--ui-piece-glow-current) 24%, transparent),
-    inset 0 1px 1px rgba(255, 255, 255, 0.04),
-    inset 0 -4px 7px rgba(0, 0, 0, 0.24);
-}
-
-.piece-token--hovered {
-  filter: brightness(1.08);
-}
-
-.piece-token--hovered::before {
-  opacity: 1;
-  filter: blur(3px);
-}
-
-.piece-token--hovered::after {
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-    inset 0 0 0 2px rgba(255, 255, 255, 0.12);
-}
-
-.piece-token--afterlife {
-  box-shadow:
-    0 7px 8px -10px rgba(0, 0, 0, 0.68),
-    0 0 7px color-mix(in srgb, var(--ui-piece-glow-current) 20%, transparent),
-    inset 0 1px 1px rgba(255, 255, 255, 0.04),
-    inset 0 -4px 6px rgba(0, 0, 0, 0.22);
-}
-
-.perspective-1000 {
-  perspective: 1000px;
-}
-
-.senet-manuscript {
-  position: relative;
-  isolation: isolate;
-  background-color: var(--ui-modal-paper);
-  background-image:
-    radial-gradient(140% 115% at 50% 12%, rgba(255, 248, 229, 0.54) 0%, rgba(255, 244, 215, 0.32) 46%, rgba(120, 86, 40, 0.15) 100%),
-    linear-gradient(160deg, rgba(255, 246, 221, 0.66) 0%, rgba(245, 229, 194, 0.5) 48%, rgba(233, 213, 171, 0.56) 100%),
-    url('/assets/textures/papyrus_base.webp');
-  background-repeat: no-repeat;
-  background-size: 100% 100%, 100% 100%, cover;
-  background-position: center, center, center top;
-  background-blend-mode: soft-light, multiply, normal;
-  box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.12), inset 0 10px 30px rgba(0, 0, 0, 0.06);
-}
-
-.senet-manuscript::before,
-.senet-manuscript::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.senet-manuscript::before {
-  background: linear-gradient(180deg, rgba(255, 251, 236, 0.5) 0%, rgba(255, 247, 228, 0.4) 38%, rgba(249, 237, 209, 0.44) 100%);
-}
-
-.senet-manuscript::after {
-  background-image: url('/assets/textures/papyrus_fibers.webp');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center top;
-  mix-blend-mode: multiply;
-  opacity: 0.12;
-}
-
-.senet-manuscript>* {
-  position: relative;
-  z-index: 1;
-}
-
-.senet-manuscript .legend-content-surface {
-  background: transparent;
-}
-
-@media (max-width: 640px) {
-  .senet-manuscript::after {
-    opacity: 0.09;
-  }
 }
