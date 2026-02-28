@@ -69,6 +69,7 @@ function App() {
 
   useEffect(() => {
     document.documentElement.dir = i18n.language === 'ar-EG' ? 'rtl' : 'ltr'
+    document.documentElement.lang = i18n.language
   }, [i18n.language])
 
   useEffect(() => {
@@ -90,7 +91,7 @@ function App() {
 
   return (
     <div
-      className={`min-h-screen bg-ebony text-sand flex flex-col font-sans selection:bg-gold/30 overflow-x-hidden ${i18n.language === 'ar-EG' ? 'font-arabic' : ''}`}
+      className={`min-h-screen bg-ebony text-sand flex flex-col font-sans selection:bg-gold/30 overflow-x-hidden ${i18n.language === 'ar-EG' ? 'lang-ar font-arabic' : ''}`}
     >
       <div className="fixed inset-0 pointer-events-none opacity-5 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-sand via-ebony to-ebony" />
       <div className="noise-overlay" />

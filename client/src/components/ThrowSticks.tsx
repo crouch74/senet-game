@@ -37,6 +37,7 @@ export function ThrowSticks() {
       </div>
 
       <div className="relative w-full h-40 flex items-center justify-center perspective-1000">
+        <div className="absolute inset-x-6 inset-y-3 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.03)_28%,rgba(0,0,0,0.16)_58%,rgba(0,0,0,0)_82%)] pointer-events-none" />
         <AnimatePresence mode="wait">
           {isThrowing ? (
             <motion.div
@@ -64,7 +65,7 @@ export function ThrowSticks() {
                       ease: 'linear',
                     },
                   }}
-                  className="w-4 h-20 rounded-full bg-[var(--ui-stick-light)] border-2 border-[var(--ui-stick-light-border)] shadow-xl"
+                  className="w-4 h-20 rounded-full bg-[var(--ui-stick-light)] border-2 border-[var(--ui-stick-light-border)] shadow-[0_0_0_1px_rgba(0,0,0,0.28),0_10px_20px_rgba(0,0,0,0.5),inset_0_1px_4px_rgba(255,255,255,0.55)]"
                 />
               ))}
             </motion.div>
@@ -97,18 +98,25 @@ export function ThrowSticks() {
                   className={cn(
                     'absolute w-6 h-28 rounded-full shadow-2xl border-2 overflow-hidden',
                     layout.isLight
-                      ? 'bg-[var(--ui-stick-light)] border-[var(--ui-stick-light-border)] shadow-[inset_0_0_15px_rgba(255,255,255,0.8),0_10px_20px_rgba(0,0,0,0.4)]'
-                      : 'bg-[var(--ui-stick-dark)] border-black shadow-[inset_0_0_15px_rgba(0,0,0,0.8),0_10px_20px_rgba(0,0,0,0.4)]',
+                      ? 'bg-[var(--ui-stick-light)] border-[var(--ui-stick-light-border)] shadow-[0_0_0_1px_rgba(0,0,0,0.25),inset_0_0_15px_rgba(255,255,255,0.8),0_12px_24px_rgba(0,0,0,0.55)]'
+                      : 'bg-[var(--ui-stick-dark)] border-white/18 shadow-[0_0_0_1px_rgba(255,255,255,0.08),inset_0_0_15px_rgba(0,0,0,0.85),inset_0_1px_3px_rgba(255,255,255,0.08),0_12px_24px_rgba(0,0,0,0.62)]',
                   )}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent mix-blend-overlay" />
+                  <div
+                    className={cn(
+                      'absolute inset-0 mix-blend-overlay',
+                      layout.isLight
+                        ? 'bg-gradient-to-b from-white/10 to-transparent'
+                        : 'bg-gradient-to-b from-white/8 via-transparent to-black/12',
+                    )}
+                  />
                   {layout.isLight ? (
                     <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent transform -skew-x-12 animate-[shimmer_2s_ease-out]" />
                   ) : (
                     <div className="w-full h-full rounded-full flex flex-col items-center justify-evenly py-3 relative z-10">
-                      <div className="w-1.5 h-1.5 rounded-full bg-royal-gold/80 shadow-[0_0_4px_rgba(212,175,55,1)]" />
-                      <div className="w-2 h-6 rounded-full bg-royal-gold/80 shadow-[0_0_4px_rgba(212,175,55,1)]" />
-                      <div className="w-1.5 h-1.5 rounded-full bg-royal-gold/80 shadow-[0_0_4px_rgba(212,175,55,1)]" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-white/85 shadow-[0_0_6px_rgba(255,240,180,0.95)]" />
+                      <div className="w-2 h-6 rounded-full bg-white/80 shadow-[0_0_8px_rgba(255,230,150,0.9)]" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-white/85 shadow-[0_0_6px_rgba(255,240,180,0.95)]" />
                     </div>
                   )}
                 </motion.div>
@@ -130,7 +138,7 @@ export function ThrowSticks() {
               {Array.from({ length: 4 }).map((_, index) => (
                 <div
                   key={`idle-stick-${index}`}
-                  className="w-6 h-24 rounded-full bg-[var(--ui-stick-light)] border-2 border-royal-gold/60 shadow-[0_5px_15px_rgba(0,0,0,0.2),inset_0_2px_5px_rgba(255,255,255,0.5)] group-hover:bg-[var(--ui-stick-light-hover)] group-hover:border-royal-gold transition-all duration-300 relative overflow-hidden"
+                  className="w-6 h-24 rounded-full bg-[var(--ui-stick-light)] border-2 border-royal-gold/60 shadow-[0_0_0_1px_rgba(0,0,0,0.28),0_8px_18px_rgba(0,0,0,0.35),inset_0_2px_5px_rgba(255,255,255,0.55)] group-hover:bg-[var(--ui-stick-light-hover)] group-hover:border-royal-gold transition-all duration-300 relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
                 </div>
@@ -152,7 +160,7 @@ export function ThrowSticks() {
                     delay: index * 0.3,
                     ease: 'easeInOut',
                   }}
-                  className="w-6 h-24 rounded-full bg-[var(--ui-stick-waiting)] border-2 border-sand/10 shadow-[0_5px_10px_rgba(0,0,0,0.3)]"
+                  className="w-6 h-24 rounded-full bg-[var(--ui-stick-waiting)] border-2 border-white/12 shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_6px_12px_rgba(0,0,0,0.38)]"
                 />
               ))}
             </motion.div>

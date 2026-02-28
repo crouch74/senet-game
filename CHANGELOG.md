@@ -1,6 +1,16 @@
 # Changelog
 
 ## Unreleased
+- **8 New Board Skins**:
+  - **Obsidian Eclipse** — Pure monochrome (black/silver), volcanic glass aesthetic.
+  - **Turquoise Tomb** — Cool teal/cyan, inspired by flooded Ptolemaic passages.
+  - **Sahara Mirage** — Rose-gold and terracotta, desert at golden hour.
+  - **Jade Sarcophagus** — Rich emerald jade, Middle Kingdom funerary chest.
+  - **Lapis Lazuli** — Deep ultramarine blue, the precious pigment of royalty.
+  - **Copper Patina** — Warm copper and cool verdigris duotone, oxidized bronze.
+  - **Malachite & Carnelian** — Complementary green/red Egyptian gemstone colors.
+  - **Celestial Cartouche** — Cosmic pink and indigo, Nut's starry sky ceiling.
+  - All skins fully localized in English, Egyptian Arabic, and French (labels + descriptions).
 - **Online Game Start Gate**:
   - The game board is now hidden until both players have joined the room — only then does the match begin.
   - Server broadcasts a `game_start` event to both players once both seats (Anubis + Sphinx) are filled.
