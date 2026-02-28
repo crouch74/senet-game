@@ -1,6 +1,10 @@
 # Changelog
 
 ## Unreleased
+- **Stick Counting Fix**:
+  - Corrected the visual "inversion" where marked sticks (dots) were being displayed for the "back" side instead of the "front/counting" side.
+  - Swapped the decoration logic so that the number of dotted sticks correctly matches the movement value shown.
+  - Optimized the dots' visibility with dark coloring for standard light-colored sticks, improving accessibility.
 - **Theme-Specific Arabic Typography**:
   - Implemented unique Arabic font pairings for each of the 14 themes, matching the unique aesthetic of each board skin.
   - Added **El Messiri** (elegant/fluid) and **Vazirmatn** (modern/clean) to the font stack.

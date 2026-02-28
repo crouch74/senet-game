@@ -65,8 +65,14 @@ export function ThrowSticks() {
                       ease: 'linear',
                     },
                   }}
-                  className="w-4 h-20 rounded-full bg-[var(--ui-stick-light)] border-2 border-[var(--ui-stick-light-border)] shadow-[0_0_0_1px_rgba(0,0,0,0.28),0_10px_20px_rgba(0,0,0,0.5),inset_0_1px_4px_rgba(255,255,255,0.55)]"
-                />
+                  className="w-4 h-20 rounded-full bg-[var(--ui-stick-light)] border-2 border-[var(--ui-stick-light-border)] shadow-[0_0_0_1px_rgba(0,0,0,0.28),0_10px_20px_rgba(0,0,0,0.5),inset_0_1px_4px_rgba(255,255,255,0.55)] relative overflow-hidden"
+                >
+                  <div className="w-full h-full flex flex-col items-center justify-evenly py-2 scale-75">
+                    <div className="w-1 h-1 rounded-full bg-royal-ebony/60" />
+                    <div className="w-1.5 h-4 rounded-full bg-royal-ebony/50" />
+                    <div className="w-1 h-1 rounded-full bg-royal-ebony/60" />
+                  </div>
+                </motion.div>
               ))}
             </motion.div>
           ) : currentThrow && stickLayouts.length > 0 ? (
@@ -111,13 +117,13 @@ export function ThrowSticks() {
                     )}
                   />
                   {layout.isLight ? (
-                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent transform -skew-x-12 animate-[shimmer_2s_ease-out]" />
-                  ) : (
                     <div className="w-full h-full rounded-full flex flex-col items-center justify-evenly py-3 relative z-10">
-                      <div className="w-1.5 h-1.5 rounded-full bg-white/85 shadow-[0_0_6px_rgba(255,240,180,0.95)]" />
-                      <div className="w-2 h-6 rounded-full bg-white/80 shadow-[0_0_8px_rgba(255,230,150,0.9)]" />
-                      <div className="w-1.5 h-1.5 rounded-full bg-white/85 shadow-[0_0_6px_rgba(255,240,180,0.95)]" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-royal-ebony/60 shadow-[0_0_4px_rgba(0,0,0,0.2)]" />
+                      <div className="w-2 h-6 rounded-full bg-royal-ebony/50 shadow-[0_0_5px_rgba(0,0,0,0.15)]" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-royal-ebony/60 shadow-[0_0_4px_rgba(0,0,0,0.2)]" />
                     </div>
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent transform -skew-x-12" />
                   )}
                 </motion.div>
               ))}
@@ -140,7 +146,12 @@ export function ThrowSticks() {
                   key={`idle-stick-${index}`}
                   className="w-6 h-24 rounded-full bg-[var(--ui-stick-light)] border-2 border-royal-gold/60 shadow-[0_0_0_1px_rgba(0,0,0,0.28),0_8px_18px_rgba(0,0,0,0.35),inset_0_2px_5px_rgba(255,255,255,0.55)] group-hover:bg-[var(--ui-stick-light-hover)] group-hover:border-royal-gold transition-all duration-300 relative overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+                  <div className="w-full h-full flex flex-col items-center justify-evenly py-2 scale-90 relative z-10">
+                    <div className="w-1.5 h-1.5 rounded-full bg-royal-ebony/60" />
+                    <div className="w-2 h-6 rounded-full bg-royal-ebony/50" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-royal-ebony/60" />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
                 </div>
               ))}
             </motion.button>
