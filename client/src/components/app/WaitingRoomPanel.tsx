@@ -3,9 +3,12 @@ import type { LocalRole } from '../../engine/network'
 import { cn } from '../../utils/cn'
 import { CopyRoomButton } from './CopyRoomButton'
 import { getPlayerAppearance } from '../../utils/playerAppearance'
+import type { GameType } from '../../engine/types'
+import { getPlayerLabel } from '../../utils/gameLabels'
 
 interface WaitingRoomPanelProps {
   copiedRoom: boolean
+  gameType: GameType
   localPlayer: LocalRole | null
   onCopyRoomId: () => void | Promise<void>
   onLeaveRoom: () => void
@@ -14,6 +17,7 @@ interface WaitingRoomPanelProps {
 
 export function WaitingRoomPanel({
   copiedRoom,
+  gameType,
   localPlayer,
   onCopyRoomId,
   onLeaveRoom,
@@ -75,7 +79,7 @@ export function WaitingRoomPanel({
                   playerAppearance ? playerAppearance.pillClassName : 'text-sand',
                 )}
               >
-                {localPlayer ? t(`hud.players.${localPlayer}`) : ''}
+                {localPlayer ? getPlayerLabel(t, gameType, localPlayer) : ''}
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { act, fireEvent, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { ThrowSticks } from './ThrowSticks';
+import { ThrowSticks } from '../games/senet/components/ThrowSticks';
 import { renderWithProviders } from '../test/renderWithProviders';
 import { registerSenetStoreReset } from '../test/resetSenetStore';
 import { useSenetStore } from '../engine/store';

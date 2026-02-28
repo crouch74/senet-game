@@ -1,9 +1,12 @@
 import type { LocalRole } from '../../engine/network'
 import { useTranslation } from 'react-i18next'
 import { CopyRoomButton } from './CopyRoomButton'
+import type { GameType } from '../../engine/types'
+import { getPlayerLabel } from '../../utils/gameLabels'
 
 interface OnlineRoomBannerProps {
   copiedRoom: boolean
+  gameType: GameType
   localPlayer: LocalRole | null
   onCopyRoomId: () => void | Promise<void>
   onLeaveRoom: () => void
@@ -12,6 +15,7 @@ interface OnlineRoomBannerProps {
 
 export function OnlineRoomBanner({
   copiedRoom,
+  gameType,
   localPlayer,
   onCopyRoomId,
   onLeaveRoom,
@@ -42,7 +46,7 @@ export function OnlineRoomBanner({
           {t('lobby.you_are')}
         </span>
         <span className="text-sand font-bold text-lg capitalize">
-          {localPlayer ? t(`hud.players.${localPlayer}`) : ''}
+          {localPlayer ? getPlayerLabel(t, gameType, localPlayer) : ''}
         </span>
       </div>
 

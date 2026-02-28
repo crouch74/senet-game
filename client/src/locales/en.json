@@ -35,6 +35,20 @@
         "mehen_forced_move": "If a move exists:",
         "mehen_forced_move_value": "You must make one legal move or yield the turn",
         "mehen_win_condition": "Victory condition:",
+        "hounds_rules_title": "Papyrus of Fifty-Eight Holes",
+        "hounds_track_length": "Holes on each path:",
+        "hounds_pieces_per_player": "Pegs per player:",
+        "hounds_entry_rule": "Reserve entry:",
+        "hounds_entry_any_roll": "Any roll may enter one reserve peg onto the first hole",
+        "hounds_finish_rule": "Shen goal:",
+        "hounds_exact_finish": "Exact roll required",
+        "hounds_throw_mode": "Throw mode:",
+        "hounds_four_sticks": "Four throw sticks valued from 1 to 5",
+        "hounds_marked_holes": "Marked holes:",
+        "hounds_marked_hole_good": "{{source}} to {{target}} forward jump",
+        "hounds_marked_hole_bad": "{{source}} to {{target}} backward jump",
+        "hounds_capture_rule": "Captures:",
+        "hounds_blockade_rule": "Blockades:",
         "mehen_win_conditions": {
             "ALL_BALLS_AND_LION": "All balls and the lion reach the center",
             "LION_ONLY": "The lion reaches the center",
@@ -49,6 +63,10 @@
         "mehen": {
             "title": "Heart of Mehen",
             "empty": "No lion or ball has reached the serpent's heart yet."
+        },
+        "hounds-and-jackals": {
+            "title": "Shen Goal",
+            "empty": "No peg has reached the shen goal yet."
         },
         "senet": {
             "title": "Afterlife",
@@ -153,11 +171,13 @@
     "ruleset": {
         "names": {
             "common": "Sacred Path",
-            "mehen-standard": "Tradition of the Guarding Coil"
+            "mehen-standard": "Tradition of the Guarding Coil",
+            "hounds-and-jackals-standard": "Papyrus of the Fifty-Eight Holes"
         },
         "descriptions": {
             "common": "The traditional path of the soul through the Duat, involving protected pairs and strategic blockades.",
-            "mehen-standard": "This house tradition of Mehen sends lions and balls inward from the reserve box. Safe coils grant sanctuary, lions guard the route, and victory comes only when every piece reaches the heart of the serpent."
+            "mehen-standard": "This house tradition of Mehen sends lions and balls inward from the reserve box. Safe coils grant sanctuary, lions guard the route, and victory comes only when every piece reaches the heart of the serpent.",
+            "hounds-and-jackals-standard": "This house reconstruction uses five pegs per side, four throw sticks, exact finishing, and marked shortcut and setback holes on the road to the shen goal."
         }
     },
     "history": {
@@ -176,7 +196,14 @@
         "mehen_finish": "✨ {{piece}} reaches the center.",
         "mehen_blocked": "🚫 {{player}} has no legal move and yields the turn.",
         "mehen_extra_turn": "🎲 {{player}} receives an extra turn.",
-        "mehen_win": "🏆 {{player}} claims the center and wins!"
+        "mehen_win": "🏆 {{player}} claims the center and wins!",
+        "hounds_started": "🎲 [58 HOLES] The pegs are set beside the axe-head board.",
+        "hounds_move": "🏃 {{piece}} advances from {{from}} to {{to}}.",
+        "hounds_good_jump": "☀️ {{piece}} finds favor and jumps from {{from}} to {{to}}.",
+        "hounds_bad_jump": "↘️ {{piece}} slips from {{from}} back to {{to}}.",
+        "hounds_finish": "✨ {{piece}} reaches the shen goal.",
+        "hounds_blocked": "🚫 {{player}} has no legal peg to move and yields the turn.",
+        "hounds_win": "🏆 {{player}} guides all five pegs to the shen goal and wins!"
     },
     "lobby": {
         "create_room": "Create New Room",
@@ -221,6 +248,9 @@
         "senet": {
             "title": "Senet",
             "description": "The Game of Passing. A race across 30 squares to reach the afterlife.",
+            "board": {
+                "piece": "Piece"
+            },
             "legend": {
                 "title": "THE LEGEND OF THE TWILIGHT VOYAGE",
                 "p1": "Before the Great Pyramids touched the sky, the Scribes of Thoth recorded the first game of Senet. It is more than a diversion; it is a ritualistic map of the soul's perilous crossing through the Duat—the Egyptian underworld. Each board is a shadow of the cosmic order, where the journey from life to eternity is decided not just by skill, but by the favor of the gods.",
@@ -377,6 +407,99 @@
                     "fact_1": "Mehen boards were carved as snakes curled into dense spirals, making the board itself part icon and part race track.",
                     "fact_2": "This edition keeps the surviving spiral form but fixes play around one consistent tradition: reserve entry, exact center rolls, lion blocking, and victory only when every piece reaches the heart.",
                     "fact_3": "Safe coils at 10, 20, 30, 40, and 50 reflect the serpent's guarded rings, where even a vulnerable ball may rest beyond capture."
+                }
+            }
+        },
+        "hounds-and-jackals": {
+            "title": "Hounds and Jackals",
+            "description": "The Game of Fifty-Eight Holes. Five pegs per side race through marked jumps and setbacks toward the shen goal.",
+            "players": {
+                "anubis": "HOUND",
+                "sphinx": "JACKAL"
+            },
+            "legend": {
+                "title": "THE LEGEND OF THE FIFTY-EIGHT HOLES",
+                "p1": "On carved boards shaped like an axe-head, noble players once guided pegs crowned with hounds and jackals through a field of carefully bored holes. The surviving boards tell us the path, but not every rule, so each modern game is part reconstruction and part reverent wager with the past.",
+                "p2": "This house papyrus imagines the board as a race of paired animal spirits. The hound and the jackal begin in reserve, answer the throw of four sticks, and press upward through marked holes that may either grant favor or pull a peg backward.",
+                "p3": "Victory in this telling comes not from battle but from steady passage. Guide all five pegs through the marked course, survive the setbacks, and enter the shining shen goal before your rival completes the same ascent."
+            },
+            "marked_holes": {
+                "title": "MARKS OF THE FIFTY-EIGHT HOLES",
+                "good": {
+                    "title": "Nefer Holes",
+                    "desc": "Marked favorable holes send a peg forward at once to a linked resting place farther up the board."
+                },
+                "bad": {
+                    "title": "Setback Holes",
+                    "desc": "Some linked holes drag a peg backward the moment it lands, undoing part of the climb."
+                },
+                "reserve": {
+                    "title": "Reserve Pits",
+                    "desc": "Each side begins with five pegs waiting in reserve until a throw calls one onto the first hole."
+                },
+                "goal": {
+                    "title": "Shen Goal",
+                    "desc": "The shared goal hole crowns the board. Every peg must reach it by exact count to complete the race."
+                }
+            },
+            "guide": {
+                "title": "SCROLL OF THE FIFTY-EIGHT HOLES",
+                "labels": {
+                    "objective": "The Race of Pegs",
+                    "players": "Hound and Jackal",
+                    "setup": "Five Pegs Aside",
+                    "entry": "The Reserve Pits",
+                    "movement": "The Bored Path",
+                    "throwing": "Four Throw Sticks",
+                    "marked_holes": "Linked Holes",
+                    "good_jumps": "Favor of Nefer",
+                    "bad_jumps": "Backsliding",
+                    "stacking": "One Peg Per Hole",
+                    "finishing": "The Shen Goal",
+                    "blocked_turns": "When No Peg Can Move",
+                    "winning": "Completing the Course",
+                    "reconstruction_note": "House Reconstruction"
+                },
+                "objective": "Guide all five of your pegs from reserve to the shen goal before your rival does the same.",
+                "players": "This edition presents the two sides as Hound and Jackal, while preserving the same two-seat structure used across the app.",
+                "setup": "Each player begins with five pegs in reserve. No peg starts on the track, and the two races unfold on mirrored halves of the same board.",
+                "entry": "On any roll, you may bring one reserve peg onto the first hole if that final destination is not already occupied by one of your own pegs.",
+                "movement": "Choose one of your pegs and move it forward exactly the amount shown by the sticks. Pegs never capture or block the opposing side in this reconstruction.",
+                "throwing": "The four throw sticks produce values from 1 to 5, with the customary 0-light-sides result counting as 5.",
+                "marked_holes": "Certain holes are linked. Landing on one resolves its effect immediately and carries the peg to its linked destination.",
+                "good_jumps": "A favorable marked hole sends the peg forward, representing swift passage and good fortune on the board.",
+                "bad_jumps": "An unfavorable marked hole sends the peg backward. The move is still legal only if the linked resting hole is free of your own peg.",
+                "stacking": "Only one of your own pegs may occupy a hole. If a move would end on a hole already held by one of your pegs, it is illegal.",
+                "finishing": "The shen goal requires an exact count. Any roll that overshoots the goal leaves that peg unable to move.",
+                "blocked_turns": "If the current throw leaves you with no legal peg to move, the turn passes immediately to your opponent.",
+                "winning": "You win only when all five of your pegs have reached the shen goal.",
+                "reconstruction_note": "Because no single ancient rulebook survives, this implementation presents one consistent house reconstruction rather than claiming a definitive historical ruleset."
+            },
+            "board": {
+                "aria_label": "Hounds and Jackals board",
+                "peg": "Peg",
+                "goal_title": "Shen Goal",
+                "goal_hole_label": "Shen goal hole",
+                "reserve_hound": "Hound reserve",
+                "reserve_jackal": "Jackal reserve",
+                "reserve_pit_label": "{{player}} reserve pit",
+                "hole_label": "{{player}} hole {{number}}",
+                "hole_label_favor": "{{player}} favorable hole {{number}}, linked to hole {{target}}",
+                "hole_label_setback": "{{player}} setback hole {{number}}, linked to hole {{target}}"
+            },
+            "lobby": {
+                "about_kicker": "Board of 58 Holes",
+                "about_title": "What Is Hounds and Jackals?",
+                "about_body": "Hounds and Jackals is a Middle Kingdom race game built around fifty-eight drilled holes and animal-topped pegs. This edition treats it as a fast two-player contest of entry, timing, and marked jumps rather than as a game of capture.",
+                "history_kicker": "Middle Kingdom Craft",
+                "history_title": "An Axe-Head Board",
+                "history_body": "Archaeological boards survive in elegant wooden and ivory forms, often with mirrored tracks and pegs crowned as hounds and jackals. The layout is clear, but the exact ancient rules are not, so modern play depends on careful reconstruction.",
+                "fun_facts": {
+                    "kicker": "Marks of the Board",
+                    "title": "Board Lore",
+                    "fact_1": "Many surviving examples are shaped like an axe-head and drilled with fifty-eight holes, giving the game its modern nickname.",
+                    "fact_2": "The pegs themselves were often topped with animal heads, which is why the two sides are commonly described as hounds and jackals.",
+                    "fact_3": "This version declares itself a house reconstruction: exact finishing, linked good and bad holes, and no capture play."
                 }
             }
         }

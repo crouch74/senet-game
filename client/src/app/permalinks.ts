@@ -26,10 +26,10 @@ export const getRoomCodeFromPath = (path: string) => {
   return match ? match[1].toLowerCase() : null
 }
 
-export const getRoomPermalinkPath = (roomCode: string, gameType: GameType) =>
+export const getRoomPermalinkPath = (roomCode: string, gameType: GameType = 'senet') =>
   withBasePath(`/${gameType}/room/${roomCode.toLowerCase()}`)
 
-export const getOfflineModePermalinkPath = (mode: OfflineMode, gameType: GameType) =>
+export const getOfflineModePermalinkPath = (mode: OfflineMode, gameType: GameType = 'senet') =>
   withBasePath(`/${gameType}/mode/${OFFLINE_MODE_TO_SLUG[mode]}`)
 
 export const getOfflineModeFromPath = (path: string): OfflineMode | null => {
@@ -41,11 +41,12 @@ export const getOfflineModeFromPath = (path: string): OfflineMode | null => {
 export const getInitialPermalinkState = (path: string, _search: string): InitialPermalinkState => {
   const strippedPath = stripBasePath(path)
   const parts = strippedPath.split('/').filter(Boolean)
+  const supportedGames = new Set<GameType>(['senet', 'mehen', 'hounds-and-jackals'])
 
   let gameType: GameType | null = null
   let remainingPath = strippedPath
 
-  if (parts.length > 0 && (parts[0] === 'senet' || parts[0] === 'mehen')) {
+  if (parts.length > 0 && supportedGames.has(parts[0] as GameType)) {
     gameType = parts[0] as GameType
     remainingPath = '/' + parts.slice(1).join('/')
     if (remainingPath === '//') remainingPath = '/'
@@ -71,9 +72,9 @@ const replacePath = (path: string) => {
   }
 }
 
-export const setLobbyPath = (gameType: GameType) => replacePath(withBasePath(`/${gameType}`))
-export const setRoomPath = (roomCode: string, gameType: GameType) =>
+export const setLobbyPath = (gameType: GameType = 'senet') => replacePath(withBasePath(`/${gameType}`))
+export const setRoomPath = (roomCode: string, gameType: GameType = 'senet') =>
   replacePath(getRoomPermalinkPath(roomCode, gameType))
-export const setOfflineModePath = (mode: OfflineMode, gameType: GameType) =>
+export const setOfflineModePath = (mode: OfflineMode, gameType: GameType = 'senet') =>
   replacePath(getOfflineModePermalinkPath(mode, gameType))
 export const setLandingPath = () => replacePath(withBasePath('/'))

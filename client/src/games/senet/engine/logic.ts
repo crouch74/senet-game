@@ -1,6 +1,7 @@
 import type { GameState, Piece, ThrowResult } from '../../../engine/types';
 import { CommonRuleset } from './rules';
 import type { Ruleset } from '../../../engine/types';
+import { getFourStickThrow } from '../../../engine/throwSticks';
 
 const toGameStateSnapshot = (gameState: GameState): GameState => ({
     gameType: gameState.gameType,
@@ -45,21 +46,7 @@ export function createInitialState(ruleset: Ruleset = CommonRuleset): GameState 
 // Stick probabilities
 // 4 sticks with 1 flat side, 1 curved side. Assuming 50/50 for ease
 export function getThrowResult(): ThrowResult {
-    let lightCount = 0;
-    for (let i = 0; i < 4; i++) {
-        if (Math.random() > 0.5) lightCount++;
-    }
-
-    // Customary senet scoring:
-    // 1 light side = 1
-    // 2 light sides = 2
-    // 3 light sides = 3
-    // 4 light sides = 4
-    // 0 light sides = 5
-    return {
-        lightSidesUp: lightCount,
-        value: lightCount === 0 ? 5 : lightCount
-    };
+    return getFourStickThrow();
 }
 
 export function isValidMove(gameState: GameState, pieceId: string, steps: number): { valid: boolean; reason?: string, targetSquare?: number } {

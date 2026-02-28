@@ -6,63 +6,208 @@ import {
   house29SunDisk,
   house30Falcon,
 } from '../assets/royal'
+import type { GameType } from '../engine/types'
 
 interface LegendContentProps {
-  gameType: 'senet' | 'mehen'
+  gameType: GameType
 }
 
-/**
- * Styled manuscript content for the guide modal.
- */
+interface RegistryItem {
+  descKey: string
+  icon: string
+  id: string
+  titleKey: string
+  type: 'svg' | 'text'
+}
+
+const GUIDE_ITEMS: Record<GameType, string[]> = {
+  senet: [
+    'objective',
+    'movement',
+    'throwing',
+    'capturing',
+    'protection',
+    'blockades',
+    'special',
+    'bearing_off',
+  ],
+  mehen: [
+    'objective',
+    'players',
+    'opening',
+    'setup',
+    'entry',
+    'turn',
+    'movement',
+    'throwing',
+    'pieces',
+    'capturing',
+    'protection',
+    'safe_spaces',
+    'blocking',
+    'finishing',
+    'no_legal_move',
+    'clarifications',
+    'tie_rule',
+    'winning',
+  ],
+  'hounds-and-jackals': [
+    'objective',
+    'players',
+    'setup',
+    'entry',
+    'movement',
+    'throwing',
+    'marked_holes',
+    'good_jumps',
+    'bad_jumps',
+    'stacking',
+    'finishing',
+    'blocked_turns',
+    'winning',
+    'reconstruction_note',
+  ],
+}
+
+const REGISTRY_SECTIONS: Record<GameType, { items: RegistryItem[]; titleKey: string }> = {
+  senet: {
+    titleKey: 'games.senet.sacred_houses.title',
+    items: [
+      {
+        id: 'h26',
+        icon: '𓄤',
+        type: 'text',
+        titleKey: 'games.senet.sacred_houses.h26.title',
+        descKey: 'games.senet.sacred_houses.h26.desc',
+      },
+      {
+        id: 'h27',
+        icon: house27Water,
+        type: 'svg',
+        titleKey: 'games.senet.sacred_houses.h27.title',
+        descKey: 'games.senet.sacred_houses.h27.desc',
+      },
+      {
+        id: 'h28',
+        icon: house28Feather,
+        type: 'svg',
+        titleKey: 'games.senet.sacred_houses.h28.title',
+        descKey: 'games.senet.sacred_houses.h28.desc',
+      },
+      {
+        id: 'h29',
+        icon: house29SunDisk,
+        type: 'svg',
+        titleKey: 'games.senet.sacred_houses.h29.title',
+        descKey: 'games.senet.sacred_houses.h29.desc',
+      },
+      {
+        id: 'h30',
+        icon: house30Falcon,
+        type: 'svg',
+        titleKey: 'games.senet.sacred_houses.h30.title',
+        descKey: 'games.senet.sacred_houses.h30.desc',
+      },
+    ],
+  },
+  mehen: {
+    titleKey: 'games.mehen.sacred_coils.title',
+    items: [
+      {
+        id: 'reserve',
+        icon: '□',
+        type: 'text',
+        titleKey: 'games.mehen.sacred_coils.reserve.title',
+        descKey: 'games.mehen.sacred_coils.reserve.desc',
+      },
+      {
+        id: 'safe',
+        icon: '◈',
+        type: 'text',
+        titleKey: 'games.mehen.sacred_coils.safe.title',
+        descKey: 'games.mehen.sacred_coils.safe.desc',
+      },
+      {
+        id: 'lion',
+        icon: '𓃭',
+        type: 'text',
+        titleKey: 'games.mehen.sacred_coils.lion.title',
+        descKey: 'games.mehen.sacred_coils.lion.desc',
+      },
+      {
+        id: 'heart',
+        icon: house29SunDisk,
+        type: 'svg',
+        titleKey: 'games.mehen.sacred_coils.heart.title',
+        descKey: 'games.mehen.sacred_coils.heart.desc',
+      },
+    ],
+  },
+  'hounds-and-jackals': {
+    titleKey: 'games.hounds-and-jackals.marked_holes.title',
+    items: [
+      {
+        id: 'good',
+        icon: 'nfr',
+        type: 'text',
+        titleKey: 'games.hounds-and-jackals.marked_holes.good.title',
+        descKey: 'games.hounds-and-jackals.marked_holes.good.desc',
+      },
+      {
+        id: 'bad',
+        icon: '↘',
+        type: 'text',
+        titleKey: 'games.hounds-and-jackals.marked_holes.bad.title',
+        descKey: 'games.hounds-and-jackals.marked_holes.bad.desc',
+      },
+      {
+        id: 'reserve',
+        icon: '𓎰',
+        type: 'text',
+        titleKey: 'games.hounds-and-jackals.marked_holes.reserve.title',
+        descKey: 'games.hounds-and-jackals.marked_holes.reserve.desc',
+      },
+      {
+        id: 'goal',
+        icon: '◎',
+        type: 'text',
+        titleKey: 'games.hounds-and-jackals.marked_holes.goal.title',
+        descKey: 'games.hounds-and-jackals.marked_holes.goal.desc',
+      },
+    ],
+  },
+}
+
+function RegistryIcon({ icon, type }: Pick<RegistryItem, 'icon' | 'type'>) {
+  if (type === 'text') {
+    return (
+      <span className="text-3xl text-royal-green drop-shadow-sm font-bold uppercase">
+        {icon}
+      </span>
+    )
+  }
+
+  return (
+    <div
+      className="w-10 h-10 bg-royal-gold opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
+      style={{
+        maskImage: `url("${icon}")`,
+        maskRepeat: 'no-repeat',
+        maskPosition: 'center',
+        maskSize: 'contain',
+        WebkitMaskImage: `url("${icon}")`,
+        WebkitMaskRepeat: 'no-repeat',
+        WebkitMaskPosition: 'center',
+        WebkitMaskSize: 'contain',
+      }}
+    />
+  )
+}
+
 export function LegendContent({ gameType }: LegendContentProps) {
   const { t } = useTranslation()
-
-  const sacredHouses = [
-    { num: 26, icon: '𓄤', type: 'text' as const },
-    { num: 27, icon: house27Water, type: 'svg' as const },
-    { num: 28, icon: house28Feather, type: 'svg' as const },
-    { num: 29, icon: house29SunDisk, type: 'svg' as const },
-    { num: 30, icon: house30Falcon, type: 'svg' as const },
-  ]
-  const mehenStations = [
-    { id: 'reserve', icon: '□', type: 'text' as const },
-    { id: 'safe', icon: '◈', type: 'text' as const },
-    { id: 'lion', icon: '𓃭', type: 'text' as const },
-    { id: 'heart', icon: house29SunDisk, type: 'svg' as const },
-  ]
-
-  const guideItems =
-    gameType === 'senet'
-      ? [
-        'objective',
-        'movement',
-        'throwing',
-        'capturing',
-        'protection',
-        'blockades',
-        'special',
-        'bearing_off',
-      ]
-      : [
-        'objective',
-        'players',
-        'opening',
-        'setup',
-        'entry',
-        'turn',
-        'movement',
-        'throwing',
-        'pieces',
-        'capturing',
-        'protection',
-        'safe_spaces',
-        'blocking',
-        'finishing',
-        'no_legal_move',
-        'clarifications',
-        'tie_rule',
-        'winning',
-      ]
+  const guideItems = GUIDE_ITEMS[gameType]
+  const registrySection = REGISTRY_SECTIONS[gameType]
 
   return (
     <div className="legend-content-surface bg-ui-legend-paper p-8 md:p-14 text-ui-paper-text relative overflow-hidden">
@@ -94,105 +239,34 @@ export function LegendContent({ gameType }: LegendContentProps) {
         <div className="flex-1 h-px bg-royal-gold" />
       </div>
 
-      {gameType === 'senet' && (
-        <section className="relative z-10 mb-16">
-          <h3 className="text-ui-paper-text font-serif text-2xl md:text-3xl mb-12 text-center tracking-[0.16em] font-semibold uppercase">
-            {t(`games.${gameType}.sacred_houses.title`)}
-          </h3>
+      <section className="relative z-10 mb-16">
+        <h3 className="text-ui-paper-text font-serif text-2xl md:text-3xl mb-12 text-center tracking-[0.16em] font-semibold uppercase">
+          {t(registrySection.titleKey)}
+        </h3>
 
-          <div className="grid grid-cols-1 gap-8 max-w-lg mx-auto">
-            {sacredHouses.map((house) => (
-              <div
-                key={house.num}
-                className="flex items-center gap-6 group hover:translate-x-1 transition-transform duration-300"
-              >
-                <div className="shrink-0 w-16 h-16 flex items-center justify-center bg-royal-ebony/5 border-2 border-royal-gold/15 rounded-sm shadow-sm group-hover:border-royal-gold/40 transition-all duration-500 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-royal-gold/0 group-hover:bg-royal-gold/5 transition-colors" />
-
-                  {house.type === 'text' ? (
-                    <span className="text-3xl text-royal-green drop-shadow-sm font-bold">
-                      {house.icon}
-                    </span>
-                  ) : (
-                    <div
-                      className="w-10 h-10 bg-royal-gold opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
-                      style={{
-                        maskImage: `url("${house.icon}")`,
-                        maskRepeat: 'no-repeat',
-                        maskPosition: 'center',
-                        maskSize: 'contain',
-                        WebkitMaskImage: `url("${house.icon}")`,
-                        WebkitMaskRepeat: 'no-repeat',
-                        WebkitMaskPosition: 'center',
-                        WebkitMaskSize: 'contain',
-                      }}
-                    />
-                  )}
-                </div>
-
-                <div className="flex flex-col gap-1">
-                  <h4 className="font-bold text-ui-paper-text uppercase tracking-[0.18em] text-base">
-                    {t(`games.${gameType}.sacred_houses.h${house.num}.title`)}
-                  </h4>
-                  <p className="font-serif text-ui-paper-text opacity-80 text-base leading-relaxed">
-                    {t(`games.${gameType}.sacred_houses.h${house.num}.desc`)}
-                  </p>
-                </div>
+        <div className="grid grid-cols-1 gap-8 max-w-lg mx-auto">
+          {registrySection.items.map((item) => (
+            <div
+              key={item.id}
+              className="flex items-center gap-6 group hover:translate-x-1 transition-transform duration-300"
+            >
+              <div className="shrink-0 w-16 h-16 flex items-center justify-center bg-royal-ebony/5 border-2 border-royal-gold/15 rounded-sm shadow-sm group-hover:border-royal-gold/40 transition-all duration-500 overflow-hidden relative">
+                <div className="absolute inset-0 bg-royal-gold/0 group-hover:bg-royal-gold/5 transition-colors" />
+                <RegistryIcon icon={item.icon} type={item.type} />
               </div>
-            ))}
-          </div>
-        </section>
-      )}
 
-      {gameType === 'mehen' && (
-        <section className="relative z-10 mb-16">
-          <h3 className="text-ui-paper-text font-serif text-2xl md:text-3xl mb-12 text-center tracking-[0.16em] font-semibold uppercase">
-            {t('games.mehen.sacred_coils.title')}
-          </h3>
-
-          <div className="grid grid-cols-1 gap-8 max-w-lg mx-auto">
-            {mehenStations.map((station) => (
-              <div
-                key={station.id}
-                className="flex items-center gap-6 group hover:translate-x-1 transition-transform duration-300"
-              >
-                <div className="shrink-0 w-16 h-16 flex items-center justify-center bg-royal-ebony/5 border-2 border-royal-gold/15 rounded-sm shadow-sm group-hover:border-royal-gold/40 transition-all duration-500 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-royal-gold/0 group-hover:bg-royal-gold/5 transition-colors" />
-
-                  {station.type === 'text' ? (
-                    <span className="text-3xl text-royal-green drop-shadow-sm font-bold">
-                      {station.icon}
-                    </span>
-                  ) : (
-                    <div
-                      className="w-10 h-10 bg-royal-gold opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
-                      style={{
-                        maskImage: `url("${station.icon}")`,
-                        maskRepeat: 'no-repeat',
-                        maskPosition: 'center',
-                        maskSize: 'contain',
-                        WebkitMaskImage: `url("${station.icon}")`,
-                        WebkitMaskRepeat: 'no-repeat',
-                        WebkitMaskPosition: 'center',
-                        WebkitMaskSize: 'contain',
-                      }}
-                    />
-                  )}
-                </div>
-
-                <div className="flex flex-col gap-1">
-                  <h4 className="font-bold text-ui-paper-text uppercase tracking-[0.18em] text-base">
-                    {t(`games.mehen.sacred_coils.${station.id}.title`)}
-                  </h4>
-                  <p className="font-serif text-ui-paper-text opacity-80 text-base leading-relaxed">
-                    {t(`games.mehen.sacred_coils.${station.id}.desc`)}
-                  </p>
-                </div>
+              <div className="flex flex-col gap-1">
+                <h4 className="font-bold text-ui-paper-text uppercase tracking-[0.18em] text-base">
+                  {t(item.titleKey)}
+                </h4>
+                <p className="font-serif text-ui-paper-text opacity-80 text-base leading-relaxed">
+                  {t(item.descKey)}
+                </p>
               </div>
-            ))}
-          </div>
-        </section>
-      )}
+            </div>
+          ))}
+        </div>
+      </section>
 
       <div className="w-full flex items-center justify-center my-12 opacity-30">
         <div className="flex-1 h-px bg-royal-gold" />

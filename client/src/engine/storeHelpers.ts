@@ -25,6 +25,7 @@ export const extractGameState = (state: GameState): GameState => ({
   boardSize: state.boardSize,
   currentPlayer: state.currentPlayer,
   currentThrow: state.currentThrow,
+  houndsAndJackalsConfig: state.houndsAndJackalsConfig,
   lastRoll: state.lastRoll,
   ruleset: state.ruleset,
   mehenConfig: state.mehenConfig,
@@ -42,6 +43,7 @@ export const buildSyncedGameState = (
     | 'boardSize'
     | 'currentPlayer'
     | 'currentThrow'
+    | 'houndsAndJackalsConfig'
     | 'historyLog'
     | 'lastRoll'
     | 'mehenConfig'
@@ -57,6 +59,7 @@ export const buildSyncedGameState = (
   boardSize: state.boardSize,
   currentPlayer: state.currentPlayer,
   currentThrow: state.currentThrow,
+  houndsAndJackalsConfig: state.houndsAndJackalsConfig,
   lastRoll: state.lastRoll,
   winner: state.winner,
   historyLog: state.historyLog,

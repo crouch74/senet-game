@@ -35,6 +35,20 @@
         "mehen_forced_move": "Als er een zet bestaat:",
         "mehen_forced_move_value": "moet je een legale zet doen, anders gaat de beurt voorbij",
         "mehen_win_condition": "Overwinningsvoorwaarde:",
+        "hounds_rules_title": "Papyrus van achtenvijftig gaten",
+        "hounds_track_length": "Gaten per spoor:",
+        "hounds_pieces_per_player": "Pinnen per speler:",
+        "hounds_entry_rule": "Ingang vanuit reserve:",
+        "hounds_entry_any_roll": "Elke worp mag één reservepin naar het eerste gat brengen",
+        "hounds_finish_rule": "Shen-doel:",
+        "hounds_exact_finish": "Exacte worp vereist",
+        "hounds_throw_mode": "Werpmodus:",
+        "hounds_four_sticks": "Vier werpstokken met waarden van 1 tot 5",
+        "hounds_marked_holes": "Gemarkeerde gaten:",
+        "hounds_marked_hole_good": "{{source}} naar {{target}} voorwaartse sprong",
+        "hounds_marked_hole_bad": "{{source}} naar {{target}} achterwaartse sprong",
+        "hounds_capture_rule": "Slaan:",
+        "hounds_blockade_rule": "Blokkades:",
         "mehen_win_conditions": {
             "ALL_BALLS_AND_LION": "Alle ballen en de leeuw bereiken het centrum",
             "LION_ONLY": "De leeuw bereikt het centrum",
@@ -49,6 +63,10 @@
         "mehen": {
             "title": "Hart van Mehen",
             "empty": "Nog geen leeuw of bal heeft het hart van de slang bereikt."
+        },
+        "hounds-and-jackals": {
+            "title": "Shen-doel",
+            "empty": "Nog geen pin heeft het shen-doel bereikt."
         },
         "senet": {
             "title": "Hiernamaals",
@@ -153,11 +171,13 @@
     "ruleset": {
         "names": {
             "common": "Heilig Pad",
-            "mehen-standard": "Traditie van de Beschermende Winding"
+            "mehen-standard": "Traditie van de Beschermende Winding",
+            "hounds-and-jackals-standard": "Papyrus van de achtenvijftig gaten"
         },
         "descriptions": {
             "common": "Het traditionele pad van de ziel door de Doeat, met beschermde paren en strategische blokkades.",
-            "mehen-standard": "Deze huistraditie van Mehen stuurt leeuwen en ballen vanuit de reserve naar binnen. Veilige windingen geven beschutting, leeuwen bewaken de route en de overwinning komt pas wanneer elk stuk het hart van de slang bereikt."
+            "mehen-standard": "Deze huistraditie van Mehen stuurt leeuwen en ballen vanuit de reserve naar binnen. Veilige windingen geven beschutting, leeuwen bewaken de route en de overwinning komt pas wanneer elk stuk het hart van de slang bereikt.",
+            "hounds-and-jackals-standard": "Deze huisreconstructie gebruikt vijf pinnen per zijde, vier werpstokken, exact finishen en gemarkeerde gaten die je vooruit of achteruit sturen op weg naar het shen-doel."
         }
     },
     "history": {
@@ -176,7 +196,14 @@
         "mehen_finish": "✨ {{piece}} bereikt het centrum.",
         "mehen_blocked": "🚫 {{player}} heeft geen legale zet en geeft de beurt door.",
         "mehen_extra_turn": "🎲 {{player}} krijgt een extra beurt.",
-        "mehen_win": "🏆 {{player}} claimt het centrum en wint!"
+        "mehen_win": "🏆 {{player}} claimt het centrum en wint!",
+        "hounds_started": "🎲 [58 GATEN] De pinnen zijn naast het bijlkopbord geplaatst.",
+        "hounds_move": "🏃 {{piece}} gaat van {{from}} naar {{to}}.",
+        "hounds_good_jump": "☀️ {{piece}} krijgt gunst en springt van {{from}} naar {{to}}.",
+        "hounds_bad_jump": "↘️ {{piece}} glijdt van {{from}} terug naar {{to}}.",
+        "hounds_finish": "✨ {{piece}} bereikt het shen-doel.",
+        "hounds_blocked": "🚫 {{player}} heeft geen legale pin om te bewegen en geeft de beurt door.",
+        "hounds_win": "🏆 {{player}} brengt alle vijf pinnen naar het shen-doel en wint!"
     },
     "lobby": {
         "create_room": "Nieuwe kamer maken",
@@ -221,6 +248,9 @@
         "senet": {
             "title": "Senet",
             "description": "Het spel van de overtocht. Een race over 30 velden om het hiernamaals te bereiken.",
+            "board": {
+                "piece": "Stuk"
+            },
             "legend": {
                 "title": "DE LEGENDE VAN DE SCHEMERREIS",
                 "p1": "Nog voordat de Grote Piramiden de hemel raakten, schreven de schriftgeleerden van Thoth het eerste spel Senet op. Het is meer dan vermaak; het is een rituele kaart van de gevaarlijke overtocht van de ziel door de Doeat, de Egyptische onderwereld. Elk bord is een schaduw van de kosmische orde, waar de reis van leven naar eeuwigheid niet alleen door vaardigheid wordt beslist, maar ook door de gunst van de goden.",
@@ -377,6 +407,99 @@
                     "fact_1": "Mehen-borden werden uitgekerfd als slangen die zich in dichte spiralen oprollen, waardoor het bord tegelijk icoon en racebaan werd.",
                     "fact_2": "Deze editie bewaart de overgeleverde spiraalvorm maar kiest één consequente traditie voor het spel: instap vanuit de reserve, exacte worpen voor het centrum, leeuwenblokkades en winst pas wanneer elk stuk het hart bereikt.",
                     "fact_3": "Veilige windingen op 10, 20, 30, 40 en 50 weerspiegelen de bewaakte ringen van de slang, waar zelfs een kwetsbare bal buiten bereik van slaan kan rusten."
+                }
+            }
+        },
+        "hounds-and-jackals": {
+            "title": "Honden en Jakhalzen",
+            "description": "Het spel van achtenvijftig gaten. Vijf pinnen per zijde racen via gunstige sprongen en terugslagen naar het shen-doel.",
+            "players": {
+                "anubis": "HOND",
+                "sphinx": "JAKHALS"
+            },
+            "legend": {
+                "title": "DE LEGENDE VAN DE ACHTENVĲFTIG GATEN",
+                "p1": "Op borden in de vorm van een bijlkop leidden spelers ooit pinnen met honden- en jakhalzenkoppen door een veld van zorgvuldig geboorde gaten. De borden zijn bewaard gebleven, maar niet alle regels; elk modern spel is dus ook een reconstructie.",
+                "p2": "Deze huispapyrus verbeeldt het spel als een wedloop van dierlijke geesten. Hond en jakhals beginnen in reserve, reageren op vier werpstokken en klimmen omhoog via gemarkeerde gaten die gunst of terugslag kunnen brengen.",
+                "p3": "In deze versie komt de overwinning niet uit slaan maar uit standvastige voortgang. Breng al je vijf pinnen naar het shen-doel, overleef de tegenslagen en voltooi de klim vóór je rivaal."
+            },
+            "marked_holes": {
+                "title": "MERKTEKENS VAN DE ACHTENVĲFTIG GATEN",
+                "good": {
+                    "title": "Nefer-gaten",
+                    "desc": "Een gunstig gemarkeerd gat stuurt een pin meteen vooruit naar een gekoppelde rustplaats verder op het bord."
+                },
+                "bad": {
+                    "title": "Terugslaggaten",
+                    "desc": "Sommige gekoppelde gaten trekken een pin direct terug naar een lagere positie."
+                },
+                "reserve": {
+                    "title": "Reserveputten",
+                    "desc": "Elke zijde begint met vijf pinnen in reserve tot een worp er één naar het eerste gat roept."
+                },
+                "goal": {
+                    "title": "Shen-doel",
+                    "desc": "Het gedeelde doelgat kroont het bord. Elke pin moet het met exacte telling bereiken."
+                }
+            },
+            "guide": {
+                "title": "ROL VAN DE ACHTENVĲFTIG GATEN",
+                "labels": {
+                    "objective": "De race van de pinnen",
+                    "players": "Hond en Jakhals",
+                    "setup": "Vijf pinnen per zijde",
+                    "entry": "De reserveputten",
+                    "movement": "Het geboorde pad",
+                    "throwing": "Vier werpstokken",
+                    "marked_holes": "Gekoppelde gaten",
+                    "good_jumps": "Gunst van nefer",
+                    "bad_jumps": "Terugglijden",
+                    "stacking": "Één pin per gat",
+                    "finishing": "Het shen-doel",
+                    "blocked_turns": "Als geen pin kan bewegen",
+                    "winning": "Het parcours voltooien",
+                    "reconstruction_note": "Huisreconstructie"
+                },
+                "objective": "Breng al je vijf pinnen vanuit de reserve naar het shen-doel voordat je tegenstander dat doet.",
+                "players": "Deze editie toont de twee zijden als Hond en Jakhals, terwijl dezelfde tweezitsstructuur van de rest van de app behouden blijft.",
+                "setup": "Elke speler begint met vijf pinnen in reserve. Geen enkele pin begint op het spoor en de twee races verlopen over spiegelende helften van hetzelfde bord.",
+                "entry": "Bij elke worp mag je één reservepin naar het eerste gat brengen als de eindbestemming niet al door een van je eigen pinnen bezet is.",
+                "movement": "Kies één van je pinnen en verplaats die exact met de geworpen waarde. In deze reconstructie slaan of blokkeren pinnen de andere zijde niet.",
+                "throwing": "De vier werpstokken leveren waarden van 1 tot 5 op, waarbij het resultaat zonder lichte zijden als 5 telt.",
+                "marked_holes": "Bepaalde gaten zijn gekoppeld. Zodra een pin erop landt, wordt het effect meteen afgehandeld en gaat de pin naar de gekoppelde bestemming.",
+                "good_jumps": "Een gunstig gat stuurt de pin vooruit en verbeeldt geluk op het bord.",
+                "bad_jumps": "Een ongunstig gat trekt de pin achteruit. De zet blijft alleen legaal als de gekoppelde rustplaats vrij is van je eigen pinnen.",
+                "stacking": "Slechts één van je eigen pinnen mag een gat bezetten. Eindigt een zet op een gat dat al door jouw pin bezet is, dan is die zet illegaal.",
+                "finishing": "Het shen-doel vereist een exacte telling. Elke worp die het einde overschrijdt laat die pin onbeweeglijk.",
+                "blocked_turns": "Als de huidige worp geen enkele legale pin geeft, gaat de beurt onmiddellijk naar je tegenstander.",
+                "winning": "Je wint alleen wanneer al je vijf pinnen het shen-doel hebben bereikt.",
+                "reconstruction_note": "Omdat geen volledig oud regelboek is overgeleverd, presenteert deze implementatie één consistente huisreconstructie in plaats van een definitieve historische claim."
+            },
+            "board": {
+                "aria_label": "Bord van Honden en Jakhalzen",
+                "peg": "Pin",
+                "goal_title": "Shen-doel",
+                "goal_hole_label": "Shen-doelgat",
+                "reserve_hound": "Hondenreserve",
+                "reserve_jackal": "Jakhalsreserve",
+                "reserve_pit_label": "Reservekuil van {{player}}",
+                "hole_label": "{{player}} gat {{number}}",
+                "hole_label_favor": "Gunstig gat {{number}} van {{player}}, verbonden met gat {{target}}",
+                "hole_label_setback": "Terugslaggat {{number}} van {{player}}, verbonden met gat {{target}}"
+            },
+            "lobby": {
+                "about_kicker": "Bord van 58 gaten",
+                "about_title": "Wat is Honden en Jakhalzen?",
+                "about_body": "Honden en Jakhalzen is een race uit het Middenrijk, opgebouwd rond achtenvijftig geboorde gaten en pinnen met dierenkoppen. Deze editie behandelt het als een snel tweespelerspel van instap, timing en gemarkeerde sprongen, niet als een spel van slaan.",
+                "history_kicker": "Middenrijkse ambacht",
+                "history_title": "Een bord in de vorm van een bijlkop",
+                "history_body": "Archeologische borden zijn bewaard gebleven in elegante houten en ivoren vormen, vaak met spiegelende sporen en pinnen bekroond als honden en jakhalzen. De lay-out is duidelijk, maar de precieze regels niet.",
+                "fun_facts": {
+                    "kicker": "Tekens van het bord",
+                    "title": "Bordkennis",
+                    "fact_1": "Veel overgeleverde voorbeelden zijn in de vorm van een bijlkop geboord met achtenvijftig gaten, wat het moderne spel zijn bijnaam gaf.",
+                    "fact_2": "De pinnen zelf droegen vaak dierenkoppen, daarom worden de twee zijden meestal als honden en jakhalzen beschreven.",
+                    "fact_3": "Deze versie noemt zichzelf expliciet een huisreconstructie: exact finishen, gekoppelde gunstige en ongunstige gaten en geen slaan."
                 }
             }
         }

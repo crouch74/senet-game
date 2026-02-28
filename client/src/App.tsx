@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Board as SenetBoard } from './games/senet/components/Board'
 import { Board as MehenBoard } from './games/mehen/components/Board'
+import { Board as HoundsAndJackalsBoard } from './games/hounds-and-jackals/components/Board'
 import { HUD } from './components/HUD'
 import { ThrowSticks } from './games/senet/components/ThrowSticks'
-import { Afterlife } from './games/senet/components/Afterlife'
+import { FinishedPiecesTray } from './components/FinishedPiecesTray'
 import { Lobby } from './components/Lobby'
 import { LandingPage } from './components/LandingPage'
 import { GameOver } from './components/GameOver'
@@ -14,6 +15,7 @@ import {
   useShallowSelector,
 } from './engine/selectors'
 import { useSenetStore } from './engine/store'
+import type { GameType } from './engine/types'
 import { type ThemeId } from './theme'
 import { applyTheme, getInitialTheme } from './app/themePersistence'
 import { useComputerTurn } from './app/useComputerTurn'
@@ -39,6 +41,7 @@ function App() {
     joinRoom,
     leaveRoom,
     localPlayer,
+    houndsAndJackalsConfig,
     mehenConfig,
     offlineMode,
     playRandomTurns,
@@ -85,7 +88,7 @@ function App() {
     }
   }, [initialGameType, setGameType])
 
-  const handleSelectGame = (game: 'senet' | 'mehen') => {
+  const handleSelectGame = (game: GameType) => {
     setGameType(game)
     setGameSelected(true)
     setShowLobby(true)
@@ -180,6 +183,7 @@ function App() {
                 {isOnline && roomId && !isWaitingForOpponent && (
                   <OnlineRoomBanner
                     copiedRoom={copiedRoom}
+                    gameType={gameType}
                     localPlayer={localPlayer}
                     onCopyRoomId={copyRoomId}
                     onLeaveRoom={handleLeaveRoom}
@@ -190,6 +194,7 @@ function App() {
                 {(isOnline || isConnectingToRoom) && isWaitingForOpponent ? (
                   <WaitingRoomPanel
                     copiedRoom={copiedRoom}
+                    gameType={gameType}
                     localPlayer={localPlayer}
                     onCopyRoomId={copyRoomId}
                     onLeaveRoom={handleLeaveRoom}
@@ -197,13 +202,19 @@ function App() {
                   />
                 ) : (
                   <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0">
-                    {gameType === 'mehen' ? <MehenBoard /> : <SenetBoard />}
+                    {gameType === 'mehen' ? (
+                      <MehenBoard />
+                    ) : gameType === 'hounds-and-jackals' ? (
+                      <HoundsAndJackalsBoard />
+                    ) : (
+                      <SenetBoard />
+                    )}
                     <div className="w-full max-w-5xl mt-8 md:mt-12 mb-6 md:mb-8 bg-ui-panel-bg border border-royal-gold/20 rounded-lg p-4 sm:p-5 md:p-6 shadow-[inset_0_2px_15px_rgba(0,0,0,0.5)] flex flex-col lg:flex-row items-stretch gap-4 md:gap-6 lg:gap-8 backdrop-blur-sm">
                       <div className="flex-1 w-full flex flex-col min-w-0 lg:border-e lg:border-royal-gold/10 lg:pe-8">
                         <ThrowSticks />
                       </div>
                       <div className="w-full lg:w-auto shrink-0 lg:ps-4 flex flex-col h-full">
-                        <Afterlife />
+                        <FinishedPiecesTray />
                       </div>
                     </div>
                   </div>
@@ -211,9 +222,10 @@ function App() {
               </div>
 
               <div className="w-full max-w-full xl:w-96 xl:min-w-[20rem] xl:max-w-[24rem] flex flex-col xl:h-full min-h-0 gap-4 md:gap-6 xl:gap-8 order-1 xl:order-2 shrink-0">
-                <ChroniclePanel historyLog={historyLog} />
+                <ChroniclePanel gameType={gameType} historyLog={historyLog} />
                 <RulesetSummaryPanel
                   gameType={gameType}
+                  houndsAndJackalsConfig={houndsAndJackalsConfig}
                   mehenConfig={mehenConfig}
                   ruleset={ruleset}
                 />

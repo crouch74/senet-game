@@ -3,11 +3,12 @@ import { X } from 'lucide-react';
 import { LegendContent } from './LegendRegistry';
 import { useTranslation } from 'react-i18next';
 import { createPortal } from 'react-dom';
+import type { GameType } from '../engine/types';
 
 interface GuideModalProps {
     isOpen: boolean;
     onClose: () => void;
-    gameType: 'senet' | 'mehen';
+    gameType: GameType;
 }
 
 export function GuideModal({ isOpen, onClose, gameType }: GuideModalProps) {
