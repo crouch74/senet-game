@@ -35,6 +35,8 @@ export function Piece({
   y,
 }: PieceProps) {
   const playerIconPath = piece.player === 'anubis' ? playerAnubis : playerSphinx
+  const playerTokenClass =
+    piece.player === 'anubis' ? 'piece-token--anubis' : 'piece-token--sphinx'
 
   return (
     <motion.div
@@ -74,28 +76,36 @@ export function Piece({
           filter: { duration: 0.5, ease: 'easeOut' },
         }}
         className={cn(
-          'relative w-[70%] h-[70%] rounded-full flex items-center justify-center transition-all duration-300',
-          'shadow-[0_12px_24px_-8px_rgba(0,0,0,0.9),0_1px_2px_rgba(255,255,255,0.2),inset_0_-6px_10px_rgba(0,0,0,0.7),inset_0_2px_5px_rgba(255,255,255,0.1)]',
-          'bg-gradient-to-b from-[var(--ui-piece-shell-from)] to-[var(--ui-piece-shell-to)]',
+          'piece-token relative w-[70%] h-[70%] flex items-center justify-center transition-all duration-300',
+          playerTokenClass,
           canMove &&
-            'ring-2 ring-[var(--ui-piece-legal-ring)] shadow-[0_0_25px_var(--ui-piece-glow-anubis),inset_0_2px_4px_var(--ui-piece-legal-inner)] z-10 -translate-y-2 animate-[pulse_2.5s_ease-in-out_infinite] drop-shadow-[0_8px_12px_rgba(0,0,0,0.6)]',
+            'piece-token--movable z-10 -translate-y-2 animate-[pulse_2.5s_ease-in-out_infinite]',
           isCurrentPlayer &&
             !canMove &&
-            'ring-[1px] ring-royal-gold/30 shadow-[0_2px_8px_rgba(0,0,0,0.5)]',
+            'piece-token--current',
           isHovered &&
-            '-translate-y-3 brightness-125 z-40 ring-4 ring-white shadow-[0_15px_40px_rgba(255,255,255,0.6),0_20px_20px_-10px_rgba(0,0,0,0.8)]',
+            'piece-token--hovered -translate-y-3 z-40',
         )}
       >
-        <div className="absolute inset-[3px] rounded-full bg-gradient-to-br from-[var(--ui-piece-core-from)] to-[var(--ui-piece-core-to)] shadow-[inset_0_2px_4px_rgba(0,0,0,0.9)] flex items-center justify-center">
-          <MaskedSvgIcon
-            src={playerIconPath}
-            className={cn(
-              'w-[65%] h-[65%] transition-all duration-300 jitter-stroke',
-              piece.player === 'anubis'
-                ? 'bg-gradient-to-br from-[var(--ui-piece-emblem-anubis-from)] via-[var(--ui-piece-emblem-anubis-via)] to-[var(--ui-piece-emblem-anubis-to)]'
-                : 'bg-gradient-to-br from-[var(--ui-piece-emblem-sphinx-from)] via-[var(--ui-piece-emblem-sphinx-via)] to-[var(--ui-piece-emblem-sphinx-to)]',
-            )}
-          />
+        <div className="piece-token__core absolute inset-[3px] flex items-center justify-center">
+          <div className="piece-token__symbol-wrap">
+            <MaskedSvgIcon
+              src={playerIconPath}
+              className="piece-token__symbol piece-token__symbol--cavity"
+            />
+            <MaskedSvgIcon
+              src={playerIconPath}
+              className="piece-token__symbol piece-token__symbol--shadow"
+            />
+            <MaskedSvgIcon
+              src={playerIconPath}
+              className="piece-token__symbol piece-token__symbol--base"
+            />
+            <MaskedSvgIcon
+              src={playerIconPath}
+              className="piece-token__symbol piece-token__symbol--edge"
+            />
+          </div>
         </div>
       </motion.div>
     </motion.div>

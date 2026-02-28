@@ -37,9 +37,8 @@
             "temple_fresco": "Temple Fresco",
             "solar_court": "Solar Court",
             "afterlife_ember": "Afterlife Ember",
-            "desert_storm": "Desert Storm",
-            "obsidian_oracle": "Obsidian Oracle",
-            "lotus_dawn": "Lotus Dawn"
+            "lotus_dawn": "Lotus Dawn",
+            "color_blind": "Color-Blind High Contrast"
         },
         "theme_descriptions": {
             "royal": "Classic inlaid faience and gold.",
@@ -48,9 +47,8 @@
             "temple_fresco": "Mineral pigments and painted limestone.",
             "solar_court": "Ceremonial daylight stone and amber.",
             "afterlife_ember": "Underworld ember glow and shadow.",
-            "desert_storm": "Wind-scoured dunes and storm-dark ruins.",
-            "obsidian_oracle": "Prophetic night temple with cold glow.",
-            "lotus_dawn": "Serene dawn tones along the Nile."
+            "lotus_dawn": "Serene dawn tones along the Nile.",
+            "color_blind": "High-contrast blues, golds, ivory, and charcoal for clearer piece and UI separation."
         },
         "players": {
             "anubis": "ANUBIS",

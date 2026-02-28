@@ -37,9 +37,8 @@
             "temple_fresco": "Fresque du Temple",
             "solar_court": "Cour Solaire",
             "afterlife_ember": "Braise de l'Au-delà",
-            "desert_storm": "Tempête du Désert",
-            "obsidian_oracle": "Oracle d'Obsidienne",
-            "lotus_dawn": "Aube du Lotus"
+            "lotus_dawn": "Aube du Lotus",
+            "color_blind": "Contraste élevé daltonisme"
         },
         "theme_descriptions": {
             "royal": "Palette classique faïence et or.",
@@ -48,9 +47,8 @@
             "temple_fresco": "Pigments minéraux et calcaire peint.",
             "solar_court": "Pierre lumineuse et ambre cérémoniel.",
             "afterlife_ember": "Lueurs de braise du monde souterrain.",
-            "desert_storm": "Dunes balayées et ruines assombries.",
-            "obsidian_oracle": "Temple nocturne aux reflets mystiques.",
-            "lotus_dawn": "Lumière douce de l'aube sur le Nil."
+            "lotus_dawn": "Lumière douce de l'aube sur le Nil.",
+            "color_blind": "Bleus, ors, ivoire et anthracite à fort contraste pour mieux distinguer les pièces et l'interface."
         },
         "players": {
             "anubis": "ANUBIS",

@@ -36,6 +36,8 @@ export function Afterlife() {
           {borneOffPieces.map((piece, index) => {
             const pieceIconPath =
               piece.player === 'anubis' ? playerAnubis : playerSphinx
+            const playerTokenClass =
+              piece.player === 'anubis' ? 'piece-token--anubis' : 'piece-token--sphinx'
 
             return (
               <motion.div
@@ -51,24 +53,29 @@ export function Afterlife() {
                   delay: index * 0.05,
                 }}
                 className={cn(
-                  'relative w-10 h-10 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(255,255,255,0.1)] flex items-center justify-center transition-all duration-300',
-                  'bg-gradient-to-b from-[var(--ui-piece-shell-from)] to-[var(--ui-piece-shell-to)] border border-royal-gold/20',
-                  piece.player === 'anubis'
-                    ? 'shadow-[0_0_10px_var(--ui-piece-glow-anubis)]'
-                    : 'shadow-[0_0_10px_var(--ui-piece-glow-sphinx)]',
+                  'piece-token piece-token--afterlife relative w-10 h-10 flex items-center justify-center transition-all duration-300',
+                  playerTokenClass,
                 )}
               >
-                <div className="absolute inset-[2px] rounded-full bg-gradient-to-br from-[var(--ui-piece-core-from)] to-[var(--ui-piece-core-to)] shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)] flex items-center justify-center overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent animate-[shimmer_4s_infinite_linear]" />
-                  <MaskedSvgIcon
-                    src={pieceIconPath}
-                    className={cn(
-                      'w-[60%] h-[60%]',
-                      piece.player === 'anubis'
-                        ? 'bg-gradient-to-br from-[var(--ui-piece-emblem-anubis-from)] via-[var(--ui-piece-emblem-anubis-via)] to-[var(--ui-piece-emblem-anubis-to)]'
-                        : 'bg-gradient-to-br from-[var(--ui-piece-emblem-sphinx-from)] via-[var(--ui-piece-emblem-sphinx-via)] to-[var(--ui-piece-emblem-sphinx-to)]',
-                    )}
-                  />
+                <div className="piece-token__core absolute inset-[2px] flex items-center justify-center overflow-hidden">
+                  <div className="piece-token__symbol-wrap piece-token__symbol-wrap--small">
+                    <MaskedSvgIcon
+                      src={pieceIconPath}
+                      className="piece-token__symbol piece-token__symbol--cavity"
+                    />
+                    <MaskedSvgIcon
+                      src={pieceIconPath}
+                      className="piece-token__symbol piece-token__symbol--shadow"
+                    />
+                    <MaskedSvgIcon
+                      src={pieceIconPath}
+                      className="piece-token__symbol piece-token__symbol--base"
+                    />
+                    <MaskedSvgIcon
+                      src={pieceIconPath}
+                      className="piece-token__symbol piece-token__symbol--edge"
+                    />
+                  </div>
                 </div>
               </motion.div>
             )

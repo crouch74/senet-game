@@ -5,9 +5,8 @@ export const THEME_IDS = [
   'temple-fresco',
   'solar-court',
   'afterlife-ember',
-  'desert-storm',
-  'obsidian-oracle',
   'lotus-dawn',
+  'color-blind',
 ] as const
 
 export type ThemeId = (typeof THEME_IDS)[number]
@@ -44,16 +43,12 @@ export const THEMES: ReadonlyArray<{
     labelKey: 'hud.theme_options.afterlife_ember',
   },
   {
-    id: 'desert-storm',
-    labelKey: 'hud.theme_options.desert_storm',
-  },
-  {
-    id: 'obsidian-oracle',
-    labelKey: 'hud.theme_options.obsidian_oracle',
-  },
-  {
     id: 'lotus-dawn',
     labelKey: 'hud.theme_options.lotus_dawn',
+  },
+  {
+    id: 'color-blind',
+    labelKey: 'hud.theme_options.color_blind',
   },
 ]
 
