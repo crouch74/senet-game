@@ -5,17 +5,20 @@ import {
   house29SunDisk,
   house30Falcon,
 } from '../../assets/royal'
+import type { CSSProperties } from 'react'
 
 export type HouseIcon =
   | {
       className?: string
       repeat?: number
       stack?: boolean
+      style?: CSSProperties
       type: 'text'
       value: string
     }
   | {
-      backgroundClassName: string
+      backgroundClassName?: string
+      backgroundStyle?: CSSProperties
       repeat?: number
       stack?: boolean
       type: 'svg'
@@ -28,19 +31,29 @@ export const getHouseIcon = (number: number): HouseIcon | null => {
       return {
         type: 'svg',
         value: house26Ankh,
-        backgroundClassName: 'bg-royal-blue',
+        // Theme tokens keep special-square symbols readable against each board skin.
+        backgroundStyle: {
+          backgroundColor: 'var(--ui-square-icon-water)',
+          filter: 'drop-shadow(0 0 10px var(--ui-square-icon-water-shadow))',
+        },
       }
     case 26:
       return {
         type: 'text',
         value: '𓄤 𓄤 𓄤',
-        className: 'text-royal-green drop-shadow-[0_0_8px_rgba(55,139,110,0.6)]',
+        style: {
+          color: 'var(--ui-square-icon-life)',
+          textShadow: '0 0 8px var(--ui-square-icon-life-shadow)',
+        },
       }
     case 27:
       return {
         type: 'svg',
         value: house27Water,
-        backgroundClassName: 'bg-royal-blue',
+        backgroundStyle: {
+          backgroundColor: 'var(--ui-square-icon-water)',
+          filter: 'drop-shadow(0 0 10px var(--ui-square-icon-water-shadow))',
+        },
         repeat: 3,
         stack: true,
       }
@@ -48,14 +61,20 @@ export const getHouseIcon = (number: number): HouseIcon | null => {
       return {
         type: 'svg',
         value: house28Feather,
-        backgroundClassName: 'bg-royal-ivory',
+        backgroundStyle: {
+          backgroundColor: 'var(--ui-square-icon-light)',
+          filter: 'drop-shadow(0 0 10px var(--ui-square-icon-light-shadow))',
+        },
         repeat: 3,
       }
     case 29:
       return {
         type: 'svg',
         value: house29SunDisk,
-        backgroundClassName: 'bg-royal-gold',
+        backgroundStyle: {
+          backgroundColor: 'var(--ui-square-icon-solar)',
+          filter: 'drop-shadow(0 0 10px var(--ui-square-icon-solar-shadow))',
+        },
         repeat: 2,
         stack: true,
       }
@@ -63,7 +82,10 @@ export const getHouseIcon = (number: number): HouseIcon | null => {
       return {
         type: 'svg',
         value: house30Falcon,
-        backgroundClassName: 'bg-royal-gold',
+        backgroundStyle: {
+          backgroundColor: 'var(--ui-square-icon-solar)',
+          filter: 'drop-shadow(0 0 10px var(--ui-square-icon-solar-shadow))',
+        },
       }
     default:
       return null

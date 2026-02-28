@@ -65,6 +65,14 @@ html[data-theme="royal"] {
   --ui-square-active: #3a2f2a;
   --ui-square-hover: #2a1d1a;
   --ui-square-special-border: rgba(211, 204, 184, 0.12);
+  --ui-square-icon-life: #d7e0c3;
+  --ui-square-icon-life-shadow: rgba(215, 224, 195, 0.45);
+  --ui-square-icon-water: #7ea8ff;
+  --ui-square-icon-water-shadow: rgba(126, 168, 255, 0.4);
+  --ui-square-icon-light: #fff7d8;
+  --ui-square-icon-light-shadow: rgba(255, 247, 216, 0.42);
+  --ui-square-icon-solar: #dcb75a;
+  --ui-square-icon-solar-shadow: rgba(220, 183, 90, 0.4);
 
   --ui-piece-shell-from: #3a2f2a;
   --ui-piece-shell-to: #120c0a;
@@ -155,6 +163,14 @@ html[data-theme="moonlit-necropolis"] {
   --ui-square-active: #243148;
   --ui-square-hover: #1d283b;
   --ui-square-special-border: rgba(188, 200, 221, 0.2);
+  --ui-square-icon-life: #d8e4d1;
+  --ui-square-icon-life-shadow: rgba(216, 228, 209, 0.42);
+  --ui-square-icon-water: #97bcff;
+  --ui-square-icon-water-shadow: rgba(151, 188, 255, 0.42);
+  --ui-square-icon-light: #f7f2df;
+  --ui-square-icon-light-shadow: rgba(247, 242, 223, 0.38);
+  --ui-square-icon-solar: #d8b65a;
+  --ui-square-icon-solar-shadow: rgba(216, 182, 90, 0.38);
 
   --ui-piece-shell-from: #2a3750;
   --ui-piece-shell-to: #101723;
@@ -245,6 +261,14 @@ html[data-theme="nile-papyrus"] {
   --ui-square-active: #314336;
   --ui-square-hover: #293a2f;
   --ui-square-special-border: rgba(198, 191, 166, 0.2);
+  --ui-square-icon-life: #dae3c3;
+  --ui-square-icon-life-shadow: rgba(218, 227, 195, 0.4);
+  --ui-square-icon-water: #9db9d2;
+  --ui-square-icon-water-shadow: rgba(157, 185, 210, 0.38);
+  --ui-square-icon-light: #f4ecd5;
+  --ui-square-icon-light-shadow: rgba(244, 236, 213, 0.36);
+  --ui-square-icon-solar: #c99c4f;
+  --ui-square-icon-solar-shadow: rgba(201, 156, 79, 0.38);
 
   --ui-piece-shell-from: #334538;
   --ui-piece-shell-to: #131c15;
@@ -335,6 +359,14 @@ html[data-theme="temple-fresco"] {
   --ui-square-active: #433127;
   --ui-square-hover: #35261f;
   --ui-square-special-border: rgba(205, 185, 152, 0.2);
+  --ui-square-icon-life: #dfdcc3;
+  --ui-square-icon-life-shadow: rgba(223, 220, 195, 0.38);
+  --ui-square-icon-water: #9cbbe1;
+  --ui-square-icon-water-shadow: rgba(156, 187, 225, 0.4);
+  --ui-square-icon-light: #f7e8cb;
+  --ui-square-icon-light-shadow: rgba(247, 232, 203, 0.38);
+  --ui-square-icon-solar: #d8b066;
+  --ui-square-icon-solar-shadow: rgba(216, 176, 102, 0.4);
 
   --ui-piece-shell-from: #4b362a;
   --ui-piece-shell-to: #1c130f;
@@ -425,6 +457,14 @@ html[data-theme="solar-court"] {
   --ui-square-active: #7c5230;
   --ui-square-hover: #6d4829;
   --ui-square-special-border: rgba(227, 207, 159, 0.25);
+  --ui-square-icon-life: #f2efcc;
+  --ui-square-icon-life-shadow: rgba(242, 239, 204, 0.36);
+  --ui-square-icon-water: #bfd4ea;
+  --ui-square-icon-water-shadow: rgba(191, 212, 234, 0.34);
+  --ui-square-icon-light: #fff7df;
+  --ui-square-icon-light-shadow: rgba(255, 247, 223, 0.34);
+  --ui-square-icon-solar: #f0cb7b;
+  --ui-square-icon-solar-shadow: rgba(240, 203, 123, 0.36);
 
   --ui-piece-shell-from: #80522f;
   --ui-piece-shell-to: #3d2616;
@@ -515,6 +555,14 @@ html[data-theme="afterlife-ember"] {
   --ui-square-active: #33202a;
   --ui-square-hover: #261821;
   --ui-square-special-border: rgba(184, 169, 140, 0.2);
+  --ui-square-icon-life: #e2dcc1;
+  --ui-square-icon-life-shadow: rgba(226, 220, 193, 0.4);
+  --ui-square-icon-water: #a9b2d4;
+  --ui-square-icon-water-shadow: rgba(169, 178, 212, 0.38);
+  --ui-square-icon-light: #f6e7cc;
+  --ui-square-icon-light-shadow: rgba(246, 231, 204, 0.38);
+  --ui-square-icon-solar: #d99a4d;
+  --ui-square-icon-solar-shadow: rgba(217, 154, 77, 0.4);
 
   --ui-piece-shell-from: #462831;
   --ui-piece-shell-to: #180f14;
@@ -605,6 +653,14 @@ html[data-theme="desert-storm"] {
   --ui-square-active: #5a4030;
   --ui-square-hover: #4b3628;
   --ui-square-special-border: rgba(217, 197, 155, 0.24);
+  --ui-square-icon-life: #efe1bb;
+  --ui-square-icon-life-shadow: rgba(239, 225, 187, 0.35);
+  --ui-square-icon-water: #c0cfdb;
+  --ui-square-icon-water-shadow: rgba(192, 207, 219, 0.34);
+  --ui-square-icon-light: #fff0cf;
+  --ui-square-icon-light-shadow: rgba(255, 240, 207, 0.34);
+  --ui-square-icon-solar: #deae60;
+  --ui-square-icon-solar-shadow: rgba(222, 174, 96, 0.36);
 
   --ui-piece-shell-from: #624330;
   --ui-piece-shell-to: #2a1d14;
@@ -695,6 +751,14 @@ html[data-theme="obsidian-oracle"] {
   --ui-square-active: #1f2a3f;
   --ui-square-hover: #182032;
   --ui-square-special-border: rgba(194, 188, 175, 0.22);
+  --ui-square-icon-life: #dce0d2;
+  --ui-square-icon-life-shadow: rgba(220, 224, 210, 0.38);
+  --ui-square-icon-water: #8da8d6;
+  --ui-square-icon-water-shadow: rgba(141, 168, 214, 0.4);
+  --ui-square-icon-light: #f5edda;
+  --ui-square-icon-light-shadow: rgba(245, 237, 218, 0.36);
+  --ui-square-icon-solar: #d7b56f;
+  --ui-square-icon-solar-shadow: rgba(215, 181, 111, 0.36);
 
   --ui-piece-shell-from: #26324a;
   --ui-piece-shell-to: #0f141f;
@@ -785,6 +849,14 @@ html[data-theme="lotus-dawn"] {
   --ui-square-active: #4a6e8c;
   --ui-square-hover: #3d627f;
   --ui-square-special-border: rgba(220, 200, 158, 0.24);
+  --ui-square-icon-life: #f1eccd;
+  --ui-square-icon-life-shadow: rgba(241, 236, 205, 0.34);
+  --ui-square-icon-water: #d2e0ea;
+  --ui-square-icon-water-shadow: rgba(210, 224, 234, 0.32);
+  --ui-square-icon-light: #fff8e3;
+  --ui-square-icon-light-shadow: rgba(255, 248, 227, 0.32);
+  --ui-square-icon-solar: #efcb83;
+  --ui-square-icon-solar-shadow: rgba(239, 203, 131, 0.34);
 
   --ui-piece-shell-from: #5a7f63;
   --ui-piece-shell-to: #2a4537;

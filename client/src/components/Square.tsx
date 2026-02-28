@@ -78,6 +78,7 @@ export function Square({
             'text-3xl opacity-50 group-hover:opacity-100 transition-opacity drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]',
             icon.className || 'text-royal-ivory/40',
           )}
+          style={icon.style}
         >
           {icon.value}
         </div>
@@ -107,9 +108,16 @@ export function Square({
                 className={cn(
                   'absolute inset-0 transition-all duration-700',
                   icon.backgroundClassName,
-                  isLegalMove &&
-                    'bg-royal-ivory drop-shadow-[0_0_5px_rgba(255,255,240,0.8)]',
                 )}
+                style={
+                  isLegalMove
+                    ? {
+                        backgroundColor: 'var(--ui-piece-legal-ring)',
+                        filter:
+                          'drop-shadow(0 0 5px var(--ui-piece-legal-ring))',
+                      }
+                    : icon.backgroundStyle
+                }
               >
                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/40 opacity-0 group-hover:opacity-100 mix-blend-overlay transition-opacity duration-300" />
                 <div className="absolute -inset-full animate-[shimmer_3s_infinite_linear] bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 opacity-0 group-hover:opacity-100" />
