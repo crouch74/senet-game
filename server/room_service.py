@@ -3,11 +3,17 @@ from __future__ import annotations
 import random
 import string
 from dataclasses import dataclass
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Literal, Optional, Union
 
 from fastapi import WebSocket
 
-from .room_registry import RoomRegistry
+from .room_registry import RoomRegistry, RoomState
+from .websocket_protocol import build_game_start_payload
+
+RoomPlayer = Literal["anubis", "sphinx"]
+RoomRole = Union[RoomPlayer, Literal["spectator"]]
+
+PLAYER_ROLES: tuple[RoomPlayer, RoomPlayer] = ("anubis", "sphinx")
 
 
 class RoomAssignmentError(Exception):
@@ -16,7 +22,7 @@ class RoomAssignmentError(Exception):
 
 @dataclass
 class GameStartBroadcast:
-    opening_player: Optional[str]
+    opening_player: Optional[RoomPlayer]
     payload: Dict[str, Any]
     rolls: Optional[Dict[str, int]]
 
@@ -40,27 +46,17 @@ class RoomService:
                 self.registry.create_room(room_id)
                 return room_id
 
-    def assign_role(self, room_id: str, websocket: WebSocket) -> str:
-        if not self.registry.has(room_id):
-            raise RoomAssignmentError("Room does not exist")
+    def assign_role(self, room_id: str, websocket: WebSocket) -> RoomRole:
+        room = self._get_room_or_raise(room_id)
 
-        room = self.registry.get(room_id)
-
-        if (
-            room.opening_player is not None
-            and room.anubis is not None
-            and room.sphinx is not None
-        ):
+        if self._is_spectator_join(room):
             room.spectators.add(websocket)
             return "spectator"
 
-        if room.anubis is None:
-            room.anubis = websocket
-            return "anubis"
-
-        if room.sphinx is None:
-            room.sphinx = websocket
-            return "sphinx"
+        for role in PLAYER_ROLES:
+            if getattr(room, role) is None:
+                setattr(room, role, websocket)
+                return role
 
         raise RoomAssignmentError("Room is full")
 
@@ -78,44 +74,41 @@ class RoomService:
                 if anubis_roll != sphinx_roll:
                     break
 
-            opening_player = "anubis" if anubis_roll > sphinx_roll else "sphinx"
+            opening_player: RoomPlayer = (
+                "anubis" if anubis_roll > sphinx_roll else "sphinx"
+            )
             room.opening_player = opening_player
             rolls = {"anubis": anubis_roll, "sphinx": sphinx_roll}
             return GameStartBroadcast(
                 opening_player=opening_player,
-                payload={
-                    "type": "game_start",
-                    "opening_player": opening_player,
-                    "opening_rolls": rolls,
-                },
+                payload=build_game_start_payload(opening_player, rolls),
                 rolls=rolls,
             )
 
         return GameStartBroadcast(
             opening_player=room.opening_player,
-            payload={"type": "game_start"},
+            payload=build_game_start_payload(),
             rolls=None,
         )
 
     def get_room_recipients(self, room_id: str) -> List[WebSocket]:
         room = self.registry.get(room_id)
         recipients: List[WebSocket] = []
-        if room.anubis is not None:
-            recipients.append(room.anubis)
-        if room.sphinx is not None:
-            recipients.append(room.sphinx)
+        for role in PLAYER_ROLES:
+            socket = getattr(room, role)
+            if socket is not None:
+                recipients.append(socket)
         recipients.extend(room.spectators)
         return recipients
 
     def get_sync_recipients(
-        self, room_id: str, assigned_role: str
+        self, room_id: str, assigned_role: RoomRole
     ) -> List[WebSocket]:
         room = self.registry.get(room_id)
         recipients: List[WebSocket] = []
-        other_color = "sphinx" if assigned_role == "anubis" else "anubis"
-        other_ws = getattr(room, other_color)
-        if other_ws is not None:
-            recipients.append(other_ws)
+        opponent_socket = self.get_opponent_socket(room_id, assigned_role)
+        if opponent_socket is not None:
+            recipients.append(opponent_socket)
         recipients.extend(room.spectators)
         return recipients
 
@@ -128,7 +121,9 @@ class RoomService:
     def get_latest_state(self, room_id: str) -> Optional[Dict[str, Any]]:
         return self.registry.get(room_id).latest_state
 
-    def mark_disconnected(self, room_id: str, assigned_role: str, websocket: WebSocket) -> None:
+    def mark_disconnected(
+        self, room_id: str, assigned_role: RoomRole, websocket: WebSocket
+    ) -> None:
         room = self.registry.get(room_id)
 
         if assigned_role == "spectator":
@@ -138,12 +133,34 @@ class RoomService:
         setattr(room, assigned_role, None)
 
     def get_opponent_socket(
-        self, room_id: str, assigned_role: str
+        self, room_id: str, assigned_role: RoomRole
     ) -> Optional[WebSocket]:
+        if assigned_role == "spectator":
+            return None
+
         room = self.registry.get(room_id)
-        other_color = "sphinx" if assigned_role == "anubis" else "anubis"
-        return getattr(room, other_color)
+        opponent_role: RoomPlayer = (
+            "sphinx" if assigned_role == "anubis" else "anubis"
+        )
+        return getattr(room, opponent_role)
 
     def is_empty(self, room_id: str) -> bool:
         room = self.registry.get(room_id)
-        return room.anubis is None and room.sphinx is None and len(room.spectators) == 0
+        return (
+            room.anubis is None
+            and room.sphinx is None
+            and len(room.spectators) == 0
+        )
+
+    def _get_room_or_raise(self, room_id: str) -> RoomState:
+        if not self.registry.has(room_id):
+            raise RoomAssignmentError("Room does not exist")
+
+        return self.registry.get(room_id)
+
+    def _is_spectator_join(self, room: RoomState) -> bool:
+        return (
+            room.opening_player is not None
+            and room.anubis is not None
+            and room.sphinx is not None
+        )

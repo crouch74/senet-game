@@ -1,4 +1,8 @@
 import type { GameState, PlayerID } from './types'
+import {
+  buildMatchWebSocketUrl,
+  normalizeRoomId,
+} from '../services/matchConfig'
 
 export type RoomJoinError = 'not_found' | 'full' | 'unavailable'
 export type LocalRole = PlayerID | 'spectator'
@@ -22,8 +26,6 @@ interface MatchConnectionDependencies {
   parseMessage?: (message: string) => unknown
 }
 
-export const normalizeRoomId = (roomId: string) => roomId.trim().toLowerCase()
-
 export const mapRoomJoinError = (message: unknown): RoomJoinError => {
   const lowered = typeof message === 'string' ? message.toLowerCase() : ''
 
@@ -32,13 +34,7 @@ export const mapRoomJoinError = (message: unknown): RoomJoinError => {
   return 'unavailable'
 }
 
-export const buildMatchWebSocketUrl = (
-  locationLike: Pick<Location, 'host' | 'protocol'>,
-  roomId: string,
-) => {
-  const protocol = locationLike.protocol === 'https:' ? 'wss:' : 'ws:'
-  return `${protocol}//${locationLike.host}/api/match/${normalizeRoomId(roomId)}`
-}
+export { buildMatchWebSocketUrl, normalizeRoomId }
 
 export function createMatchConnectionManager(
   dependencies: MatchConnectionDependencies = {},

@@ -1,216 +1,191 @@
-import { useTranslation } from 'react-i18next';
-import { useSenetStore } from '../engine/store';
-import { cn } from '../utils/cn';
-import { formatNumber } from '../utils/format';
-import { house26Ankh, house27Water, house28Feather, house29SunDisk, house30Falcon } from '../assets/royal';
+import { useTranslation } from 'react-i18next'
+import type { PlayerID, Ruleset } from '../engine/types'
+import { cn } from '../utils/cn'
+import { formatNumber } from '../utils/format'
+import { MaskedSvgIcon } from './common/MaskedSvgIcon'
+import type { HouseIcon } from './board/houseIcons'
 
 interface SquareProps {
-    number: number;
+  currentPlayer: PlayerID
+  icon: HouseIcon | null
+  isActionableMove: boolean
+  isHoveredTarget: boolean
+  isLegalMove: boolean
+  isRecentlyActivated: boolean
+  number: number
+  onClick: () => void
+  onMouseEnter: () => void
+  onMouseLeave: () => void
+  specialInfo: Ruleset['specialSquares'][number] | undefined
 }
 
-export function Square({ number }: SquareProps) {
-    const {
-        ruleset,
-        legalMoves,
-        currentPlayer,
-        hoveredPieceId,
-        setHoveredPieceId,
-        movePiece,
-        lastMove,
-        isOnline,
-        localPlayer,
-        offlineMode,
-        offlineHumanPlayer
-    } = useSenetStore();
-    const { t, i18n } = useTranslation();
-    const specialInfo = ruleset.specialSquares[number];
+export function Square({
+  currentPlayer,
+  icon,
+  isActionableMove,
+  isHoveredTarget,
+  isLegalMove,
+  isRecentlyActivated,
+  number,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+  specialInfo,
+}: SquareProps) {
+  const { t, i18n } = useTranslation()
+  const isSpecial = number >= 26 && number <= 30
 
-    const isLegalMove = legalMoves.some(m => m.targetSquare === number);
-    const isLocalTurn = isOnline
-        ? currentPlayer === localPlayer
-        : offlineMode === 'vs_pc'
-            ? currentPlayer === offlineHumanPlayer
-            : true;
-    const isActionableMove = isLocalTurn && isLegalMove;
-    const isHoveredTarget = isActionableMove && hoveredPieceId && legalMoves.some(m => m.pieceId === hoveredPieceId && m.targetSquare === number);
-    const isSpecial = number >= 26 && number <= 30;
-    const isRecentlyActivated = lastMove?.to === number && (isSpecial || number === 15);
+  return (
+    <div
+      className={cn(
+        'relative flex flex-col items-center justify-center aspect-square group box-border',
+        'bg-[var(--ui-square-base)] transition-all duration-500',
+        isRecentlyActivated &&
+          'z-30 bg-[var(--ui-square-active)] scale-[1.05] ring-2 ring-white/50 shadow-[0_0_40px_rgba(255,255,255,0.4)] animate-pulse',
+        'border-[0.5px] border-black/80',
+        'shadow-[inset_0_2px_4px_rgba(255,255,255,0.05),inset_0_-2px_4px_rgba(0,0,0,0.4),inset_0_0_10px_rgba(0,0,0,0.7)]',
+        'after:absolute after:inset-0 after:bg-gradient-to-tr after:from-black/20 after:to-white/5 after:pointer-events-none',
+        isActionableMove &&
+          cn(
+            'cursor-pointer',
+            currentPlayer === 'anubis'
+              ? 'ring-1 ring-royal-gold/40 shadow-[inset_0_0_30px_rgba(212,175,55,0.2)]'
+              : 'ring-1 ring-royal-ivory/40 shadow-[inset_0_0_30px_rgba(255,255,240,0.2)]',
+          ),
+        isHoveredTarget &&
+          cn(
+            'z-20 scale-[1.02] bg-[var(--ui-square-hover)]',
+            currentPlayer === 'anubis'
+              ? 'ring-2 ring-royal-gold shadow-[0_10px_30px_rgba(212,175,55,0.4),inset_0_0_40px_rgba(212,175,55,0.2)]'
+              : 'ring-2 ring-royal-ivory shadow-[0_10px_30px_rgba(255,255,240,0.4),inset_0_0_40px_rgba(255,255,240,0.2)]',
+          ),
+      )}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onClick={onClick}
+    >
+      {isSpecial && (
+        <div className="absolute inset-[3px] border-[0.5px] border-[var(--ui-square-special-border)] pointer-events-none mix-blend-overlay" />
+      )}
 
-    const getHouseIcon = () => {
-        switch (number) {
-            case 15: return { type: 'svg', val: house26Ankh, color: 'bg-royal-blue', repeat: 1 };
-            case 26: return { type: 'text', val: '𓄤 𓄤 𓄤', color: 'text-royal-green drop-shadow-[0_0_8px_rgba(55,139,110,0.6)]' };
-            case 27: return { type: 'svg', val: house27Water, color: 'bg-royal-blue', repeat: 3, stack: true };
-            case 28: return { type: 'svg', val: house28Feather, color: 'bg-royal-ivory', repeat: 3 };
-            case 29: return { type: 'svg', val: house29SunDisk, color: 'bg-royal-gold', repeat: 2, stack: true };
-            case 30: return { type: 'svg', val: house30Falcon, color: 'bg-royal-gold', repeat: 1 };
-            default: return null;
-        }
-    };
+      <div className="absolute top-1 left-[6px] text-[10px] text-royal-ivory/40 font-mono z-10 pointer-events-none">
+        {formatNumber(number)}
+      </div>
 
-    const icon = getHouseIcon();
-
-    return (
+      {icon?.type === 'text' && (
         <div
-            className={cn(
-                "relative flex flex-col items-center justify-center aspect-square group box-border",
-                "bg-[var(--ui-square-base)] transition-all duration-500",
-                isRecentlyActivated && "z-30 bg-[var(--ui-square-active)] scale-[1.05] ring-2 ring-white/50 shadow-[0_0_40px_rgba(255,255,255,0.4)] animate-pulse",
-                // Depth: inner shadow + bevel look
-                "border-[0.5px] border-black/80",
-                "shadow-[inset_0_2px_4px_rgba(255,255,255,0.05),inset_0_-2px_4px_rgba(0,0,0,0.4),inset_0_0_10px_rgba(0,0,0,0.7)]",
-                "after:absolute after:inset-0 after:bg-gradient-to-tr after:from-black/20 after:to-white/5 after:pointer-events-none",
-                isActionableMove && cn(
-                    "cursor-pointer",
-                    currentPlayer === 'anubis'
-                        ? "ring-1 ring-royal-gold/40 shadow-[inset_0_0_30px_rgba(212,175,55,0.2)]"
-                        : "ring-1 ring-royal-ivory/40 shadow-[inset_0_0_30px_rgba(255,255,240,0.2)]"
-                ),
-                isHoveredTarget && cn(
-                    "z-20 scale-[1.02] bg-[var(--ui-square-hover)]",
-                    currentPlayer === 'anubis'
-                        ? "ring-2 ring-royal-gold shadow-[0_10px_30px_rgba(212,175,55,0.4),inset_0_0_40px_rgba(212,175,55,0.2)]"
-                        : "ring-2 ring-royal-ivory shadow-[0_10px_30px_rgba(255,255,240,0.4),inset_0_0_40px_rgba(255,255,240,0.2)]"
-                )
-            )}
-            onMouseEnter={() => {
-                if (isActionableMove) {
-                    const move = legalMoves.find(m => m.targetSquare === number);
-                    if (move) setHoveredPieceId(move.pieceId);
-                }
-            }}
-            onMouseLeave={() => {
-                if (isActionableMove) setHoveredPieceId(null);
-            }}
-            onClick={() => {
-                if (isActionableMove) {
-                    const move = legalMoves.find(m => m.targetSquare === number);
-                    if (move) {
-                        setHoveredPieceId(null);
-                        movePiece(move.pieceId);
-                    }
-                }
-            }}
+          className={cn(
+            'text-3xl opacity-50 group-hover:opacity-100 transition-opacity drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]',
+            icon.className || 'text-royal-ivory/40',
+          )}
         >
-            {/* Embedded Special Square Inlay Border */}
-            {isSpecial && (
-                <div className="absolute inset-[3px] border-[0.5px] border-[var(--ui-square-special-border)] pointer-events-none mix-blend-overlay" />
-            )}
+          {icon.value}
+        </div>
+      )}
 
-            {/* Number - Brightened by 10% (from 30 to 40) */}
-            <div className="absolute top-1 left-[6px] text-[10px] text-royal-ivory/40 font-mono z-10 pointer-events-none">
-                {formatNumber(number)}
+      {icon?.type === 'svg' && (
+        <div
+          className={cn(
+            'relative group-hover:scale-105 transition-transform duration-500 opacity-90',
+            (icon.repeat || 1) > 1
+              ? icon.stack
+                ? 'w-[45%] h-[80%] flex flex-col items-center justify-center gap-0.5'
+                : 'w-4/5 h-[45%] flex flex-row items-center justify-center gap-1'
+              : 'w-3/5 h-3/5',
+          )}
+        >
+          {Array.from({ length: icon.repeat || 1 }).map((_, index) => (
+            <div
+              key={index}
+              className={cn(
+                'relative w-full h-full',
+                (icon.repeat || 1) === 1 && 'absolute inset-0',
+              )}
+            >
+              <MaskedSvgIcon
+                src={icon.value}
+                className={cn(
+                  'absolute inset-0 transition-all duration-700',
+                  icon.backgroundClassName,
+                  isLegalMove &&
+                    'bg-royal-ivory drop-shadow-[0_0_5px_rgba(255,255,240,0.8)]',
+                )}
+              >
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/40 opacity-0 group-hover:opacity-100 mix-blend-overlay transition-opacity duration-300" />
+                <div className="absolute -inset-full animate-[shimmer_3s_infinite_linear] bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 opacity-0 group-hover:opacity-100" />
+              </MaskedSvgIcon>
+              <MaskedSvgIcon
+                src={icon.value}
+                className="absolute inset-0 pointer-events-none opacity-60 mix-blend-multiply translate-y-[1.5px] blur-[0.5px] bg-black"
+              />
+              <MaskedSvgIcon
+                src={icon.value}
+                className="absolute inset-0 pointer-events-none opacity-30 mix-blend-overlay -translate-y-[0.5px] bg-white"
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {isLegalMove && (
+        <div
+          className={cn(
+            'absolute inset-x-0 bottom-1 h-[2px] animate-pulse transition-all duration-300',
+            currentPlayer === 'anubis'
+              ? 'bg-gradient-to-r from-transparent via-royal-gold to-transparent shadow-[0_0_12px_rgba(212,175,55,0.8)]'
+              : 'bg-gradient-to-r from-transparent via-royal-ivory to-transparent shadow-[0_0_12px_rgba(255,255,240,0.8)]',
+            isHoveredTarget &&
+              'h-[4px] bottom-0 opacity-100 via-white shadow-[0_0_20px_rgba(255,255,255,0.6)]',
+          )}
+        />
+      )}
+
+      {specialInfo && (
+        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 flex justify-center z-50 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+          <div
+            className="w-[240px] shrink-0 p-3 bg-[var(--ui-tooltip-bg)] border-[2px] border-royal-gold shadow-[0_10px_25px_rgba(0,0,0,0.5)] text-[var(--ui-tooltip-text)] text-xs rounded-sm text-start"
+            dir={i18n.language === 'ar-EG' ? 'rtl' : 'ltr'}
+          >
+            <div className="flex items-center gap-2 border-b border-royal-gold/20 pb-2 mb-2">
+              {icon?.type === 'svg' && (
+                <img src={icon.value} alt="icon" className="w-5 h-5 opacity-80" />
+              )}
+              <div className="font-bold text-royal-gold drop-shadow-sm uppercase tracking-wider text-sm">
+                {t(`square.names.${number}`)}
+              </div>
             </div>
 
-            {/* Icon Inlay */}
-            {icon && icon.type === 'text' && (
-                <div className={cn(
-                    "text-3xl opacity-50 group-hover:opacity-100 transition-opacity drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]",
-                    icon.color || "text-royal-ivory/40"
-                )}>
-                    {icon.val}
+            <div className="mb-2">
+              <div className="font-serif font-bold text-[var(--ui-tooltip-accent)] mb-0.5">
+                {t('square.effect', {
+                  effect: t(`square.effects.${specialInfo.effect}`),
+                })}
+              </div>
+              {specialInfo.requiredThrow && (
+                <div className="font-serif text-[var(--ui-tooltip-text)] opacity-80">
+                  {t('square.requires_throw', {
+                    num: formatNumber(specialInfo.requiredThrow),
+                  })}
                 </div>
-            )}
-
-            {icon && icon.type === 'svg' && (
-                <div className={cn(
-                    "relative group-hover:scale-105 transition-transform duration-500 opacity-90",
-                    (icon.repeat || 1) > 1
-                        ? (icon.stack
-                            ? "w-[45%] h-[80%] flex flex-col items-center justify-center gap-0.5"
-                            : "w-4/5 h-[45%] flex flex-row items-center justify-center gap-1")
-                        : "w-3/5 h-3/5"
-                )}>
-                    {Array.from({ length: icon.repeat || 1 }).map((_, i) => (
-                        <div key={i} className={cn("relative w-full h-full", (icon.repeat || 1) === 1 && "absolute inset-0")}>
-                            <div
-                                className={cn(
-                                    "absolute inset-0 mask-image-center transition-all duration-700",
-                                    icon.color,
-                                    isLegalMove && "bg-royal-ivory drop-shadow-[0_0_5px_rgba(255,255,240,0.8)]" // Glow bright if legal move
-                                )}
-                                style={{
-                                    WebkitMaskImage: `url("${icon.val}")`,
-                                    WebkitMaskRepeat: 'no-repeat',
-                                    WebkitMaskPosition: 'center',
-                                    WebkitMaskSize: 'contain',
-                                    maskImage: `url("${icon.val}")`,
-                                    maskRepeat: 'no-repeat',
-                                    maskPosition: 'center',
-                                    maskSize: 'contain',
-                                }}
-                            >
-                                {/* Shimmer/Specular effects inside the mask */}
-                                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/40 opacity-0 group-hover:opacity-100 mix-blend-overlay transition-opacity duration-300" />
-                                <div className="absolute -inset-full animate-[shimmer_3s_infinite_linear] bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 opacity-0 group-hover:opacity-100" />
-                            </div>
-                            {/* Shadow/Bevel Rim underneath the inlay - deepened for "Inlaid Fill" effect */}
-                            <div
-                                className="absolute inset-0 pointer-events-none opacity-60 mix-blend-multiply translate-y-[1.5px] blur-[0.5px]"
-                                style={{
-                                    WebkitMaskImage: `url("${icon.val}")`,
-                                    WebkitMaskRepeat: 'no-repeat',
-                                    WebkitMaskPosition: 'center',
-                                    WebkitMaskSize: 'contain',
-                                    backgroundColor: 'black'
-                                }}
-                            />
-                            {/* Inner Highlight for depth */}
-                            <div
-                                className="absolute inset-0 pointer-events-none opacity-30 mix-blend-overlay -translate-y-[0.5px]"
-                                style={{
-                                    WebkitMaskImage: `url("${icon.val}")`,
-                                    WebkitMaskRepeat: 'no-repeat',
-                                    WebkitMaskPosition: 'center',
-                                    WebkitMaskSize: 'contain',
-                                    backgroundColor: 'white'
-                                }}
-                            />
-                        </div>
-                    ))}
+              )}
+              {!specialInfo.canBypass && (
+                <div className="text-royal-blue font-bold text-[10px] uppercase mt-0.5 opacity-90">
+                  {t('square.cannot_bypass')}
                 </div>
-            )}
+              )}
+            </div>
 
-            {/* Legal Move Glow Line path overlay */}
-            {isLegalMove && (
-                <div className={cn(
-                    "absolute inset-x-0 bottom-1 h-[2px] animate-pulse transition-all duration-300",
-                    currentPlayer === 'anubis'
-                        ? "bg-gradient-to-r from-transparent via-royal-gold to-transparent shadow-[0_0_12px_rgba(212,175,55,0.8)]"
-                        : "bg-gradient-to-r from-transparent via-royal-ivory to-transparent shadow-[0_0_12px_rgba(255,255,240,0.8)]",
-                    isHoveredTarget && "h-[4px] bottom-0 opacity-100 via-white shadow-[0_0_20px_rgba(255,255,255,0.6)]"
-                )} />
-            )}
-
-            {/* Luxury Tooltip */}
-            {specialInfo && (
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 flex justify-center z-50 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div
-                        className="w-[240px] shrink-0 p-3 bg-[var(--ui-tooltip-bg)] border-[2px] border-royal-gold shadow-[0_10px_25px_rgba(0,0,0,0.5)] text-[var(--ui-tooltip-text)] text-xs rounded-sm text-start"
-                        dir={i18n.language === 'ar-EG' ? 'rtl' : 'ltr'}
-                    >
-                        <div className="flex items-center gap-2 border-b border-royal-gold/20 pb-2 mb-2">
-                            {icon && icon.type === 'svg' && (
-                                <img src={icon.val} alt="icon" className="w-5 h-5 opacity-80" />
-                            )}
-                            <div className="font-bold text-royal-gold drop-shadow-sm uppercase tracking-wider text-sm">{t(`square.names.${number}`)}</div>
-                        </div>
-
-                        {/* Game Effect */}
-                        <div className="mb-2">
-                            <div className="font-serif font-bold text-[var(--ui-tooltip-accent)] mb-0.5">{t('square.effect', { effect: t(`square.effects.${specialInfo.effect}`) })}</div>
-                            {specialInfo.requiredThrow && <div className="font-serif text-[var(--ui-tooltip-text)] opacity-80">{t('square.requires_throw', { num: formatNumber(specialInfo.requiredThrow) })}</div>}
-                            {!specialInfo.canBypass && <div className="text-royal-blue font-bold text-[10px] uppercase mt-0.5 opacity-90">{t('square.cannot_bypass')}</div>}
-                        </div>
-
-                        {/* Afterlife Context */}
-                        <div className="border-t border-royal-gold/20 pt-2 mt-2">
-                            <div className="text-[10px] text-royal-gold font-bold uppercase tracking-widest mb-1 opacity-80">{t('square.lore')}</div>
-                            <div className="font-serif text-[var(--ui-tooltip-text)] opacity-70 italic leading-relaxed">{t(`square.contexts.${number}`)}</div>
-                        </div>
-                    </div>
-                </div>
-            )}
+            <div className="border-t border-royal-gold/20 pt-2 mt-2">
+              <div className="text-[10px] text-royal-gold font-bold uppercase tracking-widest mb-1 opacity-80">
+                {t('square.lore')}
+              </div>
+              <div className="font-serif text-[var(--ui-tooltip-text)] opacity-70 italic leading-relaxed">
+                {t(`square.contexts.${number}`)}
+              </div>
+            </div>
+          </div>
         </div>
-    );
+      )}
+    </div>
+  )
 }

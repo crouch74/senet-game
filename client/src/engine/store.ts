@@ -22,44 +22,19 @@ import {
   type LocalRole,
   type RoomJoinError,
 } from './network'
-
-const extractGameState = (state: GameState): GameState => ({
-  board: state.board,
-  currentPlayer: state.currentPlayer,
-  currentThrow: state.currentThrow,
-  ruleset: state.ruleset,
-  winner: state.winner,
-  historyLog: state.historyLog,
-})
-
-const isLocalTurn = (
-  state: Pick<
-    SenetStore,
-    | 'currentPlayer'
-    | 'isConnectingToRoom'
-    | 'isOnline'
-    | 'isWaitingForOpponent'
-    | 'localPlayer'
-    | 'offlineHumanPlayer'
-    | 'offlineMode'
-  >,
-) => {
-  if (state.isOnline) {
-    if (state.isWaitingForOpponent || state.isConnectingToRoom) return false
-    return state.currentPlayer === state.localPlayer
-  }
-
-  if (state.offlineMode === 'vs_pc') {
-    return state.currentPlayer === state.offlineHumanPlayer
-  }
-
-  return true
-}
+import {
+  buildLastMove,
+  buildSyncedGameState,
+  extractGameState,
+  type LastMove,
+  isLocalTurnState,
+} from './storeHelpers'
+import { createLogger } from '../services/logger'
 
 interface SenetStoreDependencies extends AutoPlayDependencies {
   clearTimeoutFn?: typeof window.clearTimeout
   createConnectionManager?: typeof createMatchConnectionManager
-  log?: Pick<Console, 'error' | 'log'>
+  log?: Pick<Console, 'error' | 'log' | 'warn'>
   setTimeoutFn?: typeof window.setTimeout
 }
 
@@ -72,7 +47,7 @@ export interface SenetStore extends GameState {
   isOnline: boolean
   isWaitingForOpponent: boolean
   joinRoom: (roomId: string) => void
-  lastMove: { pieceId: string; from: number; to: number; isCapture?: boolean } | null
+  lastMove: LastMove | null
   legalMoves: { pieceId: string; targetSquare: number }[]
   leaveRoom: () => void
   localPlayer: LocalRole | null
@@ -95,7 +70,7 @@ export interface SenetStore extends GameState {
 export const createSenetStore = (
   dependencies: SenetStoreDependencies = {},
 ) => {
-  const logger = dependencies.log ?? console
+  const logger = createLogger('Store', dependencies.log ?? console)
   const setTimeoutFn =
     dependencies.setTimeoutFn ?? window.setTimeout.bind(window)
   const clearTimeoutFn =
@@ -113,17 +88,15 @@ export const createSenetStore = (
   let clearLastMoveTimer: ReturnType<typeof setTimeout> | null = null
 
   const clearAutoPassTimer = () => {
-    if (autoPassTimer !== null) {
-      clearTimeoutFn(autoPassTimer)
-      autoPassTimer = null
-    }
+    if (autoPassTimer === null) return
+    clearTimeoutFn(autoPassTimer)
+    autoPassTimer = null
   }
 
   const clearLastMoveTimeout = () => {
-    if (clearLastMoveTimer !== null) {
-      clearTimeoutFn(clearLastMoveTimer)
-      clearLastMoveTimer = null
-    }
+    if (clearLastMoveTimer === null) return
+    clearTimeoutFn(clearLastMoveTimer)
+    clearLastMoveTimer = null
   }
 
   const cancelAutoplay = () => {
@@ -132,24 +105,22 @@ export const createSenetStore = (
 
   return create<SenetStore>((set, get) => ({
     ...createInitialState(),
-    legalMoves: [],
     hoveredPieceId: null,
-    setHoveredPieceId: (pieceId) => set({ hoveredPieceId: pieceId }),
-    lastMove: null,
-
-    showGuide: false,
-    setShowGuide: (show) => set({ showGuide: show }),
-
-    offlineMode: 'play_and_pass',
-    offlineHumanPlayer: 'anubis',
-    setOfflineMode: (mode) => set({ offlineMode: mode }),
-
-    isOnline: false,
+    isAutoPlaying: false,
+    isAutoRolling: false,
     isConnectingToRoom: false,
+    isOnline: false,
     isWaitingForOpponent: false,
-    roomId: null,
+    lastMove: null,
+    legalMoves: [],
     localPlayer: null,
+    offlineHumanPlayer: 'anubis',
+    offlineMode: 'play_and_pass',
+    roomId: null,
     roomJoinError: null,
+    showGuide: false,
+
+    clearRoomJoinError: () => set({ roomJoinError: null }),
 
     joinRoom: (roomId) => {
       const normalizedRoomId = normalizeRoomId(roomId)
@@ -171,7 +142,7 @@ export const createSenetStore = (
 
       connectionManager.connect(normalizedRoomId, {
         onOpen: (joinedRoomId) => {
-          logger.log(`🌐 Joined room ${joinedRoomId}`)
+          logger.info(`Connected to room ${joinedRoomId}`)
         },
         onInit: (role) => {
           const isSpectator = role === 'spectator'
@@ -183,10 +154,11 @@ export const createSenetStore = (
             localPlayer: role,
             roomJoinError: null,
           })
+
           if (isSpectator) {
-            logger.log('👁️ Joined as spectator')
+            logger.info('Joined as spectator')
           } else {
-            logger.log(`🎮 Playing as ${role} — waiting for opponent`)
+            logger.info(`Playing as ${role} and waiting for the opponent`)
           }
         },
         onGameStart: ({ openingPlayer, openingRolls }) => {
@@ -197,11 +169,11 @@ export const createSenetStore = (
           }))
 
           if (openingPlayer && openingRolls) {
-            logger.log(
-              `⚔️ Both players connected — opening roll-off decided starter: anubis=${openingRolls.anubis}, sphinx=${openingRolls.sphinx}, starter=${openingPlayer}`,
+            logger.info(
+              `Opening roll-off decided the starter: anubis=${openingRolls.anubis}, sphinx=${openingRolls.sphinx}, starter=${openingPlayer}`,
             )
           } else {
-            logger.log('⚔️ Both players connected — game resumed!')
+            logger.info('Both players connected and the game resumed')
           }
         },
         onSync: (state) => {
@@ -209,10 +181,10 @@ export const createSenetStore = (
         },
         onOpponentDisconnected: () => {
           set({ isWaitingForOpponent: true })
-          logger.log('⚠️ Opponent disconnected — gameplay paused')
+          logger.warn('Opponent disconnected and gameplay is paused')
         },
         onError: (message) => {
-          logger.error('WebSocket Error:', message)
+          logger.error('WebSocket error received', message)
           set({
             roomJoinError: mapRoomJoinError(message),
             isConnectingToRoom: false,
@@ -245,80 +217,20 @@ export const createSenetStore = (
       })
     },
 
-    clearRoomJoinError: () => set({ roomJoinError: null }),
-
-    syncState: (state) => {
-      if (get().isOnline) {
-        connectionManager.syncState(state)
-      }
-    },
-
-    throwSticks: () => {
-      const state = get()
-      if (state.winner || state.currentThrow || state.isAutoPlaying || state.isAutoRolling) {
-        return
-      }
-      if (!isLocalTurn(state)) return
-
-      clearAutoPassTimer()
-
-      const throwResult = getThrowResult()
-      const partialState: Partial<GameState> = { currentThrow: throwResult }
-      set(partialState)
-      get().syncState(partialState)
-
-      const stateAfterThrow = get()
-      const legalMoves = getLegalMoves(extractGameState(stateAfterThrow))
-
-      if (legalMoves.length === 0) {
-        autoPassTimer = setTimeoutFn(() => {
-          autoPassTimer = null
-          get().passTurn()
-        }, 1500)
-      }
-
-      set({ legalMoves })
-    },
-
     movePiece: (pieceId) => {
       const state = get()
       if (!state.currentThrow || state.isAutoPlaying || state.isAutoRolling) return
-      if (!isLocalTurn(state)) return
+      if (!isLocalTurnState(state)) return
 
       clearAutoPassTimer()
 
       const nextState = applyMove(extractGameState(state), pieceId)
-      const oldPiece = state.board.find((piece) => piece.id === pieceId)
-      const newPiece = nextState.board.find((piece) => piece.id === pieceId)
-
-      let capturedPieceId: string | null = null
-      nextState.board.forEach((piece) => {
-        const previousPiece = state.board.find((oldPieceState) => oldPieceState.id === piece.id)
-        if (previousPiece && previousPiece.position !== piece.position && piece.id !== pieceId) {
-          capturedPieceId = piece.id
-        }
-      })
-
-      const partialState: Partial<GameState> = {
-        board: nextState.board,
-        currentPlayer: nextState.currentPlayer,
-        currentThrow: nextState.currentThrow,
-        winner: nextState.winner,
-        historyLog: nextState.historyLog,
-      }
+      const partialState = buildSyncedGameState(nextState)
 
       set({
         ...partialState,
         legalMoves: [],
-        lastMove:
-          oldPiece && newPiece
-            ? {
-                pieceId,
-                from: oldPiece.position,
-                to: newPiece.position,
-                isCapture: Boolean(capturedPieceId),
-              }
-            : null,
+        lastMove: buildLastMove(state, nextState, pieceId),
       })
       get().syncState(partialState)
 
@@ -332,39 +244,25 @@ export const createSenetStore = (
     passTurn: () => {
       const state = get()
       if (state.isAutoPlaying || state.isAutoRolling) return
-      if (!isLocalTurn(state)) return
+      if (!isLocalTurnState(state)) return
 
       clearAutoPassTimer()
 
       const nextState = autoPassIfNoMoves(extractGameState(state))
-      const partialState: Partial<GameState> = {
-        currentPlayer: nextState.currentPlayer,
-        currentThrow: nextState.currentThrow,
-        historyLog: nextState.historyLog,
-        winner: nextState.winner,
-      }
+      const partialState = buildSyncedGameState(nextState)
 
       set({ ...partialState, legalMoves: [] })
       get().syncState(partialState)
     },
 
-    resetGame: () => {
-      const state = get()
-      if (state.isOnline || state.isAutoPlaying || state.isAutoRolling) return
-
-      cancelAutoplay()
-      clearAutoPassTimer()
-      clearLastMoveTimeout()
-
-      set({ ...createInitialState(state.ruleset), legalMoves: [] })
-    },
-
-    isAutoPlaying: false,
-    isAutoRolling: false,
-
     playRandomTurns: async (turnsCount, speed = 'immediate') => {
       const storeState = get()
-      if (storeState.isOnline || storeState.winner || storeState.isAutoPlaying || storeState.isAutoRolling) {
+      if (
+        storeState.isOnline ||
+        storeState.winner ||
+        storeState.isAutoPlaying ||
+        storeState.isAutoRolling
+      ) {
         return
       }
 
@@ -372,39 +270,25 @@ export const createSenetStore = (
       const runId = ++autoplayRunId
 
       set({ isAutoPlaying: true, isAutoRolling: false })
-      logger.log(`🤖 Playing ${turnsCount} random turns at "${speed}" speed...`)
+      logger.info(`Playing ${turnsCount} random turns at "${speed}" speed`)
 
       const isCancelled = () => runId !== autoplayRunId
       const currentState = extractGameState(storeState)
 
-      const commitState = (state: GameState, movedPieceId: string | null = null) => {
-        const oldState = get()
-        const oldPiece = movedPieceId
-          ? oldState.board.find((piece) => piece.id === movedPieceId)
-          : undefined
-        const newPiece = movedPieceId
-          ? state.board.find((piece) => piece.id === movedPieceId)
-          : undefined
-
-        const partialState: Partial<GameState> = {
-          board: state.board,
-          currentPlayer: state.currentPlayer,
-          currentThrow: state.currentThrow,
-          winner: state.winner,
-          historyLog: state.historyLog,
-        }
+      const commitState = (
+        state: GameState,
+        movedPieceId: string | null = null,
+      ) => {
+        const previousState = get()
+        const partialState = buildSyncedGameState(state)
 
         set({
           ...partialState,
           legalMoves: state.currentThrow ? getLegalMoves(state) : [],
           lastMove:
-            oldPiece && newPiece
-              ? {
-                  pieceId: movedPieceId!,
-                  from: oldPiece.position,
-                  to: newPiece.position,
-                }
-              : null,
+            movedPieceId === null
+              ? null
+              : buildLastMove(previousState, state, movedPieceId),
         })
         get().syncState(partialState)
       }
@@ -425,13 +309,13 @@ export const createSenetStore = (
         if (isCancelled()) return
         commitState(nextState)
         set({ isAutoPlaying: false, isAutoRolling: false })
-        logger.log(`✅ Finished playing random turns. Winner: ${nextState.winner || 'None'}`)
+        logger.info(`Finished autoplay. Winner: ${nextState.winner || 'None'}`)
         return
       }
 
       let nextState = currentState
 
-      for (let i = 0; i < turnsCount; i += 1) {
+      for (let index = 0; index < turnsCount; index += 1) {
         if (nextState.winner || isCancelled()) break
 
         if (!nextState.currentThrow) {
@@ -478,7 +362,62 @@ export const createSenetStore = (
 
       commitState(nextState)
       set({ isAutoPlaying: false, isAutoRolling: false })
-      logger.log(`✅ Finished playing random turns. Winner: ${nextState.winner || 'None'}`)
+      logger.info(`Finished autoplay. Winner: ${nextState.winner || 'None'}`)
+    },
+
+    resetGame: () => {
+      const state = get()
+      if (state.isOnline || state.isAutoPlaying || state.isAutoRolling) return
+
+      cancelAutoplay()
+      clearAutoPassTimer()
+      clearLastMoveTimeout()
+
+      set({ ...createInitialState(state.ruleset), legalMoves: [] })
+    },
+
+    setHoveredPieceId: (pieceId) => set({ hoveredPieceId: pieceId }),
+
+    setOfflineMode: (mode) => set({ offlineMode: mode }),
+
+    setShowGuide: (show) => set({ showGuide: show }),
+
+    syncState: (state) => {
+      if (get().isOnline) {
+        connectionManager.syncState(state)
+      }
+    },
+
+    throwSticks: () => {
+      const state = get()
+      if (
+        state.winner ||
+        state.currentThrow ||
+        state.isAutoPlaying ||
+        state.isAutoRolling
+      ) {
+        return
+      }
+      if (!isLocalTurnState(state)) return
+
+      clearAutoPassTimer()
+
+      const throwResult = getThrowResult()
+      const partialState: Partial<GameState> = { currentThrow: throwResult }
+      set(partialState)
+      get().syncState(partialState)
+
+      const stateAfterThrow = get()
+      const legalMoves = getLegalMoves(extractGameState(stateAfterThrow))
+
+      if (legalMoves.length === 0) {
+        autoPassTimer = setTimeoutFn(() => {
+          autoPassTimer = null
+          get().passTurn()
+        }, 1500)
+      }
+
+      set({ legalMoves })
     },
   }))
 }

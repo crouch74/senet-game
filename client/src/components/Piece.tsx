@@ -1,138 +1,103 @@
-import { motion } from 'framer-motion';
-import type { Piece as PieceType } from '../engine/types';
-import { useSenetStore } from '../engine/store';
-import { cn } from '../utils/cn';
-import { playerAnubis, playerSphinx } from '../assets/royal';
+import { motion } from 'framer-motion'
+import type { Piece as PieceType } from '../engine/types'
+import type { LastMove } from '../engine/storeHelpers'
+import { cn } from '../utils/cn'
+import { playerAnubis, playerSphinx } from '../assets/royal'
+import { MaskedSvgIcon } from './common/MaskedSvgIcon'
 
 interface PieceProps {
-    piece: PieceType;
-    // Passing the board geometry lets the piece position itself absolutely
-    containerWidth: number;
-    containerHeight: number;
+  canMove: boolean
+  height: number
+  isCurrentPlayer: boolean
+  isHovered: boolean
+  lastMove: LastMove | null
+  onClick: () => void
+  onMouseEnter: () => void
+  onMouseLeave: () => void
+  piece: PieceType
+  width: number
+  x: number
+  y: number
 }
 
-export function Piece({ piece, containerWidth, containerHeight }: PieceProps) {
-    const {
-        currentThrow,
-        currentPlayer,
-        movePiece,
-        legalMoves,
-        setHoveredPieceId,
-        hoveredPieceId,
-        lastMove,
-        isOnline,
-        localPlayer,
-        offlineMode,
-        offlineHumanPlayer
-    } = useSenetStore();
+export function Piece({
+  canMove,
+  height,
+  isCurrentPlayer,
+  isHovered,
+  lastMove,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+  piece,
+  width,
+  x,
+  y,
+}: PieceProps) {
+  const playerIconPath = piece.player === 'anubis' ? playerAnubis : playerSphinx
 
-    // Find cell width/height
-    const cellW = containerWidth / 10;
-    const cellH = containerHeight / 3;
-
-    // Find row/col of the square number (1-30) to position
-    let row = 0, col = 0;
-    if (piece.position > 0 && piece.position <= 10) {
-        row = 0; col = piece.position - 1;
-    } else if (piece.position > 10 && piece.position <= 20) {
-        row = 1; col = 20 - piece.position;
-    } else if (piece.position > 20 && piece.position <= 30) {
-        row = 2; col = piece.position - 21;
-    }
-
-    // Position is center of that cell
-    const x = col * cellW;
-    const y = row * cellH;
-
-    const isCurrentPlayer = piece.player === currentPlayer;
-
-    const isLocalTurn = isOnline
-        ? currentPlayer === localPlayer
-        : offlineMode === 'vs_pc'
-            ? currentPlayer === offlineHumanPlayer
-            : true;
-
-    // Can this piece move?
-    const myLegalMove = legalMoves.find(m => m.pieceId === piece.id);
-    const canMove = isLocalTurn && !!myLegalMove && !!currentThrow;
-    const playerIconPath = piece.player === 'anubis' ? playerAnubis : playerSphinx;
-
-    // Hide if in afterlife (Board will not render it, handled by Afterlife component)
-    // but if it's position 0 (off-board start), keep it null for now
-    if (piece.position === 31 || piece.position === 0) return null;
-
-    return (
-        <motion.div
-            layout
-            layoutId={`piece-${piece.id}`}
+  return (
+    <motion.div
+      layout
+      layoutId={`piece-${piece.id}`}
+      className={cn(
+        'absolute flex items-center justify-center',
+        canMove ? 'cursor-pointer' : 'cursor-default',
+      )}
+      style={{ width, height }}
+      initial={{ x, y }}
+      animate={{ x, y }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onClick={(event) => {
+        event.stopPropagation()
+        onClick()
+      }}
+    >
+      <motion.div
+        animate={{
+          y: isCurrentPlayer && !canMove ? [0, -2, 0] : 0,
+          filter:
+            lastMove?.pieceId === piece.id
+              ? lastMove.isCapture
+                ? [
+                    'brightness(1) sepia(0) hue-rotate(0deg)',
+                    'brightness(2) sepia(1) hue-rotate(-50deg)',
+                    'brightness(1) sepia(0) hue-rotate(0deg)',
+                  ]
+                : ['brightness(1)', 'brightness(2)', 'brightness(1)']
+              : 'brightness(1)',
+        }}
+        transition={{
+          y: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
+          filter: { duration: 0.5, ease: 'easeOut' },
+        }}
+        className={cn(
+          'relative w-[70%] h-[70%] rounded-full flex items-center justify-center transition-all duration-300',
+          'shadow-[0_12px_24px_-8px_rgba(0,0,0,0.9),0_1px_2px_rgba(255,255,255,0.2),inset_0_-6px_10px_rgba(0,0,0,0.7),inset_0_2px_5px_rgba(255,255,255,0.1)]',
+          'bg-gradient-to-b from-[var(--ui-piece-shell-from)] to-[var(--ui-piece-shell-to)]',
+          canMove &&
+            'ring-2 ring-[var(--ui-piece-legal-ring)] shadow-[0_0_25px_var(--ui-piece-glow-anubis),inset_0_2px_4px_var(--ui-piece-legal-inner)] z-10 -translate-y-2 animate-[pulse_2.5s_ease-in-out_infinite] drop-shadow-[0_8px_12px_rgba(0,0,0,0.6)]',
+          isCurrentPlayer &&
+            !canMove &&
+            'ring-[1px] ring-royal-gold/30 shadow-[0_2px_8px_rgba(0,0,0,0.5)]',
+          isHovered &&
+            '-translate-y-3 brightness-125 z-40 ring-4 ring-white shadow-[0_15px_40px_rgba(255,255,255,0.6),0_20px_20px_-10px_rgba(0,0,0,0.8)]',
+        )}
+      >
+        <div className="absolute inset-[3px] rounded-full bg-gradient-to-br from-[var(--ui-piece-core-from)] to-[var(--ui-piece-core-to)] shadow-[inset_0_2px_4px_rgba(0,0,0,0.9)] flex items-center justify-center">
+          <MaskedSvgIcon
+            src={playerIconPath}
             className={cn(
-                "absolute flex items-center justify-center",
-                canMove ? "cursor-pointer" : "cursor-default",
+              'w-[65%] h-[65%] transition-all duration-300 jitter-stroke',
+              piece.player === 'anubis'
+                ? 'bg-gradient-to-br from-[var(--ui-piece-emblem-anubis-from)] via-[var(--ui-piece-emblem-anubis-via)] to-[var(--ui-piece-emblem-anubis-to)]'
+                : 'bg-gradient-to-br from-[var(--ui-piece-emblem-sphinx-from)] via-[var(--ui-piece-emblem-sphinx-via)] to-[var(--ui-piece-emblem-sphinx-to)]',
             )}
-            style={{
-                width: cellW,
-                height: cellH,
-            }}
-            initial={{ x, y }}
-            animate={{ x, y }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            onMouseEnter={() => canMove && setHoveredPieceId(piece.id)}
-            onMouseLeave={() => setHoveredPieceId(null)}
-            onClick={(e) => {
-                e.stopPropagation();
-                if (canMove && myLegalMove) {
-                    setHoveredPieceId(null);
-                    movePiece(piece.id);
-                }
-            }}
-        >
-            <motion.div
-                animate={{
-                    y: isCurrentPlayer && !canMove ? [0, -2, 0] : 0,
-                    filter: lastMove?.pieceId === piece.id
-                        ? (lastMove.isCapture
-                            ? ["brightness(1) sepia(0) hue-rotate(0deg)", "brightness(2) sepia(1) hue-rotate(-50deg)", "brightness(1) sepia(0) hue-rotate(0deg)"]
-                            : ["brightness(1)", "brightness(2)", "brightness(1)"])
-                        : "brightness(1)"
-                }}
-                transition={{
-                    y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-                    filter: { duration: 0.5, ease: "easeOut" }
-                }}
-                className={cn(
-                    "relative w-[70%] h-[70%] rounded-full flex items-center justify-center transition-all duration-300",
-                    // Complex shadow for physical presence: drop shadow + rim highlight + vertical offset
-                    "shadow-[0_12px_24px_-8px_rgba(0,0,0,0.9),0_1px_2px_rgba(255,255,255,0.2),inset_0_-6px_10px_rgba(0,0,0,0.7),inset_0_2px_5px_rgba(255,255,255,0.1)]",
-                    // Polished dark stone/ebony body for both players
-                    "bg-gradient-to-b from-[var(--ui-piece-shell-from)] to-[var(--ui-piece-shell-to)]",
-                    canMove && 'ring-2 ring-[var(--ui-piece-legal-ring)] shadow-[0_0_25px_var(--ui-piece-glow-anubis),inset_0_2px_4px_var(--ui-piece-legal-inner)] z-10 -translate-y-2 animate-[pulse_2.5s_ease-in-out_infinite] drop-shadow-[0_8px_12px_rgba(0,0,0,0.6)]',
-                    isCurrentPlayer && !canMove && 'ring-[1px] ring-royal-gold/30 shadow-[0_2px_8px_rgba(0,0,0,0.5)]',
-                    hoveredPieceId === piece.id && '-translate-y-3 brightness-125 z-40 ring-4 ring-white shadow-[0_15px_40px_rgba(255,255,255,0.6),0_20px_20px_-10px_rgba(0,0,0,0.8)]'
-                )}
-            >
-                {/* Engraved inlay section */}
-                <div className="absolute inset-[3px] rounded-full bg-gradient-to-br from-[var(--ui-piece-core-from)] to-[var(--ui-piece-core-to)] shadow-[inset_0_2px_4px_rgba(0,0,0,0.9)] flex items-center justify-center">
-                    {/* SVG Emblem */}
-                    <div
-                        className={cn(
-                            "w-[65%] h-[65%] mask-image-center transition-all duration-300 jitter-stroke",
-                            piece.player === 'anubis'
-                                ? "bg-gradient-to-br from-[var(--ui-piece-emblem-anubis-from)] via-[var(--ui-piece-emblem-anubis-via)] to-[var(--ui-piece-emblem-anubis-to)]"
-                                : "bg-gradient-to-br from-[var(--ui-piece-emblem-sphinx-from)] via-[var(--ui-piece-emblem-sphinx-via)] to-[var(--ui-piece-emblem-sphinx-to)]"
-                        )}
-                        style={{
-                            WebkitMaskImage: `url("${playerIconPath}")`,
-                            WebkitMaskRepeat: 'no-repeat',
-                            WebkitMaskPosition: 'center',
-                            WebkitMaskSize: 'contain',
-                            maskImage: `url("${playerIconPath}")`,
-                            maskRepeat: 'no-repeat',
-                            maskPosition: 'center',
-                            maskSize: 'contain',
-                        }}
-                    />
-                </div>
-            </motion.div>
-        </motion.div>
-    );
+          />
+        </div>
+      </motion.div>
+    </motion.div>
+  )
 }

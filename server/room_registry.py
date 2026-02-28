@@ -5,6 +5,8 @@ from typing import Any, Dict, Optional, Set
 
 from fastapi import WebSocket
 
+RoomId = str
+
 
 @dataclass
 class RoomState:
@@ -17,18 +19,18 @@ class RoomState:
 
 class RoomRegistry:
     def __init__(self) -> None:
-        self.active_rooms: Dict[str, RoomState] = {}
+        self.active_rooms: Dict[RoomId, RoomState] = {}
 
-    def create_room(self, room_id: str) -> RoomState:
+    def create_room(self, room_id: RoomId) -> RoomState:
         room = RoomState()
         self.active_rooms[room_id] = room
         return room
 
-    def delete_room(self, room_id: str) -> None:
+    def delete_room(self, room_id: RoomId) -> None:
         self.active_rooms.pop(room_id, None)
 
-    def get(self, room_id: str) -> RoomState:
+    def get(self, room_id: RoomId) -> RoomState:
         return self.active_rooms[room_id]
 
-    def has(self, room_id: str) -> bool:
+    def has(self, room_id: RoomId) -> bool:
         return room_id in self.active_rooms

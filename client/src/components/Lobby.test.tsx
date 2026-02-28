@@ -104,7 +104,10 @@ describe('Lobby', () => {
     fireEvent.click(await screen.findByRole('button', { name: 'Create New Room' }));
 
     await waitFor(() => {
-      expect(console.error).toHaveBeenCalledWith('Failed to create room:', 'Server Error');
+      expect(console.error).toHaveBeenCalledWith(
+        '🚨 [Lobby] Failed to create room',
+        expect.objectContaining({ message: 'Server Error' }),
+      );
     });
     expect(joinRoom).not.toHaveBeenCalled();
   });
