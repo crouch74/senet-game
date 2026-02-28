@@ -243,23 +243,28 @@ describe('App', () => {
 
   it('renders translated history params and player markers in the chronicle', async () => {
     window.history.replaceState({}, '', '/senet/mode/pass-and-play');
-    useSenetStore.setState({
-      historyLog: [
-        {
-          key: 'history.wins',
-          params: { player: 'anubis' },
-          player: 'sphinx',
-        },
-      ],
-      isOnline: false,
-      isWaitingForOpponent: false,
-      roomId: null,
-      localPlayer: null,
-    });
 
     await renderWithProviders(<App />);
 
-    expect(screen.getByText('🏆 ANUBIS WINS!')).toBeInTheDocument();
-    expect(screen.getByTitle('SPHINX')).toBeInTheDocument();
+    act(() => {
+      useSenetStore.setState({
+        historyLog: [
+          {
+            key: 'history.wins',
+            params: { player: 'anubis' },
+            player: 'sphinx',
+          },
+        ],
+        isOnline: false,
+        isWaitingForOpponent: false,
+        roomId: null,
+        localPlayer: null,
+      });
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText('🏆 ANUBIS WINS!')).toBeInTheDocument();
+      expect(screen.getByTitle('SPHINX')).toBeInTheDocument();
+    });
   });
 });

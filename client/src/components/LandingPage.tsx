@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { cn } from '../utils/cn'
 import { THEMES, type ThemeId } from '../theme'
 import { Languages, Palette } from 'lucide-react'
+import { LANGUAGE_OPTIONS } from '../i18n'
 
 interface GameCardProps {
     id: 'senet' | 'mehen'
@@ -78,9 +79,11 @@ export function LandingPage({
                         value={i18n.language}
                         onChange={(e) => i18n.changeLanguage(e.target.value)}
                     >
-                        <option value="en" className="bg-royal-ebony">English</option>
-                        <option value="ar-EG" className="bg-royal-ebony">العربية</option>
-                        <option value="fr" className="bg-royal-ebony">Français</option>
+                        {LANGUAGE_OPTIONS.map((languageOption) => (
+                            <option key={languageOption.value} value={languageOption.value} className="bg-royal-ebony">
+                                {languageOption.label}
+                            </option>
+                        ))}
                     </select>
                 </div>
 

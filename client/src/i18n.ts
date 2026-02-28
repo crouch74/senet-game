@@ -3,6 +3,14 @@ import { initReactI18next } from 'react-i18next';
 import en from './locales/en.json';
 import arEG from './locales/ar-EG.json';
 import fr from './locales/fr.json';
+import nl from './locales/nl.json';
+
+export const LANGUAGE_OPTIONS = [
+    { value: 'en', label: 'English' },
+    { value: 'ar-EG', label: 'العربية' },
+    { value: 'fr', label: 'Français' },
+    { value: 'nl', label: 'Nederlands' }
+] as const;
 
 const resources = {
     en: {
@@ -13,6 +21,9 @@ const resources = {
     },
     fr: {
         translation: fr
+    },
+    nl: {
+        translation: nl
     }
 };
 

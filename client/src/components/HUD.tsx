@@ -9,6 +9,7 @@ import { cn } from '../utils/cn'
 import { THEMES, type ThemeId } from '../theme'
 import { getDevAutoplayConfig } from './hud/devAutoplay'
 import { getPlayerAppearance } from '../utils/playerAppearance'
+import { LANGUAGE_OPTIONS } from '../i18n'
 
 interface HUDProps {
   isLobby?: boolean
@@ -115,9 +116,11 @@ export function HUD({
             onChange={(event) => i18n.changeLanguage(event.target.value)}
             aria-label={t('hud.language')}
           >
-            <option value="en">English</option>
-            <option value="ar-EG">العربية</option>
-            <option value="fr">Français</option>
+            {LANGUAGE_OPTIONS.map((languageOption) => (
+              <option key={languageOption.value} value={languageOption.value}>
+                {languageOption.label}
+              </option>
+            ))}
           </select>
 
           <select

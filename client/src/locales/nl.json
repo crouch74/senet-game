@@ -1,0 +1,387 @@
+{
+    "common": {
+        "open": "Openen",
+        "close": "Sluiten"
+    },
+    "app": {
+        "chronicle": "Kroniek",
+        "capture_mode": "Slaanmodus:",
+        "swap_positions": "Posities wisselen",
+        "forward_only": "Alleen vooruit",
+        "protected_adjacency": "Beschermde nabijheid:",
+        "yes": "Ja",
+        "yes_pieces": "Ja, {{num}} stukken",
+        "no": "Nee",
+        "blockades": "Blokkades:",
+        "bearing_off": "Van het bord spelen:",
+        "requires_exact_throw": "Exacte worp vereist",
+        "any_sufficient_throw": "Elke voldoende worp",
+        "sticks_count": "Werpstokken:",
+        "extra_throws": "Extra beurten bij:",
+        "rules_title": "Oude Traditie",
+        "mehen_rules_title": "Papyrus van het spel",
+        "mehen_board_size": "Windingen op het bord:",
+        "mehen_balls_per_player": "Ballen per speler:",
+        "mehen_entry_rule": "Ingang vanuit reserve:",
+        "mehen_entry_from_reserve": "Elke worp mag een stuk uit de reserve naar winding 1 brengen",
+        "mehen_finish_rule": "Toegang tot het centrum:",
+        "mehen_exact_finish": "Exacte worp vereist",
+        "mehen_bounce_back": "Terugveren bij overschrijden",
+        "mehen_capture_mode": "Resultaat van slaan:",
+        "mehen_capture_rule": "Slagen:",
+        "mehen_send_to_start": "Geslagen ballen keren terug naar het begin",
+        "mehen_lion_blocking": "Leeuw blokkeert vijandelijke ballen:",
+        "mehen_safe_cells": "Veilige windingen:",
+        "mehen_forced_move": "Als er een zet bestaat:",
+        "mehen_forced_move_value": "moet je een legale zet doen, anders gaat de beurt voorbij",
+        "mehen_win_condition": "Overwinningsvoorwaarde:",
+        "mehen_win_conditions": {
+            "ALL_BALLS_AND_LION": "Alle ballen en de leeuw bereiken het centrum",
+            "LION_ONLY": "De leeuw bereikt het centrum",
+            "BALLS_ONLY": "Alle ballen bereiken het centrum",
+            "FIRST_PIECE_TO_CENTER": "Het eerste stuk in het centrum wint"
+        },
+        "wins": "WINT"
+    },
+    "afterlife": {
+        "title": "Hiernamaals",
+        "empty": "Nog geen zielen zijn overgestoken...",
+        "mehen": {
+            "title": "Hart van Mehen",
+            "empty": "Nog geen leeuw of bal heeft het hart van de slang bereikt."
+        },
+        "senet": {
+            "title": "Hiernamaals",
+            "empty": "Nog geen zielen zijn overgestoken..."
+        }
+    },
+    "hud": {
+        "senet": "Senet",
+        "back_to_games": "Terug naar spellen",
+        "rules": "Regels: {{name}}",
+        "current_turn": "Huidige beurt:",
+        "wins": "{{player}} WINT!",
+        "restart_game": "Spel herstarten",
+        "language": "Taal",
+        "theme": "Thema",
+        "theme_options": {
+            "royal": "Koninklijke Inleg",
+            "moonlit_necropolis": "Maanverlichte Necropool",
+            "nile_papyrus": "Nijlpapyrus",
+            "color_blind": "Kleurenblind Hoog Contrast",
+            "amethyst_canopy": "Amethisthemel",
+            "red_oasis": "Rode Oase",
+            "obsidian_eclipse": "Obsidiaanse Eclips",
+            "turquoise_tomb": "Turkooizen Tombe",
+            "sahara_mirage": "Saharafata Morgana",
+            "jade_sarcophagus": "Jaden Sarcofaag",
+            "lapis_lazuli": "Lapis Lazuli",
+            "copper_patina": "Koperpatina",
+            "malachite_carnelian": "Malachiet & Carneool",
+            "celestial_cartouche": "Hemelse Cartouche"
+        },
+        "theme_descriptions": {
+            "royal": "Klassieke faience en goudinleg.",
+            "moonlit_necropolis": "Koele maanverlichte steen- en lapistinten.",
+            "nile_papyrus": "Rietgroen, slib en aardse papyrustonen.",
+            "color_blind": "Hoog-contrast blauwen, goud, ivoor en houtskool voor duidelijkere scheiding van stukken en UI.",
+            "amethyst_canopy": "Juweelachtige violet-, indigoblauwe en zilveren maanlichttinten.",
+            "red_oasis": "Klei-rood, basaltische schaduw en krijtwit woestijncontrast.",
+            "obsidian_eclipse": "Zuiver monochroom - vulkanisch glas onder een sterloze hemel.",
+            "turquoise_tomb": "Koel aquatisch groenblauw, geïnspireerd door overstroomde Ptolemeïsche gangen.",
+            "sahara_mirage": "Roségoud en terracotta - de woestijn in het gouden uur.",
+            "jade_sarcophagus": "Rijk smaragdgroen jade - de grafkist van een farao uit het Middenrijk.",
+            "lapis_lazuli": "Diep ultramarijnblauw - het kostbare pigment van koninklijkheid.",
+            "copper_patina": "Warm koper en koel groen koperroest - oud brons getekend door eeuwen.",
+            "malachite_carnelian": "Complementair groen en rood - canonieke Egyptische edelsteenkleuren.",
+            "celestial_cartouche": "Kosmisch roze en indigo - het gewelfde lichaam van Noet over de sterren."
+        },
+        "players": {
+            "anubis": "ANUBIS",
+            "sphinx": "SFINX",
+            "horus": "HORUS",
+            "seth": "SETH",
+            "osiris": "OSIRIS",
+            "isis": "ISIS",
+            "spectator": "TOESCHOUWER"
+        }
+    },
+    "throw": {
+        "turn": "{{player}} IS AAN ZET",
+        "moves": "ZETTEN: {{value}}",
+        "perfect_throw": "Perfecte Worp",
+        "game_over": "De reis is voltooid",
+        "click_to_throw": "Klik op de stokken om te werpen",
+        "ascension": "Opstijging van de geest",
+        "victory_message": "De Ba en Ka zijn verenigd in het Veld van Riet.",
+        "defeat_message": "De reis door de Doeat is nog niet voltooid.",
+        "return_to_lobby": "Terug naar de lobby",
+        "play_again": "Speel de reis opnieuw",
+        "waiting_for_opponent": "Wachten op de zet van je tegenstander...",
+        "waiting_for_computer": "Wachten op de zet van de computer..."
+    },
+    "square": {
+        "effect": "Effect: {{effect}}",
+        "requires_throw": "Vereist: Worp van {{num}}",
+        "cannot_bypass": "Kan niet worden gepasseerd",
+        "lore": "Overlevering",
+        "effects": {
+            "none": "Geen",
+            "lock": "Vergrendeling",
+            "water": "Water",
+            "require_throw": "Worp Vereist",
+            "safe": "Veilig Huis"
+        },
+        "names": {
+            "15": "Huis van Wedergeboorte",
+            "26": "Huis van Schoonheid",
+            "27": "Huis van Water",
+            "28": "Zaal van Drie Waarheden",
+            "29": "De Zonnebark",
+            "30": "De Poort van Horus"
+        },
+        "contexts": {
+            "15": "Het beginpunt van de wederopstanding, waar gevallen zielen opnieuw geboren worden om hun reis voort te zetten.",
+            "26": "Een verplichte halte voor voorbereiding en balseming voordat de gevaren van de onderwereld beginnen.",
+            "27": "De chaotische afgrond. Onvoorbereide zielen kunnen verdrinken en teruggespoeld worden naar het Huis van Wedergeboorte.",
+            "28": "De hal van het oordeel, waar het hart tegen de veer van Ma'at wordt gewogen.",
+            "29": "Aansluiten bij de zonnegod Re-Atum op zijn eeuwige reis met de zonnebark.",
+            "30": "De laatste drempel. Ontsnappen met de zegen van Horus naar het eeuwige hiernamaals.",
+            "60": "Het Oog van Ra. Het heilige centrum waar de binnenste winding eindigt en de overwinning kan worden behaald."
+        }
+    },
+    "ruleset": {
+        "names": {
+            "common": "Heilig Pad",
+            "mehen-standard": "Traditie van de Beschermende Winding"
+        },
+        "descriptions": {
+            "common": "Het traditionele pad van de ziel door de Doeat, met beschermde paren en strategische blokkades.",
+            "mehen-standard": "Deze huistraditie van Mehen stuurt leeuwen en ballen vanuit de reserve naar binnen. Veilige windingen geven beschutting, leeuwen bewaken de route en de overwinning komt pas wanneer elk stuk het hart van de slang bereikt."
+        }
+    },
+    "history": {
+        "game_started": "🎲 [SPEL] Spel gestart.",
+        "captured_swapped": "⚔️ Geslagen stuk gewisseld naar {{pos}}",
+        "moved_to": "🏃 Stuk verplaatst naar {{pos}}",
+        "moved_to_afterlife": "🏃 Stuk naar het hiernamaals verplaatst",
+        "washed_back": "🌊 Teruggespoeld naar het Huis van Wedergeboorte (15)",
+        "wins": "🏆 {{player}} WINT!",
+        "extra_throw": "🎲 Extra worp toegekend!",
+        "no_moves": "🚫 Geen legale zetten voor {{player}}. Beurt gaat voorbij.",
+        "mehen_started": "🎲 [MEHEN] De slang ontwaakt. De reis begint.",
+        "mehen_move": "🏃 {{piece}} gaat van {{from}} naar {{to}}.",
+        "mehen_capture": "⚔️ {{piece}} wordt van {{from}} naar {{to}} verplaatst.",
+        "mehen_safe_land": "🛡️ {{piece}} landt veilig op winding {{to}}.",
+        "mehen_finish": "✨ {{piece}} bereikt het centrum.",
+        "mehen_blocked": "🚫 {{player}} heeft geen legale zet en geeft de beurt door.",
+        "mehen_extra_turn": "🎲 {{player}} krijgt een extra beurt.",
+        "mehen_win": "🏆 {{player}} claimt het centrum en wint!"
+    },
+    "lobby": {
+        "create_room": "Nieuwe kamer maken",
+        "or_join": "Of sluit je aan bij een bestaande kamer",
+        "room_number": "Kamercode",
+        "room_placeholder": "bijv. abc-def-ghi",
+        "join": "Meedoen",
+        "join_create": "Meedoen / Kamer maken",
+        "or": "of",
+        "play_offline": "Offline spelen",
+        "play_and_pass": "Doorgeven en spelen",
+        "vs_pc": "Tegen computer",
+        "you_are": "Jij bent",
+        "leave_room": "Kamer verlaten",
+        "copy": "Kopiëren",
+        "copied": "Gekopieerd!",
+        "copy_room": "Kamercode kopiëren",
+        "online_unavailable": "Online modus is niet beschikbaar terwijl de backend offline is.",
+        "waiting_title": "Wachten op de Tweede Ziel",
+        "waiting_subtitle": "Deel de kamercode met je tegenstander om de reis te beginnen.",
+        "waiting_you_are": "Je speelt als",
+        "waiting_opponent_joined": "Je tegenstander is teruggekeerd.",
+        "opponent_disconnected": "Tegenstander verbroken",
+        "opponent_disconnected_subtitle": "Je tegenstander heeft het bord verlaten. Het spel is gepauzeerd tot die terugkeert.",
+        "join_errors": {
+            "not_found": "Kamer niet gevonden. Terug naar de lobby.",
+            "full": "Kamer is vol. Terug naar de lobby.",
+            "unavailable": "Kamer is niet beschikbaar. Terug naar de lobby."
+        },
+        "select_your_path": "Kies je reis"
+    },
+    "legend": {
+        "registry_subtitle": "Boek der kennis",
+        "registry_title": "Legende en instructies"
+    },
+    "landing": {
+        "title": "Vallei der Koningen",
+        "subtitle": "Oudegyptische spellen",
+        "select_your_path": "Kies je reis"
+    },
+    "games": {
+        "senet": {
+            "title": "Senet",
+            "description": "Het spel van de overtocht. Een race over 30 velden om het hiernamaals te bereiken.",
+            "legend": {
+                "title": "DE LEGENDE VAN DE SCHEMERREIS",
+                "p1": "Nog voordat de Grote Piramiden de hemel raakten, schreven de schriftgeleerden van Thoth het eerste spel Senet op. Het is meer dan vermaak; het is een rituele kaart van de gevaarlijke overtocht van de ziel door de Doeat, de Egyptische onderwereld. Elk bord is een schaduw van de kosmische orde, waar de reis van leven naar eeuwigheid niet alleen door vaardigheid wordt beslist, maar ook door de gunst van de goden.",
+                "p2": "Vijf Ba-zielen verbeelden de delen van je geest, die worstelen om het S-vormige pad van het bestaan te volgen. De stokken die je werpt zijn de adem van het leven; een perfecte worp laat zien dat het pad open is, terwijl een misworp je kwetsbaar laat voor de oprukkende duisternis. Samen staan met een broeder betekent bescherming door Ma'at; alleen staan nodigt de chaos van de leegte uit.",
+                "p3": "Om te winnen moet je door het verraderlijke Huis van Water gaan en de Drie Waarheden trotseren voordat je door de Poort van Horus opstijgt naar het Veld van Riet. Daar sluit je je aan bij de Onvergankelijke Sterren en vind je eeuwige rust. Verliezen betekent een dolende schaduw blijven, gedoemd om de cyclus te herhalen tot je hart licht is als een veer."
+            },
+            "sacred_houses": {
+                "title": "DE VIJF POORTEN",
+                "h26": {
+                    "title": "Huis van Schoonheid",
+                    "desc": "Het heiligdom van rituele zalving. Hier verzamelt de ziel kracht voor de laatste beproevingen van het hiernamaals."
+                },
+                "h27": {
+                    "title": "Huis van Water",
+                    "desc": "De peilloze diepte. Een gevaarlijke leegte; wie niet oversteekt wordt teruggespoeld naar het Huis van Wedergeboorte (15)."
+                },
+                "h28": {
+                    "title": "Zaal van Drie Waarheden",
+                    "desc": "De eerste beproeving van de weegschaal. Alleen een exacte DRIE laat je hier standhouden."
+                },
+                "h29": {
+                    "title": "De Zonnebark",
+                    "desc": "Aansluiten bij de zonnegod Re op zijn nachtelijke reis. Een exacte worp van TWEE brengt je dichter bij de dageraad."
+                },
+                "h30": {
+                    "title": "De Poort van Horus",
+                    "desc": "De laatste drempel. Een enkele exacte stap van EEN schenkt je geest de opstijging naar de eeuwige sterren."
+                }
+            },
+            "guide": {
+                "title": "ROL VAN LEIDRAAD",
+                "labels": {
+                    "objective": "Het goddelijke gebod",
+                    "movement": "De spiraal van het lot",
+                    "throwing": "Het werpen van de botten",
+                    "capturing": "De ruil van de schaduw",
+                    "protection": "Het heilige paar",
+                    "blockades": "De hemelse muur",
+                    "special": "De poorten van de Doeat",
+                    "bearing_off": "Opstijging van de geest"
+                },
+                "objective": "Leid al je vijf geeststukken van de rand van het bord om je plaats tussen de sterren veilig te stellen.",
+                "movement": "Volg het S-vormige pad over dertig velden. De reis begint op de eerste rij en eindigt aan de drempel van de eeuwigheid.",
+                "throwing": "Werp de vier stokken om je lot te bepalen (1-5 stappen). Worpscores van 1, 4 of 5 worden door de goden gezegend en geven een extra beurt.",
+                "capturing": "Een geïsoleerde vijand is kwetsbaar. Land op hem om zijn ziel terug te verbannen naar je vorige positie.",
+                "protection": "Een paar broeders dat samen staat is door Ma'at geheiligd. Ze kunnen niet worden geslagen of verplaatst.",
+                "blockades": "Drie of meer stukken op rij vormen een onpasseerbare barrière; geen ziel mag over zo'n concentratie van geest springen.",
+                "special": "Velden 26 tot en met 30 zijn de laatste poorten. Pas op voor veld 27 (Water), want wie daar valt wordt teruggespoeld naar het Huis van Wedergeboorte (15).",
+                "bearing_off": "Om de laatste drempel te passeren moet je precies het aantal gooien dat nodig is om voorbij het laatste veld te stappen."
+            },
+            "lobby": {
+                "about_kicker": "Het heilige spel",
+                "about_title": "Wat is Senet?",
+                "about_body": "Senet is niet zomaar een bordspel, maar een ceremoniële wedloop door het lot zelf. Twee zielen leiden vijf stukken over een kronkelend pad, waar elke worp van de stokken gunst kan schenken, gevaar kan uitnodigen of de weg naar onsterfelijkheid kan openen.",
+                "history_kicker": "Erfenis van de Nijl",
+                "history_title": "Een reis door dynastieën",
+                "history_body": "Senet werd geboren in de hoven en graven van het oude Egypte en bleef millennia lang bestaan als edel tijdverdrijf en heilig symbool. Op beschilderde muren, gebeeldhouwde kisten en in koninklijke begrafenissen verschijnt het als een spel op de grens tussen het aardse leven en de eeuwige Doeat.",
+                "fun_facts": {
+                    "kicker": "Fluisteringen van het bord",
+                    "title": "Weetjes",
+                    "fact_1": "Senet-borden werden naast de doden in graven geplaatst, alsof de wedstrijd achter de sluier gewoon verder zou gaan.",
+                    "fact_2": "De laatste velden golden als geladen plekken van beproeving en zegen, waar gevaar, oordeel en goddelijke doorgang samenkwamen aan de rand van het bord.",
+                    "fact_3": "Er is geen volledig oud regelboek bewaard gebleven, dus het Senet van nu is deels wetenschap, deels reconstructie en deels eerbiedige verbeelding."
+                }
+            }
+        },
+        "mehen": {
+            "title": "Mehen",
+            "description": "De traditie van de bewakende winding. Leeuwen en ballen racen naar binnen door een heilige spiraal om het hart van de slang te bereiken.",
+            "legend": {
+                "title": "DE LEGENDE VAN DE GEKRULDE SLANG",
+                "p1": "In de diepste uren van de nacht, wanneer de zonnegod Re door de onderwereld vaart, kronkelt de grote slang Mehen rond zijn bark. De slang is tegelijk beschermer, doolhof en heilige arena, en maakt elke stap naar binnen tot een beproeving van moed en gunst.",
+                "p2": "Je ballen racen langs de windingen onder het toezicht van een leeuwenwachter. Sommige windingen bieden beschutting, andere nodigen uit tot een plotselinge slag, en de aanwezigheid van de leeuw kan een smal pad veranderen in een muur die alleen de waardigen mogen passeren.",
+                "p3": "Deze editie volgt de Traditie van de Bewakende Winding: elke leeuw en elke bal moet vanuit de reserve naar binnen trekken totdat ze allemaal in het hart van de slang staan. Wie die bewaakte klim als eerste voltooit, wint de gunst van Mehen."
+            },
+            "sacred_coils": {
+                "title": "TEKENS VAN DE BEWAAKTE WINDING",
+                "reserve": {
+                    "title": "Reservevak",
+                    "desc": "Alle leeuwen en ballen wachten buiten de spiraal tot een worp één ervan naar de eerste winding roept."
+                },
+                "safe": {
+                    "title": "Bewaakte windingen",
+                    "desc": "Windingen 10, 20, 30, 40 en 50 zijn beschermde plaatsen waar een kwetsbare bal veilig buiten bereik van slaan kan rusten."
+                },
+                "lion": {
+                    "title": "Muur van de leeuw",
+                    "desc": "Een leeuw kan vijandelijke ballen slaan en hun doorgang beletten, zodat één smalle winding een levende barrière wordt."
+                },
+                "heart": {
+                    "title": "Hart van Mehen",
+                    "desc": "De spiraal eindigt bij het hoofd van Mehen, de zetel van Ra. Elke bal en de leeuw moeten dit heilige centrum bereiken om te winnen."
+                }
+            },
+            "guide": {
+                "title": "ROL VAN DE SLANG",
+                "labels": {
+                    "objective": "De heilige spiraal",
+                    "players": "Hoeders van de winding",
+                    "opening": "Wie als eerste beweegt",
+                    "setup": "Leeuwen en ballen",
+                    "entry": "Het reservevak",
+                    "turn": "Volgorde van de beurt",
+                    "movement": "Het pad van de windingen",
+                    "throwing": "Stokken van het lot",
+                    "pieces": "De twee soorten stukken",
+                    "capturing": "De slag van de leeuw",
+                    "protection": "Beschutting van de winding",
+                    "safe_spaces": "Bewaakte windingen",
+                    "blocking": "De muur van de wachter",
+                    "finishing": "De centrale winding",
+                    "no_legal_move": "Wanneer het pad sluit",
+                    "clarifications": "Tekens van de winding",
+                    "tie_rule": "Als twee het hart bereiken",
+                    "winning": "Mehen opeisen"
+                },
+                "objective": "Leid je leeuw en al je vijf ballen vanuit de reserve door de windingen van de slang totdat ze allemaal het centrum hebben bereikt.",
+                "players": "De Traditie van de Bewakende Winding is het sterkst met twee tot vier spelers, al ondersteunt dit bord er maximaal zes. Elke speler bestuurt één leeuw en vijf ballen.",
+                "opening": "Voordat de race begint, werpt elke speler één keer. De hoogste worp begint, daarna gaat het spel met de klok mee verder.",
+                "setup": "Alle leeuwen en ballen beginnen buiten het bord in het reservevak. De spiraal zelf is een reeks bewaakte windingen die aan de buitenrand begint en eindigt bij het hoofd van Mehen in het centrum.",
+                "entry": "Alle stukken beginnen buiten het bord in het reservevak. Bij elke worp mag je één leeuw of bal van buiten het bord naar winding 1 brengen als die vrij is.",
+                "turn": "Het spel gaat met de klok mee. In elke beurt werp je, kies je één legaal stuk, verplaats je dat, handel je eventuele slag- of beschermingsgevolgen af en controleer je daarna of de worp een extra beurt geeft.",
+                "movement": "In elke beurt verplaats je precies één stuk vooruit met het gegooide aantal. Als er een legale zet bestaat, moet je die doen; bestaat die niet, dan eindigt je beurt onmiddellijk.",
+                "throwing": "De Mehen-worp levert waarden van 1 tot 5 op. Worpscores van 1 of 5 zijn gezegend en geven na je zet een extra beurt.",
+                "pieces": "Ballen zijn kwetsbare stukken die geslagen kunnen worden en terugkeren naar de reserve. De leeuw is het sterke stuk: hij kan vijandelijke ballen slaan, hij kan niet door ballen worden geslagen en hij kan het pad voor hen afsluiten.",
+                "capturing": "Land je op een onbeschermde vijandelijke bal, dan sla je die en stuur je hem terug naar het reservevak. Landen op je eigen stuk of op een vijandelijke leeuw is niet toegestaan.",
+                "protection": "Een bal is beschermd wanneer die op een veilige winding rust of op een winding naast zijn eigen leeuw. Beschermde ballen kunnen niet worden geslagen.",
+                "safe_spaces": "Windingen 10, 20, 30, 40 en 50 zijn veilige windingen. Elk stuk dat daar rust, is beschermd tegen slaan zolang het op die bewaakte plek blijft.",
+                "blocking": "Een leeuw blokkeert het pad van vijandelijke ballen. Tegenstanders mogen niet door zijn winding heen, al kunnen vijandelijke leeuwen er wel voorbij.",
+                "finishing": "Het centrum is de laatste winding. Je moet exact gooien om het te betreden; als je eroverheen zou gaan, kan dat stuk niet bewegen.",
+                "no_legal_move": "Als de worp je helemaal geen legale zet geeft, eindigt je beurt meteen. Je mag niet vrijwillig passen zolang er nog een legale zet is.",
+                "clarifications": "Per winding mag maar één stuk staan. Beweging volgt altijd de spiraal naar binnen; stukken gaan nooit achteruit, behalve wanneer een geslagen bal terugkeert naar de reserve.",
+                "tie_rule": "Als meer dan één speler de reis in dezelfde ronde voltooit, wint degene die het centrum het eerst bereikte.",
+                "winning": "Je wint pas wanneer al je vijf ballen en je leeuw het centrum hebben bereikt."
+            },
+            "board": {
+                "center_title": "Hoofd van Mehen",
+                "center_subtitle": "Zetel van Ra",
+                "reserve_title": "Reservevak",
+                "reserve_subtitle": "Leeuwen en ballen wachten hier voordat ze de spiraal betreden.",
+                "lion": "Leeuw",
+                "ball": "Bal"
+            },
+            "lobby": {
+                "about_kicker": "Papyrusfragment",
+                "about_title": "Wat is Mehen?",
+                "about_body": "Mehen is een spiraalrace gespeeld onder de bescherming van de slangengod. In de Traditie van de Bewakende Winding bestuurt elke speler één leeuw en vijf ballen, die vanuit de reserve naar binnen trekken terwijl veilige windingen, slagen en blokkerende leeuwen de weg naar het centrum tot een bewaakte klim maken.",
+                "history_kicker": "Huistraditie",
+                "history_title": "De Bewakende Winding",
+                "history_body": "Het oude Mehen is overgeleverd in gebeeldhouwde spiraalborden en verspreid bewijs, niet in één volledig regelboek. Deze editie lost die onzekerheid op door één huistraditie te volgen, de Traditie van de Bewakende Winding, en die consequent te gebruiken in de papyrus, de lobby en op het bord.",
+                "fun_facts": {
+                    "kicker": "Geheimen van de spiraal",
+                    "title": "Slangenkennis",
+                    "fact_1": "Mehen-borden werden uitgekerfd als slangen die zich in dichte spiralen oprollen, waardoor het bord tegelijk icoon en racebaan werd.",
+                    "fact_2": "Deze editie bewaart de overgeleverde spiraalvorm maar kiest één consequente traditie voor het spel: instap vanuit de reserve, exacte worpen voor het centrum, leeuwenblokkades en winst pas wanneer elk stuk het hart bereikt.",
+                    "fact_3": "Veilige windingen op 10, 20, 30, 40 en 50 weerspiegelen de bewaakte ringen van de slang, waar zelfs een kwetsbare bal buiten bereik van slaan kan rusten."
+                }
+            }
+        }
+    },
+    "guide": {
+        "button_label": "Papyrus met regels"
+    }
+}

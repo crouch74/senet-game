@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest'
 
 const SRC_DIR = path.resolve(__dirname, '..')
 const EN_LOCALE_PATH = path.resolve(__dirname, '../locales/en.json')
+const LOCALES_DIR = path.resolve(__dirname, '../locales')
 
 const flattenKeys = (value: unknown, prefix = ''): string[] => {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
@@ -49,5 +50,29 @@ describe('localization coverage', () => {
     const missing = collectUsedKeys().filter((key) => !enKeys.has(key))
 
     expect(missing).toEqual([])
+  })
+
+  it('keeps all non-english locales in sync with the english key set', () => {
+    const en = JSON.parse(fs.readFileSync(EN_LOCALE_PATH, 'utf8'))
+    const enKeys = new Set(flattenKeys(en))
+    const localeFiles = fs
+      .readdirSync(LOCALES_DIR)
+      .filter((file) => file.endsWith('.json') && file !== 'en.json')
+
+    const missingByLocale = localeFiles.reduce<Record<string, string[]>>((acc, file) => {
+      const locale = JSON.parse(
+        fs.readFileSync(path.join(LOCALES_DIR, file), 'utf8'),
+      )
+      const localeKeys = new Set(flattenKeys(locale))
+      const missing = [...enKeys].filter((key) => !localeKeys.has(key))
+
+      if (missing.length > 0) {
+        acc[file] = missing
+      }
+
+      return acc
+    }, {})
+
+    expect(missingByLocale).toEqual({})
   })
 })
