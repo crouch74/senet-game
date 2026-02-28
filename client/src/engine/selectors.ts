@@ -22,6 +22,7 @@ export const appStoreSelector = (state: SenetStore) => ({
   resetGame: state.resetGame,
   roomId: state.roomId,
   roomJoinError: state.roomJoinError,
+  houndsAndJackalsConfig: state.houndsAndJackalsConfig,
   mehenConfig: state.mehenConfig,
   ruleset: state.ruleset,
   setOfflineMode: state.setOfflineMode,
@@ -52,6 +53,7 @@ export const hudStoreSelector = (state: SenetStore) => ({
 export const throwSticksStoreSelector = (state: SenetStore) => ({
   currentPlayer: state.currentPlayer,
   currentThrow: state.currentThrow,
+  gameType: state.gameType,
   isAutoPlaying: state.isAutoPlaying,
   isAutoRolling: state.isAutoRolling,
   isOnline: state.isOnline,
@@ -86,9 +88,11 @@ export const afterlifeSelector = (state: SenetStore) => ({
   board: state.board,
   boardSize: state.boardSize,
   gameType: state.gameType,
+  houndsAndJackalsConfig: state.houndsAndJackalsConfig,
 })
 
 export const gameOverSelector = (state: SenetStore) => ({
+  gameType: state.gameType,
   isOnline: state.isOnline,
   localPlayer: state.localPlayer,
   offlineHumanPlayer: state.offlineHumanPlayer,

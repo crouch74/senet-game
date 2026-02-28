@@ -48,7 +48,12 @@ describe('selectors', () => {
         movePiece: state.movePiece,
       }),
     );
-    expect(afterlifeSelector(state)).toEqual({ board: state.board });
+    expect(afterlifeSelector(state)).toEqual({
+      board: state.board,
+      boardSize: state.boardSize,
+      gameType: state.gameType,
+      houndsAndJackalsConfig: state.houndsAndJackalsConfig,
+    });
     expect(gameOverSelector(state)).toEqual(
       expect.objectContaining({
         winner: state.winner,

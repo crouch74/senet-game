@@ -23,6 +23,14 @@ def test_create_room_accepts_mehen_game_type(client, registry):
     assert registry.get(room_id).game_type == "mehen"
 
 
+def test_create_room_accepts_hounds_and_jackals_game_type(client, registry):
+    response = client.post("/api/match/create?game=hounds-and-jackals")
+
+    assert response.status_code == 200
+    room_id = response.json()["room_id"]
+    assert registry.get(room_id).game_type == "hounds-and-jackals"
+
+
 def test_create_room_rejects_unknown_game_type(client):
     response = client.post("/api/match/create?game=unknown")
 

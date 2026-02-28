@@ -11,6 +11,7 @@ import { cn } from '../utils/cn'
 import { createLogger } from '../services/logger'
 import { getIsWinner } from './gameOver/winnerStatus'
 import { getPlayerAppearance } from '../utils/playerAppearance'
+import { getPlayerLabel } from '../utils/gameLabels'
 
 interface GameOverProps {
   onReturnToLobby: () => void
@@ -26,6 +27,7 @@ const PARTICLES = Array.from({ length: 20 }, (_, index) => ({
 
 export function GameOver({ onReturnToLobby }: GameOverProps) {
   const {
+    gameType,
     isOnline,
     localPlayer,
     offlineHumanPlayer,
@@ -120,7 +122,7 @@ export function GameOver({ onReturnToLobby }: GameOverProps) {
                   winnerAppearance.pillClassName,
                 )}
               >
-                {t(`hud.players.${winner}`)}{' '}
+                {getPlayerLabel(t, gameType, winner)}{' '}
                 {t('app.wins', { defaultValue: 'WINS' })}
               </div>
             </div>

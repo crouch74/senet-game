@@ -35,6 +35,20 @@
         "mehen_forced_move": "Si un coup existe :",
         "mehen_forced_move_value": "vous devez jouer un coup légal, sinon céder le tour",
         "mehen_win_condition": "Condition de victoire :",
+        "hounds_rules_title": "Papyrus des cinquante-huit trous",
+        "hounds_track_length": "Trous sur chaque voie :",
+        "hounds_pieces_per_player": "Pions par joueur :",
+        "hounds_entry_rule": "Entrée depuis la réserve :",
+        "hounds_entry_any_roll": "N'importe quel jet peut faire entrer un pion de réserve sur le premier trou",
+        "hounds_finish_rule": "But shen :",
+        "hounds_exact_finish": "Jet exact requis",
+        "hounds_throw_mode": "Mode de jet :",
+        "hounds_four_sticks": "Quatre bâtonnets donnant des valeurs de 1 à 5",
+        "hounds_marked_holes": "Trous marqués :",
+        "hounds_marked_hole_good": "{{source}} vers {{target}} en saut avant",
+        "hounds_marked_hole_bad": "{{source}} vers {{target}} en recul",
+        "hounds_capture_rule": "Captures :",
+        "hounds_blockade_rule": "Blocus :",
         "mehen_win_conditions": {
             "ALL_BALLS_AND_LION": "Toutes les billes et le lion atteignent le centre",
             "LION_ONLY": "Le lion atteint le centre",
@@ -49,6 +63,10 @@
         "mehen": {
             "title": "Cœur de Mehen",
             "empty": "Aucun lion ni aucune bille n'a encore atteint le cœur du serpent."
+        },
+        "hounds-and-jackals": {
+            "title": "But shen",
+            "empty": "Aucun pion n'a encore atteint le but shen."
         },
         "senet": {
             "title": "Au-delà",
@@ -153,11 +171,13 @@
     "ruleset": {
         "names": {
             "common": "Voie Sacrée",
-            "mehen-standard": "Tradition de l'Anneau Gardé"
+            "mehen-standard": "Tradition de l'Anneau Gardé",
+            "hounds-and-jackals-standard": "Papyrus des cinquante-huit trous"
         },
         "descriptions": {
             "common": "Le chemin traditionnel de l'âme à travers la Douat, impliquant des paires protégées et des blocages stratégiques.",
-            "mehen-standard": "Cette tradition de maison de Mehen fait entrer lions et billes depuis la réserve. Les anneaux sûrs offrent un refuge, les lions gardent la route, et la victoire n'arrive que lorsque chaque pièce atteint le cœur du serpent."
+            "mehen-standard": "Cette tradition de maison de Mehen fait entrer lions et billes depuis la réserve. Les anneaux sûrs offrent un refuge, les lions gardent la route, et la victoire n'arrive que lorsque chaque pièce atteint le cœur du serpent.",
+            "hounds-and-jackals-standard": "Cette reconstruction domestique emploie cinq pions par camp, quatre bâtonnets, une arrivée exacte et des trous marqués qui font avancer ou reculer vers le but shen."
         }
     },
     "history": {
@@ -176,7 +196,14 @@
         "mehen_finish": "✨ {{piece}} atteint le centre.",
         "mehen_blocked": "🚫 {{player}} n'a aucun coup légal et cède le tour.",
         "mehen_extra_turn": "🎲 {{player}} obtient un tour supplémentaire.",
-        "mehen_win": "🏆 {{player}} s'empare du centre et l'emporte !"
+        "mehen_win": "🏆 {{player}} s'empare du centre et l'emporte !",
+        "hounds_started": "🎲 [58 TROUS] Les pions sont posés près du plateau en forme de hache.",
+        "hounds_move": "🏃 {{piece}} avance de {{from}} à {{to}}.",
+        "hounds_good_jump": "☀️ {{piece}} reçoit une faveur et saute de {{from}} à {{to}}.",
+        "hounds_bad_jump": "↘️ {{piece}} glisse de {{from}} vers {{to}}.",
+        "hounds_finish": "✨ {{piece}} atteint le but shen.",
+        "hounds_blocked": "🚫 {{player}} n'a aucun pion légal à jouer et cède le tour.",
+        "hounds_win": "🏆 {{player}} guide ses cinq pions jusqu'au but shen et l'emporte !"
     },
     "lobby": {
         "create_room": "Créer une nouvelle salle",
@@ -234,6 +261,9 @@
         "senet": {
             "title": "Senet",
             "description": "Le Jeu de passage. Une course à travers 30 cases pour atteindre l'au-delà.",
+            "board": {
+                "piece": "Pièce"
+            },
             "legend": {
                 "title": "LA LÉGENDE DU VOYAGE CRÉPUSCULAIRE",
                 "p1": "Avant que les Grandes Pyramides ne touchent le ciel, les scribes de Thoth consignèrent la première partie de Senet. C'est bien plus qu'une simple distraction ; c'est une carte rituelle de la traversée périlleuse de l'âme à travers la Douat — l'inframonde égyptien. Chaque plateau est un reflet de l'ordre cosmique, où le passage de la vie à l'éternité n'est pas seulement une question de talent, mais aussi de faveur divine.",
@@ -390,6 +420,95 @@
                     "fact_1": "Les plateaux de Mehen étaient sculptés comme des serpents enroulés, si bien que le plateau lui-même faisait partie du symbole.",
                     "fact_2": "Cette édition conserve la forme en spirale attestée, mais fixe le jeu autour d'une seule tradition cohérente : entrée depuis la réserve, jet exact pour le centre, blocage par le lion et victoire seulement lorsque toutes les pièces atteignent le cœur.",
                     "fact_3": "Les anneaux sûrs 10, 20, 30, 40 et 50 représentent les zones gardées du serpent, où même une bille vulnérable peut demeurer hors de portée."
+                }
+            }
+        },
+        "hounds-and-jackals": {
+            "title": "Chiens et Chacals",
+            "description": "Le Jeu des cinquante-huit trous. Cinq pions par camp avancent entre sauts favorables et retours en arrière vers le but shen.",
+            "players": {
+                "anubis": "CHIEN",
+                "sphinx": "CHACAL"
+            },
+            "legend": {
+                "title": "LA LÉGENDE DES CINQUANTE-HUIT TROUS",
+                "p1": "Sur des plateaux sculptés en forme de tête de hache, des joueurs guidaient jadis des pions couronnés de chiens et de chacals à travers une constellation de trous. Les plateaux ont survécu, mais pas un règlement complet ; toute partie moderne est donc aussi une reconstruction.",
+                "p2": "Ce papyrus de maison imagine une course d'esprits animaux. Le chien et le chacal partent de la réserve, répondent au jet de quatre bâtonnets et grimpent vers le sommet à travers des trous marqués qui peuvent favoriser ou punir.",
+                "p3": "Ici, la victoire ne vient pas de la capture mais de la régularité. Menez vos cinq pions jusqu'au but shen, survivez aux reculs, et terminez la montée avant votre rival."
+            },
+            "marked_holes": {
+                "title": "MARQUES DES CINQUANTE-HUIT TROUS",
+                "good": {
+                    "title": "Trous favorables",
+                    "desc": "Un trou bénéfique envoie immédiatement le pion vers une case liée plus avancée."
+                },
+                "bad": {
+                    "title": "Trous de recul",
+                    "desc": "Certains trous renvoient aussitôt le pion vers une position liée plus basse."
+                },
+                "reserve": {
+                    "title": "Puits de réserve",
+                    "desc": "Chaque camp garde cinq pions en réserve jusqu'à ce qu'un jet appelle l'un d'eux sur le premier trou."
+                },
+                "goal": {
+                    "title": "But shen",
+                    "desc": "Le trou shen domine le plateau. Chaque pion doit l'atteindre au compte exact."
+                }
+            },
+            "guide": {
+                "title": "PARCHEMIN DES CINQUANTE-HUIT TROUS",
+                "labels": {
+                    "objective": "La course des pions",
+                    "players": "Chien et Chacal",
+                    "setup": "Cinq pions de chaque côté",
+                    "entry": "Les puits de réserve",
+                    "movement": "Le chemin percé",
+                    "throwing": "Quatre bâtonnets",
+                    "marked_holes": "Les trous liés",
+                    "good_jumps": "La faveur de nefer",
+                    "bad_jumps": "Le recul",
+                    "stacking": "Un pion par trou",
+                    "finishing": "Le but shen",
+                    "blocked_turns": "Quand aucun pion ne bouge",
+                    "winning": "Achever le parcours",
+                    "reconstruction_note": "Reconstruction de maison"
+                },
+                "objective": "Conduisez vos cinq pions de la réserve jusqu'au but shen avant votre adversaire.",
+                "players": "Cette édition présente les deux camps comme Chien et Chacal tout en conservant la même structure à deux sièges que les autres jeux de l'application.",
+                "setup": "Chaque joueur commence avec cinq pions en réserve. Aucun pion n'est sur la piste au départ et les deux courses progressent sur des moitiés symétriques du plateau.",
+                "entry": "Sur n'importe quel jet, vous pouvez faire entrer un pion de réserve sur le premier trou si sa destination finale n'est pas déjà occupée par l'un de vos pions.",
+                "movement": "Choisissez un de vos pions et avancez-le exactement du nombre indiqué. Dans cette reconstruction, les pions ne capturent pas et ne bloquent pas l'autre camp.",
+                "throwing": "Les quatre bâtonnets donnent des valeurs de 1 à 5, le résultat sans face claire valant 5.",
+                "marked_holes": "Certains trous sont liés. Dès qu'un pion y atterrit, l'effet du trou s'applique immédiatement et l'emporte vers sa destination liée.",
+                "good_jumps": "Un trou favorable projette le pion vers l'avant, symbole d'un passage heureux.",
+                "bad_jumps": "Un trou défavorable fait reculer le pion. Le coup n'est légal que si la destination liée est libre de vos propres pions.",
+                "stacking": "Un seul de vos pions peut occuper un trou. Si un coup finit sur un trou déjà tenu par l'un des vôtres, il est illégal.",
+                "finishing": "Le but shen exige un compte exact. Tout jet qui dépasse la fin laisse ce pion immobile.",
+                "blocked_turns": "Si le jet ne donne aucun pion légal à jouer, la main passe immédiatement à l'adversaire.",
+                "winning": "Vous gagnez uniquement lorsque vos cinq pions ont atteint le but shen.",
+                "reconstruction_note": "Comme aucun règlement antique complet n'a survécu, cette implémentation propose une reconstruction de maison cohérente plutôt qu'une prétention à la certitude historique."
+            },
+            "board": {
+                "aria_label": "Plateau de Chiens et Chacals",
+                "peg": "Pion",
+                "goal_title": "But shen",
+                "reserve_hound": "Réserve du chien",
+                "reserve_jackal": "Réserve du chacal",
+                "hole_label": "Trou {{number}} de {{player}}"
+            },
+            "lobby": {
+                "about_kicker": "Plateau à 58 trous",
+                "about_title": "Qu'est-ce que Chiens et Chacals ?",
+                "about_body": "Chiens et Chacals est un jeu de course du Moyen Empire fondé sur cinquante-huit trous percés et des pions surmontés d'animaux. Cette édition le traite comme une course à deux joueurs fondée sur l'entrée, le tempo et les trous marqués plutôt que sur la capture.",
+                "history_kicker": "Artisanat du Moyen Empire",
+                "history_title": "Un plateau en tête de hache",
+                "history_body": "Les exemplaires conservés nous montrent des plateaux élégants en bois ou en ivoire, souvent en forme de tête de hache, avec des pistes en miroir et des pions coiffés de chiens et de chacals. La forme est claire, les règles exactes beaucoup moins.",
+                "fun_facts": {
+                    "kicker": "Signes du plateau",
+                    "title": "Savoir du plateau",
+                    "fact_1": "De nombreux exemplaires conservés sont percés de cinquante-huit trous, d'où le surnom moderne du jeu.",
+                    "fact_2": "Les pions étaient souvent sculptés de têtes animales, ce qui explique la désignation habituelle des deux camps comme chiens et chacals.",
+                    "fact_3": "Cette version s'annonce comme une reconstruction de maison : arrivée exacte, trous favorables ou défavorables liés, et aucun jeu de capture."
                 }
             }
         }

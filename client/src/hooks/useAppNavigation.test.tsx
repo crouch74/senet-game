@@ -4,6 +4,7 @@ import { useAppNavigation } from './useAppNavigation'
 
 function AppNavigationProbe(props: {
   clearRoomJoinError: () => void
+  gameType: 'senet' | 'mehen' | 'hounds-and-jackals'
   isConnectingToRoom: boolean
   isOnline: boolean
   joinRoom: (roomId: string) => void
@@ -27,6 +28,7 @@ describe('useAppNavigation', () => {
     render(
       <AppNavigationProbe
         clearRoomJoinError={clearRoomJoinError}
+        gameType="senet"
         isConnectingToRoom={false}
         isOnline={false}
         joinRoom={joinRoom}
@@ -47,6 +49,7 @@ describe('useAppNavigation', () => {
     render(
       <AppNavigationProbe
         clearRoomJoinError={vi.fn()}
+        gameType="senet"
         isConnectingToRoom={false}
         isOnline={true}
         joinRoom={vi.fn()}
@@ -59,6 +62,6 @@ describe('useAppNavigation', () => {
       />,
     )
 
-    expect(window.location.pathname).toBe('/room/abc-def-ghi')
+    expect(window.location.pathname).toBe('/senet/room/abc-def-ghi')
   })
 })

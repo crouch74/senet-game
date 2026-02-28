@@ -1,10 +1,12 @@
 import { useTranslation } from 'react-i18next'
-import type { HistoryEvent } from '../../engine/types'
+import type { GameType, HistoryEvent } from '../../engine/types'
 import { cn } from '../../utils/cn'
 import { formatNumber } from '../../utils/format'
 import { getPlayerAppearance } from '../../utils/playerAppearance'
+import { getPieceLabel, getPlayerLabel } from '../../utils/gameLabels'
 
 interface ChroniclePanelProps {
+  gameType: GameType
   historyLog: HistoryEvent[]
 }
 
@@ -20,26 +22,28 @@ const PLAYER_IDS = new Set([
 
 const localizePlayer = (
   value: unknown,
+  gameType: GameType,
   t: ReturnType<typeof useTranslation>['t'],
 ) => {
   if (typeof value !== 'string' || !PLAYER_IDS.has(value)) return value
-  return t(`hud.players.${value}`)
+  return getPlayerLabel(t, gameType, value)
 }
 
 const localizePiece = (
   value: unknown,
+  gameType: GameType,
   t: ReturnType<typeof useTranslation>['t'],
 ) => {
   if (typeof value !== 'string') return value
 
   const match = value.match(
-    /^(anubis|sphinx|horus|seth|osiris|isis)-(lion|ball)(?:-(\d+))?$/,
+    /^(anubis|sphinx|horus|seth|osiris|isis)-(lion|ball|peg|senet_piece)(?:-(\d+))?$/,
   )
   if (!match) return value
 
   const [, owner, type, ordinal] = match
-  const ownerLabel = t(`hud.players.${owner}`)
-  const typeLabel = t(`games.mehen.board.${type}`)
+  const ownerLabel = getPlayerLabel(t, gameType, owner as never)
+  const typeLabel = getPieceLabel(t, gameType, type as never)
   return ordinal
     ? `${ownerLabel} ${typeLabel} ${formatNumber(ordinal)}`
     : `${ownerLabel} ${typeLabel}`
@@ -50,7 +54,7 @@ const localizeNumberish = (value: unknown) =>
     ? formatNumber(value)
     : value
 
-export function ChroniclePanel({ historyLog }: ChroniclePanelProps) {
+export function ChroniclePanel({ gameType, historyLog }: ChroniclePanelProps) {
   const { t } = useTranslation()
 
   return (
@@ -72,8 +76,8 @@ export function ChroniclePanel({ historyLog }: ChroniclePanelProps) {
 
           const translatedParams = {
             ...mergedParams,
-            player: localizePlayer(mergedParams.player, t),
-            piece: localizePiece(mergedParams.piece, t),
+            player: localizePlayer(mergedParams.player, gameType, t),
+            piece: localizePiece(mergedParams.piece, gameType, t),
             from: localizeNumberish(mergedParams.from),
             to: localizeNumberish(mergedParams.to),
             turn: localizeNumberish(mergedParams.turn),
@@ -95,7 +99,7 @@ export function ChroniclePanel({ historyLog }: ChroniclePanelProps) {
                     'w-2 h-2 rounded-full mt-1.5 shrink-0 shadow-[0_0_5px_rgba(0,0,0,0.5)]',
                     getPlayerAppearance(log.player).accentClassName,
                   )}
-                  title={t(`hud.players.${log.player}`)}
+                  title={getPlayerLabel(t, gameType, log.player)}
                 />
               )}
               <span className="leading-tight break-words">

@@ -31,6 +31,16 @@ def test_room_join_rejects_game_type_mismatch(client):
         }
 
 
+def test_room_join_rejects_hounds_and_jackals_game_type_mismatch(client):
+    room_id = client.post("/api/match/create?game=hounds-and-jackals").json()["room_id"]
+
+    with client.websocket_connect(f"/api/match/{room_id}?game=senet") as websocket:
+        assert websocket.receive_json() == {
+            "type": "error",
+            "message": "Room game type mismatch: expected senet, got hounds-and-jackals",
+        }
+
+
 def test_players_get_roles_and_opening_rolls_with_tie_rerolls(client, room_service):
     room_service.roll_die = fixed_rolls(3, 3, 2, 5)
     room_id = create_room(client)

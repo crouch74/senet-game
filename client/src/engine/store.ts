@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import type { GameState, OfflineMode, PlayerID, GameType } from './types'
 import * as senetLogic from '../games/senet/engine/logic'
 import * as mehenLogic from '../games/mehen/engine/logic'
+import * as houndsAndJackalsLogic from '../games/hounds-and-jackals/engine/logic'
 
 import {
   AUTO_PLAY_TIMINGS,
@@ -28,8 +29,12 @@ import {
 import { createLogger } from '../services/logger'
 
 interface SenetStoreDependencies extends Partial<AutoPlayDependencies> {
+  applyMove?: (state: GameState, pieceId: string) => GameState
+  autoPassIfNoMoves?: (state: GameState) => GameState
   clearTimeoutFn?: typeof window.clearTimeout
   createConnectionManager?: typeof createMatchConnectionManager
+  getLegalMoves?: (state: GameState) => { pieceId: string; targetSquare: number }[]
+  getThrowResult?: (gameType: GameType) => GameState['currentThrow']
   log?: Pick<Console, 'error' | 'log' | 'warn'>
   setTimeoutFn?: typeof window.setTimeout
 }
@@ -66,6 +71,7 @@ export interface SenetStore extends GameState {
 
 const getGameLogic = (gameType: GameType) => {
   if (gameType === 'mehen') return mehenLogic
+  if (gameType === 'hounds-and-jackals') return houndsAndJackalsLogic
   return senetLogic
 }
 
@@ -78,10 +84,14 @@ export const createSenetStore = (
   const clearTimeoutFn =
     dependencies.clearTimeoutFn ?? window.clearTimeout.bind(window)
 
-  const getThrowResult = (gameType: GameType) => getGameLogic(gameType).getThrowResult()
-  const getLegalMoves = (state: GameState) => getGameLogic(state.gameType).getLegalMoves(state)
-  const applyMove = (state: GameState, pieceId: string) => getGameLogic(state.gameType).applyMove(state, pieceId)
-  const autoPassIfNoMoves = (state: GameState) => getGameLogic(state.gameType).autoPassIfNoMoves(state)
+  const getThrowResult = (gameType: GameType) =>
+    dependencies.getThrowResult?.(gameType) ?? getGameLogic(gameType).getThrowResult()
+  const getLegalMoves = (state: GameState) =>
+    dependencies.getLegalMoves?.(state) ?? getGameLogic(state.gameType).getLegalMoves(state)
+  const applyMove = (state: GameState, pieceId: string) =>
+    dependencies.applyMove?.(state, pieceId) ?? getGameLogic(state.gameType).applyMove(state, pieceId)
+  const autoPassIfNoMoves = (state: GameState) =>
+    dependencies.autoPassIfNoMoves?.(state) ?? getGameLogic(state.gameType).autoPassIfNoMoves(state)
 
   const connectionManager =
     (dependencies.createConnectionManager ?? createMatchConnectionManager)()
@@ -143,11 +153,11 @@ export const createSenetStore = (
         roomJoinError: null,
       })
 
-      connectionManager.connect(normalizedRoomId, get().gameType, {
-        onOpen: (joinedRoomId) => {
+      const handlers = {
+        onOpen: (joinedRoomId: string) => {
           logger.info(`Connected to room ${joinedRoomId}`)
         },
-        onInit: (role) => {
+        onInit: (role: LocalRole) => {
           const isSpectator = role === 'spectator'
           set({
             isOnline: true,
@@ -164,7 +174,10 @@ export const createSenetStore = (
             logger.info(`Playing as ${role} and waiting for the opponent`)
           }
         },
-        onGameStart: ({ openingPlayer, openingRolls }) => {
+        onGameStart: ({ openingPlayer, openingRolls }: {
+          openingPlayer?: PlayerID
+          openingRolls?: { anubis: number; sphinx: number }
+        }) => {
           set((state) => ({
             isConnectingToRoom: false,
             isWaitingForOpponent: false,
@@ -179,14 +192,14 @@ export const createSenetStore = (
             logger.info('Both players connected and the game resumed')
           }
         },
-        onSync: (state) => {
+        onSync: (state: Partial<GameState>) => {
           set({ ...state, legalMoves: [] })
         },
         onOpponentDisconnected: () => {
           set({ isWaitingForOpponent: true })
           logger.warn('Opponent disconnected and gameplay is paused')
         },
-        onError: (message) => {
+        onError: (message: unknown) => {
           logger.error('WebSocket error received', message)
           set({
             roomJoinError: mapRoomJoinError(message),
@@ -202,7 +215,16 @@ export const createSenetStore = (
             localPlayer: null,
           })
         },
-      })
+      }
+
+      if (connectionManager.connect.length >= 3) {
+        connectionManager.connect(normalizedRoomId, get().gameType, handlers)
+      } else {
+        ;(connectionManager.connect as unknown as (
+          roomId: string,
+          handlers: typeof handlers,
+        ) => void)(normalizedRoomId, handlers)
+      }
     },
 
     leaveRoom: () => {
@@ -378,7 +400,7 @@ export const createSenetStore = (
       const nextState =
         state.gameType === 'senet'
           ? senetLogic.createInitialState(state.ruleset)
-          : mehenLogic.createInitialState()
+          : getGameLogic(state.gameType).createInitialState()
       set({ ...nextState, legalMoves: [] })
     },
 

@@ -4,9 +4,10 @@ import { cn } from '../utils/cn'
 import { THEMES, type ThemeId } from '../theme'
 import { Languages, Palette } from 'lucide-react'
 import { LANGUAGE_OPTIONS } from '../i18n'
+import type { GameType } from '../engine/types'
 
 interface GameCardProps {
-    id: 'senet' | 'mehen'
+    id: GameType
     title: string
     description: string
     onClick: () => void
@@ -22,7 +23,9 @@ function GameCard({ id, title, description, onClick, disabled }: GameCardProps) 
                 "relative group cursor-pointer overflow-hidden rounded-xl border-2 transition-all duration-300",
                 id === 'senet'
                     ? "border-royal-gold/30 bg-ui-panel-bg hover:border-royal-gold"
-                    : "border-royal-blue/30 bg-ui-panel-bg hover:border-royal-blue",
+                    : id === 'mehen'
+                        ? "border-royal-blue/30 bg-ui-panel-bg hover:border-royal-blue"
+                        : "border-emerald-500/30 bg-ui-panel-bg hover:border-emerald-400",
                 disabled && "opacity-50 cursor-not-allowed grayscale"
             )}
             onClick={!disabled ? onClick : undefined}
@@ -31,11 +34,15 @@ function GameCard({ id, title, description, onClick, disabled }: GameCardProps) 
                 {/* Decorative Background */}
                 <div className={cn(
                     "absolute inset-0 opacity-30 group-hover:opacity-50 transition-opacity",
-                    id === 'senet' ? "bg-[radial-gradient(circle,var(--royal-gold)_0%,transparent_70%)]" : "bg-[radial-gradient(circle,var(--royal-blue)_0%,transparent_70%)]"
+                    id === 'senet'
+                        ? "bg-[radial-gradient(circle,var(--royal-gold)_0%,transparent_70%)]"
+                        : id === 'mehen'
+                            ? "bg-[radial-gradient(circle,var(--royal-blue)_0%,transparent_70%)]"
+                            : "bg-[radial-gradient(circle,rgba(67,160,71,0.9)_0%,transparent_70%)]"
                 )} />
                 <div className="absolute inset-0 flex items-center justify-center">
                     <span className="text-6xl group-hover:scale-110 transition-transform duration-500">
-                        {id === 'senet' ? '𓋀' : '𓅓'}
+                        {id === 'senet' ? '𓋀' : id === 'mehen' ? '𓅓' : '𓃢'}
                     </span>
                 </div>
             </div>
@@ -51,7 +58,11 @@ function GameCard({ id, title, description, onClick, disabled }: GameCardProps) 
 
             <div className={cn(
                 "absolute bottom-0 left-0 h-1 transition-all duration-300 w-0 group-hover:w-full",
-                id === 'senet' ? "bg-royal-gold" : "bg-royal-blue"
+                id === 'senet'
+                    ? "bg-royal-gold"
+                    : id === 'mehen'
+                        ? "bg-royal-blue"
+                        : "bg-emerald-400"
             )} />
         </motion.div>
     )
@@ -62,7 +73,7 @@ export function LandingPage({
     theme,
     setTheme
 }: {
-    onSelectGame: (game: 'senet' | 'mehen') => void,
+    onSelectGame: (game: GameType) => void,
     theme: ThemeId,
     setTheme: (theme: ThemeId) => void
 }) {
@@ -119,7 +130,7 @@ export function LandingPage({
                 </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl w-full z-10 px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 max-w-6xl w-full z-10 px-4">
                 <GameCard
                     id="senet"
                     title={t('games.senet.title', { defaultValue: 'Senet' })}
@@ -131,6 +142,12 @@ export function LandingPage({
                     title={t('games.mehen.title', { defaultValue: 'Mehen' })}
                     description={t('games.mehen.description', { defaultValue: "The Tradition of the Guarding Coil. Lions and balls race inward through a sacred spiral to claim the serpent's heart." })}
                     onClick={() => onSelectGame('mehen')}
+                />
+                <GameCard
+                    id="hounds-and-jackals"
+                    title={t('games.hounds-and-jackals.title', { defaultValue: 'Hounds and Jackals' })}
+                    description={t('games.hounds-and-jackals.description', { defaultValue: 'The Game of Fifty-Eight Holes. Five pegs per side race through marked jumps and setbacks toward the shen goal.' })}
+                    onClick={() => onSelectGame('hounds-and-jackals')}
                 />
             </div>
 

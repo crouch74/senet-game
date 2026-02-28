@@ -6,6 +6,7 @@ describe('ChroniclePanel', () => {
   it('renders Mehen history entries from top-level log fields', async () => {
     await renderWithProviders(
       <ChroniclePanel
+        gameType="mehen"
         historyLog={[
           {
             key: 'history.mehen_move',

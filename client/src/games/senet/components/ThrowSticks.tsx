@@ -9,12 +9,14 @@ import {
 import { MaskedSvgIcon } from '../../../components/common/MaskedSvgIcon'
 import { cn } from '../../../utils/cn'
 import { useThrowSticksState } from '../../../hooks/useThrowSticksState'
+import { getPlayerLabel } from '../../../utils/gameLabels'
 
 export function ThrowSticks() {
   const { t } = useTranslation()
   const {
     currentPlayer,
     currentThrow,
+    gameType,
     isAutoRolling,
     isOnline,
     throwSticks,
@@ -46,7 +48,7 @@ export function ThrowSticks() {
             currentPlayer === 'anubis' ? 'bg-royal-gold' : 'bg-royal-ivory',
           )}
         />
-        <span>{t('throw.turn', { player: t(`hud.players.${currentPlayer}`) })}</span>
+        <span>{t('throw.turn', { player: getPlayerLabel(t, gameType, currentPlayer) })}</span>
       </div>
 
       <div className="relative w-full h-40 flex items-center justify-center [perspective:1000px]">

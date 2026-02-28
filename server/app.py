@@ -14,7 +14,7 @@ from .websocket_handler import handle_match_websocket
 
 configure_logging()
 logger = get_logger(__name__)
-SUPPORTED_GAMES = {"senet", "mehen"}
+SUPPORTED_GAMES = {"senet", "mehen", "hounds-and-jackals"}
 
 
 def create_app(

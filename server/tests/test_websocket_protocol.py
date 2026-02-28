@@ -10,8 +10,16 @@ from server.websocket_protocol import (
 
 
 def test_protocol_builders_preserve_existing_payload_shapes():
-    assert build_init_payload("spectator") == {"type": "init", "role": "spectator"}
-    assert build_init_payload("anubis") == {"type": "init", "player": "anubis"}
+    assert build_init_payload("spectator") == {
+        "type": "init",
+        "role": "spectator",
+        "game_type": "senet",
+    }
+    assert build_init_payload("anubis") == {
+        "type": "init",
+        "player": "anubis",
+        "game_type": "senet",
+    }
     assert build_game_start_payload("sphinx", {"anubis": 1, "sphinx": 4}) == {
         "type": "game_start",
         "opening_player": "sphinx",

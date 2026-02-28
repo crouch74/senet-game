@@ -9,6 +9,7 @@ import { cn } from '../utils/cn'
 import { THEMES, type ThemeId } from '../theme'
 import { getDevAutoplayConfig } from './hud/devAutoplay'
 import { getPlayerAppearance } from '../utils/playerAppearance'
+import { getPlayerLabel } from '../utils/gameLabels'
 import { LANGUAGE_OPTIONS } from '../i18n'
 
 interface HUDProps {
@@ -79,7 +80,7 @@ export function HUD({
           {!isLobby &&
             (winner ? (
               <div className="text-xl sm:text-2xl lg:text-3xl text-center font-bold text-royal-gold animate-[pulse_2s_ease-in-out_infinite] tracking-wide uppercase drop-shadow-lg">
-                {t('hud.wins', { player: t(`hud.players.${winner}`) })}
+                {t('hud.wins', { player: getPlayerLabel(t, gameType, winner) })}
               </div>
             ) : (
               <div className="flex items-center justify-center w-full sm:w-auto gap-3 sm:gap-6 p-2.5 sm:p-3 bg-ui-header-inner-bg rounded border border-royal-gold/20 shadow-inner">
@@ -92,7 +93,7 @@ export function HUD({
                     currentPlayerAppearance.pillClassName,
                   )}
                 >
-                  {t(`hud.players.${currentPlayer}`)}
+                  {getPlayerLabel(t, gameType, currentPlayer)}
                 </div>
               </div>
             ))}

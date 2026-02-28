@@ -5,7 +5,7 @@ import {
   lobbyStoreSelector,
   useShallowSelector,
 } from '../engine/selectors'
-import type { OfflineMode } from '../engine/types'
+import type { GameType, OfflineMode } from '../engine/types'
 import { useBackendHealth } from '../hooks/useBackendHealth'
 import { createLogger } from '../services/logger'
 import { matchApi } from '../services/matchApi'
@@ -13,12 +13,12 @@ import { normalizeRoomId } from '../services/matchConfig'
 
 interface LobbyProps {
   onStartOfflineMode: (mode: OfflineMode) => void
-  gameType: 'senet' | 'mehen'
+  gameType?: GameType
 }
 
 const logger = createLogger('Lobby')
 
-export function Lobby({ onStartOfflineMode, gameType }: LobbyProps) {
+export function Lobby({ onStartOfflineMode, gameType = 'senet' }: LobbyProps) {
   const [roomInput, setRoomInput] = useState('')
   const isBackendAvailable = useBackendHealth()
   const { joinRoom, roomJoinError, clearRoomJoinError } = useSenetStore(

@@ -1,14 +1,15 @@
 export type PlayerID = 'anubis' | 'sphinx' | 'horus' | 'seth' | 'osiris' | 'isis';
-export type PlayerType = 'ball' | 'lion' | 'senet_piece';  // Renamed 'bead' to 'ball'
-export type GameType = 'senet' | 'mehen';
+export type PlayerType = 'ball' | 'lion' | 'peg' | 'senet_piece';
+export type GameType = 'senet' | 'mehen' | 'hounds-and-jackals';
 export type OfflineMode = 'play_and_pass' | 'vs_pc';
 export type MehenOpponentLionMode = 'INVALID' | 'BLOCKED';
+export type HoundsAndJackalsJumpType = 'good' | 'bad';
 
 export interface Piece {
     id: string;
     player: PlayerID;
     type: PlayerType;
-    position: number; // 0 means off-board (start), 31 means borne off (senet), 61 (mehen), 1-30 are board squares
+    position: number; // 0 means off-board (start), 30 means finished (hounds and jackals), 31 means borne off (senet), 60 means Mehen center
     isProtected?: boolean;
 }
 
@@ -37,6 +38,7 @@ export interface Ruleset {
 export type MehenCaptureMode = 'SEND_TO_START' | 'SWAP_POSITIONS';
 export type MehenWinCondition = 'ALL_BALLS_AND_LION' | 'LION_ONLY' | 'BALLS_ONLY' | 'FIRST_PIECE_TO_CENTER';
 export type MehenEventType = 'MOVE' | 'CAPTURE' | 'BLOCKED' | 'SAFE_LAND' | 'FINISH' | 'EXTRA_TURN' | 'WIN';
+export type HoundsAndJackalsEventType = 'MOVE' | 'GOOD_JUMP' | 'BAD_JUMP' | 'BLOCKED' | 'FINISH' | 'WIN';
 
 export interface MehenConfig {
     boardSize: number; // default 60
@@ -50,6 +52,24 @@ export interface MehenConfig {
     winCondition: MehenWinCondition; // default ALL_BALLS_AND_LION
     requireExactCenterRoll: boolean; // default true
     opponentLionMode?: MehenOpponentLionMode;
+}
+
+export interface HoundsAndJackalsSpecialHole {
+    type: HoundsAndJackalsJumpType;
+    target: number;
+    label: string;
+    marker: string;
+}
+
+export interface HoundsAndJackalsConfig {
+    trackLength: number;
+    goalPosition: number;
+    piecesPerPlayer: number;
+    exactFinish: boolean;
+    reserveEntry: 'any_roll_to_first_hole';
+    throwMode: 'four_sticks_1_to_5';
+    extraTurnValues: number[];
+    specialHoles: Record<number, HoundsAndJackalsSpecialHole>;
 }
 
 export interface MehenMove {
@@ -77,7 +97,7 @@ export interface HistoryEvent {
     pieceId?: string;
     from?: number;
     to?: number;
-    eventType?: MehenEventType;
+    eventType?: MehenEventType | HoundsAndJackalsEventType;
 }
 
 export interface GameState {
@@ -86,13 +106,13 @@ export interface GameState {
     currentPlayer: PlayerID;
     currentThrow: ThrowResult | null;
     ruleset: Ruleset;
-    mehenConfig?: MehenConfig; // added for Mehen
+    houndsAndJackalsConfig?: HoundsAndJackalsConfig;
+    mehenConfig?: MehenConfig;
     winner: PlayerID | null;
     historyLog: HistoryEvent[];
 
-    // Additional Mehen State fields
     turnIndex?: number;
-    players?: PlayerID[]; // which players are effectively in this game
+    players?: PlayerID[];
     boardSize?: number;
     safeCells?: number[];
     lastRoll?: number | null;
