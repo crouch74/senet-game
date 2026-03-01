@@ -26,7 +26,7 @@ export function WaitingRoomPanel({
   const { t } = useTranslation()
   const playerAppearance =
     localPlayer && localPlayer !== 'spectator'
-      ? getPlayerAppearance(localPlayer)
+      ? getPlayerAppearance(localPlayer, gameType)
       : null
 
   return (

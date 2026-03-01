@@ -3,6 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { Board as SenetBoard } from './games/senet/components/Board'
 import { Board as MehenBoard } from './games/mehen/components/Board'
 import { Board as HoundsAndJackalsBoard } from './games/hounds-and-jackals/components/Board'
+import { Board as UrBoard } from './games/ur/components/Board'
+import { StatusPanel as UrStatusPanel } from './games/ur/components/StatusPanel'
+import { UrRulesDrawer } from './games/ur/components/RulesDrawer'
 import { HUD } from './components/HUD'
 import { ThrowSticks } from './games/senet/components/ThrowSticks'
 import { FinishedPiecesTray } from './components/FinishedPiecesTray'
@@ -55,7 +58,7 @@ function App() {
     showGuide,
     winner,
   } = useSenetStore(useShallowSelector(appStoreSelector))
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
   const [theme, setTheme] = useState<ThemeId>(getInitialTheme)
   const { copiedRoom, copyRoomId } = useRoomClipboard(roomId)
   const {
@@ -101,6 +104,14 @@ function App() {
   }, [i18n.language])
 
   useEffect(() => {
+    const appTitle = t('landing.title', { defaultValue: 'Courts of Antiquity' })
+
+    document.title = gameSelected
+      ? `${t(`games.${gameType}.title`)} · ${appTitle}`
+      : appTitle
+  }, [gameSelected, gameType, i18n.language, t])
+
+  useEffect(() => {
     applyTheme(theme)
   }, [theme])
 
@@ -136,6 +147,8 @@ function App() {
     setLandingPath()
   }
 
+  const isUrGame = gameType === 'ur'
+
   return (
     <div
       className={`min-h-screen bg-ebony text-sand flex flex-col font-sans selection:bg-gold/30 overflow-x-hidden ${i18n.language === 'ar-EG' ? 'lang-ar font-arabic' : ''}`}
@@ -143,11 +156,15 @@ function App() {
       <div className="fixed inset-0 pointer-events-none opacity-5 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-sand via-ebony to-ebony" />
       <div className="noise-overlay" />
 
-      <GuideModal
-        isOpen={showGuide}
-        onClose={() => setShowGuide(false)}
-        gameType={gameType}
-      />
+      {isUrGame ? (
+        <UrRulesDrawer />
+      ) : (
+        <GuideModal
+          isOpen={showGuide}
+          onClose={() => setShowGuide(false)}
+          gameType={gameType}
+        />
+      )}
       {winner && <GameOver onReturnToLobby={handleReturnToLobby} />}
 
       <svg aria-hidden="true" className="sr-only">
@@ -179,57 +196,86 @@ function App() {
         <div className="flex-1 flex flex-col xl:flex-row gap-4 md:gap-6 xl:gap-8 items-stretch justify-center min-h-0">
           {!showLobbyScreen ? (
             <>
-              <div className="flex-1 min-w-0 w-full flex flex-col items-center justify-center order-2 xl:order-1 min-h-0">
-                {isOnline && roomId && !isWaitingForOpponent && (
-                  <OnlineRoomBanner
-                    copiedRoom={copiedRoom}
-                    gameType={gameType}
-                    localPlayer={localPlayer}
-                    onCopyRoomId={copyRoomId}
-                    onLeaveRoom={handleLeaveRoom}
-                    roomId={roomId}
-                  />
-                )}
+              {(isOnline || isConnectingToRoom) && isWaitingForOpponent ? (
+                <WaitingRoomPanel
+                  copiedRoom={copiedRoom}
+                  gameType={gameType}
+                  localPlayer={localPlayer}
+                  onCopyRoomId={copyRoomId}
+                  onLeaveRoom={handleLeaveRoom}
+                  roomId={roomId}
+                />
+              ) : isUrGame ? (
+                <>
+                  <div className="w-full xl:w-[20rem] xl:min-w-[20rem] flex flex-col order-1 xl:order-1 shrink-0">
+                    <UrStatusPanel />
+                  </div>
 
-                {(isOnline || isConnectingToRoom) && isWaitingForOpponent ? (
-                  <WaitingRoomPanel
-                    copiedRoom={copiedRoom}
-                    gameType={gameType}
-                    localPlayer={localPlayer}
-                    onCopyRoomId={copyRoomId}
-                    onLeaveRoom={handleLeaveRoom}
-                    roomId={roomId}
-                  />
-                ) : (
-                  <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0">
-                    {gameType === 'mehen' ? (
-                      <MehenBoard />
-                    ) : gameType === 'hounds-and-jackals' ? (
-                      <HoundsAndJackalsBoard />
-                    ) : (
-                      <SenetBoard />
+                  <div className="flex-1 min-w-0 w-full flex flex-col items-center justify-center order-2 xl:order-2 min-h-0">
+                    {isOnline && roomId ? (
+                      <OnlineRoomBanner
+                        copiedRoom={copiedRoom}
+                        gameType={gameType}
+                        localPlayer={localPlayer}
+                        onCopyRoomId={copyRoomId}
+                        onLeaveRoom={handleLeaveRoom}
+                        roomId={roomId}
+                      />
+                    ) : null}
+
+                    <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0">
+                      <UrBoard />
+                    </div>
+                  </div>
+
+                  <div className="w-full max-w-full xl:w-96 xl:min-w-[20rem] xl:max-w-[24rem] flex flex-col xl:h-full min-h-0 gap-4 md:gap-6 order-3 xl:order-3 shrink-0">
+                    <ChroniclePanel gameType={gameType} historyLog={historyLog} />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex-1 min-w-0 w-full flex flex-col items-center justify-center order-2 xl:order-1 min-h-0">
+                    {isOnline && roomId && !isWaitingForOpponent && (
+                      <OnlineRoomBanner
+                        copiedRoom={copiedRoom}
+                        gameType={gameType}
+                        localPlayer={localPlayer}
+                        onCopyRoomId={copyRoomId}
+                        onLeaveRoom={handleLeaveRoom}
+                        roomId={roomId}
+                      />
                     )}
-                    <div className="w-full max-w-5xl mt-8 md:mt-12 mb-6 md:mb-8 bg-ui-panel-bg border border-royal-gold/20 rounded-lg p-4 sm:p-5 md:p-6 shadow-[inset_0_2px_15px_rgba(0,0,0,0.5)] flex flex-col lg:flex-row items-stretch gap-4 md:gap-6 lg:gap-8 backdrop-blur-sm">
-                      <div className="flex-1 w-full flex flex-col min-w-0 lg:border-e lg:border-royal-gold/10 lg:pe-8">
-                        <ThrowSticks />
-                      </div>
-                      <div className="w-full lg:w-auto shrink-0 lg:ps-4 flex flex-col h-full">
-                        <FinishedPiecesTray />
+
+                    <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0">
+                      {gameType === 'mehen' ? (
+                        <MehenBoard />
+                      ) : gameType === 'hounds-and-jackals' ? (
+                        <HoundsAndJackalsBoard />
+                      ) : (
+                        <SenetBoard />
+                      )}
+                      <div className="w-full max-w-5xl mt-8 md:mt-12 mb-6 md:mb-8 bg-ui-panel-bg border border-royal-gold/20 rounded-lg p-4 sm:p-5 md:p-6 shadow-[inset_0_2px_15px_rgba(0,0,0,0.5)] flex flex-col lg:flex-row items-stretch gap-4 md:gap-6 lg:gap-8 backdrop-blur-sm">
+                        <div className="flex-1 w-full flex flex-col min-w-0 lg:border-e lg:border-royal-gold/10 lg:pe-8">
+                          <ThrowSticks />
+                        </div>
+                        <div className="w-full lg:w-auto shrink-0 lg:ps-4 flex flex-col h-full">
+                          <FinishedPiecesTray />
+                        </div>
                       </div>
                     </div>
                   </div>
-                )}
-              </div>
 
-              <div className="w-full max-w-full xl:w-96 xl:min-w-[20rem] xl:max-w-[24rem] flex flex-col xl:h-full min-h-0 gap-4 md:gap-6 xl:gap-8 order-1 xl:order-2 shrink-0">
-                <ChroniclePanel gameType={gameType} historyLog={historyLog} />
-                <RulesetSummaryPanel
-                  gameType={gameType}
-                  houndsAndJackalsConfig={houndsAndJackalsConfig}
-                  mehenConfig={mehenConfig}
-                  ruleset={ruleset}
-                />
-              </div>
+                  <div className="w-full max-w-full xl:w-96 xl:min-w-[20rem] xl:max-w-[24rem] flex flex-col xl:h-full min-h-0 gap-4 md:gap-6 xl:gap-8 order-1 xl:order-2 shrink-0">
+                    <ChroniclePanel gameType={gameType} historyLog={historyLog} />
+                    <RulesetSummaryPanel
+                      gameType={gameType}
+                      houndsAndJackalsConfig={houndsAndJackalsConfig}
+                      mehenConfig={mehenConfig}
+                      ruleset={ruleset}
+                    />
+                  </div>
+                </>
+              )}
             </>
           ) : (
             <Lobby

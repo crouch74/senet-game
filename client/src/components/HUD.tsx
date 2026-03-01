@@ -35,6 +35,7 @@ export function HUD({
     playRandomTurns,
     resetGame,
     ruleset,
+    setGuideSection,
     setShowGuide,
     winner,
   } = useSenetStore(useShallowSelector(hudStoreSelector))
@@ -49,7 +50,11 @@ export function HUD({
     playRandomTurns(config.turnsCount, config.speed)
   }
 
-  const currentPlayerAppearance = getPlayerAppearance(currentPlayer)
+  const currentPlayerAppearance = getPlayerAppearance(currentPlayer, gameType)
+  const guideButtonLabel =
+    gameType === 'ur'
+      ? t('games.ur.status.rules_button')
+      : t('guide.button_label')
 
   return (
     <>
@@ -101,13 +106,18 @@ export function HUD({
 
         <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full lg:w-auto lg:justify-end">
           <button
-            onClick={() => setShowGuide(true)}
+            onClick={() => {
+              if (gameType === 'ur') {
+                setGuideSection('rules')
+              }
+              setShowGuide(true)
+            }}
             className="flex items-center gap-2 px-3 h-10 bg-royal-gold/10 hover:bg-royal-gold/20 text-royal-gold border border-royal-gold/30 rounded-sm transition-all cursor-pointer group whitespace-nowrap grow sm:grow-0"
-            title={t('legend.registry_title')}
+            title={guideButtonLabel}
           >
             <Scroll className="w-5 h-5 group-hover:scale-110 transition-transform" />
             <span className="font-serif text-xs uppercase tracking-widest font-bold hidden sm:block">
-              {t('guide.button_label')}
+              {guideButtonLabel}
             </span>
           </button>
 
@@ -141,7 +151,10 @@ export function HUD({
           {!isOnline && !isLobby && (
             <button
               onClick={resetGame}
-              className="px-3 sm:px-4 py-2 h-10 bg-ui-paper-surface hover:bg-ui-paper-surface-hover text-ui-paper-text border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-widest font-bold hover:shadow-[0_0_15px_var(--ui-piece-glow-anubis)] hover:scale-105 whitespace-nowrap cursor-pointer grow sm:grow-0"
+              className="px-3 sm:px-4 py-2 h-10 bg-ui-paper-surface hover:bg-ui-paper-surface-hover text-ui-paper-text border-[2px] border-royal-gold/60 rounded-sm transition-all font-serif shadow-sm text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-widest font-bold hover:scale-105 whitespace-nowrap cursor-pointer grow sm:grow-0"
+              style={{
+                boxShadow: `0 0 15px ${currentPlayerAppearance.glowVar}`,
+              }}
             >
               {t('hud.restart_game')}
             </button>

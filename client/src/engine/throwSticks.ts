@@ -14,3 +14,16 @@ export function getFourStickThrow(random: () => number = Math.random): ThrowResu
     value: lightCount === 0 ? 5 : lightCount,
   }
 }
+
+export function getFourBinaryDiceThrow(
+  random: () => number = Math.random,
+): ThrowResult {
+  const binaryDice = Array.from({ length: 4 }, () => random() > 0.5)
+  const lightCount = binaryDice.filter(Boolean).length
+
+  return {
+    binaryDice,
+    lightSidesUp: lightCount,
+    value: lightCount,
+  }
+}

@@ -129,4 +129,23 @@ describe('Lobby', () => {
     });
     expect(joinRoom).not.toHaveBeenCalled();
   });
+
+  it('shows the Ur onboarding cards and opens the quick tour drawer state', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true }));
+
+    await act(async () => {
+      await renderWithProviders(<Lobby onStartOfflineMode={vi.fn()} gameType="ur" />);
+      await Promise.resolve();
+    });
+
+    expect(screen.getByRole('heading', { name: 'A Royal Inlay Race' })).toBeInTheDocument();
+    expect(screen.getByText('Bear off all seven pieces before your rival.')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Learn in 60 Seconds' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Read Rules' })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Learn in 60 Seconds' }));
+
+    expect(useSenetStore.getState().showGuide).toBe(true);
+    expect(useSenetStore.getState().guideSection).toBe('quick_tour');
+  });
 });

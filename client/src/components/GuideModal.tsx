@@ -8,7 +8,7 @@ import type { GameType } from '../engine/types';
 interface GuideModalProps {
     isOpen: boolean;
     onClose: () => void;
-    gameType: GameType;
+    gameType: Exclude<GameType, 'ur'>;
 }
 
 export function GuideModal({ isOpen, onClose, gameType }: GuideModalProps) {

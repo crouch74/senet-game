@@ -21,7 +21,7 @@ export function Piece({ piece, pathX, pathY, x, y, width, height, zone = 'spiral
     const canMove = useSenetStore((state) =>
         state.legalMoves.some((move) => move.pieceId === piece.id),
     )
-    const appearance = getPlayerAppearance(piece.player)
+    const appearance = getPlayerAppearance(piece.player, 'mehen')
     const isLion = piece.type === 'lion'
 
     return (

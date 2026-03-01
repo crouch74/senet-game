@@ -3,13 +3,13 @@ import type { GameState, OfflineMode, PlayerID, GameType } from './types'
 import * as senetLogic from '../games/senet/engine/logic'
 import * as mehenLogic from '../games/mehen/engine/logic'
 import * as houndsAndJackalsLogic from '../games/hounds-and-jackals/engine/logic'
+import * as urLogic from '../games/ur/engine/logic'
 
 import {
   AUTO_PLAY_TIMINGS,
   executeAutoPlayTurn,
   playImmediateAutoTurns,
   sleep,
-  type AutoPlayDependencies,
   type AutoPlaySpeed,
 } from './autoPlay'
 import {
@@ -28,19 +28,21 @@ import {
 } from './storeHelpers'
 import { createLogger } from '../services/logger'
 
-interface SenetStoreDependencies extends Partial<AutoPlayDependencies> {
+interface SenetStoreDependencies {
   applyMove?: (state: GameState, pieceId: string) => GameState
   autoPassIfNoMoves?: (state: GameState) => GameState
   clearTimeoutFn?: typeof window.clearTimeout
   createConnectionManager?: typeof createMatchConnectionManager
   getLegalMoves?: (state: GameState) => { pieceId: string; targetSquare: number }[]
-  getThrowResult?: (gameType: GameType) => GameState['currentThrow']
+  getThrowResult?: (gameType: GameType) => NonNullable<GameState['currentThrow']>
   log?: Pick<Console, 'error' | 'log' | 'warn'>
+  random?: () => number
   setTimeoutFn?: typeof window.setTimeout
 }
 
 export interface SenetStore extends GameState {
   clearRoomJoinError: () => void
+  guideSection: 'guide' | 'quick_tour' | 'rules' | 'attribution'
   hoveredPieceId: string | null
   isAutoPlaying: boolean
   isAutoRolling: boolean
@@ -52,6 +54,7 @@ export interface SenetStore extends GameState {
   legalMoves: { pieceId: string; targetSquare: number }[]
   leaveRoom: () => void
   localPlayer: LocalRole | null
+  moveError: string | null
   movePiece: (pieceId: string) => void
   offlineHumanPlayer: PlayerID
   offlineMode: OfflineMode
@@ -60,7 +63,11 @@ export interface SenetStore extends GameState {
   resetGame: () => void
   roomId: string | null
   roomJoinError: RoomJoinError | null
+  setGuideSection: (
+    section: SenetStore['guideSection'],
+  ) => void
   setHoveredPieceId: (pieceId: string | null) => void
+  setMoveError: (error: string | null) => void
   setOfflineMode: (mode: OfflineMode) => void
   setShowGuide: (show: boolean) => void
   setGameType: (type: GameType) => void
@@ -72,6 +79,7 @@ export interface SenetStore extends GameState {
 const getGameLogic = (gameType: GameType) => {
   if (gameType === 'mehen') return mehenLogic
   if (gameType === 'hounds-and-jackals') return houndsAndJackalsLogic
+  if (gameType === 'ur') return urLogic
   return senetLogic
 }
 
@@ -118,6 +126,7 @@ export const createSenetStore = (
 
   return create<SenetStore>((set, get) => ({
     ...senetLogic.createInitialState(),
+    guideSection: 'guide',
     hoveredPieceId: null,
     isAutoPlaying: false,
     isAutoRolling: false,
@@ -127,6 +136,7 @@ export const createSenetStore = (
     lastMove: null,
     legalMoves: [],
     localPlayer: null,
+    moveError: null,
     offlineHumanPlayer: 'anubis',
     offlineMode: 'play_and_pass',
     roomId: null,
@@ -148,12 +158,13 @@ export const createSenetStore = (
         isOnline: false,
         isConnectingToRoom: true,
         isWaitingForOpponent: true,
+        moveError: null,
         roomId: normalizedRoomId,
         localPlayer: null,
         roomJoinError: null,
       })
 
-      const handlers = {
+      const handlers: Parameters<typeof connectionManager.connect>[2] = {
         onOpen: (joinedRoomId: string) => {
           logger.info(`Connected to room ${joinedRoomId}`)
         },
@@ -222,7 +233,7 @@ export const createSenetStore = (
       } else {
         ;(connectionManager.connect as unknown as (
           roomId: string,
-          handlers: typeof handlers,
+          handlers: Parameters<typeof connectionManager.connect>[2],
         ) => void)(normalizedRoomId, handlers)
       }
     },
@@ -236,6 +247,7 @@ export const createSenetStore = (
         isOnline: false,
         isConnectingToRoom: false,
         isWaitingForOpponent: false,
+        moveError: null,
         roomId: null,
         localPlayer: null,
         roomJoinError: null,
@@ -256,6 +268,7 @@ export const createSenetStore = (
         ...partialState,
         legalMoves: [],
         lastMove: buildLastMove(state, nextState, pieceId),
+        moveError: null,
       })
       get().syncState(partialState)
 
@@ -276,7 +289,7 @@ export const createSenetStore = (
       const nextState = autoPassIfNoMoves(extractGameState(state))
       const partialState = buildSyncedGameState(nextState)
 
-      set({ ...partialState, legalMoves: [] })
+      set({ ...partialState, legalMoves: [], moveError: null })
       get().syncState(partialState)
     },
 
@@ -294,7 +307,7 @@ export const createSenetStore = (
       const timings = AUTO_PLAY_TIMINGS[speed]
       const runId = ++autoplayRunId
 
-      set({ isAutoPlaying: true, isAutoRolling: false })
+      set({ isAutoPlaying: true, isAutoRolling: false, moveError: null })
       logger.info(`Playing ${turnsCount} random turns at "${speed}" speed`)
 
       const isCancelled = () => runId !== autoplayRunId
@@ -314,6 +327,7 @@ export const createSenetStore = (
             movedPieceId === null
               ? null
               : buildLastMove(previousState, state, movedPieceId),
+          moveError: null,
         })
         get().syncState(partialState)
       }
@@ -401,10 +415,20 @@ export const createSenetStore = (
         state.gameType === 'senet'
           ? senetLogic.createInitialState(state.ruleset)
           : getGameLogic(state.gameType).createInitialState()
-      set({ ...nextState, legalMoves: [] })
+      set({
+        ...nextState,
+        hoveredPieceId: null,
+        legalMoves: [],
+        moveError: null,
+        showGuide: false,
+      })
     },
 
     setHoveredPieceId: (pieceId) => set({ hoveredPieceId: pieceId }),
+
+    setGuideSection: (section) => set({ guideSection: section }),
+
+    setMoveError: (error) => set({ moveError: error }),
 
     setOfflineMode: (mode) => set({ offlineMode: mode }),
 
@@ -418,7 +442,11 @@ export const createSenetStore = (
       set({
         ...logic.createInitialState(),
         gameType: type,
-        legalMoves: []
+        guideSection: type === 'ur' ? 'rules' : 'guide',
+        hoveredPieceId: null,
+        legalMoves: [],
+        moveError: null,
+        showGuide: false,
       })
     },
 
@@ -444,7 +472,7 @@ export const createSenetStore = (
 
       const throwResult = getThrowResult(state.gameType)
       const partialState: Partial<GameState> = { currentThrow: throwResult }
-      set(partialState)
+      set({ ...partialState, hoveredPieceId: null, moveError: null })
       get().syncState(partialState)
 
       const stateAfterThrow = get()

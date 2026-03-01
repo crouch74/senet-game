@@ -51,6 +51,6 @@ describe('ThrowSticks', () => {
     useSenetStore.setState({ winner: 'anubis' });
 
     await renderWithProviders(<ThrowSticks />);
-    expect(screen.getByText('The Journey is Complete')).toBeInTheDocument();
+    expect(screen.getByText('Match Complete')).toBeInTheDocument();
   });
 });

@@ -128,11 +128,11 @@
         "turn": "TOUR DE {{player}}",
         "moves": "DÉPLACEMENTS : {{value}}",
         "perfect_throw": "Jet Parfait",
-        "game_over": "Le voyage est terminé",
+        "game_over": "Match Complete",
         "click_to_throw": "Cliquez sur les bâtonnets pour lancer",
-        "ascension": "Ascension de l'Esprit",
-        "victory_message": "Le Bâ et le Kâ se sont unis dans les champs d'Ialou.",
-        "defeat_message": "Le voyage à travers la Douat reste inachevé.",
+        "ascension": "Victory",
+        "victory_message": "You prevailed on the board.",
+        "defeat_message": "Your rival prevailed this round.",
         "return_to_lobby": "Retour au Salon",
         "play_again": "Recommencer le voyage",
         "waiting_for_opponent": "En attente de votre adversaire...",
@@ -172,12 +172,14 @@
         "names": {
             "common": "Voie Sacrée",
             "mehen-standard": "Tradition de l'Anneau Gardé",
-            "hounds-and-jackals-standard": "Papyrus des cinquante-huit trous"
+            "hounds-and-jackals-standard": "Papyrus des cinquante-huit trous",
+            "ur-finkel": "Finkel Reconstruction"
         },
         "descriptions": {
             "common": "Le chemin traditionnel de l'âme à travers la Douat, impliquant des paires protégées et des blocages stratégiques.",
             "mehen-standard": "Cette tradition de maison de Mehen fait entrer lions et billes depuis la réserve. Les anneaux sûrs offrent un refuge, les lions gardent la route, et la victoire n'arrive que lorsque chaque pièce atteint le cœur du serpent.",
-            "hounds-and-jackals-standard": "Cette reconstruction domestique emploie cinq pions par camp, quatre bâtonnets, une arrivée exacte et des trous marqués qui font avancer ou reculer vers le but shen."
+            "hounds-and-jackals-standard": "Cette reconstruction domestique emploie cinq pions par camp, quatre bâtonnets, une arrivée exacte et des trous marqués qui font avancer ou reculer vers le but shen.",
+            "ur-finkel": "Cette table du Jeu royal d'Ur suit une reconstruction de style Finkel avec sept pions par joueur, quatre dés binaires, des rosaces sûres, des captures sur la voie commune et une sortie exacte."
         }
     },
     "history": {
@@ -203,7 +205,15 @@
         "hounds_bad_jump": "↘️ {{piece}} glisse de {{from}} vers {{to}}.",
         "hounds_finish": "✨ {{piece}} atteint le but shen.",
         "hounds_blocked": "🚫 {{player}} n'a aucun pion légal à jouer et cède le tour.",
-        "hounds_win": "🏆 {{player}} guide ses cinq pions jusqu'au but shen et l'emporte !"
+        "hounds_win": "🏆 {{player}} guide ses cinq pions jusqu'au but shen et l'emporte !",
+        "ur_started": "🎲 [UR] La course royale commence sur le plateau incrusté.",
+        "ur_enter": "➕ {{piece}} entre en jeu sur {{to}}.",
+        "ur_move": "🏃 {{piece}} avance de {{from}} à {{to}}.",
+        "ur_capture": "⚔️ {{piece}} capture un rival sur {{to}}.",
+        "ur_rosette": "✸ {{piece}} se pose sur une rosace et gagne un autre lancer.",
+        "ur_bear_off": "✨ {{piece}} quitte le plateau.",
+        "ur_blocked": "🚫 {{player}} n'a aucun pion légal à jouer et cède le tour.",
+        "ur_win": "🏆 {{player}} fait sortir ses sept pions et l'emporte !"
     },
     "lobby": {
         "create_room": "Créer une nouvelle salle",
@@ -235,8 +245,8 @@
             "fact_3": "Aucun livre de règles antique complet n'a survécu, si bien que le Senet moderne relève à la fois de l'érudition, de la restauration et d'une imagination respectueuse."
         },
         "online_unavailable": "Le mode en ligne n'est pas disponible tant que le backend est hors ligne.",
-        "waiting_title": "En attente de la Seconde Âme",
-        "waiting_subtitle": "Partagez le code de la salle avec votre adversaire pour commencer le voyage.",
+        "waiting_title": "Waiting for the Second Player",
+        "waiting_subtitle": "Share the room code to begin the match.",
         "waiting_you_are": "Vous jouez en tant que",
         "waiting_opponent_joined": "Votre adversaire est de retour.",
         "opponent_disconnected": "Adversaire déconnecté",
@@ -253,9 +263,9 @@
         "registry_title": "Légende et instructions"
     },
     "landing": {
-        "title": "La Vallée des Rois",
-        "subtitle": "Jeux de l’Égypte Antique",
-        "select_your_path": "Choisissez votre voyage"
+        "title": "Courts of Antiquity",
+        "subtitle": "Ancient Board Games",
+        "select_your_path": "Choose a board"
     },
     "games": {
         "senet": {
@@ -514,6 +524,166 @@
                     "fact_2": "Les pions étaient souvent sculptés de têtes animales, ce qui explique la désignation habituelle des deux camps comme chiens et chacals.",
                     "fact_3": "Cette version s'annonce comme une reconstruction de maison : arrivée exacte, trous favorables ou défavorables liés, et aucun jeu de capture."
                 }
+            }
+        },
+        "ur": {
+            "title": "Le Jeu royal d'Ur",
+            "description": "Sept pions traversent des cours privées et la route du roi, où les rosaces offrent la sécurité et un lancer supplémentaire.",
+            "players": {
+                "anubis": "Coquille",
+                "sphinx": "Pierre",
+                "shell": "Coquille",
+                "stone": "Pierre"
+            },
+            "board": {
+                "token": "Pion",
+                "reserve_label": "Réserve",
+                "aria_label": "Plateau du Jeu royal d'Ur",
+                "lanes": {
+                    "top_private": "cour de Pierre",
+                    "shared": "route du roi",
+                    "bottom_private": "cour de Coquille"
+                },
+                "tooltip": {
+                    "exit": {
+                        "title": "Cour de sortie",
+                        "body": "La dernière case privée avant la sortie. Un jet exact en fait sortir un pion."
+                    },
+                    "private": {
+                        "title": "Cour privée",
+                        "body": "Un seul de vos pions peut occuper une case de cour privée à la fois."
+                    },
+                    "rosette": {
+                        "title": "Rosace",
+                        "body": "Les rosaces sont des cases sûres. Y atterrir accorde un lancer supplémentaire."
+                    },
+                    "shared": {
+                        "title": "Route du roi",
+                        "body": "Les deux joueurs empruntent cette voie commune. Une arrivée hors rosace peut capturer un pion adverse."
+                    }
+                }
+            },
+            "illegal": {
+                "no_throw": "Roll the four binary dice before moving.",
+                "game_over": "The match is already complete.",
+                "not_your_piece": "That token does not belong to the current player.",
+                "piece_already_borne_off": "That token has already been borne off.",
+                "target_occupied_by_own_piece": "Another one of your tokens already occupies that square.",
+                "rosette_occupied": "Rosettes are safe. You cannot land on an occupied rosette.",
+                "requires_exact_bear_off": "An exact roll is required to bear this token off.",
+                "no_piece_can_enter": "No reserve token can enter on that throw.",
+                "no_legal_move_for_roll": "No legal move is available for this throw."
+            },
+            "lobby": {
+                "legend_kicker": "Mésopotamie",
+                "legend_title": "Une course à incrustation royale",
+                "legend_body": "Une course mésopotamienne de sept pions sur un plateau d'incrustation royale, où le tempo bascule sur la voie commune.",
+                "how_to_win_label": "But",
+                "how_to_win": "Faites sortir vos sept pièces avant votre rival.",
+                "rosettes_label": "Rosaces",
+                "rosettes": "Les rosaces sont sûres et accordent un lancer supplémentaire.",
+                "time_label": "Durée",
+                "time_value": "10-15 min",
+                "learn_button": "Comprendre en 60 secondes",
+                "rules_button": "Lire les règles",
+                "history_kicker": "Contexte historique",
+                "history_title": "Plateau des rois et des marchands",
+                "history_body": "Les plateaux conservés d'Ur associent bois sombre, coquille, lapis-lazuli et cornaline. Les règles modernes suivies ici reposent sur la reconstruction de style Finkel à partir des tablettes cunéiformes.",
+                "attribution_kicker": "Attribution",
+                "attribution_title": "Références et reconstruction",
+                "attribution_body": "Le style du plateau s'inspire des véritables plateaux incrustés conservés, tandis que les règles jouables suivent l'interprétation moderne de style Finkel. Ouvrez le panneau d'attribution pour les références muséales.",
+                "attribution_button": "Voir l'attribution",
+                "fun_facts": {
+                    "kicker": "Faits marquants",
+                    "title": "Repères",
+                    "fact_1": "La voie centrale partagée transforme la course en duel de tempo, car une rosace peut enchaîner directement sur un autre lancer.",
+                    "fact_2": "La plupart des parties modernes suivent la reconstruction d'Irving Finkel, qui a popularisé l'interprétation de la sortie exacte utilisée ici.",
+                    "fact_3": "Les plateaux du Jeu royal d'Ur mettaient souvent l'accent sur les incrustations de coquille, de lapis et de cornaline plutôt que sur la simple peinture."
+                }
+            },
+            "rules": {
+                "drawer_kicker": "Incrustation royale",
+                "drawer_title": "Le Jeu royal d'Ur",
+                "tab_quick_tour": "Comprendre en 60 secondes",
+                "tab_rules": "Règles",
+                "tab_attribution": "Attribution",
+                "summary_title": "Règles de référence",
+                "summary_body": "Cette table utilise un seul ensemble de règles par défaut : une reconstruction moderne de style Finkel avec sept pions par joueur, quatre dés binaires, des rosaces sûres, des captures sur la voie commune et une sortie exacte.",
+                "items": {
+                    "equipment": {
+                        "title": "Matériel",
+                        "body": "Deux joueurs disposent chacun de sept pions et lancent quatre dés tétraédriques binaires donnant un résultat de 0 à 4."
+                    },
+                    "turn": {
+                        "title": "Déroulement d'un tour",
+                        "body": "Lancez d'abord, puis choisissez un pion légal à faire entrer ou avancer exactement du nombre de cases obtenu. Un lancer de 0 termine automatiquement le tour."
+                    },
+                    "capture": {
+                        "title": "Capture",
+                        "body": "Arriver sur un pion adverse sur la voie commune le capture et le renvoie à la réserve, sauf si la case d'arrivée est une rosace."
+                    },
+                    "rosettes": {
+                        "title": "Rosaces",
+                        "body": "Les rosaces sont des cases sûres. Elles ne peuvent pas être capturées, et tout pion qui s'y pose gagne immédiatement un lancer supplémentaire."
+                    },
+                    "bearing_off": {
+                        "title": "Sortie du plateau",
+                        "body": "Les pions ne quittent le plateau qu'avec un lancer exact. Dépasser la sortie est interdit."
+                    },
+                    "winning": {
+                        "title": "Victoire",
+                        "body": "Faites sortir vos sept pions avant votre rival pour remporter la partie."
+                    }
+                }
+            },
+            "quick_tour": {
+                "title": "Visite rapide",
+                "intro": "Cette reconstruction reste simple : apprenez les voies, surveillez les rosaces et utilisez la route commune pour prendre l'avantage du tempo.",
+                "steps": {
+                    "1": {
+                        "title": "Cours privées et route commune",
+                        "body": "Chaque camp entre par sa propre voie privée, puis les deux joueurs se rejoignent sur la route du roi au centre du plateau."
+                    },
+                    "2": {
+                        "title": "Quatre dés binaires",
+                        "body": "Chaque lancer vaut de 0 à 4. Le résultat correspond au nombre d'angles marqués visibles."
+                    },
+                    "3": {
+                        "title": "Les rosaces comptent",
+                        "body": "Les rosaces sont sûres et accordent un lancer supplémentaire : elles servent donc à la fois d'abri et de moteur de tempo."
+                    },
+                    "4": {
+                        "title": "Capture sur la voie commune",
+                        "body": "Si vous arrivez sur un pion adverse sur une case commune qui n'est pas une rosace, ce pion retourne à la réserve."
+                    },
+                    "5": {
+                        "title": "Sortie exacte",
+                        "body": "La course ne se termine que lorsque chaque pion quitte le plateau avec un lancer exact."
+                    }
+                }
+            },
+            "attribution": {
+                "title": "Attribution",
+                "intro": "Les matériaux du plateau, l'importance donnée aux rosaces et la palette d'incrustation s'inspirent des plateaux du jeu royal conservés en provenance de Mésopotamie.",
+                "original_artwork": "Le graphisme de l'application est original. Il s'inspire d'objets de musée et de photographies historiques, sans reproduire de photographies de musée.",
+                "sources_title": "Références historiques"
+            },
+            "status": {
+                "kicker": "État de la partie",
+                "your_turn": "Votre tour",
+                "total": "Total du lancer",
+                "throw_button": "Lancer les dés pyramidaux",
+                "roll_prompt": "Lancez les dés pyramidaux pour commencer votre tour.",
+                "wait_prompt": "En attente du lancer de l'adversaire.",
+                "zero_prompt": "Un lancer de 0 ne donne aucun coup légal. Le tour passe.",
+                "active_target_bear_off": "Le pion sélectionné sortira du plateau avec ce coup.",
+                "active_target": "Le pion sélectionné arrivera sur la case {{square}}.",
+                "choose_token": "Choisissez un pion ou une destination surlignée.",
+                "match_complete": "La partie est terminée.",
+                "reserve": "Réserve",
+                "borne_off": "Sortis",
+                "extra_turn_badge": "Lancer bonus",
+                "rules_button": "Règles et visite"
             }
         }
     },

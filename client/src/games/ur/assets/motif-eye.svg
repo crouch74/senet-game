@@ -1,0 +1,32 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shellBase" x1="16" y1="8" x2="84" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F2E6CF"/>
+      <stop offset="0.56" stop-color="#DDC7A6"/>
+      <stop offset="1" stop-color="#B99772"/>
+    </linearGradient>
+    <linearGradient id="shellChip" x1="18" y1="0" x2="82" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBF3E1"/>
+      <stop offset="1" stop-color="#B99772"/>
+    </linearGradient>
+    <linearGradient id="lapisFill" x1="12" y1="10" x2="82" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4A85A3"/>
+      <stop offset="1" stop-color="#1D4557"/>
+    </linearGradient>
+    <linearGradient id="carnelianFill" x1="18" y1="10" x2="84" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D57A52"/>
+      <stop offset="1" stop-color="#7C311D"/>
+    </linearGradient>
+  </defs>
+  <rect x="6.5" y="6.5" width="87" height="87" rx="2.6" fill="url(#shellBase)" stroke="#3F2B20" stroke-width="1.8"/>
+  <rect x="10.5" y="10.5" width="79" height="79" rx="1.8" stroke="#624734" stroke-opacity="0.46"/>
+  <path d="M17 50C28 31 72 31.5 84 50C71.5 68.4 28.4 68.7 17 50Z" fill="#3F2B20" opacity="0.18" transform="translate(1.2 1.4)"/>
+  <path d="M16.8 50C28.2 30.5 71.8 31 83.5 50C71.4 69.3 28.5 69.6 16.8 50Z" fill="url(#shellChip)" stroke="#3F2B20" stroke-width="1.4"/>
+  <path d="M27 50C34.8 39.2 64.8 39.4 73 50C64.8 60.7 35 60.8 27 50Z" fill="#FFF6E8" fill-opacity="0.42" stroke="#624734" stroke-opacity="0.34" stroke-width="0.8"/>
+  <circle cx="50" cy="50" r="10.8" fill="url(#lapisFill)" stroke="#3F2B20" stroke-width="1.2"/>
+  <circle cx="50" cy="50" r="4.6" fill="#F2E6CF" stroke="#624734" stroke-width="0.8" fill-opacity="0.76"/>
+  <path d="M50 60L56 69L50 74L44 69Z" fill="url(#carnelianFill)" stroke="#3F2B20" stroke-width="0.9"/>
+  <circle cx="36.5" cy="46.5" r="1.7" fill="#FFF7EA" fill-opacity="0.42"/>
+  <path d="M20 72L31 62" stroke="#3F2B20" stroke-opacity="0.08" stroke-width="0.9" stroke-linecap="round"/>
+  <path d="M58 25L68 17" stroke="#3F2B20" stroke-opacity="0.08" stroke-width="0.8" stroke-linecap="round"/>
+</svg>

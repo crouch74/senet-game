@@ -14,18 +14,49 @@ interface GameCardProps {
     disabled?: boolean
 }
 
+const GAME_CARD_ACCENTS: Record<GameType, { border: string; hoverBorder: string; glow: string; glyph: string; title: string }> = {
+    senet: {
+        border: 'border-royal-gold/30',
+        hoverBorder: 'hover:border-royal-gold',
+        glow: 'bg-[radial-gradient(circle,var(--royal-gold)_0%,transparent_70%)]',
+        glyph: '𓋀',
+        title: 'text-royal-gold',
+    },
+    mehen: {
+        border: 'border-royal-blue/30',
+        hoverBorder: 'hover:border-royal-blue',
+        glow: 'bg-[radial-gradient(circle,var(--royal-blue)_0%,transparent_70%)]',
+        glyph: '𓅓',
+        title: 'text-royal-gold',
+    },
+    'hounds-and-jackals': {
+        border: 'border-emerald-500/30',
+        hoverBorder: 'hover:border-emerald-400',
+        glow: 'bg-[radial-gradient(circle,rgba(67,160,71,0.9)_0%,transparent_70%)]',
+        glyph: '𓃢',
+        title: 'text-royal-gold',
+    },
+    ur: {
+        border: 'border-[#2b6d8e]/40',
+        hoverBorder: 'hover:border-[#d59a49]',
+        glow: 'bg-[radial-gradient(circle,rgba(40,95,128,0.92)_0%,rgba(201,72,34,0.18)_42%,transparent_72%)]',
+        glyph: '✹',
+        title: 'text-[#e2c690]',
+    },
+}
+
 function GameCard({ id, title, description, onClick, disabled }: GameCardProps) {
+    const accent = GAME_CARD_ACCENTS[id]
+
     return (
         <motion.div
             whileHover={!disabled ? { scale: 1.05, y: -5 } : {}}
             whileTap={!disabled ? { scale: 0.98 } : {}}
             className={cn(
                 "relative group cursor-pointer overflow-hidden rounded-xl border-2 transition-all duration-300",
-                id === 'senet'
-                    ? "border-royal-gold/30 bg-ui-panel-bg hover:border-royal-gold"
-                    : id === 'mehen'
-                        ? "border-royal-blue/30 bg-ui-panel-bg hover:border-royal-blue"
-                        : "border-emerald-500/30 bg-ui-panel-bg hover:border-emerald-400",
+                accent.border,
+                accent.hoverBorder,
+                "bg-ui-panel-bg",
                 disabled && "opacity-50 cursor-not-allowed grayscale"
             )}
             onClick={!disabled ? onClick : undefined}
@@ -34,21 +65,20 @@ function GameCard({ id, title, description, onClick, disabled }: GameCardProps) 
                 {/* Decorative Background */}
                 <div className={cn(
                     "absolute inset-0 opacity-30 group-hover:opacity-50 transition-opacity",
-                    id === 'senet'
-                        ? "bg-[radial-gradient(circle,var(--royal-gold)_0%,transparent_70%)]"
-                        : id === 'mehen'
-                            ? "bg-[radial-gradient(circle,var(--royal-blue)_0%,transparent_70%)]"
-                            : "bg-[radial-gradient(circle,rgba(67,160,71,0.9)_0%,transparent_70%)]"
+                    accent.glow
                 )} />
                 <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-6xl group-hover:scale-110 transition-transform duration-500">
-                        {id === 'senet' ? '𓋀' : id === 'mehen' ? '𓅓' : '𓃢'}
+                    <span className={cn(
+                        "text-6xl group-hover:scale-110 transition-transform duration-500",
+                        id === 'ur' && 'text-[#f0d7a6] drop-shadow-[0_0_18px_rgba(213,154,73,0.28)]'
+                    )}>
+                        {accent.glyph}
                     </span>
                 </div>
             </div>
 
             <div className="p-6">
-                <h3 className="text-2xl font-serif text-royal-gold tracking-widest uppercase mb-2">
+                <h3 className={cn("text-2xl font-serif tracking-widest uppercase mb-2", accent.title)}>
                     {title}
                 </h3>
                 <p className="text-royal-ivory/70 text-sm leading-relaxed font-serif italic">
@@ -62,7 +92,9 @@ function GameCard({ id, title, description, onClick, disabled }: GameCardProps) 
                     ? "bg-royal-gold"
                     : id === 'mehen'
                         ? "bg-royal-blue"
-                        : "bg-emerald-400"
+                        : id === 'hounds-and-jackals'
+                            ? "bg-emerald-400"
+                            : "bg-[#d59a49]"
             )} />
         </motion.div>
     )
@@ -123,14 +155,14 @@ export function LandingPage({
                 className="text-center mb-16 z-10"
             >
                 <h1 className="text-5xl sm:text-7xl font-serif text-royal-gold tracking-[0.3em] uppercase mb-4 drop-shadow-2xl">
-                    {t('landing.title', { defaultValue: 'Valley of Kings' })}
+                    {t('landing.title', { defaultValue: 'Courts of Antiquity' })}
                 </h1>
                 <p className="text-royal-ivory/60 tracking-[0.5em] uppercase text-sm sm:text-lg">
-                    {t('landing.subtitle', { defaultValue: 'Ancient Egyptian Games' })}
+                    {t('landing.subtitle', { defaultValue: 'Ancient Board Games' })}
                 </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 max-w-6xl w-full z-10 px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 max-w-7xl w-full z-10 px-4">
                 <GameCard
                     id="senet"
                     title={t('games.senet.title', { defaultValue: 'Senet' })}
@@ -149,10 +181,16 @@ export function LandingPage({
                     description={t('games.hounds-and-jackals.description', { defaultValue: 'The Game of Fifty-Eight Holes. Five pegs per side race through marked jumps and setbacks toward the shen goal.' })}
                     onClick={() => onSelectGame('hounds-and-jackals')}
                 />
+                <GameCard
+                    id="ur"
+                    title={t('games.ur.title', { defaultValue: 'The Royal Game of Ur' })}
+                    description={t('games.ur.description', { defaultValue: 'Seven counters race across private courts and the king’s road, where rosettes grant safety and an extra throw.' })}
+                    onClick={() => onSelectGame('ur')}
+                />
             </div>
 
             <div className="mt-16 text-royal-gold/40 font-mono text-xs tracking-widest uppercase">
-                {t('landing.select_your_path', { defaultValue: 'Choose your journey' })}
+                {t('landing.select_your_path', { defaultValue: 'Choose a board' })}
             </div>
         </div>
     )

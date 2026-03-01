@@ -128,11 +128,11 @@
         "turn": "{{player}}'S TURN",
         "moves": "MOVES: {{value}}",
         "perfect_throw": "Perfect Throw",
-        "game_over": "The Journey is Complete",
+        "game_over": "Match Complete",
         "click_to_throw": "Click sticks to throw",
-        "ascension": "Spirit Ascension",
-        "victory_message": "The Ba and Ka have united in the Field of Reeds.",
-        "defeat_message": "The journey through the Duat remains unfinished.",
+        "ascension": "Victory",
+        "victory_message": "You prevailed on the board.",
+        "defeat_message": "Your rival prevailed this round.",
         "return_to_lobby": "Return to Lobby",
         "play_again": "Replay the Journey",
         "waiting_for_opponent": "Awaiting your opponent's move...",
@@ -172,12 +172,14 @@
         "names": {
             "common": "Sacred Path",
             "mehen-standard": "Tradition of the Guarding Coil",
-            "hounds-and-jackals-standard": "Papyrus of the Fifty-Eight Holes"
+            "hounds-and-jackals-standard": "Papyrus of the Fifty-Eight Holes",
+            "ur-finkel": "Finkel Reconstruction"
         },
         "descriptions": {
             "common": "The traditional path of the soul through the Duat, involving protected pairs and strategic blockades.",
             "mehen-standard": "This house tradition of Mehen sends lions and balls inward from the reserve box. Safe coils grant sanctuary, lions guard the route, and victory comes only when every piece reaches the heart of the serpent.",
-            "hounds-and-jackals-standard": "This house reconstruction uses five pegs per side, four throw sticks, exact finishing, and marked shortcut and setback holes on the road to the shen goal."
+            "hounds-and-jackals-standard": "This house reconstruction uses five pegs per side, four throw sticks, exact finishing, and marked shortcut and setback holes on the road to the shen goal.",
+            "ur-finkel": "This Royal Game of Ur table follows a Finkel-style reconstruction with seven tokens per player, four binary dice, safe rosettes, shared-road captures, and exact bear-off."
         }
     },
     "history": {
@@ -203,7 +205,15 @@
         "hounds_bad_jump": "↘️ {{piece}} slips from {{from}} back to {{to}}.",
         "hounds_finish": "✨ {{piece}} reaches the shen goal.",
         "hounds_blocked": "🚫 {{player}} has no legal peg to move and yields the turn.",
-        "hounds_win": "🏆 {{player}} guides all five pegs to the shen goal and wins!"
+        "hounds_win": "🏆 {{player}} guides all five pegs to the shen goal and wins!",
+        "ur_started": "🎲 [UR] The royal race begins across the inlaid board.",
+        "ur_enter": "➕ {{piece}} enters the board on {{to}}.",
+        "ur_move": "🏃 {{piece}} advances from {{from}} to {{to}}.",
+        "ur_capture": "⚔️ {{piece}} captures a rival on {{to}}.",
+        "ur_rosette": "✸ {{piece}} lands on a rosette and earns another throw.",
+        "ur_bear_off": "✨ {{piece}} is borne off the board.",
+        "ur_blocked": "🚫 {{player}} has no legal token to move and yields the turn.",
+        "ur_win": "🏆 {{player}} bears off all seven tokens and wins!"
     },
     "lobby": {
         "create_room": "Create New Room",
@@ -222,8 +232,8 @@
         "copied": "Copied!",
         "copy_room": "Copy room code",
         "online_unavailable": "Online mode is unavailable while the backend is offline.",
-        "waiting_title": "Awaiting the Second Soul",
-        "waiting_subtitle": "Share the room code with your opponent to begin the journey.",
+        "waiting_title": "Waiting for the Second Player",
+        "waiting_subtitle": "Share the room code to begin the match.",
         "waiting_you_are": "You are playing as",
         "waiting_opponent_joined": "Your opponent has returned.",
         "opponent_disconnected": "Opponent disconnected",
@@ -240,9 +250,9 @@
         "registry_title": "Legend & Instructions"
     },
     "landing": {
-        "title": "Valley of Kings",
-        "subtitle": "Ancient Egyptian Games",
-        "select_your_path": "Choose your journey"
+        "title": "Courts of Antiquity",
+        "subtitle": "Ancient Board Games",
+        "select_your_path": "Choose a board"
     },
     "games": {
         "senet": {
@@ -501,6 +511,166 @@
                     "fact_2": "The pegs themselves were often topped with animal heads, which is why the two sides are commonly described as hounds and jackals.",
                     "fact_3": "This version declares itself a house reconstruction: exact finishing, linked good and bad holes, and no capture play."
                 }
+            }
+        },
+        "ur": {
+            "title": "The Royal Game of Ur",
+            "description": "Seven counters race across private courts and the king's road, where rosettes grant safety and an extra throw.",
+            "players": {
+                "anubis": "Shell",
+                "sphinx": "Stone",
+                "shell": "Shell",
+                "stone": "Stone"
+            },
+            "board": {
+                "token": "Token",
+                "reserve_label": "Reserve",
+                "aria_label": "The Royal Game of Ur board",
+                "lanes": {
+                    "top_private": "Stone court",
+                    "shared": "King's road",
+                    "bottom_private": "Shell court"
+                },
+                "tooltip": {
+                    "exit": {
+                        "title": "Exit Court",
+                        "body": "The last private square before an exact roll bears a token off the board."
+                    },
+                    "private": {
+                        "title": "Private Court",
+                        "body": "Only one of your own tokens may occupy a private court square at a time."
+                    },
+                    "rosette": {
+                        "title": "Rosette",
+                        "body": "Rosettes are safe squares. Landing here grants an extra throw."
+                    },
+                    "shared": {
+                        "title": "King's Road",
+                        "body": "Both players travel this shared road. Non-rosette landings may capture an opposing token."
+                    }
+                }
+            },
+            "illegal": {
+                "no_throw": "Roll the four binary dice before moving.",
+                "game_over": "The match is already complete.",
+                "not_your_piece": "That token does not belong to the current player.",
+                "piece_already_borne_off": "That token has already been borne off.",
+                "target_occupied_by_own_piece": "Another one of your tokens already occupies that square.",
+                "rosette_occupied": "Rosettes are safe. You cannot land on an occupied rosette.",
+                "requires_exact_bear_off": "An exact roll is required to bear this token off.",
+                "no_piece_can_enter": "No reserve token can enter on that throw.",
+                "no_legal_move_for_roll": "No legal move is available for this throw."
+            },
+            "lobby": {
+                "legend_kicker": "Mesopotamia",
+                "legend_title": "A Royal Inlay Race",
+                "legend_body": "A Mesopotamian race of seven counters across a royal inlay board, where tempo swings on the shared road.",
+                "how_to_win_label": "How to Win",
+                "how_to_win": "Bear off all seven pieces before your rival.",
+                "rosettes_label": "Rosettes",
+                "rosettes": "Rosettes are safe and grant an extra throw.",
+                "time_label": "Time to Play",
+                "time_value": "10-15 min",
+                "learn_button": "Learn in 60 Seconds",
+                "rules_button": "Read Rules",
+                "history_kicker": "Historical Context",
+                "history_title": "Board of Kings and Merchants",
+                "history_body": "Surviving boards from Ur pair dark wood with shell, lapis, and carnelian inlay. The modern rules here follow the Finkel-style reconstruction built from cuneiform evidence.",
+                "attribution_kicker": "Attribution",
+                "attribution_title": "References and Reconstruction",
+                "attribution_body": "The board style draws from surviving royal inlay boards, while the playable rules follow the modern Finkel-style interpretation. Open the attribution panel for museum references.",
+                "attribution_button": "View Attribution",
+                "fun_facts": {
+                    "kicker": "Fun Facts",
+                    "title": "Fun Facts",
+                    "fact_1": "The shared middle lane turns the race into a tempo contest, because a rosette can chain directly into another throw.",
+                    "fact_2": "Most modern play uses Irving Finkel's reconstruction, which popularized the exact bear-off interpretation used here.",
+                    "fact_3": "Royal Game of Ur boards often emphasized shell, lapis, and carnelian inlay rather than painted decoration."
+                }
+            },
+            "rules": {
+                "drawer_kicker": "Royal Inlay",
+                "drawer_title": "The Royal Game of Ur",
+                "tab_quick_tour": "Learn in 60 Seconds",
+                "tab_rules": "Rules",
+                "tab_attribution": "Attribution",
+                "summary_title": "Canonical Ruleset",
+                "summary_body": "This table uses a single default ruleset: a Finkel-style modern reconstruction with seven tokens per player, four binary dice, safe rosettes, shared-road captures, and exact bear-off.",
+                "items": {
+                    "equipment": {
+                        "title": "Equipment",
+                        "body": "Two players command seven tokens each and throw four binary tetrahedral dice that score from 0 to 4."
+                    },
+                    "turn": {
+                        "title": "Turn Flow",
+                        "body": "Roll first, then choose one legal token to enter or advance exactly that many spaces. A throw of 0 ends the turn automatically."
+                    },
+                    "capture": {
+                        "title": "Capture",
+                        "body": "Landing on an opposing token along the shared road captures it and sends it back to reserve, unless the destination is a rosette."
+                    },
+                    "rosettes": {
+                        "title": "Rosettes",
+                        "body": "Rosettes are safe squares. They cannot be captured, and any token that lands on one immediately earns an extra throw."
+                    },
+                    "bearing_off": {
+                        "title": "Bearing Off",
+                        "body": "Tokens leave the board only with an exact roll. Overshooting the exit is illegal."
+                    },
+                    "winning": {
+                        "title": "Winning",
+                        "body": "Bear off all seven tokens before your rival to win the match."
+                    }
+                }
+            },
+            "quick_tour": {
+                "title": "Quick Tour",
+                "intro": "This reconstruction stays simple: learn the lanes, watch the rosettes, and use the shared road to steal tempo.",
+                "steps": {
+                    "1": {
+                        "title": "Private Courts and Shared Road",
+                        "body": "Each side enters through its own private lane, then both players meet on the king's road in the middle of the board."
+                    },
+                    "2": {
+                        "title": "Four Binary Dice",
+                        "body": "Each throw scores from 0 to 4. The result is the number of marked corners showing."
+                    },
+                    "3": {
+                        "title": "Rosettes Matter",
+                        "body": "Rosettes are safe and grant an extra throw, so they are both shelter and tempo engine."
+                    },
+                    "4": {
+                        "title": "Capture on the Shared Road",
+                        "body": "If you land on an opposing token on a non-rosette shared square, that token returns to reserve."
+                    },
+                    "5": {
+                        "title": "Exact Bear-Off",
+                        "body": "The race ends only when every token leaves the board with an exact roll."
+                    }
+                }
+            },
+            "attribution": {
+                "title": "Attribution",
+                "intro": "Board materials, rosette emphasis, and the inlay palette are inspired by surviving royal-game boards from Mesopotamia.",
+                "original_artwork": "The artwork in this app is original. It references museum objects and historical photography, but does not reproduce museum photographs.",
+                "sources_title": "Historical References"
+            },
+            "status": {
+                "kicker": "Match State",
+                "your_turn": "Your Turn",
+                "total": "Throw Total",
+                "throw_button": "Throw Pyramid Dice",
+                "roll_prompt": "Throw the pyramid dice to begin your turn.",
+                "wait_prompt": "Waiting for the opposing player to throw.",
+                "zero_prompt": "A throw of 0 yields no legal move. The turn passes.",
+                "active_target_bear_off": "Selected token will bear off with this move.",
+                "active_target": "Selected token will land on square {{square}}.",
+                "choose_token": "Choose one highlighted token or destination square.",
+                "match_complete": "The match is complete.",
+                "reserve": "Reserve",
+                "borne_off": "Borne Off",
+                "extra_turn_badge": "Extra Throw",
+                "rules_button": "Rules & Tour"
             }
         }
     },

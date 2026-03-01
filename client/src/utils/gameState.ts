@@ -1,6 +1,10 @@
 import type { GameState } from '../engine/types'
 
 export function getFinishedPosition(state: Pick<GameState, 'gameType' | 'boardSize' | 'houndsAndJackalsConfig'>) {
+  if (state.gameType === 'ur') {
+    return 15
+  }
+
   if (state.gameType === 'mehen') {
     return state.boardSize ?? 60
   }

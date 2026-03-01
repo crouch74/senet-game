@@ -9,7 +9,7 @@ import {
 import type { GameType } from '../engine/types'
 
 interface LegendContentProps {
-  gameType: GameType
+  gameType: Exclude<GameType, 'ur'>
 }
 
 interface RegistryItem {
@@ -20,7 +20,7 @@ interface RegistryItem {
   type: 'svg' | 'text'
 }
 
-const GUIDE_ITEMS: Record<GameType, string[]> = {
+const GUIDE_ITEMS: Record<Exclude<GameType, 'ur'>, string[]> = {
   senet: [
     'objective',
     'movement',
@@ -69,7 +69,7 @@ const GUIDE_ITEMS: Record<GameType, string[]> = {
   ],
 }
 
-const REGISTRY_SECTIONS: Record<GameType, { items: RegistryItem[]; titleKey: string }> = {
+const REGISTRY_SECTIONS: Record<Exclude<GameType, 'ur'>, { items: RegistryItem[]; titleKey: string }> = {
   senet: {
     titleKey: 'games.senet.sacred_houses.title',
     items: [

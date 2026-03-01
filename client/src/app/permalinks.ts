@@ -41,7 +41,7 @@ export const getOfflineModeFromPath = (path: string): OfflineMode | null => {
 export const getInitialPermalinkState = (path: string, _search: string): InitialPermalinkState => {
   const strippedPath = stripBasePath(path)
   const parts = strippedPath.split('/').filter(Boolean)
-  const supportedGames = new Set<GameType>(['senet', 'mehen', 'hounds-and-jackals'])
+  const supportedGames = new Set<GameType>(['senet', 'mehen', 'hounds-and-jackals', 'ur'])
 
   let gameType: GameType | null = null
   let remainingPath = strippedPath

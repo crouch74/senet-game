@@ -14,6 +14,12 @@ describe('permalinks', () => {
   it('parses room and offline permalinks and derives initial app state', () => {
     expect(getRoomCodeFromPath('/room/AbC-DeF-GhI')).toBe('abc-def-ghi');
     expect(getOfflineModeFromPath('/mode/vs-pc')).toBe('vs_pc');
+    expect(getInitialPermalinkState('/ur', '')).toEqual({
+      roomCode: null,
+      offlineMode: null,
+      showLobby: true,
+      gameType: 'ur',
+    });
     expect(getInitialPermalinkState('/mode/pass-and-play', '')).toEqual({
       roomCode: null,
       offlineMode: 'play_and_pass',
@@ -33,6 +39,8 @@ describe('permalinks', () => {
 
     expect(getRoomPermalinkPath('AbC-DeF-GhI')).toBe('/senet/room/abc-def-ghi');
     expect(getOfflineModePermalinkPath('vs_pc')).toBe('/senet/mode/vs-pc');
+    expect(getRoomPermalinkPath('AbC-DeF-GhI', 'ur')).toBe('/ur/room/abc-def-ghi');
+    expect(getOfflineModePermalinkPath('vs_pc', 'ur')).toBe('/ur/mode/vs-pc');
 
     setRoomPath('abc-def-ghi');
     setOfflineModePath('play_and_pass');

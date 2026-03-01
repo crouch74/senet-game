@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
-import { playerAnubis, playerSphinx } from '../../../assets/royal'
 import { useSenetStore } from '../../../engine/store'
 import {
   throwSticksStoreSelector,
@@ -10,6 +9,7 @@ import { MaskedSvgIcon } from '../../../components/common/MaskedSvgIcon'
 import { cn } from '../../../utils/cn'
 import { useThrowSticksState } from '../../../hooks/useThrowSticksState'
 import { getPlayerLabel } from '../../../utils/gameLabels'
+import { getPlayerAppearance } from '../../../utils/playerAppearance'
 
 export function ThrowSticks() {
   const { t } = useTranslation()
@@ -33,7 +33,7 @@ export function ThrowSticks() {
       winner,
       sticksCount,
     })
-  const currentPlayerIcon = currentPlayer === 'anubis' ? playerAnubis : playerSphinx
+  const currentPlayerAppearance = getPlayerAppearance(currentPlayer, gameType)
 
   return (
     <div className="flex flex-col items-center p-4 bg-ui-panel-bg backdrop-blur-sm rounded-sm border-[1px] border-royal-gold/30 shadow-[0_10px_20px_rgba(0,0,0,0.6),inset_0_0_10px_var(--ui-header-shadow-inset)] relative overflow-hidden h-full w-full group">
@@ -42,10 +42,10 @@ export function ThrowSticks() {
 
       <div className="mb-4 flex items-center justify-center gap-3 text-base sm:text-xl text-center font-serif text-royal-ivory font-bold tracking-[0.15em] sm:tracking-widest uppercase drop-shadow-sm opacity-90 z-10 px-2">
         <MaskedSvgIcon
-          src={currentPlayerIcon}
+          src={currentPlayerAppearance.iconPath}
           className={cn(
             'h-5 w-5 sm:h-6 sm:w-6 shrink-0',
-            currentPlayer === 'anubis' ? 'bg-royal-gold' : 'bg-royal-ivory',
+            currentPlayerAppearance.pieceClassName,
           )}
         />
         <span>{t('throw.turn', { player: getPlayerLabel(t, gameType, currentPlayer) })}</span>

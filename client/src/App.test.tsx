@@ -61,11 +61,12 @@ vi.mock('./components/LandingPage', () => ({
   LandingPage: ({
     onSelectGame,
   }: {
-    onSelectGame: (game: 'senet' | 'mehen') => void;
+    onSelectGame: (game: 'senet' | 'mehen' | 'ur') => void;
   }) => (
     <div>
       <span>Landing</span>
       <button onClick={() => onSelectGame('mehen')}>Choose Mehen</button>
+      <button onClick={() => onSelectGame('ur')}>Choose Ur</button>
     </div>
   ),
 }));
@@ -117,6 +118,28 @@ describe('App', () => {
       expect(screen.getByText('Lobby')).toBeInTheDocument();
     });
     expect(window.location.pathname).toBe('/mehen');
+  });
+
+  it('opens the Ur lobby after choosing Ur from the landing page', async () => {
+    window.history.replaceState({}, '', '/');
+
+    await renderWithProviders(<App />);
+
+    fireEvent.click(screen.getByText('Choose Ur'));
+
+    await waitFor(() => {
+      expect(screen.getByText('Lobby')).toBeInTheDocument();
+    });
+    expect(window.location.pathname).toBe('/ur');
+    expect(document.title).toBe('The Royal Game of Ur · Courts of Antiquity');
+  });
+
+  it('uses a generic document title on the landing page', async () => {
+    window.history.replaceState({}, '', '/');
+
+    await renderWithProviders(<App />);
+
+    expect(document.title).toBe('Courts of Antiquity');
   });
 
   it('returns the browser path to the lobby when a room join error appears', async () => {
@@ -184,7 +207,7 @@ describe('App', () => {
 
     await renderWithProviders(<App />);
 
-    expect(screen.getByText('Awaiting the Second Soul')).toBeInTheDocument();
+    expect(screen.getByText('Waiting for the Second Player')).toBeInTheDocument();
     expect(screen.getByText('abc-def-ghi')).toBeInTheDocument();
     expect(screen.getByText('Leave Room')).toBeInTheDocument();
   });

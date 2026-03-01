@@ -128,11 +128,11 @@
         "turn": "{{player}} IS AAN ZET",
         "moves": "ZETTEN: {{value}}",
         "perfect_throw": "Perfecte Worp",
-        "game_over": "De reis is voltooid",
+        "game_over": "Match Complete",
         "click_to_throw": "Klik op de stokken om te werpen",
-        "ascension": "Opstijging van de geest",
-        "victory_message": "De Ba en Ka zijn verenigd in het Veld van Riet.",
-        "defeat_message": "De reis door de Doeat is nog niet voltooid.",
+        "ascension": "Victory",
+        "victory_message": "You prevailed on the board.",
+        "defeat_message": "Your rival prevailed this round.",
         "return_to_lobby": "Terug naar de lobby",
         "play_again": "Speel de reis opnieuw",
         "waiting_for_opponent": "Wachten op de zet van je tegenstander...",
@@ -172,12 +172,14 @@
         "names": {
             "common": "Heilig Pad",
             "mehen-standard": "Traditie van de Beschermende Winding",
-            "hounds-and-jackals-standard": "Papyrus van de achtenvijftig gaten"
+            "hounds-and-jackals-standard": "Papyrus van de achtenvijftig gaten",
+            "ur-finkel": "Finkel Reconstruction"
         },
         "descriptions": {
             "common": "Het traditionele pad van de ziel door de Doeat, met beschermde paren en strategische blokkades.",
             "mehen-standard": "Deze huistraditie van Mehen stuurt leeuwen en ballen vanuit de reserve naar binnen. Veilige windingen geven beschutting, leeuwen bewaken de route en de overwinning komt pas wanneer elk stuk het hart van de slang bereikt.",
-            "hounds-and-jackals-standard": "Deze huisreconstructie gebruikt vijf pinnen per zijde, vier werpstokken, exact finishen en gemarkeerde gaten die je vooruit of achteruit sturen op weg naar het shen-doel."
+            "hounds-and-jackals-standard": "Deze huisreconstructie gebruikt vijf pinnen per zijde, vier werpstokken, exact finishen en gemarkeerde gaten die je vooruit of achteruit sturen op weg naar het shen-doel.",
+            "ur-finkel": "Deze tafel van het Koninklijke Spel van Ur volgt een reconstructie in Finkel-stijl met zeven speelstenen per speler, vier binaire dobbelstenen, veilige rozetten, slagen op de gedeelde baan en exact uitspelen."
         }
     },
     "history": {
@@ -203,7 +205,15 @@
         "hounds_bad_jump": "↘️ {{piece}} glijdt van {{from}} terug naar {{to}}.",
         "hounds_finish": "✨ {{piece}} bereikt het shen-doel.",
         "hounds_blocked": "🚫 {{player}} heeft geen legale pin om te bewegen en geeft de beurt door.",
-        "hounds_win": "🏆 {{player}} brengt alle vijf pinnen naar het shen-doel en wint!"
+        "hounds_win": "🏆 {{player}} brengt alle vijf pinnen naar het shen-doel en wint!",
+        "ur_started": "🎲 [UR] De koninklijke race begint op het ingelegde bord.",
+        "ur_enter": "➕ {{piece}} komt op het bord op {{to}}.",
+        "ur_move": "🏃 {{piece}} gaat van {{from}} naar {{to}}.",
+        "ur_capture": "⚔️ {{piece}} slaat een tegenstander op {{to}}.",
+        "ur_rosette": "✸ {{piece}} landt op een rozet en krijgt nog een worp.",
+        "ur_bear_off": "✨ {{piece}} verlaat het bord.",
+        "ur_blocked": "🚫 {{player}} heeft geen legale speelsteen om te zetten en geeft de beurt door.",
+        "ur_win": "🏆 {{player}} speelt alle zeven stenen uit en wint!"
     },
     "lobby": {
         "create_room": "Nieuwe kamer maken",
@@ -222,8 +232,8 @@
         "copied": "Gekopieerd!",
         "copy_room": "Kamercode kopiëren",
         "online_unavailable": "Online modus is niet beschikbaar terwijl de backend offline is.",
-        "waiting_title": "Wachten op de Tweede Ziel",
-        "waiting_subtitle": "Deel de kamercode met je tegenstander om de reis te beginnen.",
+        "waiting_title": "Waiting for the Second Player",
+        "waiting_subtitle": "Share the room code to begin the match.",
         "waiting_you_are": "Je speelt als",
         "waiting_opponent_joined": "Je tegenstander is teruggekeerd.",
         "opponent_disconnected": "Tegenstander verbroken",
@@ -240,9 +250,9 @@
         "registry_title": "Legende en instructies"
     },
     "landing": {
-        "title": "Vallei der Koningen",
-        "subtitle": "Oudegyptische spellen",
-        "select_your_path": "Kies je reis"
+        "title": "Courts of Antiquity",
+        "subtitle": "Ancient Board Games",
+        "select_your_path": "Choose a board"
     },
     "games": {
         "senet": {
@@ -501,6 +511,166 @@
                     "fact_2": "De pinnen zelf droegen vaak dierenkoppen, daarom worden de twee zijden meestal als honden en jakhalzen beschreven.",
                     "fact_3": "Deze versie noemt zichzelf expliciet een huisreconstructie: exact finishen, gekoppelde gunstige en ongunstige gaten en geen slaan."
                 }
+            }
+        },
+        "ur": {
+            "title": "Het Koninklijke Spel van Ur",
+            "description": "Zeven stenen bewegen over privébanen en de koningsweg, waar rozetten veiligheid en een extra worp geven.",
+            "players": {
+                "anubis": "Schelp",
+                "sphinx": "Steen",
+                "shell": "Schelp",
+                "stone": "Steen"
+            },
+            "board": {
+                "token": "Speelsteen",
+                "reserve_label": "Reserve",
+                "aria_label": "Bord van het Koninklijke Spel van Ur",
+                "lanes": {
+                    "top_private": "stenen baan",
+                    "shared": "koningsweg",
+                    "bottom_private": "schelpbaan"
+                },
+                "tooltip": {
+                    "exit": {
+                        "title": "Uitgangsvak",
+                        "body": "Het laatste privévak voor de uitgang. Met een exacte worp gaat een steen van het bord."
+                    },
+                    "private": {
+                        "title": "Privébaan",
+                        "body": "Slechts één van je eigen stenen mag tegelijk op een privévak staan."
+                    },
+                    "rosette": {
+                        "title": "Rozet",
+                        "body": "Rozetten zijn veilige velden. Als je hier landt, krijg je een extra worp."
+                    },
+                    "shared": {
+                        "title": "Koningsweg",
+                        "body": "Beide spelers gebruiken deze gedeelde baan. Landen op een niet-rozetveld kan een vijandelijke steen slaan."
+                    }
+                }
+            },
+            "illegal": {
+                "no_throw": "Roll the four binary dice before moving.",
+                "game_over": "The match is already complete.",
+                "not_your_piece": "That token does not belong to the current player.",
+                "piece_already_borne_off": "That token has already been borne off.",
+                "target_occupied_by_own_piece": "Another one of your tokens already occupies that square.",
+                "rosette_occupied": "Rosettes are safe. You cannot land on an occupied rosette.",
+                "requires_exact_bear_off": "An exact roll is required to bear this token off.",
+                "no_piece_can_enter": "No reserve token can enter on that throw.",
+                "no_legal_move_for_roll": "No legal move is available for this throw."
+            },
+            "lobby": {
+                "legend_kicker": "Mesopotamië",
+                "legend_title": "Een koninklijke inlegrace",
+                "legend_body": "Een Mesopotamische race met zeven speelstenen over een koninklijk ingelegd bord, waar het tempo op de gedeelde baan kantelt.",
+                "how_to_win_label": "Doel",
+                "how_to_win": "Speel al je zeven stukken uit vóór je tegenstander.",
+                "rosettes_label": "Rozetten",
+                "rosettes": "Rozetten zijn veilig en geven een extra worp.",
+                "time_label": "Speelduur",
+                "time_value": "10-15 min",
+                "learn_button": "Leer in 60 seconden",
+                "rules_button": "Lees de regels",
+                "history_kicker": "Historische context",
+                "history_title": "Bord van koningen en kooplieden",
+                "history_body": "Bewaard gebleven borden uit Ur combineren donker hout met inleg van schelp, lapis lazuli en carneool. De moderne regels hier volgen de reconstructie in Finkel-stijl op basis van spijkerschrifttabletten.",
+                "attribution_kicker": "Bronvermelding",
+                "attribution_title": "Bronnen en reconstructie",
+                "attribution_body": "De stijl van het bord is gebaseerd op bewaard gebleven koninklijke inlegborden, terwijl de speelregels de moderne interpretatie in Finkel-stijl volgen. Open het bronpaneel voor museumverwijzingen.",
+                "attribution_button": "Bronvermelding bekijken",
+                "fun_facts": {
+                    "kicker": "Weetjes",
+                    "title": "Achtergrond",
+                    "fact_1": "De gedeelde middenbaan maakt de race tot een tempospel, omdat een rozet direct in een extra worp kan overgaan.",
+                    "fact_2": "Het meeste moderne spel gebruikt de reconstructie van Irving Finkel, die de exacte uitspelinterpretatie hier populair maakte.",
+                    "fact_3": "Borden van het Koninklijke Spel van Ur legden vaak nadruk op inleg van schelp, lapis en carneool in plaats van geschilderde versiering."
+                }
+            },
+            "rules": {
+                "drawer_kicker": "Koninklijke inleg",
+                "drawer_title": "Het Koninklijke Spel van Ur",
+                "tab_quick_tour": "Leer in 60 seconden",
+                "tab_rules": "Regels",
+                "tab_attribution": "Bronvermelding",
+                "summary_title": "Standaardregels",
+                "summary_body": "Deze tafel gebruikt één standaardregelsysteem: een moderne reconstructie in Finkel-stijl met zeven speelstenen per speler, vier binaire dobbelstenen, veilige rozetten, slagen op de gedeelde baan en exact uitspelen.",
+                "items": {
+                    "equipment": {
+                        "title": "Materiaal",
+                        "body": "Twee spelers hebben elk zeven speelstenen en werpen vier binaire tetraëderdobbelstenen die van 0 tot 4 scoren."
+                    },
+                    "turn": {
+                        "title": "Verloop van een beurt",
+                        "body": "Werp eerst en kies daarna één legale steen om op het bord te brengen of precies zoveel velden vooruit te zetten. Een worp van 0 beëindigt de beurt automatisch."
+                    },
+                    "capture": {
+                        "title": "Slaan",
+                        "body": "Als je op een vijandelijke steen op de gedeelde baan landt, sla je die en gaat hij terug naar de reserve, behalve als het doelveld een rozet is."
+                    },
+                    "rosettes": {
+                        "title": "Rozetten",
+                        "body": "Rozetten zijn veilige velden. Ze kunnen niet worden geslagen en elke steen die erop landt krijgt meteen een extra worp."
+                    },
+                    "bearing_off": {
+                        "title": "Uitspelen",
+                        "body": "Stenen verlaten het bord alleen met een exacte worp. Voorbij de uitgang gaan is niet toegestaan."
+                    },
+                    "winning": {
+                        "title": "Winnen",
+                        "body": "Speel al je zeven stenen uit vóór je tegenstander om de partij te winnen."
+                    }
+                }
+            },
+            "quick_tour": {
+                "title": "Korte rondleiding",
+                "intro": "Deze reconstructie blijft eenvoudig: leer de banen, let op de rozetten en gebruik de gedeelde weg om het tempo te pakken.",
+                "steps": {
+                    "1": {
+                        "title": "Privébanen en gedeelde weg",
+                        "body": "Elke zijde komt via een eigen privébaan binnen, waarna beide spelers elkaar ontmoeten op de koningsweg in het midden van het bord."
+                    },
+                    "2": {
+                        "title": "Vier binaire dobbelstenen",
+                        "body": "Elke worp scoort van 0 tot 4. Het resultaat is het aantal gemarkeerde hoeken dat zichtbaar is."
+                    },
+                    "3": {
+                        "title": "Rozetten zijn belangrijk",
+                        "body": "Rozetten zijn veilig en geven een extra worp, dus ze zijn zowel schuilplaats als tempomotor."
+                    },
+                    "4": {
+                        "title": "Slaan op de gedeelde weg",
+                        "body": "Als je landt op een vijandelijke steen op een gedeeld veld zonder rozet, gaat die steen terug naar de reserve."
+                    },
+                    "5": {
+                        "title": "Exact uitspelen",
+                        "body": "De race eindigt pas wanneer elke steen het bord met een exacte worp heeft verlaten."
+                    }
+                }
+            },
+            "attribution": {
+                "title": "Bronvermelding",
+                "intro": "De materialen van het bord, de nadruk op de rozetten en het kleurenpalet van de inleg zijn geïnspireerd op bewaard gebleven koninklijke speelborden uit Mesopotamië.",
+                "original_artwork": "De vormgeving in deze app is origineel. Ze verwijst naar museumstukken en historische fotografie, maar reproduceert geen museumfoto's.",
+                "sources_title": "Historische bronnen"
+            },
+            "status": {
+                "kicker": "Wedstrijdstatus",
+                "your_turn": "Jouw beurt",
+                "total": "Worptotaal",
+                "throw_button": "Werp de piramidedobbelstenen",
+                "roll_prompt": "Werp de piramidedobbelstenen om je beurt te beginnen.",
+                "wait_prompt": "Wachten op de worp van de tegenstander.",
+                "zero_prompt": "Een worp van 0 geeft geen legale zet. De beurt gaat voorbij.",
+                "active_target_bear_off": "De gekozen steen verlaat met deze zet het bord.",
+                "active_target": "De gekozen steen landt op veld {{square}}.",
+                "choose_token": "Kies een gemarkeerde steen of bestemming.",
+                "match_complete": "De partij is afgelopen.",
+                "reserve": "Reserve",
+                "borne_off": "Uitgespeeld",
+                "extra_turn_badge": "Extra worp",
+                "rules_button": "Regels en rondleiding"
             }
         }
     },

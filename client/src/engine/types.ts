@@ -1,6 +1,6 @@
 export type PlayerID = 'anubis' | 'sphinx' | 'horus' | 'seth' | 'osiris' | 'isis';
-export type PlayerType = 'ball' | 'lion' | 'peg' | 'senet_piece';
-export type GameType = 'senet' | 'mehen' | 'hounds-and-jackals';
+export type PlayerType = 'ball' | 'lion' | 'peg' | 'senet_piece' | 'ur_token';
+export type GameType = 'senet' | 'mehen' | 'hounds-and-jackals' | 'ur';
 export type OfflineMode = 'play_and_pass' | 'vs_pc';
 export type MehenOpponentLionMode = 'INVALID' | 'BLOCKED';
 export type HoundsAndJackalsJumpType = 'good' | 'bad';
@@ -9,7 +9,7 @@ export interface Piece {
     id: string;
     player: PlayerID;
     type: PlayerType;
-    position: number; // 0 means off-board (start), 30 means finished (hounds and jackals), 31 means borne off (senet), 60 means Mehen center
+    position: number; // 0 means off-board (start), 15 means borne off (Ur), 30 means finished (hounds and jackals), 31 means borne off (senet), 60 means Mehen center
     isProtected?: boolean;
 }
 
@@ -39,6 +39,7 @@ export type MehenCaptureMode = 'SEND_TO_START' | 'SWAP_POSITIONS';
 export type MehenWinCondition = 'ALL_BALLS_AND_LION' | 'LION_ONLY' | 'BALLS_ONLY' | 'FIRST_PIECE_TO_CENTER';
 export type MehenEventType = 'MOVE' | 'CAPTURE' | 'BLOCKED' | 'SAFE_LAND' | 'FINISH' | 'EXTRA_TURN' | 'WIN';
 export type HoundsAndJackalsEventType = 'MOVE' | 'GOOD_JUMP' | 'BAD_JUMP' | 'BLOCKED' | 'FINISH' | 'WIN';
+export type UrEventType = 'MOVE' | 'CAPTURE' | 'EXTRA_TURN' | 'BEAR_OFF' | 'BLOCKED' | 'WIN';
 
 export interface MehenConfig {
     boardSize: number; // default 60
@@ -72,6 +73,19 @@ export interface HoundsAndJackalsConfig {
     specialHoles: Record<number, HoundsAndJackalsSpecialHole>;
 }
 
+export interface UrConfig {
+    piecesPerPlayer: number;
+    trackLength: number;
+    finishPosition: number;
+    rosettePositions: [number, number, number];
+    sharedTrackStart: number;
+    sharedTrackEnd: number;
+    throwMode: 'four_binary_tetrahedra_0_to_4';
+    exactBearOff: boolean;
+    safeRosettes: boolean;
+    extraThrowOnRosette: true;
+}
+
 export interface MehenMove {
     pieceId: string;
     player: PlayerID;
@@ -83,6 +97,7 @@ export interface MehenMove {
 export interface ThrowResult {
     lightSidesUp: number; // 0 to sticksCount
     value: number; // calculated value (e.g. 1-4, 0=5 or 1-6, 0=12)
+    binaryDice?: boolean[];
 }
 
 export interface HistoryEvent {
@@ -97,7 +112,7 @@ export interface HistoryEvent {
     pieceId?: string;
     from?: number;
     to?: number;
-    eventType?: MehenEventType | HoundsAndJackalsEventType;
+    eventType?: MehenEventType | HoundsAndJackalsEventType | UrEventType;
 }
 
 export interface GameState {
@@ -108,6 +123,7 @@ export interface GameState {
     ruleset: Ruleset;
     houndsAndJackalsConfig?: HoundsAndJackalsConfig;
     mehenConfig?: MehenConfig;
+    urConfig?: UrConfig;
     winner: PlayerID | null;
     historyLog: HistoryEvent[];
 

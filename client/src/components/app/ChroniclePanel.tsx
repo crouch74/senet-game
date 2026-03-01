@@ -20,12 +20,15 @@ const PLAYER_IDS = new Set([
   'spectator',
 ])
 
+const isPlayerLike = (value: string): value is Parameters<typeof getPlayerLabel>[2] =>
+  PLAYER_IDS.has(value)
+
 const localizePlayer = (
   value: unknown,
   gameType: GameType,
   t: ReturnType<typeof useTranslation>['t'],
 ) => {
-  if (typeof value !== 'string' || !PLAYER_IDS.has(value)) return value
+  if (typeof value !== 'string' || !isPlayerLike(value)) return value
   return getPlayerLabel(t, gameType, value)
 }
 
@@ -37,7 +40,7 @@ const localizePiece = (
   if (typeof value !== 'string') return value
 
   const match = value.match(
-    /^(anubis|sphinx|horus|seth|osiris|isis)-(lion|ball|peg|senet_piece)(?:-(\d+))?$/,
+    /^(anubis|sphinx|horus|seth|osiris|isis)-(lion|ball|peg|senet_piece|ur_token)(?:-(\d+))?$/,
   )
   if (!match) return value
 
@@ -97,7 +100,7 @@ export function ChroniclePanel({ gameType, historyLog }: ChroniclePanelProps) {
                 <span
                   className={cn(
                     'w-2 h-2 rounded-full mt-1.5 shrink-0 shadow-[0_0_5px_rgba(0,0,0,0.5)]',
-                    getPlayerAppearance(log.player).accentClassName,
+                    getPlayerAppearance(log.player, gameType).accentClassName,
                   )}
                   title={getPlayerLabel(t, gameType, log.player)}
                 />

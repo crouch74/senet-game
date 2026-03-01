@@ -1,0 +1,30 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shellBase" x1="16" y1="8" x2="84" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F2E6CF"/>
+      <stop offset="0.56" stop-color="#DDC7A6"/>
+      <stop offset="1" stop-color="#B99772"/>
+    </linearGradient>
+    <linearGradient id="shellChip" x1="18" y1="0" x2="82" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBF3E1"/>
+      <stop offset="1" stop-color="#B99772"/>
+    </linearGradient>
+    <linearGradient id="lapisFill" x1="12" y1="10" x2="82" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4A85A3"/>
+      <stop offset="1" stop-color="#1D4557"/>
+    </linearGradient>
+    <linearGradient id="carnelianFill" x1="18" y1="10" x2="84" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D57A52"/>
+      <stop offset="1" stop-color="#7C311D"/>
+    </linearGradient>
+  </defs>
+  <rect x="6.5" y="6.5" width="87" height="87" rx="2.6" fill="url(#shellBase)" stroke="#3F2B20" stroke-width="1.8"/>
+  <rect x="10.5" y="10.5" width="79" height="79" rx="1.8" stroke="#624734" stroke-opacity="0.46"/>
+  <path d="M22 24H34V32H42V40H50V48H58V40H66V32H78V24H66V31H58V39H50V47H42V39H34V31H22Z" fill="url(#shellChip)" stroke="#3F2B20" stroke-width="1.1"/>
+  <path d="M22 76H34V68H42V60H50V52H58V60H66V68H78V76H66V69H58V61H50V53H42V61H34V69H22Z" fill="url(#shellChip)" stroke="#3F2B20" stroke-width="1.1"/>
+  <path d="M28 24H34V30H42V38H50V46H58V38H66V30H72" stroke="#FFF7E8" stroke-opacity="0.32" stroke-width="0.9"/>
+  <path d="M28 76H34V70H42V62H50V54H58V62H66V70H72" stroke="#FFF7E8" stroke-opacity="0.24" stroke-width="0.9"/>
+  <circle cx="33" cy="50" r="3.5" fill="url(#lapisFill)" stroke="#3F2B20" stroke-width="0.8"/>
+  <circle cx="50" cy="50" r="4.2" fill="url(#carnelianFill)" stroke="#3F2B20" stroke-width="0.8"/>
+  <circle cx="67" cy="50" r="3.5" fill="url(#lapisFill)" stroke="#3F2B20" stroke-width="0.8"/>
+</svg>

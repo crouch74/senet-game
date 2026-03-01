@@ -76,39 +76,48 @@ function mirrorPoint(point: BoardPoint): BoardPoint {
 function buildLane(player: 'anubis' | 'sphinx') {
   const points = player === 'anubis' ? LEFT_LANE_BASE : LEFT_LANE_BASE.map(mirrorPoint)
 
-  return points.map((point, index) => ({
-    wearLevel:
-      index + 1 >= LEFT_LANE_BASE.length - 3
-        ? 'heavy'
-        : SPECIAL_HOLES[index + 1]
-          ? 'medium'
-          : index % 4 === 0
-            ? 'medium'
-            : 'light',
-    grooveRole:
-      SPECIAL_HOLES[index + 1]
-        ? 'source'
-        : Object.values(SPECIAL_HOLES).some(
-          (specialHole) => specialHole.target === index + 1,
-        )
-          ? 'target'
-          : undefined,
-    holeVariant:
-      index + 1 >= LEFT_LANE_BASE.length - 2
-        ? 'goal-adjacent'
-        : SPECIAL_HOLES[index + 1]
-          ? 'special'
-          : 'standard',
-    position: index + 1,
-    symbol:
-      SPECIAL_HOLES[index + 1]?.type === 'good'
+  return points.map<HoundsAndJackalsVisualHole>((point, index) => {
+    const position = index + 1
+    const specialHole = SPECIAL_HOLES[position]
+
+    let wearLevel: HoundsAndJackalsVisualHole['wearLevel'] = 'light'
+    if (position >= LEFT_LANE_BASE.length - 3) {
+      wearLevel = 'heavy'
+    } else if (specialHole || index % 4 === 0) {
+      wearLevel = 'medium'
+    }
+
+    let grooveRole: HoundsAndJackalsVisualHole['grooveRole']
+    if (specialHole) {
+      grooveRole = 'source'
+    } else if (Object.values(SPECIAL_HOLES).some((candidate) => candidate.target === position)) {
+      grooveRole = 'target'
+    }
+
+    let holeVariant: HoundsAndJackalsVisualHole['holeVariant'] = 'standard'
+    if (position >= LEFT_LANE_BASE.length - 2) {
+      holeVariant = 'goal-adjacent'
+    } else if (specialHole) {
+      holeVariant = 'special'
+    }
+
+    const symbol: HoundsAndJackalsVisualHole['symbol'] =
+      specialHole?.type === 'good'
         ? 'favor'
-        : SPECIAL_HOLES[index + 1]?.type === 'bad'
+        : specialHole?.type === 'bad'
           ? 'setback'
-          : undefined,
-    x: point.x,
-    y: point.y,
-  }))
+          : undefined
+
+    return {
+      grooveRole,
+      holeVariant,
+      position,
+      symbol,
+      wearLevel,
+      x: point.x,
+      y: point.y,
+    }
+  })
 }
 
 export const HOUNDS_AND_JACKALS_LANES: Record<'anubis' | 'sphinx', HoundsAndJackalsVisualHole[]> = {

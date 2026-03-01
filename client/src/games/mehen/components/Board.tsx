@@ -483,7 +483,7 @@ export function Board() {
 
         <div className="mt-4 grid gap-3 md:grid-cols-2">
 	          {reservePlayers.map((player) => {
-            const appearance = getPlayerAppearance(player)
+            const appearance = getPlayerAppearance(player, 'mehen')
             const playerPieces = offBoardPieces.filter((piece) => piece.player === player)
 
             return (

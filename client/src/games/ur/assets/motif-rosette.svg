@@ -1,0 +1,81 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shellBase" x1="16" y1="8" x2="84" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F2E6CF"/>
+      <stop offset="0.56" stop-color="#DDC7A6"/>
+      <stop offset="1" stop-color="#B99772"/>
+    </linearGradient>
+    <linearGradient id="shellChip" x1="18" y1="0" x2="82" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBF3E1"/>
+      <stop offset="1" stop-color="#B99772"/>
+    </linearGradient>
+    <linearGradient id="lapisFill" x1="12" y1="10" x2="82" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4A85A3"/>
+      <stop offset="1" stop-color="#1D4557"/>
+    </linearGradient>
+    <linearGradient id="carnelianFill" x1="18" y1="10" x2="84" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D57A52"/>
+      <stop offset="1" stop-color="#7C311D"/>
+    </linearGradient>
+  </defs>
+  <rect x="6.5" y="6.5" width="87" height="87" rx="2.6" fill="url(#shellBase)" stroke="#3F2B20" stroke-width="1.8"/>
+  <rect x="10.5" y="10.5" width="79" height="79" rx="1.8" stroke="#624734" stroke-opacity="0.46"/>
+  <path d="M14 19C24 15 36 14.5 47 17" stroke="#FFF9EF" stroke-opacity="0.18" stroke-width="1.1" stroke-linecap="round"/>
+  <path d="M69 20C76 21 83 25 87 31" stroke="#3F2B20" stroke-opacity="0.1" stroke-width="0.8" stroke-linecap="round"/>
+  <g transform="translate(50 50)">
+    <g transform="rotate(0)">
+      <path d="M1.1 -29.6C9.1 -30.4 13.1 -23.1 12.1 -13.6C11.1 -5.6 5.1 10.4 1.1 25.4C-2.9 10.4 -8.9 -5.6 -9.9 -13.6C-10.9 -23.1 -6.9 -30.4 1.1 -29.6Z" fill="#3F2B20" opacity="0.18"/>
+      <path d="M0 -31C7.5 -30.6 11.2 -24.2 10.3 -15C9.4 -7.2 3.6 8.8 0 23C-3.8 8.8 -9.6 -7.2 -10.4 -15C-11.2 -24.2 -7.4 -30.6 0 -31Z" fill="url(#shellChip)" stroke="#3F2B20" stroke-width="1"/>
+      <path d="M0 -27.5C4.5 -27.2 6.8 -23.3 6.4 -17.6C6 -12.9 2.6 -3.8 0 6.8C-2.4 -3.8 -5.9 -12.9 -6.4 -17.6C-6.9 -23.2 -4.4 -27.1 0 -27.5Z" fill="#FFF7EA" fill-opacity="0.34"/>
+      <circle cx="0" cy="-17" r="3.4" fill="url(#lapisFill)" stroke="#3F2B20" stroke-width="0.8"/>
+    </g>
+    <g transform="rotate(45)">
+      <path d="M1.1 -29.6C9.1 -30.4 13.1 -23.1 12.1 -13.6C11.1 -5.6 5.1 10.4 1.1 25.4C-2.9 10.4 -8.9 -5.6 -9.9 -13.6C-10.9 -23.1 -6.9 -30.4 1.1 -29.6Z" fill="#3F2B20" opacity="0.18"/>
+      <path d="M0 -31C7.5 -30.6 11.2 -24.2 10.3 -15C9.4 -7.2 3.6 8.8 0 23C-3.8 8.8 -9.6 -7.2 -10.4 -15C-11.2 -24.2 -7.4 -30.6 0 -31Z" fill="url(#shellChip)" stroke="#3F2B20" stroke-width="1"/>
+      <path d="M0 -27.5C4.5 -27.2 6.8 -23.3 6.4 -17.6C6 -12.9 2.6 -3.8 0 6.8C-2.4 -3.8 -5.9 -12.9 -6.4 -17.6C-6.9 -23.2 -4.4 -27.1 0 -27.5Z" fill="#FFF7EA" fill-opacity="0.34"/>
+      <circle cx="0" cy="-17" r="3.4" fill="url(#lapisFill)" stroke="#3F2B20" stroke-width="0.8"/>
+    </g>
+    <g transform="rotate(90)">
+      <path d="M1.1 -29.6C9.1 -30.4 13.1 -23.1 12.1 -13.6C11.1 -5.6 5.1 10.4 1.1 25.4C-2.9 10.4 -8.9 -5.6 -9.9 -13.6C-10.9 -23.1 -6.9 -30.4 1.1 -29.6Z" fill="#3F2B20" opacity="0.18"/>
+      <path d="M0 -31C7.5 -30.6 11.2 -24.2 10.3 -15C9.4 -7.2 3.6 8.8 0 23C-3.8 8.8 -9.6 -7.2 -10.4 -15C-11.2 -24.2 -7.4 -30.6 0 -31Z" fill="url(#shellChip)" stroke="#3F2B20" stroke-width="1"/>
+      <path d="M0 -27.5C4.5 -27.2 6.8 -23.3 6.4 -17.6C6 -12.9 2.6 -3.8 0 6.8C-2.4 -3.8 -5.9 -12.9 -6.4 -17.6C-6.9 -23.2 -4.4 -27.1 0 -27.5Z" fill="#FFF7EA" fill-opacity="0.34"/>
+      <circle cx="0" cy="-17" r="3.4" fill="url(#lapisFill)" stroke="#3F2B20" stroke-width="0.8"/>
+    </g>
+    <g transform="rotate(135)">
+      <path d="M1.1 -29.6C9.1 -30.4 13.1 -23.1 12.1 -13.6C11.1 -5.6 5.1 10.4 1.1 25.4C-2.9 10.4 -8.9 -5.6 -9.9 -13.6C-10.9 -23.1 -6.9 -30.4 1.1 -29.6Z" fill="#3F2B20" opacity="0.18"/>
+      <path d="M0 -31C7.5 -30.6 11.2 -24.2 10.3 -15C9.4 -7.2 3.6 8.8 0 23C-3.8 8.8 -9.6 -7.2 -10.4 -15C-11.2 -24.2 -7.4 -30.6 0 -31Z" fill="url(#shellChip)" stroke="#3F2B20" stroke-width="1"/>
+      <path d="M0 -27.5C4.5 -27.2 6.8 -23.3 6.4 -17.6C6 -12.9 2.6 -3.8 0 6.8C-2.4 -3.8 -5.9 -12.9 -6.4 -17.6C-6.9 -23.2 -4.4 -27.1 0 -27.5Z" fill="#FFF7EA" fill-opacity="0.34"/>
+      <circle cx="0" cy="-17" r="3.4" fill="url(#lapisFill)" stroke="#3F2B20" stroke-width="0.8"/>
+    </g>
+    <g transform="rotate(180)">
+      <path d="M1.1 -29.6C9.1 -30.4 13.1 -23.1 12.1 -13.6C11.1 -5.6 5.1 10.4 1.1 25.4C-2.9 10.4 -8.9 -5.6 -9.9 -13.6C-10.9 -23.1 -6.9 -30.4 1.1 -29.6Z" fill="#3F2B20" opacity="0.18"/>
+      <path d="M0 -31C7.5 -30.6 11.2 -24.2 10.3 -15C9.4 -7.2 3.6 8.8 0 23C-3.8 8.8 -9.6 -7.2 -10.4 -15C-11.2 -24.2 -7.4 -30.6 0 -31Z" fill="url(#shellChip)" stroke="#3F2B20" stroke-width="1"/>
+      <path d="M0 -27.5C4.5 -27.2 6.8 -23.3 6.4 -17.6C6 -12.9 2.6 -3.8 0 6.8C-2.4 -3.8 -5.9 -12.9 -6.4 -17.6C-6.9 -23.2 -4.4 -27.1 0 -27.5Z" fill="#FFF7EA" fill-opacity="0.34"/>
+      <circle cx="0" cy="-17" r="3.4" fill="url(#lapisFill)" stroke="#3F2B20" stroke-width="0.8"/>
+    </g>
+    <g transform="rotate(225)">
+      <path d="M1.1 -29.6C9.1 -30.4 13.1 -23.1 12.1 -13.6C11.1 -5.6 5.1 10.4 1.1 25.4C-2.9 10.4 -8.9 -5.6 -9.9 -13.6C-10.9 -23.1 -6.9 -30.4 1.1 -29.6Z" fill="#3F2B20" opacity="0.18"/>
+      <path d="M0 -31C7.5 -30.6 11.2 -24.2 10.3 -15C9.4 -7.2 3.6 8.8 0 23C-3.8 8.8 -9.6 -7.2 -10.4 -15C-11.2 -24.2 -7.4 -30.6 0 -31Z" fill="url(#shellChip)" stroke="#3F2B20" stroke-width="1"/>
+      <path d="M0 -27.5C4.5 -27.2 6.8 -23.3 6.4 -17.6C6 -12.9 2.6 -3.8 0 6.8C-2.4 -3.8 -5.9 -12.9 -6.4 -17.6C-6.9 -23.2 -4.4 -27.1 0 -27.5Z" fill="#FFF7EA" fill-opacity="0.34"/>
+      <circle cx="0" cy="-17" r="3.4" fill="url(#lapisFill)" stroke="#3F2B20" stroke-width="0.8"/>
+    </g>
+    <g transform="rotate(270)">
+      <path d="M1.1 -29.6C9.1 -30.4 13.1 -23.1 12.1 -13.6C11.1 -5.6 5.1 10.4 1.1 25.4C-2.9 10.4 -8.9 -5.6 -9.9 -13.6C-10.9 -23.1 -6.9 -30.4 1.1 -29.6Z" fill="#3F2B20" opacity="0.18"/>
+      <path d="M0 -31C7.5 -30.6 11.2 -24.2 10.3 -15C9.4 -7.2 3.6 8.8 0 23C-3.8 8.8 -9.6 -7.2 -10.4 -15C-11.2 -24.2 -7.4 -30.6 0 -31Z" fill="url(#shellChip)" stroke="#3F2B20" stroke-width="1"/>
+      <path d="M0 -27.5C4.5 -27.2 6.8 -23.3 6.4 -17.6C6 -12.9 2.6 -3.8 0 6.8C-2.4 -3.8 -5.9 -12.9 -6.4 -17.6C-6.9 -23.2 -4.4 -27.1 0 -27.5Z" fill="#FFF7EA" fill-opacity="0.34"/>
+      <circle cx="0" cy="-17" r="3.4" fill="url(#lapisFill)" stroke="#3F2B20" stroke-width="0.8"/>
+    </g>
+    <g transform="rotate(315)">
+      <path d="M1.1 -29.6C9.1 -30.4 13.1 -23.1 12.1 -13.6C11.1 -5.6 5.1 10.4 1.1 25.4C-2.9 10.4 -8.9 -5.6 -9.9 -13.6C-10.9 -23.1 -6.9 -30.4 1.1 -29.6Z" fill="#3F2B20" opacity="0.18"/>
+      <path d="M0 -31C7.5 -30.6 11.2 -24.2 10.3 -15C9.4 -7.2 3.6 8.8 0 23C-3.8 8.8 -9.6 -7.2 -10.4 -15C-11.2 -24.2 -7.4 -30.6 0 -31Z" fill="url(#shellChip)" stroke="#3F2B20" stroke-width="1"/>
+      <path d="M0 -27.5C4.5 -27.2 6.8 -23.3 6.4 -17.6C6 -12.9 2.6 -3.8 0 6.8C-2.4 -3.8 -5.9 -12.9 -6.4 -17.6C-6.9 -23.2 -4.4 -27.1 0 -27.5Z" fill="#FFF7EA" fill-opacity="0.34"/>
+      <circle cx="0" cy="-17" r="3.4" fill="url(#lapisFill)" stroke="#3F2B20" stroke-width="0.8"/>
+    </g>
+    <circle r="8.8" fill="url(#carnelianFill)" stroke="#3F2B20" stroke-width="1"/>
+    <circle r="4.2" fill="url(#lapisFill)" stroke="#3F2B20" stroke-width="0.8"/>
+    <circle cx="-2.2" cy="-2.6" r="1.5" fill="#F7E7CD" fill-opacity="0.48"/>
+  </g>
+  <circle cx="17" cy="83" r="1.25" fill="#3F2B20" opacity="0.08"/>
+  <circle cx="82" cy="18" r="1.1" fill="#FFF8EA" opacity="0.04"/>
+  <circle cx="73" cy="83" r="0.85" fill="#3F2B20" opacity="0.07"/>
+</svg>

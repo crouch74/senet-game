@@ -29,6 +29,7 @@ export const extractGameState = (state: GameState): GameState => ({
   lastRoll: state.lastRoll,
   ruleset: state.ruleset,
   mehenConfig: state.mehenConfig,
+  urConfig: state.urConfig,
   players: state.players,
   safeCells: state.safeCells,
   turnIndex: state.turnIndex,
@@ -47,6 +48,7 @@ export const buildSyncedGameState = (
     | 'historyLog'
     | 'lastRoll'
     | 'mehenConfig'
+    | 'urConfig'
     | 'players'
     | 'safeCells'
     | 'turnIndex'
@@ -64,6 +66,7 @@ export const buildSyncedGameState = (
   winner: state.winner,
   historyLog: state.historyLog,
   mehenConfig: state.mehenConfig,
+  urConfig: state.urConfig,
   players: state.players,
   safeCells: state.safeCells,
   turnIndex: state.turnIndex,

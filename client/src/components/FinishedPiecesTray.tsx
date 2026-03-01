@@ -54,7 +54,7 @@ export function FinishedPiecesTray() {
 
         <AnimatePresence>
           {finishedPieces.map((piece, index) => {
-            const appearance = getPlayerAppearance(piece.player)
+            const appearance = getPlayerAppearance(piece.player, gameType)
 
             return (
               <motion.div
@@ -103,7 +103,7 @@ export function FinishedPiecesTray() {
       <div className="mt-4 grid w-full grid-cols-2 md:grid-cols-3 gap-3 px-1">
         {players.map((player) => {
           const playerCount = finishedPieces.filter((piece) => piece.player === player).length
-          const appearance = getPlayerAppearance(player)
+          const appearance = getPlayerAppearance(player, gameType)
 
           return (
             <div key={player} className="flex flex-col items-center">

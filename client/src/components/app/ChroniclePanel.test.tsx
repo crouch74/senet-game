@@ -32,4 +32,26 @@ describe('ChroniclePanel', () => {
     expect(screen.getByTitle('ANUBIS')).toBeInTheDocument()
     expect(screen.getByTitle('SPHINX')).toBeInTheDocument()
   })
+
+  it('renders Ur history entries with localized token labels', async () => {
+    await renderWithProviders(
+      <ChroniclePanel
+        gameType="ur"
+        historyLog={[
+          {
+            key: 'history.ur_move',
+            player: 'anubis',
+            piece: 'anubis-ur_token-1',
+            from: 1,
+            to: 4,
+          },
+        ]}
+      />,
+    )
+
+    expect(
+      screen.getByText('🏃 Shell Token 1 advances from 1 to 4.'),
+    ).toBeInTheDocument()
+    expect(screen.getByTitle('Shell')).toBeInTheDocument()
+  })
 })

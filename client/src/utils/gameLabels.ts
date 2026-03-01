@@ -13,7 +13,7 @@ export function getPlayerLabel(
   }
 
   if (
-    gameType === 'hounds-and-jackals' &&
+    (gameType === 'hounds-and-jackals' || gameType === 'ur') &&
     (player === 'anubis' || player === 'sphinx')
   ) {
     return t(`games.${gameType}.players.${player}`, {
@@ -35,6 +35,10 @@ export function getPieceLabel(
 
   if (gameType === 'hounds-and-jackals' && type === 'peg') {
     return t('games.hounds-and-jackals.board.peg')
+  }
+
+  if (gameType === 'ur' && type === 'ur_token') {
+    return t('games.ur.board.token', { defaultValue: 'Token' })
   }
 
   if (gameType === 'senet' && type === 'senet_piece') {

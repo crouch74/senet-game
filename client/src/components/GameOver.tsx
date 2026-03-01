@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Home, RotateCcw, Trophy } from 'lucide-react'
+import { Home, RotateCcw } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useSenetStore } from '../engine/store'
 import {
@@ -12,6 +12,7 @@ import { createLogger } from '../services/logger'
 import { getIsWinner } from './gameOver/winnerStatus'
 import { getPlayerAppearance } from '../utils/playerAppearance'
 import { getPlayerLabel } from '../utils/gameLabels'
+import { MaskedSvgIcon } from './common/MaskedSvgIcon'
 
 interface GameOverProps {
   onReturnToLobby: () => void
@@ -52,7 +53,7 @@ export function GameOver({ onReturnToLobby }: GameOverProps) {
     offlineMode,
     winner,
   })
-  const winnerAppearance = getPlayerAppearance(winner)
+  const winnerAppearance = getPlayerAppearance(winner, gameType)
 
   return (
     <AnimatePresence>
@@ -86,7 +87,10 @@ export function GameOver({ onReturnToLobby }: GameOverProps) {
           initial={{ scale: 0.9, y: 20, opacity: 0 }}
           animate={{ scale: 1, y: 0, opacity: 1 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300, delay: 0.2 }}
-          className="relative max-w-lg w-full bg-ui-gameover-surface border-2 border-royal-gold/50 rounded-xl p-8 shadow-[0_0_50px_rgba(0,0,0,0.8),0_0_20px_var(--ui-piece-glow-anubis)] text-center overflow-hidden"
+          className="relative max-w-lg w-full bg-ui-gameover-surface border-2 border-royal-gold/50 rounded-xl p-8 text-center overflow-hidden"
+          style={{
+            boxShadow: `0 0 50px rgba(0,0,0,0.8), 0 0 20px ${winnerAppearance.glowVar}`,
+          }}
         >
           <div
             className="absolute inset-0 opacity-5 pointer-events-none"
@@ -101,9 +105,18 @@ export function GameOver({ onReturnToLobby }: GameOverProps) {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: 'spring', delay: 0.5 }}
-            className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-royal-gold/10 border-2 border-royal-gold mb-6 shadow-[0_0_20px_var(--ui-piece-glow-anubis)]"
+            className={cn(
+              'inline-flex items-center justify-center w-20 h-20 rounded-full border-2 border-royal-gold mb-6',
+              winnerAppearance.iconClassName,
+            )}
+            style={{
+              boxShadow: `0 0 20px ${winnerAppearance.glowVar}`,
+            }}
           >
-            <Trophy className="w-10 h-10 text-royal-gold" />
+            <MaskedSvgIcon
+              src={winnerAppearance.iconPath}
+              className={cn('h-10 w-10', winnerAppearance.pieceClassName)}
+            />
           </motion.div>
 
           <h1 className="text-4xl md:text-5xl font-serif text-royal-gold mb-2 tracking-widest uppercase">
